@@ -21,7 +21,6 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent } from "@/components/ui/Card";
 import { COMPANY } from "@/data/company";
-import { AITransformationFramework } from "@/components/home/AITransformationFramework";
 
 
 export const metadata: Metadata = {
@@ -325,35 +324,7 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
-      {/* Our Story */}
-      <div className="glass-panel rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div className="lg:col-span-7 space-y-4">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-golden-600">The Nisol AI Transformation Framework™</span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-950">
-            Bridging Academic AI Innovation and Enterprise Production Systems
-          </h2>
-          <p className="text-sm text-navy-700/90 leading-relaxed">
-            Nisol Labs was founded on a simple observation: while foundational large language models advanced exponentially, enterprise adoption was crippled by fragile prompt wrappers, unmonitored hallucinations, high API token costs, and zero-trust security concerns.
-          </p>
-          <p className="text-sm text-navy-700/90 leading-relaxed">
-            We combined deep enterprise program management with specialized data engineering to build a new standard, distributed systems engineers, and domain architects to build a new standard—stateful multi-agent systems, continuous LLMOps observability, and hybrid vector lakehouses that deliver measurable business ROI.
-          </p>
-        </div>
-
-        <div className="lg:col-span-5 bg-navy-950 rounded-2xl p-6 text-white space-y-4 border border-golden-500/30">
-          <div className="text-xs font-bold uppercase tracking-wider text-golden-400">By The Numbers</div>
-          <div className="grid grid-cols-2 gap-4">
-            {COMPANY.stats.map((s, idx) => (
-              <div key={idx} className="bg-navy-900/90 p-4 rounded-xl border border-navy-800">
-                <div className="text-2xl font-black text-golden-400">{s.value}</div>
-                <div className="text-xs text-navy-200 mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-
+      
       {/* The Founders Section */}
       <section className="space-y-10">
         <SectionHeader
@@ -395,10 +366,6 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-      {/* ============================================================ */}
-      {/* THE NISOL AI TRANSFORMATION FRAMEWORK™ */}
-      {/* ============================================================ */}
-      <AITransformationFramework />
 
       {/* Core Values */}
       <section className="space-y-8">
