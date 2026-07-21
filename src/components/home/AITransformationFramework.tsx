@@ -18,6 +18,7 @@ import {
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
+// Stage Data
 const stages = [
   {
     id: "discover",
@@ -134,6 +135,7 @@ const stages = [
   },
 ];
 
+// Engagement Deliverables
 const deliverables = [
   { icon: FileText, label: "AI Discovery Report" },
   { icon: LayoutTemplate, label: "Solution Blueprint" },
@@ -144,22 +146,14 @@ const deliverables = [
 ];
 
 export function AITransformationFramework() {
-  const [activeStage, setActiveStage] = useState("discover");
+  const [activeStage, setActiveStage] = useState(stages[0].id);
 
+  // Find the current stage object
   const currentStage = stages.find((s) => s.id === activeStage) || stages[0];
   const currentIndex = stages.findIndex((s) => s.id === activeStage);
 
-  // Debug: Log when component mounts and when state changes
-  console.log("AITransformationFramework rendered, activeStage:", activeStage);
-
-  const handleStageChange = (stageId: string) => {
-    console.log("handleStageChange called with:", stageId);
-    alert("Clicked: " + stageId);
-    setActiveStage(stageId);
-  };
-
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-50 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -194,78 +188,134 @@ export function AITransformationFramework() {
           </div>
         </div>
 
-        {/* ========================================================== */}
-        {/* STEPPER - SIMPLE GRID VERSION (WORKING) */}
-        {/* ========================================================== */}
-        <div className="grid grid-cols-5 gap-4 mb-12 max-w-4xl mx-auto">
-          {stages.map((stage, index) => {
-            const isActive = activeStage === stage.id;
-            const isCompleted = index <= currentIndex;
+        {/* Horizontal Stepper - Desktop */}
+        <div className="hidden lg:block relative mb-16">
+          {/* Connecting Line */}
+          <div className="absolute top-10 left-[10%] right-[10%] h-0.5 bg-slate-200">
+            <div
+              className="h-full bg-gradient-to-r from-golden-500 via-golden-400 to-golden-500 transition-all duration-500"
+              style={{
+                width: `${((currentIndex + 1) / stages.length) * 100}%`,
+              }}
+            />
+          </div>
 
-            return (
+          <div className="flex justify-between relative">
+            {stages.map((stage, idx) => {
+              const isActive = activeStage === stage.id;
+              const isCompleted = idx <= currentIndex;
+
+              return (
+                <button
+                  key={stage.id}
+                  onClick={() => setActiveStage(stage.id)}
+                  className="flex flex-col items-center group relative z-10 cursor-pointer"
+                  style={{ width: `${100 / stages.length}%` }}
+                >
+                  {/* Circle */}
+                  <div
+                    className={`
+                      w-20 h-20 rounded-full flex items-center justify-center
+                      transition-all duration-300
+                      ${
+                        isActive || isCompleted
+                          ? "bg-golden-500 shadow-lg shadow-golden-500/30"
+                          : "bg-slate-200 group-hover:bg-slate-300"
+                      }
+                    `}
+                  >
+                    <stage.icon
+                      className={`
+                        w-8 h-8 transition-all duration-300
+                        ${
+                          isActive || isCompleted
+                            ? "text-white"
+                            : "text-slate-500 group-hover:text-slate-700"
+                        }
+                      `}
+                    />
+                  </div>
+
+                  {/* Label */}
+                  <div className="mt-3 text-center">
+                    <p
+                      className={`
+                        text-sm font-bold transition-colors duration-300
+                        ${isActive ? "text-golden-600" : "text-navy-700"}
+                      `}
+                    >
+                      {stage.title}
+                    </p>
+                    <p className="text-xs text-navy-500 hidden xl:block">
+                      {stage.subtitle.split(" ").slice(0, 3).join(" ")}...
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Mobile Stepper - Cards */}
+        <div className="lg:hidden grid grid-cols-1 gap-4 mb-12">
+          {stages.map((stage) => (
+            <button
+              key={stage.id}
+              onClick={() => setActiveStage(stage.id)}
+              className={`
+                flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left
+                ${
+                  activeStage === stage.id
+                    ? "border-golden-500 bg-white shadow-md"
+                    : "border-transparent bg-white/80 hover:bg-white"
+                }
+              `}
+            >
               <div
-                key={stage.id}
-                onClick={() => {
-                  console.log("Div clicked:", stage.id);
-                  alert("Div clicked: " + stage.id);
-                  setActiveStage(stage.id);
-                }}
                 className={`
-                  flex flex-col items-center p-4 rounded-xl border-2 cursor-pointer transition-all
+                  w-12 h-12 rounded-full flex items-center justify-center shrink-0
                   ${
-                    isActive || isCompleted
-                      ? "border-golden-500 bg-golden-50"
-                      : "border-gray-200 hover:border-golden-300 bg-white"
+                    activeStage === stage.id
+                      ? "bg-golden-500"
+                      : "bg-slate-100"
                   }
-                  ${isActive ? "shadow-md shadow-golden-500/20" : ""}
                 `}
               >
-                <div
+                <stage.icon
                   className={`
-                    w-12 h-12 rounded-full flex items-center justify-center
+                    w-6 h-6
                     ${
-                      isActive || isCompleted
-                        ? "bg-golden-500"
-                        : "bg-gray-200"
+                      activeStage === stage.id
+                        ? "text-white"
+                        : "text-slate-500"
+                    }
+                  `}
+                />
+              </div>
+              <div>
+                <p
+                  className={`
+                    font-bold text-sm
+                    ${
+                      activeStage === stage.id
+                        ? "text-golden-600"
+                        : "text-navy-700"
                     }
                   `}
                 >
-                  <stage.icon
-                    className={`
-                      w-6 h-6 pointer-events-none
-                      ${
-                        isActive || isCompleted
-                          ? "text-white"
-                          : "text-gray-500"
-                      }
-                    `}
-                  />
-                </div>
-                <span
-                  className={`
-                    text-xs font-bold mt-2
-                    ${isActive ? "text-golden-600" : "text-navy-700"}
-                  `}
-                >
                   {stage.title}
-                </span>
-                <div className="w-full h-0.5 bg-gray-200 mt-2">
-                  <div
-                    className={`h-full ${
-                      isCompleted ? "bg-golden-500" : "bg-gray-200"
-                    }`}
-                    style={{ width: isCompleted ? "100%" : "0%" }}
-                  />
-                </div>
+                </p>
+                <p className="text-xs text-navy-500">
+                  {stage.subtitle}
+                </p>
               </div>
-            );
-          })}
+            </button>
+          ))}
         </div>
 
-        {/* ========================================================== */}
-        {/* ACTIVE STAGE DETAILS */}
-        {/* ========================================================== */}
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 lg:p-10">
+        {/* Active Stage Details — NO ANIMATION, just simple conditional render */}
+        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 lg:p-10">
+          {/* Header */}
           <div className="flex items-start gap-4 mb-6">
             <div className="w-14 h-14 rounded-full bg-golden-500/10 flex items-center justify-center shrink-0">
               <currentStage.icon className="w-7 h-7 text-golden-600" />
@@ -285,7 +335,9 @@ export function AITransformationFramework() {
             </div>
           </div>
 
+          {/* Two-Column Grid */}
           <div className="grid md:grid-cols-2 gap-6">
+            {/* Activities */}
             <div className="bg-navy-50 rounded-xl p-6">
               <h4 className="text-sm font-bold text-navy-700 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <Zap className="w-4 h-4 text-golden-500" />
@@ -304,6 +356,7 @@ export function AITransformationFramework() {
               </ul>
             </div>
 
+            {/* Deliverables */}
             <div className="bg-emerald-50 rounded-xl p-6">
               <h4 className="text-sm font-bold text-emerald-700 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
@@ -323,6 +376,7 @@ export function AITransformationFramework() {
             </div>
           </div>
 
+          {/* CTA */}
           <div className="mt-6 pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
             <span className="text-sm text-navy-500">
               <span className="font-semibold text-navy-700">Learn more:</span>{" "}
@@ -339,10 +393,8 @@ export function AITransformationFramework() {
           </div>
         </div>
 
-        {/* ========================================================== */}
-        {/* EVERY ENGAGEMENT DELIVERS */}
-        {/* ========================================================== */}
-        <div className="max-w-4xl mx-auto mt-16 bg-navy-950 rounded-2xl p-8 md:p-10 border border-golden-500/20">
+        {/* Bottom: Every Engagement Delivers */}
+        <div className="mt-16 bg-navy-950 rounded-2xl p-8 md:p-10 border border-golden-500/20">
           <div className="text-center mb-8">
             <Badge className="bg-golden-500/10 text-golden-400 border-golden-500/20 mx-auto">
               Every Engagement Delivers
@@ -367,7 +419,7 @@ export function AITransformationFramework() {
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Framework Link */}
         <div className="text-center mt-8">
           <p className="text-sm text-navy-500">
             The Nisol AI Transformation Framework™ —{" "}
