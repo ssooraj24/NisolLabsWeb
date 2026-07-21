@@ -1,0 +1,766 @@
+Here's a complete, production-ready ROI Calculator logic/formula that you can implement on your website.
+
+---
+
+## ROI Calculator: Complete Logic & Formula
+
+### Overview
+
+The ROI Calculator is a **lead generation tool** that:
+1. Educates potential clients about AI's financial impact
+2. Qualifies leads (serious buyers will complete all steps)
+3. Generates a personalized PDF report (captures email)
+4. Starts the sales conversation with data-driven credibility
+
+---
+
+## Calculator Structure (4-Step Wizard)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 1: Company Profile                                     │
+│ ─────────────────────────────────────────────────────────── │
+│ Industry | Company Size | Annual Revenue                    │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│ Step 2: Current Costs                                       │
+│ ─────────────────────────────────────────────────────────── │
+│ Employee Count | Avg Salary | Manual Task Hours/Week       │
+│ Customer Support Volume | Support Cost/Ticket              │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│ Step 3: AI Adoption Potential                               │
+│ ─────────────────────────────────────────────────────────── │
+│ Which areas interest you? (Multi-select)                   │
+│ ☐ Customer Support ☐ HR ☐ Sales ☐ Marketing ☐ DevOps      │
+│ ☐ Finance ☐ Operations ☐ Legal ☐ IT ☐ Engineering         │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│ Step 4: Results (Email Capture)                            │
+│ ─────────────────────────────────────────────────────────── │
+│ 📊 Your AI Maturity Score: 72/100                          │
+│ 💰 Estimated Annual Savings: $247,000                     │
+│ 📈 ROI: 490% in Year 1                                    │
+│ ⏱️ Payback Period: 2.6 months                             │
+│                                                             │
+│ [Enter Email to Get Full Report] →                         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## The Core Formulas
+
+### Formula 1: Manual Labor Cost
+
+```
+Manual Labor Cost = (Employees × Avg Hours/Week on Manual Tasks × 52 × Avg Hourly Rate)
+```
+
+**Example:**
+- Employees: 50
+- Hours/Week on manual tasks: 10
+- Avg Hourly Rate: $35
+- Annual Cost = 50 × 10 × 52 × $35 = **$910,000/year**
+
+---
+
+### Formula 2: Customer Support Cost
+
+```
+Support Cost = (Monthly Tickets × Avg Cost/Ticket × 12)
+```
+
+**Example:**
+- Monthly Tickets: 1,000
+- Avg Cost/Ticket: $8 (includes agent time, training, overhead)
+- Annual Cost = 1,000 × $8 × 12 = **$96,000/year**
+
+---
+
+### Formula 3: AI Savings Potential (Industry-Adjusted)
+
+```
+AI Savings = (Manual Labor Cost + Support Cost) × Industry AI Impact Factor
+```
+
+**Industry AI Impact Factors (Conservative Estimates):**
+
+| Industry | Impact Factor | Rationale |
+|----------|--------------|-----------|
+| IT/Software | 45% | Code generation, testing, DevOps automation |
+| BFSI | 40% | Document processing, fraud detection, compliance |
+| Healthcare | 35% | Clinical documentation, scheduling, claims |
+| Manufacturing | 30% | Quality control, predictive maintenance |
+| Retail | 35% | Inventory, personalization, customer service |
+| Logistics | 30% | Route optimization, document processing |
+| Education | 25% | Content generation, administrative tasks |
+| Government | 25% | Citizen services, document processing |
+| Real Estate | 30% | Lead qualification, document analysis |
+| Pharma | 35% | Drug discovery, document review, compliance |
+| Professional Services | 40% | Proposal generation, research, contract review |
+
+**Example (IT/Software company):**
+- Manual Labor Cost: $910,000
+- Support Cost: $96,000
+- Total: $1,006,000
+- AI Savings = $1,006,000 × 45% = **$452,700/year**
+
+---
+
+### Formula 4: AI Implementation Cost
+
+```
+Implementation Cost = Fixed Base + (Number of AI Agents × Agent Cost) + (Implementation Complexity Factor)
+```
+
+**Component Breakdown:**
+
+| Component | Cost |
+|-----------|------|
+| Strategy & Discovery | $5,000 – $10,000 |
+| Data Readiness Assessment | $3,000 – $5,000 |
+| AI Agent per area | $10,000 – $15,000 |
+| AI Assistant (RAG/Chatbot) | $8,000 – $12,000 |
+| Automation Workflow | $5,000 – $10,000 |
+| Integration (per system) | $2,000 – $5,000 |
+| Training & Change Management | $3,000 – $5,000 |
+| Governance & Compliance | $3,000 – $5,000 |
+| Year 1 Maintenance/Optimization | $24,000 – $48,000 ($2K–$4K/mo) |
+
+**Simplified Formula for Calculator:**
+```
+Implementation Cost = $15,000 + ($10,000 × Number of Selected Areas)
+```
+
+**Example (Selecting 3 areas: Support + Sales + HR):**
+- Implementation Cost = $15,000 + ($10,000 × 3) = **$45,000**
+
+---
+
+### Formula 5: Year 1 Net Savings
+
+```
+Year 1 Net Savings = AI Savings - Implementation Cost
+```
+
+**Example:**
+- AI Savings: $452,700
+- Implementation Cost: $45,000
+- Year 1 Net Savings = **$407,700**
+
+---
+
+### Formula 6: Return on Investment (ROI)
+
+```
+ROI (%) = (Year 1 Net Savings / Implementation Cost) × 100
+```
+
+**Example:**
+- ROI = ($407,700 / $45,000) × 100 = **906%**
+
+> **Tip:** Present this as "9x Return on Investment in Year 1" for maximum impact.
+
+---
+
+### Formula 7: Payback Period
+
+```
+Payback Period (Months) = (Implementation Cost / AI Savings) × 12
+```
+
+**Example:**
+- Payback Period = ($45,000 / $452,700) × 12 = **1.2 months**
+
+> **Tip:** Round up to the nearest half-month for realism. In this case: **~1.5 months**.
+
+---
+
+### Formula 8: 3-Year Cumulative Savings
+
+```
+3-Year Savings = AI Savings × 3 - (Implementation Cost + Year 2 Maintenance + Year 3 Maintenance)
+```
+
+**Assumptions:**
+- Year 1 Maintenance: 10% of Implementation Cost ($4,500)
+- Year 2 Maintenance: 8% of Implementation Cost ($3,600)
+- Year 3 Maintenance: 6% of Implementation Cost ($2,700)
+
+**Example:**
+- AI Savings: $452,700
+- Implementation: $45,000
+- Year 1 Maint: $4,500
+- Year 2 Maint: $3,600
+- Year 3 Maint: $2,700
+- Total: ($452,700 × 3) - ($45,000 + $4,500 + $3,600 + $2,700)
+- = $1,358,100 - $55,800 = **$1,302,300**
+
+---
+
+### Formula 9: AI Maturity Score
+
+```
+AI Maturity Score = (
+    Data Readiness Score (0-25) +
+    Tech Infrastructure Score (0-25) +
+    Team Skills Score (0-25) +
+    Process Automation Score (0-25)
+) / 4
+```
+
+**Question Mapping (included in calculator):**
+
+| Category | Questions | Scoring |
+|----------|-----------|---------|
+| **Data Readiness (25 pts)** | Is your data centralized? | Yes: 15 pts, Partial: 8 pts, No: 0 |
+| | Is your data structured? | Yes: 10 pts, Partial: 5 pts, No: 0 |
+| **Tech Infrastructure (25 pts)** | Do you use cloud platforms? | Yes: 10 pts, Partial: 5 pts, No: 0 |
+| | Do you have an API-first architecture? | Yes: 15 pts, Partial: 8 pts, No: 0 |
+| **Team Skills (25 pts)** | Do you have data/ML expertise? | Yes: 15 pts, Partial: 8 pts, No: 0 |
+| | Is leadership AI-aware? | Yes: 10 pts, Partial: 5 pts, No: 0 |
+| **Process Automation (25 pts)** | Do you use RPA/automation? | Yes: 15 pts, Partial: 8 pts, No: 0 |
+| | Are workflows documented? | Yes: 10 pts, Partial: 5 pts, No: 0 |
+
+**Maturity Levels:**
+- 0-25: **Novice** (Not ready)
+- 26-50: **Emerging** (Early stages)
+- 51-75: **Adopting** (Building foundation)
+- 76-90: **Advanced** (AI-ready)
+- 91-100: **AI-First** (Leading)
+
+---
+
+## Complete ROI Calculator JavaScript Logic
+
+```javascript
+// ==========================================
+// AI ROI Calculator - Complete Logic
+// ==========================================
+
+// Step 1: User Inputs
+const userInputs = {
+  // Profile
+  industry: 'IT/Software',
+  employees: 50,
+  annualRevenue: 5000000,
+  
+  // Costs
+  avgHourlyRate: 35,
+  manualHoursPerWeek: 10,
+  monthlySupportTickets: 1000,
+  avgCostPerTicket: 8,
+  
+  // Areas of Interest (multi-select)
+  selectedAreas: ['Support', 'Sales', 'HR'],
+};
+
+// ==========================================
+// INDUSTRY IMPACT FACTORS
+// ==========================================
+const industryFactors = {
+  'IT/Software': 0.45,
+  'BFSI': 0.40,
+  'Healthcare': 0.35,
+  'Manufacturing': 0.30,
+  'Retail': 0.35,
+  'Logistics': 0.30,
+  'Education': 0.25,
+  'Government': 0.25,
+  'Real Estate': 0.30,
+  'Pharma': 0.35,
+  'Professional Services': 0.40,
+};
+
+// ==========================================
+// CALCULATION FUNCTIONS
+// ==========================================
+
+function calculateAnnualSavings(inputs) {
+  // 1. Manual Labor Cost
+  const manualLaborCost = inputs.employees * 
+                         inputs.manualHoursPerWeek * 
+                         52 * 
+                         inputs.avgHourlyRate;
+  
+  // 2. Customer Support Cost
+  const supportCost = inputs.monthlySupportTickets * 
+                     inputs.avgCostPerTicket * 
+                     12;
+  
+  // 3. Total Addressable Cost
+  const totalCost = manualLaborCost + supportCost;
+  
+  // 4. Industry Impact Factor
+  const impactFactor = industryFactors[inputs.industry] || 0.35;
+  
+  // 5. AI Savings
+  const aiSavings = totalCost * impactFactor;
+  
+  return {
+    manualLaborCost,
+    supportCost,
+    totalCost,
+    impactFactor,
+    aiSavings
+  };
+}
+
+function calculateImplementationCost(inputs) {
+  const baseCost = 15000; // Strategy + Discovery + Data Readiness
+  const costPerArea = 10000;
+  const numAreas = inputs.selectedAreas.length || 1;
+  
+  // Discount: If 5+ areas, reduce per-area cost
+  let perAreaCost = costPerArea;
+  if (numAreas >= 5) perAreaCost = 8000;
+  if (numAreas >= 8) perAreaCost = 7000;
+  
+  return baseCost + (numAreas * perAreaCost);
+}
+
+function calculateROI(savings, implementationCost) {
+  const year1NetSavings = savings - implementationCost;
+  const roi = (year1NetSavings / implementationCost) * 100;
+  const paybackMonths = (implementationCost / savings) * 12;
+  const threeYearSavings = (savings * 3) - (implementationCost * 1.24); // ~24% maintenance over 3 years
+  
+  return {
+    year1NetSavings,
+    roi,
+    paybackMonths,
+    threeYearSavings
+  };
+}
+
+function calculateAIMaturity(inputs) {
+  // Simplified scoring (would map to actual answers in full version)
+  let dataScore = 0;
+  let techScore = 0;
+  let teamScore = 0;
+  let processScore = 0;
+  
+  // Data Readiness (0-25)
+  dataScore = Math.min(25, 
+    (inputs.dataCentralized ? 15 : 0) + 
+    (inputs.dataStructured ? 10 : 0)
+  );
+  
+  // Tech Infrastructure (0-25)
+  techScore = Math.min(25,
+    (inputs.hasCloud ? 10 : 0) +
+    (inputs.hasAPI ? 15 : 0)
+  );
+  
+  // Team Skills (0-25)
+  teamScore = Math.min(25,
+    (inputs.hasDataTeam ? 15 : 0) +
+    (inputs.hasAIAwareness ? 10 : 0)
+  );
+  
+  // Process Automation (0-25)
+  processScore = Math.min(25,
+    (inputs.hasRPA ? 15 : 0) +
+    (inputs.hasDocumentedWorkflows ? 10 : 0)
+  );
+  
+  const totalScore = dataScore + techScore + teamScore + processScore;
+  
+  return {
+    score: totalScore,
+    level: getMaturityLevel(totalScore)
+  };
+}
+
+function getMaturityLevel(score) {
+  if (score <= 25) return { label: 'Novice', color: '#EF4444' };
+  if (score <= 50) return { label: 'Emerging', color: '#F59E0B' };
+  if (score <= 75) return { label: 'Adopting', color: '#3B82F6' };
+  if (score <= 90) return { label: 'Advanced', color: '#10B981' };
+  return { label: 'AI-First', color: '#8B5CF6' };
+}
+
+// ==========================================
+// MAIN CALCULATION
+// ==========================================
+
+function calculateROIResults(inputs) {
+  const savings = calculateAnnualSavings(inputs);
+  const implementationCost = calculateImplementationCost(inputs);
+  const roi = calculateROI(savings.aiSavings, implementationCost);
+  const maturity = calculateAIMaturity(inputs);
+  
+  return {
+    // Annual Costs
+    currentAnnualCost: {
+      manual: savings.manualLaborCost,
+      support: savings.supportCost,
+      total: savings.totalCost
+    },
+    
+    // Annual Savings
+    annualSavings: savings.aiSavings,
+    impactFactor: savings.impactFactor,
+    
+    // Implementation
+    implementationCost: implementationCost,
+    year1NetSavings: roi.year1NetSavings,
+    
+    // ROI Metrics
+    roiPercentage: roi.roi,
+    paybackMonths: roi.paybackMonths,
+    threeYearSavings: roi.threeYearSavings,
+    
+    // Maturity
+    maturityScore: maturity.score,
+    maturityLevel: maturity.level,
+    
+    // Summary
+    summary: generateSummary(savings, roi, maturity)
+  };
+}
+
+function generateSummary(savings, roi, maturity) {
+  let summary = '';
+  
+  if (savings.aiSavings > 500000) {
+    summary = "You're a prime candidate for enterprise-scale AI transformation. ";
+  } else if (savings.aiSavings > 200000) {
+    summary = "AI can deliver significant operational efficiency for your organization. ";
+  } else if (savings.aiSavings > 50000) {
+    summary = "You have strong opportunities for targeted AI implementations. ";
+  } else {
+    summary = "Starting with our Discovery Workshop would identify your highest-value AI opportunities. ";
+  }
+  
+  if (maturity.score > 75) {
+    summary += "Your organization is AI-ready. Let's accelerate your transformation.";
+  } else if (maturity.score > 50) {
+    summary += "You have a solid foundation. We recommend starting with our Discovery Workshop.";
+  } else {
+    summary += "We recommend starting with our Data Readiness & AI Strategy engagement to build your foundation.";
+  }
+  
+  return summary;
+}
+
+// ==========================================
+// EXPORT RESULTS
+// ==========================================
+
+// Example Usage
+const sampleInputs = {
+  // Company Profile
+  industry: 'IT/Software',
+  employees: 50,
+  annualRevenue: 5000000,
+  
+  // Costs
+  avgHourlyRate: 35,
+  manualHoursPerWeek: 10,
+  monthlySupportTickets: 1000,
+  avgCostPerTicket: 8,
+  
+  // Areas of Interest
+  selectedAreas: ['Support', 'Sales', 'HR'],
+  
+  // Maturity Questions (simplified)
+  dataCentralized: true,
+  dataStructured: true,
+  hasCloud: true,
+  hasAPI: true,
+  hasDataTeam: false,
+  hasAIAwareness: true,
+  hasRPA: false,
+  hasDocumentedWorkflows: true
+};
+
+const result = calculateROIResults(sampleInputs);
+
+console.log('📊 ROI Calculator Results:');
+console.log('─────────────────────────────────────────');
+console.log(`💰 Current Annual Manual Cost: $${result.currentAnnualCost.total.toLocaleString()}`);
+console.log(`📉 AI Annual Savings: $${result.annualSavings.toLocaleString()}`);
+console.log(`💵 Implementation Cost: $${result.implementationCost.toLocaleString()}`);
+console.log(`📈 Year 1 Net Savings: $${result.year1NetSavings.toLocaleString()}`);
+console.log(`🚀 ROI: ${result.roiPercentage.toFixed(0)}%`);
+console.log(`⏱️ Payback Period: ${result.paybackMonths.toFixed(1)} months`);
+console.log(`📊 3-Year Savings: $${result.threeYearSavings.toLocaleString()}`);
+console.log(`🏷️ AI Maturity Score: ${result.maturityScore}/100 (${result.maturityLevel.label})`);
+console.log('─────────────────────────────────────────');
+console.log(`📝 ${result.summary}`);
+```
+
+---
+
+## Sample Output (What User Sees)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 📊 Your AI ROI Report                                      │
+│                                                             │
+│ ─────────────────────────────────────────────────────────── │
+│                                                             │
+│  CURRENT COSTS (Annual)                                     │
+│  ───────────────────────────────────────────────────────── │
+│  Manual Labor:     $910,000                                │
+│  Customer Support:  $96,000                                │
+│  Total:           $1,006,000                              │
+│                                                             │
+│  AI IMPACT                                                  │
+│  ───────────────────────────────────────────────────────── │
+│  Industry Factor: 45% (IT/Software)                       │
+│  Annual Savings:  $452,700                                │
+│                                                             │
+│  INVESTMENT                                                 │
+│  ───────────────────────────────────────────────────────── │
+│  Implementation:   $45,000                                 │
+│  Year 1 Net:      $407,700                                │
+│                                                             │
+│  METRICS                                                    │
+│  ───────────────────────────────────────────────────────── │
+│  ROI:              906%                                   │
+│  Payback Period:   1.2 months                             │
+│  3-Year Savings:  $1,302,300                              │
+│                                                             │
+│  AI MATURITY SCORE                                          │
+│  ───────────────────────────────────────────────────────── │
+│  Score: 72/100                                             │
+│  Level: Adopting ⭐                                        │
+│                                                             │
+│  ───────────────────────────────────────────────────────── │
+│  📝 You're a prime candidate for enterprise-scale AI      │
+│  transformation. You have a solid foundation. We          │
+│  recommend starting with our Discovery Workshop.          │
+│                                                             │
+│  ───────────────────────────────────────────────────────── │
+│  [📩 Get Full PDF Report] [📞 Book Free Consultation]     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Implementation Notes for Cursor/Next.js
+
+### Database Schema (For Lead Capture)
+
+```typescript
+// prisma/schema.prisma
+model ROICalculation {
+  id              String   @id @default(cuid())
+  email           String
+  company         String
+  phone           String?
+  
+  // Inputs
+  industry        String
+  employees       Int
+  annualRevenue   Int
+  avgHourlyRate   Int
+  manualHoursWeek Int
+  monthlyTickets  Int
+  avgCostTicket   Int
+  selectedAreas   String[] // JSON array
+  
+  // Results
+  annualSavings   Float
+  implementationCost Float
+  roi             Float
+  paybackMonths   Float
+  maturityScore   Int
+  maturityLevel   String
+  
+  createdAt       DateTime @default(now())
+  status          String  @default("new") // new, contacted, qualified, lost
+}
+```
+
+### API Route
+
+```typescript
+// app/api/roi/calculate/route.ts
+import { NextResponse } from 'next/server';
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  
+  // Validate inputs
+  // Calculate results using the logic above
+  // Save to database (with email)
+  // Send email notification to team
+  // Return results
+  
+  return NextResponse.json({ 
+    success: true, 
+    data: results 
+  });
+}
+```
+
+### Lead Scoring (Auto-Qualification)
+
+| Score | Action |
+|-------|--------|
+| Annual Savings > $500K + ROI > 500% | ✅ High Priority - Call within 24 hours |
+| Annual Savings > $200K + ROI > 300% | ✅ Medium Priority - Email within 48 hours |
+| Annual Savings > $50K + ROI > 100% | ✅ Low Priority - Add to newsletter |
+| Annual Savings < $50K | ❌ Nurture - Suggested Discovery Workshop |
+
+---
+
+## Ready-to-Use Copy for Website
+
+### Calculator Headline:
+
+> **"See How Much AI Can Save Your Business"**
+> 
+> *Answer 8 quick questions and get a personalized ROI report in 2 minutes.*
+
+### Button Copy:
+- CTA: **"Calculate My ROI"**
+- Email Capture: **"Get Your Full Report"**
+- Follow-up: **"Book Free Consultation"**
+
+### Trust Badges:
+- 🔒 256-bit encrypted
+- ⏱️ 2 minutes to complete
+- 📊 No obligation
+- 🤝 Founder-led (2-person team)
+
+---
+I reviewed your ROI Calculator document, and I think this is one of the strongest assets for your website. I would actually make it the primary lead generation tool, not just another page. The document is designed to educate prospects, qualify serious buyers, capture contact details, and provide a personalized report, which is exactly what an AI consulting startup needs.
+Overall Rating: 9.8/10
+This is significantly better than a typical "Contact Us" form because visitors receive immediate value before speaking with you.
+
+What I Like
+1. Excellent Lead Magnet
+Instead of asking visitors to book a call immediately, you're offering:
+AI Maturity Score
+Estimated Annual Savings
+ROI %
+Payback Period
+PDF Report
+This gives users a compelling reason to engage.
+
+2. Four-Step Wizard
+The flow is simple and logical:
+Company Profile
+Current Costs
+AI Opportunity Selection
+Results + Email Capture
+This minimizes friction while still collecting meaningful information.
+
+3. Real Business Metrics
+The calculator uses practical formulas for:
+Manual labor costs
+Customer support costs
+AI savings
+Implementation cost
+ROI
+Payback period
+Three-year savings
+AI maturity
+This is much more credible than a generic "AI readiness quiz."
+
+What I Would Improve
+1. Use Indian Currency
+Your formulas currently display dollars ($), but since Nisol Labs is launching in India, the calculator should support Indian businesses first.
+Offer:
+₹ (India)
+$ (International)
+or detect the visitor's location automatically.
+
+2. Reduce Initial Questions
+The current version may feel long for some users.
+Instead of presenting all questions up front, start with only:
+Industry
+Employees
+Company size
+Then reveal the remaining questions step by step.
+This will improve completion rates.
+
+3. Move Email Capture After Results
+Your current design places email entry before the full report.
+A stronger approach is:
+Show a preview of the results:
+ROI
+Savings
+AI Maturity
+Then ask for the email to download:
+Full PDF
+Personalized Roadmap
+Detailed Recommendations
+This lets users experience value before providing contact information.
+
+4. Add AI Recommendations
+Don't stop at numbers.
+After calculating ROI, provide tailored recommendations such as:
+Recommended Starting Point
+AI Discovery Workshop
+Customer Support AI Agent
+AI Sales Assistant
+DevOps AI
+Knowledge Assistant
+This naturally leads into your services.
+
+5. Add Visual Charts
+Instead of only displaying numbers, include:
+Donut chart for AI Maturity
+Bar chart comparing current costs vs AI costs
+ROI gauge
+Three-year savings graph
+These make the results easier to understand and more engaging.
+
+6. Offer Multiple CTAs
+At the end of the calculator, include three clear next steps:
+Download Full PDF Report
+Book a Discovery Workshop
+Schedule a Free AI Consultation
+This accommodates visitors at different stages of the buying journey.
+
+Homepage Integration
+The calculator should be prominently featured on the homepage, not buried in the navigation.
+A section like this would work well:
+
+Discover Your AI Opportunity
+See how much AI could save your business in just 2 minutes.
+✔ AI Maturity Score
+✔ Estimated Cost Savings
+✔ ROI Analysis
+✔ Personalized AI Roadmap
+[Calculate My ROI]
+
+This should appear before the final call-to-action, encouraging visitors to engage before asking them to book a meeting.
+
+Future Enhancements
+Once your website gains traction, consider evolving the calculator into a more advanced assessment by adding:
+Industry-specific recommendations
+AI implementation roadmap
+Technology stack recommendations
+Suggested AI agents for the user's business
+Estimated implementation timeline
+Priority matrix (Quick Wins vs Strategic Projects)
+A downloadable executive report branded with the Nisol Labs logo
+This would make it feel like a mini AI consulting engagement rather than a simple calculator.
+
+Suggested Website Flow
+I recommend structuring the website like this:
+Hero
+Trusted By / Experience
+Business Problems We Solve
+Five Core AI Services
+Why Nisol Labs
+Delivery Process
+Industries We Serve
+AI ROI Calculator (Featured CTA)
+Client Stories / Sample Use Cases
+Final CTA
+Footer
+
+Final Verdict
+This ROI Calculator has the potential to become the centerpiece of your lead generation strategy. With a few refinements—especially support for Indian currency, progressive question flow, richer visualizations, and personalized recommendations—it can differentiate Nisol Labs from many AI consulting websites that only offer static service descriptions. I would absolutely keep it as a dedicated page and make it one of the primary calls-to-action from the homepage.

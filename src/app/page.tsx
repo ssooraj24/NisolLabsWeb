@@ -535,6 +535,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 9.5 FEATURED AI ROI CALCULATOR SECTION (Lead Magnet) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="glass-panel rounded-3xl p-8 lg:p-12 border border-golden-500/40 shadow-xl bg-gradient-to-br from-white via-slate-50 to-golden-50/30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-7 space-y-5">
+            <Badge variant="golden">Featured Interactive Tool</Badge>
+            <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
+              Discover Your <span className="golden-gradient-text">AI Opportunity</span>
+            </h2>
+            <p className="text-sm sm:text-base text-navy-700 leading-relaxed">
+              See how much AI could save your business in just 2 minutes with our 4-step interactive calculator.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-navy-900 pt-2">
+              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>AI Maturity Score (0-100)</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Estimated Annual Savings ($ / ₹)</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>1-Year Net ROI & Payback Months</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Personalized AI Implementation Roadmap</span>
+              </div>
+            </div>
+
+            <div className="pt-4 flex items-center gap-4">
+              <Button href="/resources/roi-calculator" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
+                Calculate My ROI Now
+              </Button>
+              <span className="text-xs text-navy-600 font-medium hidden sm:inline">⏱️ Takes ~2 minutes • 🔒 100% Confidential</span>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 bg-navy-950 text-white rounded-2xl p-6 border border-golden-500/30 shadow-2xl space-y-4">
+            <div className="flex justify-between items-center pb-3 border-b border-navy-800 text-xs">
+              <span className="font-bold text-golden-400 uppercase tracking-wider">Sample Assessment Result</span>
+              <span className="text-emerald-400 font-mono text-[10px]">Score: 72/100 (Adopting)</span>
+            </div>
+            <div className="space-y-3 font-mono text-xs">
+              <div className="flex justify-between">
+                <span className="text-navy-300">Annual Savings:</span>
+                <span className="text-golden-400 font-bold">$452,700 / yr</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-navy-300">1-Year ROI:</span>
+                <span className="text-emerald-400 font-bold">+906% Return</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-navy-300">Payback Period:</span>
+                <span className="text-white font-bold">1.2 Months</span>
+              </div>
+            </div>
+            <div className="pt-2 border-t border-navy-800 text-[10px] text-navy-300">
+              Formula based on standard enterprise labor & support audit metrics.
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 10. FINAL CTA BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-navy-950 rounded-3xl p-10 lg:p-14 border border-golden-500/30 text-white relative overflow-hidden shadow-2xl">

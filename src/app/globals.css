@@ -97,3 +97,48 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #476FAB;
 }
+/* globals.css */
+
+/* Golden Gradient Text */
+.golden-gradient-text {
+  @apply bg-gradient-to-r from-golden-500 to-golden-600 bg-clip-text text-transparent;
+}
+
+/* Glass Panel */
+.glass-panel {
+  @apply bg-white/80 backdrop-blur-sm;
+}
+
+/* Ensure buttons are clickable */
+button {
+  cursor: pointer;
+  pointer-events: auto !important;
+}
+
+/* Ensure no parent blocks clicks */
+.overflow-hidden {
+  pointer-events: auto !important;
+}
+
+/* Ensure no parent blocks clicks */
+section, div, article {
+  pointer-events: auto !important;
+}
+
+/* Ensure all interactive elements are clickable */
+.cursor-pointer 
+{
+  pointer-events: auto !important;
+}
+
+/* DEBUG: Override all pointer-events to allow clicks */
+* {
+  pointer-events: auto !important;
+}
+
+/* Ensure clickable elements are actually clickable */
+.cursor-pointer,
+[onClick] {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
