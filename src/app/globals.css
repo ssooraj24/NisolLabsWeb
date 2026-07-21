@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-50: #E8EDF5;
+  --color-navy-100: #D1DBEA;
+  --color-navy-200: #A3B7D5;
+  --color-navy-300: #7593C0;
+  --color-navy-400: #476FAB;
+  --color-navy-500: #1A4B96;
+  --color-navy-600: #153C78;
+  --color-navy-700: #102D5A;
+  --color-navy-800: #0A1E3C;
+  --color-navy-900: #050F1E;
+  --color-navy-950: #03080F;
+
+  --color-golden-50: #FDF8ED;
+  --color-golden-100: #FBF0DB;
+  --color-golden-200: #F7E1B7;
+  --color-golden-300: #F3D293;
+  --color-golden-400: #EFC36F;
+  --color-golden-500: #EBB44B;
+  --color-golden-600: #E5A31A;
+  --color-golden-700: #B58215;
+  --color-golden-800: #86610F;
+  --color-golden-900: #57400A;
+  --color-golden-950: #3B2B07;
+
+  --color-emerald-success: #10B981;
+}
+
+:root {
+  --background: #F8FAFC;
+  --foreground: #050F1E;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism & Modern Card Effects */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.glass-panel-dark {
+  background: rgba(10, 30, 60, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(235, 180, 75, 0.15);
+}
+
+.golden-glow {
+  box-shadow: 0 0 25px -5px rgba(235, 180, 75, 0.3);
+}
+
+.golden-glow-sm {
+  box-shadow: 0 0 12px -2px rgba(235, 180, 75, 0.25);
+}
+
+.navy-gradient {
+  background: linear-gradient(135deg, #0A1E3C 0%, #050F1E 100%);
+}
+
+.golden-gradient-text {
+  background: linear-gradient(135deg, #EBB44B 0%, #E5A31A 50%, #F3D293 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navy-gradient-text {
+  background: linear-gradient(135deg, #0A1E3C 0%, #153C78 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+::-webkit-scrollbar-thumb {
+  background: #A3B7D5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #476FAB;
+}
