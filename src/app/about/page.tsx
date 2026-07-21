@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent } from "@/components/ui/Card";
 import { COMPANY } from "@/data/company";
+import { AITransformationFramework } from "@/components/home/AITransformationFramework";
 
 
 export const metadata: Metadata = {
@@ -324,7 +325,8 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
-      
+
+
       {/* The Founders Section */}
       <section className="space-y-10">
         <SectionHeader
@@ -366,6 +368,11 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+      {/* ============================================================ */}
+      {/* THE NISOL AI TRANSFORMATION FRAMEWORK™ */}
+      {/* ============================================================ */}
+      <AITransformationFramework />
 
       {/* Core Values */}
       <section className="space-y-8">
