@@ -1,73 +1,102 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { Database, ArrowRight, CheckCircle2, Layers, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { SERVICES } from "@/data/services";
+import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
   title: "Data Readiness for AI | Nisol Labs",
-  description: "Data cleaning, vector database engineering, structured ETL pipelines, and semantic indexing."
+  description: "Prepare your enterprise data foundation for high-performance AI through data cleaning, vector database engineering, structured ETL pipelines, and semantic indexing."
 };
 
-export default function DataReadinessServicePage() {
-  const service = SERVICES.find((s) => s.slug === "data-readiness")!;
-
+export default function DataReadinessPage() {
   return (
-    <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Link href="/services" className="inline-flex items-center gap-2 text-xs font-semibold text-navy-700 hover:text-navy-950">
-        <ArrowLeft className="w-4 h-4" /> Back to All Core Pillars
-      </Link>
-
-      <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden">
-        <div className="max-w-3xl space-y-6 relative z-10">
-          <Badge variant="golden">DATA FOUNDATION</Badge>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-            Data Readiness <span className="golden-gradient-text">for AI</span>
-          </h1>
-          <p className="text-base sm:text-lg text-navy-100/90 leading-relaxed">
-            {service.fullDescription}
-          </p>
-          <div className="pt-4">
-            <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-              Build Data Pipeline
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-xl font-bold text-navy-950 flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-golden-600" />
-            Core Benefits
-          </h2>
-          <ul className="space-y-3 text-sm text-navy-800">
-            {service.keyBenefits.map((b, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-golden-500 mt-2 shrink-0" />
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-xl font-bold text-navy-950 flex items-center gap-2">
-            <Layers className="w-5 h-5 text-navy-700" />
-            Technical Deliverables
-          </h2>
-          <ul className="space-y-3 text-sm text-navy-800">
-            {service.deliverables.map((d, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                <span>{d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
+    <ServicePageTemplate
+      slug="data-readiness"
+      badgeText="DATA PILLAR"
+      heroTitle="Prepare Your Enterprise Data Foundation for AI Scale"
+      heroSubheading="AI models are only as good as the context they query. We clean, chunk, enrich, and index your legacy enterprise databases, wikis, and document stores into high-performance vector lakehouses."
+      challenges={[
+        "Enterprise files exist in unstructured PDFs, emails, and SharePoint silos",
+        "Duplicate documents and outdated folders cause model hallucinations",
+        "Sensitive customer information (PII) is mixed into public documents",
+        "Lack of clean metadata limits search and retrieval precision",
+        "Databases lack the vector index support required for semantic search",
+        "No automated pipeline to clean and index new incoming document feeds"
+      ]}
+      imagineInstead={[
+        "Clean, structured, deduplicated enterprise document repositories",
+        "Vector lakehouse architecture supporting milli-second query latency",
+        "Automated PII detection and masking prior to model indexing",
+        "Enriched document chunks with custom hierarchical tags",
+        "Ready-to-use vector databases (Qdrant, Pinecone) integrated with ERP",
+        "Continuous automated re-indexing pipelines as files change"
+      ]}
+      whatIsTitle="What Is Data Readiness for AI?"
+      whatIsDescription="Many enterprise RAG projects fail because the underlying data is noisy, outdated, or poorly indexed. Data Readiness for AI is the engineering process of transforming raw file shares into structured semantic memory. Nisol Labs designs custom ETL pipelines that parse PDFs, remove duplicates, extract entity relationships, mask personal identifiers (PII), optimize chunk sizes for LLM context windows, and index outputs into production-grade vector lakehouses."
+      applications={[
+        { department: "IT & Systems", useCase: "Vector Database Setup" },
+        { department: "Compliance", useCase: "PII Masking & Filtering" },
+        { department: "Data Ops", useCase: "Document Parsing ETLs" },
+        { department: "Strategy", useCase: "Knowledge Graph Engineering" }
+      ]}
+      outcomes={[
+        { title: "Reduce Hallucinations", desc: "Clean databases ensure the model only accesses verified, up-to-date document coordinates." },
+        { title: "Improve Query Precision", desc: "Advanced chunking and metadata tags double search accuracy speeds." },
+        { title: "Secure PII Compliance", desc: "Automate PII stripping, guaranteeing compliance with SOC-2 and HIPAA standards." }
+      ]}
+      techStack={["Pinecone", "Qdrant", "Databricks", "Snowflake", "Neo4j", "Airflow", "Python"]}
+      techComponents={[
+        { label: "Semantic Chunking Parser", desc: "Groups text context based on logical sentences rather than arbitrary characters to keep meaning intact." },
+        { label: "Entity Resolution Graph", desc: "Maps text relations into a Neo4j database to enable multi-hop search queries." },
+        { label: "PII Anonymization Filter", desc: "Scans data streams for SSNs, emails, and phone numbers to sanitize files." }
+      ]}
+      deliverables={[
+        "Enterprise Vector Database & Knowledge Graph Setup",
+        "Automated Ingestion, Parsing & Chunking Pipelines",
+        "PII Masking & Anonymization Engine Scripts",
+        "Data Quality & Semantic Search Audit Report",
+        "Airflow/Prefect Workflow Orchestration DAGs",
+        "Retrieval Benchmarking & Accuracy Scoresheets"
+      ]}
+      useCases={[
+        {
+          title: "Healthcare Record Vectorization",
+          problem: "Healthcare provider with 15 million historical medical logs needing clean indexation for a clinical RAG copilot.",
+          solution: "Built Apache Airflow pipeline to parse logs, strip PHI identifiers, and index coordinates in Qdrant.",
+          outcome: "Sanitized 15M records in 3 weeks, creating a 100% HIPAA-compliant search dataset."
+        },
+        {
+          title: "Wiki Directory Deduplication",
+          problem: "Software firm's RAG bot returning old, conflicting policy information because of duplicate documents on SharePoint.",
+          solution: "Implemented document hashing and semantic distance deduplication filters in the ingest pipeline.",
+          outcome: "Eliminated 42% duplicate document noise, resulting in 98% accurate bot answers."
+        },
+        {
+          title: "Contracts Parsing Pipeline",
+          problem: "Legal team unable to query historical lease agreements because files were scanned image PDFs.",
+          solution: "Built document layouts parsing pipeline utilizing OCR and vision metadata extraction.",
+          outcome: "Structured 50,000 scanned leases into clean JSON vector chunks in less than 48 hours."
+        }
+      ]}
+      roiPreview={{
+        hoursSaved: "98% Clean Data",
+        costRed: "42% Noise Cut",
+        payback: "1 Month",
+        savings: "$150,000/Yr"
+      }}
+      faqs={[
+        {
+          question: "Why can't we just load our raw PDFs directly into an LLM?",
+          answer: "Raw PDFs contain headers, footers, duplicate pages, layout artifacts, and irrelevant tables. Feeding this raw text directly to LLMs leads to high API costs, lost context, security issues, and frequent hallucination errors."
+        },
+        {
+          question: "How do you handle data security?",
+          answer: "All chunking and cleaning scripts run inside your private VPC network environment. We construct custom scrubbing filters that flag and mask PII (Personally Identifiable Information) before data hits any external embeddings engine."
+        },
+        {
+          question: "Do you support Knowledge Graphs?",
+          answer: "Yes. For complex query patterns where document connections are key, we build hybrid RAG architectures linking vector stores (Qdrant) with graph databases (Neo4j)."
+        }
+      ]}
+    />
   );
 }

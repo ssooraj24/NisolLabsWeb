@@ -1,73 +1,102 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { Compass, ArrowRight, CheckCircle2, Layers, ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { SERVICES } from "@/data/services";
+import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
   title: "AI Strategy & Discovery | Nisol Labs",
-  description: "Actionable AI roadmaps aligned with business KPIs, feasibility audits, and ROI forecasting."
+  description: "Identify high-value enterprise AI use cases, evaluate technology readiness, and construct a risk-mitigated executive roadmap for AI adoption."
 };
 
-export default function StrategyServicePage() {
-  const service = SERVICES.find((s) => s.slug === "strategy")!;
-
+export default function StrategyPage() {
   return (
-    <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Link href="/services" className="inline-flex items-center gap-2 text-xs font-semibold text-navy-700 hover:text-navy-950">
-        <ArrowLeft className="w-4 h-4" /> Back to All Core Pillars
-      </Link>
-
-      <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden">
-        <div className="max-w-3xl space-y-6 relative z-10">
-          <Badge variant="golden">STRATEGY & DISCOVERY</Badge>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-            AI Strategy & <span className="golden-gradient-text">Discovery Audit</span>
-          </h1>
-          <p className="text-base sm:text-lg text-navy-100/90 leading-relaxed">
-            {service.fullDescription}
-          </p>
-          <div className="pt-4">
-            <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-              Request Executive Strategy Audit
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-xl font-bold text-navy-950 flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-golden-600" />
-            Key Outcomes
-          </h2>
-          <ul className="space-y-3 text-sm text-navy-800">
-            {service.keyBenefits.map((b, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-golden-500 mt-2 shrink-0" />
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-xl font-bold text-navy-950 flex items-center gap-2">
-            <Layers className="w-5 h-5 text-navy-700" />
-            Deliverables & Roadmaps
-          </h2>
-          <ul className="space-y-3 text-sm text-navy-800">
-            {service.deliverables.map((d, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                <span>{d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
+    <ServicePageTemplate
+      slug="strategy"
+      badgeText="DISCOVERY PILLAR"
+      heroTitle="Align AI Initiatives Directly to Business Outcomes"
+      heroSubheading="Stop chasing AI hype. We map your business processes, audit your technical architecture, and design a 12-to-24 month milestone-driven roadmap to deploy practical, high-ROI AI solutions."
+      challenges={[
+        "Chasing AI hype without a clear business case or goal",
+        "Wasting budgets on pilot projects that never reach production",
+        "Unclear data foundations preventing model deployments",
+        "Uncertainty around security, data privacy, and model copyright",
+        "Resistance to AI adoption from internal operations teams",
+        "Evaluating build vs. buy decisions for model architectures"
+      ]}
+      imagineInstead={[
+        "Clear, prioritized portfolio of high-ROI AI initiatives",
+        "Detailed technical feasibility audits of data lakes",
+        "Executive-level risk mitigation and compliance frameworks",
+        "12-to-24 month clear implementation roadmaps",
+        "Proven vendor-neutral recommendations for models",
+        "Immediate clarity on internal operational cost saving opportunities"
+      ]}
+      whatIsTitle="What Is AI Strategy & Discovery?"
+      whatIsDescription="Many organizations waste months trying to integrate models without first understanding their data maturity or ROI metrics. Nisol Labs provides a structured, engineering-led discovery audit. We analyze your workflows, evaluate data readiness, isolate security risks, and produce a detailed opportunity matrix that maps complexity against financial savings, giving you a vendor-neutral path to successful AI adoption."
+      applications={[
+        { department: "Executive Board", useCase: "AI Opportunity & ROI Matrix" },
+        { department: "Security & Legal", useCase: "AI Stance & Compliance Audits" },
+        { department: "IT & Systems", useCase: "Integration & Model Planning" },
+        { department: "Operations", useCase: "Process Anomaly Auditing" }
+      ]}
+      outcomes={[
+        { title: "Define Business Case", desc: "Identify immediate operational savings with concrete ROI calculations." },
+        { title: "Mitigate Security Risk", desc: "Define access control, PII masking, and isolated host requirements." },
+        { title: "Accelerate Roadmap", desc: "Go from abstract goals to a structured implementation blueprint in weeks." }
+      ]}
+      techStack={["Enterprise AI Framework", "Feasibility Models", "Value Stream Mapping"]}
+      techComponents={[
+        { label: "Opportunities Mapping", desc: "We evaluate and prioritize processes based on task repetition and data structuredness." },
+        { label: "Data Audit Matrix", desc: "Audit text databases, unstructured file shares, and APIs for model ingestion viability." },
+        { label: "Risk Mitigation Plan", desc: "Comprehensive review of data transmission pipelines, model licenses, and compliance boundaries." }
+      ]}
+      deliverables={[
+        "Executive AI Opportunity & Prioritization Matrix",
+        "Detailed Data Maturity & API Infrastructure Audit",
+        "12-to-24 Month Technical Implementation Roadmap",
+        "Proof of Concept (PoC) Prototype Scope & Blueprint",
+        "Comprehensive Vendor-Neutral Model Stance Report",
+        "Enterprise Security, Compliance & Governance Framework"
+      ]}
+      useCases={[
+        {
+          title: "Supply Chain Strategy Blueprint",
+          problem: "Global logistics provider wanted to implement AI but was paralyzed by having 20+ legacy software platforms.",
+          solution: "Audited data systems, mapped procurement processes, and designed a phased API integration strategy.",
+          outcome: "Identified $4.2M in annual operational savings with a 3-stage integration blueprint."
+        },
+        {
+          title: "Regulatory Compliance Discovery",
+          problem: "Asset manager wanting to deploy RAG over SEC filings but blocked by strict internal security mandates.",
+          solution: "Conducted security audit and proposed Tenant Isolation architecture using private VPC setups.",
+          outcome: "Received internal compliance sign-off to initiate production knowledge pilot."
+        },
+        {
+          title: "Operations Optimization Audit",
+          problem: "Insurance vendor spending too much on manual claims processing but unsure where AI would be most effective.",
+          solution: "Analyzed workflow cycle times and mapped key bottlenecks in unstructured email parsing.",
+          outcome: "Proposed targeted Intelligent Document pipeline with projected 65% cost reduction."
+        }
+      ]}
+      roiPreview={{
+        hoursSaved: "Discovery in 2 Wks",
+        costRed: "Risk Mitigated",
+        payback: "Instant Value",
+        savings: "$4.2M Identified"
+      }}
+      faqs={[
+        {
+          question: "How long does a Discovery Workshop take?",
+          answer: "Our standard discovery audit takes between 2 to 3 weeks depending on the size of the organization and complexity of current systems."
+        },
+        {
+          question: "What is the primary deliverable of this service?",
+          answer: "A comprehensive executive-ready report featuring a prioritized Opportunity Matrix, Technical Implementation Roadmap, Data Readiness Audit, and security stance guidelines."
+        },
+        {
+          question: "Why should we choose Nisol Labs over standard consulting firms?",
+          answer: "We are hands-on engineers, not slide writers. Our recommendations are grounded in what can actually be built, optimized, and secured at scale, preventing budget waste on unrealistic prototypes."
+        }
+      ]}
+    />
   );
 }

@@ -1,82 +1,102 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import { Cpu, ArrowRight, CheckCircle2, Layers, ArrowLeft, Terminal, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { SERVICES } from "@/data/services";
+import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "AI Engineering & DevOps (Differentiator) | Nisol Labs",
-  description: "Enterprise LLMOps, model fine-tuning, latency optimization, and automated CI/CD pipelines for AI applications."
+  title: "AI Engineering & DevOps | Nisol Labs",
+  description: "Transition prototype models into robust, resilient, low-latency enterprise applications backed by continuous deployment and observability."
 };
 
-export default function EngineeringServicePage() {
-  const service = SERVICES.find((s) => s.slug === "engineering")!;
-
+export default function EngineeringPage() {
   return (
-    <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Link href="/services" className="inline-flex items-center gap-2 text-xs font-semibold text-navy-700 hover:text-navy-950">
-        <ArrowLeft className="w-4 h-4" /> Back to All Core Pillars
-      </Link>
-
-      <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden">
-        <div className="max-w-3xl space-y-6 relative z-10">
-          <div className="flex items-center gap-3">
-            <Badge variant="navy">DIFFERENTIATOR PILLAR</Badge>
-            <span className="text-xs text-navy-200 font-mono">vLLM • Ollama • LlamaIndex • Kubernetes</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-            AI Engineering & <span className="golden-gradient-text">DevOps (LLMOps)</span>
-          </h1>
-
-          <p className="text-base sm:text-lg text-navy-100/90 leading-relaxed">
-            {service.fullDescription}
-          </p>
-
-          <div className="pt-4 flex flex-wrap gap-4">
-            <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-              Optimize Your AI Infra
-            </Button>
-            <Button href="/resources/roi-calculator" variant="navy" size="lg">
-              Calculate Token Savings
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-xl font-bold text-navy-950 flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-golden-600" />
-            Key Engineering Advantages
-          </h2>
-          <ul className="space-y-3 text-sm text-navy-800">
-            {service.keyBenefits.map((b, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-golden-500 mt-2 shrink-0" />
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-xs space-y-4">
-          <h2 className="text-xl font-bold text-navy-950 flex items-center gap-2">
-            <Layers className="w-5 h-5 text-navy-700" />
-            Deliverables & Architecture
-          </h2>
-          <ul className="space-y-3 text-sm text-navy-800">
-            {service.deliverables.map((d, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                <span>{d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
+    <ServicePageTemplate
+      slug="engineering"
+      badgeText="DIFFERENTIATOR PILLAR"
+      heroTitle="Resilient AI Systems Engineered for Enterprise Scale"
+      heroSubheading="Stop building fragile wrappers. We deploy scalable LLMOps architectures, semantic cache systems, model routers, and automated evaluation frameworks to guarantee latency, accuracy, and budget goals."
+      challenges={[
+        "AI applications suffer from slow response times and high latency",
+        "API costs explode as prompt volume scales up",
+        "System performance degrades with model updates (hallucinations, drift)",
+        "Lack of versioning and automated testing for prompts",
+        "Security breaches due to sensitive data leaks",
+        "Fragile setups that crash under peak concurrent traffic"
+      ]}
+      imagineInstead={[
+        "Sub-200ms latency target using semantic model caching",
+        "Up to 60% API cost savings through intelligent model routing",
+        "Continuous automated regression testing for all prompt versions",
+        "PII data mask gateways keeping customer details secure",
+        "High availability setups with Kubernetes scaling",
+        "Real-time token cost and hallucination monitoring"
+      ]}
+      whatIsTitle="What Is AI Engineering & DevOps?"
+      whatIsDescription="Many agencies build simple API wrappers. Nisol Labs builds robust AI software engineering platforms. We optimize every layer of the AI lifecycle: from quantization of open weights (Mistral/Llama 3) to deployment on dedicated local vLLM nodes, setup of hybrid dense-sparse vector indexing, implementation of Redis semantic caching to prevent duplicate API hits, and establishing automated prompt validation pipelines (CI/CD for LLMs) so prompt adjustments never break production features."
+      applications={[
+        { department: "Engineering", useCase: "CI/CD LLM Eval pipelines" },
+        { department: "Operations", useCase: "Model Routing & Caching Engines" },
+        { department: "Security", useCase: "PII Masking & Token Auditing" },
+        { department: "Infrastructure", useCase: "vLLM Inference Cluster Setup" }
+      ]}
+      outcomes={[
+        { title: "Reduce Token Spend", desc: "Cut API cost overhead by up to 58% via local open model hosting and cache hits." },
+        { title: "Optimize Speed", desc: "Improve user experience with sub-200ms response times for repeat queries." },
+        { title: "Secure Operations", desc: "Embed security telemetry, SOC-2 readiness, and model output audits." }
+      ]}
+      techStack={["vLLM", "Ollama", "LangSmith", "Weights & Biases", "Kubernetes", "Prometheus", "GPTCache"]}
+      techComponents={[
+        { label: "vLLM Inference", desc: "High-throughput hosting of local weights on dedicated GPU infrastructure." },
+        { label: "Semantic Caching", desc: "Saves duplicate query patterns using cosine distance checks to cut costs." },
+        { label: "LLMEval CI/CD", desc: "Automated regression suite checking response metrics prior to code deployment." }
+      ]}
+      deliverables={[
+        "Enterprise LLMOps Pipeline & CI/CD Setup",
+        "Model Router & Token Cost Optimization Engine",
+        "Fine-tuned Domain Model Weights & Evaluation Benchmarks",
+        "Continuous Observability, Monitoring & Alerting Telemetry",
+        "Kubernetes Helm Charts & Terraform Configuration Files",
+        "On-Premise or isolated Private Cloud Deployment Setup"
+      ]}
+      useCases={[
+        {
+          title: "Token Optimization Transformation",
+          problem: "SaaS provider spending $40,000 monthly on OpenAI APIs with slow 3+ second latencies.",
+          solution: "Implemented GPTCache semantic caching and routed simple queries to local Llama 3 vLLM models.",
+          outcome: "Reduced OpenAI API token spend by 58% while cutting latency down to sub-300ms."
+        },
+        {
+          title: "CI/CD Evaluation Setup",
+          problem: "Financial platform team afraid to edit system prompts because it frequently led to logic regressions.",
+          solution: "Built automated testing engine using LangSmith evaluating prompts on 200 standard test cases.",
+          outcome: "Enables safe, continuous deployment of prompts with automated regression flagging."
+        },
+        {
+          title: "VPC Private Model Hosting",
+          problem: "Healthcare system unable to share data with third-party model providers due to strict HIPAA compliance.",
+          solution: "Deployed localized open-source model weights inside private AWS GovCloud VPC.",
+          outcome: "100% compliance guaranteed since medical data never leaves the internal hospital network."
+        }
+      ]}
+      roiPreview={{
+        hoursSaved: "Sub-200ms Target",
+        costRed: "58% Token Saved",
+        payback: "1.5 Months",
+        savings: "$180,000/Yr"
+      }}
+      faqs={[
+        {
+          question: "What is the difference between an API wrapper and AI Engineering?",
+          answer: "API wrappers send raw prompts directly to third-party endpoints (e.g. OpenAI). AI Engineering designs the complete middleware infrastructure: caching duplicate queries, routing based on complexity, auditing inputs for security, measuring hallucination rates, and maintaining local model hosting."
+        },
+        {
+          question: "Can you host models inside our own private cloud?",
+          answer: "Yes. We configure and deploy local models using vLLM on Kubernetes inside your private AWS VPC, Azure tenant, Google Cloud, or on-premise hardware."
+        },
+        {
+          question: "What open-source weights do you recommend?",
+          answer: "We typically work with Llama 3 (Meta), Mistral (Mistral AI), and Phi-3 (Microsoft) depending on the specific latency, accuracy, and hardware constraint requirements."
+        }
+      ]}
+    />
   );
 }
