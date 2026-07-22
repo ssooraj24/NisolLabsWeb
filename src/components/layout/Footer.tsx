@@ -14,20 +14,12 @@ export function Footer() {
           
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-navy-800 via-navy-900 to-golden-600 p-0.5 shadow-md">
-                <div className="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-golden-400" />
-                </div>
-              </div>
-              <div>
-                <span className="text-xl font-black tracking-tight text-white flex items-center gap-1.5">
-                  NISOL <span className="golden-gradient-text">LABS</span>
-                </span>
-                <span className="block text-[10px] font-semibold tracking-wider uppercase text-navy-300">
-                  The Core of Intelligence
-                </span>
-              </div>
+            <Link href="/" className="flex items-center gap-2">
+              <img 
+                src="/logo.png" 
+                alt="Nisol Labs Logo" 
+                className="h-14 md:h-16 w-auto object-contain rounded" 
+              />
             </Link>
 
             <p className="text-sm text-navy-200/80 leading-relaxed max-w-sm">

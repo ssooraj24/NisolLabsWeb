@@ -68,21 +68,12 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-navy-800 via-navy-900 to-golden-600 p-0.5 shadow-md group-hover:shadow-golden-500/20 transition-all">
-              <div className="w-full h-full bg-navy-950 rounded-[10px] flex items-center justify-center">
-                <Bot className="w-5 h-5 text-golden-400 group-hover:scale-110 transition-transform" />
-              </div>
-            </div>
-            <div>
-              <span className="text-xl font-black tracking-tight text-white flex items-center gap-1.5">
-                NISOL <span className="golden-gradient-text">LABS</span>
-              </span>
-              <span className="block text-[10px] font-semibold tracking-wider uppercase text-navy-300">
-                The Core of Intelligence
-              </span>
-            </div>
+          <Link href="/" className="flex items-center gap-2 group">
+            <img 
+              src="/logo.png" 
+              alt="Nisol Labs Logo" 
+              className="h-14 md:h-16 w-auto object-contain transition-all group-hover:scale-[1.02] rounded" 
+            />
           </Link>
 
           {/* Desktop Navigation Links */}
