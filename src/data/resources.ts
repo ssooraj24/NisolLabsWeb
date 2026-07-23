@@ -32,59 +32,59 @@ export interface CaseStudy {
 export const PLAYBOOKS: Playbook[] = [
   {
     id: "ai-small-business",
-    title: "AI Strategy & Implementation Playbook for Growing Businesses",
+    title: "AI for Small Businesses: A Practical Guide to AI Adoption",
     category: "Small Business",
     readTime: "8 min read",
-    summary: "A practical guide to deploying high-ROI AI tools without multi-million dollar budgets or dedicated data science teams.",
+    summary: "Practical guide to deploying AI tools for small businesses, covering use cases, ROI, and implementation roadmap.",
     keyTakeaways: [
-      "How to audit internal tasks for 80/20 AI quick wins",
-      "Selecting off-the-shelf vs. customized agent workflows",
-      "Preventing security leaks with low-cost privacy boundaries"
+      "Audit internal tasks for quick AI wins",
+      "Select off-the-shelf vs custom solutions",
+      "Prevent security leaks with low-cost privacy boundaries"
     ],
     targetAudience: "Founders, Operations Leads, IT Managers"
   },
   {
     id: "ai-it-services",
-    title: "Accelerating Software Engineering with AI Copilots & Autonomous Agents",
+    title: "AI for IT Services Companies: The MSP's AI Playbook",
     category: "IT Services",
     readTime: "12 min read",
-    summary: "How modern engineering organizations cut sprint delivery times by 40% using code generation, automated testing agents, and code review bots.",
+    summary: "How modern engineering organizations cut sprint delivery times by 40% using AI agents, tool integration, and automation.",
     keyTakeaways: [
-      "Integrating AI into CI/CD git pull-request pipelines",
-      "Measuring developer velocity without compromising code security",
-      "Custom RAG over legacy code repositories"
+      "Integrate AI into CI/CD pipelines",
+      "Measure developer velocity securely",
+      "Custom RAG over legacy code"
     ],
     targetAudience: "CTOs, VPs of Engineering, Engineering Managers"
   },
   {
     id: "ai-manufacturing",
-    title: "Predictive AI & Automated Procurement in Manufacturing",
+    title: "AI for Manufacturing: A Practical Guide to AI in Manufacturing",
     category: "Manufacturing",
     readTime: "10 min read",
-    summary: "Modernizing shop floor logistics, equipment monitoring, and supply chain procurement with edge AI and automated workflow agents.",
+    summary: "Modernizing shop floor logistics, equipment monitoring, and procurement with edge AI and autonomous agents.",
     keyTakeaways: [
-      "Connecting IoT sensor streams to anomaly detection models",
-      "Automating purchase orders when inventory dips below threshold",
-      "Reducing unplanned downtime by 35%"
+      "Connect IoT sensors to anomaly detection",
+      "Automate purchase orders on low inventory",
+      "Reduce unplanned downtime by 35%"
     ],
     targetAudience: "Plant Managers, Chief Operating Officers, Supply Chain Directors"
   },
   {
     id: "ai-healthcare",
-    title: "HIPAA-Compliant AI: Data Readiness & Clinical Documentation",
+    title: "AI for Healthcare: A Practical Guide to AI in Healthcare",
     category: "Healthcare",
     readTime: "11 min read",
-    summary: "Navigating privacy standards while deploying AI for clinical transcription, patient triage, and medical record vector search.",
+    summary: "Navigating privacy standards while deploying AI for clinical transcription, triage, and medical record vector search.",
     keyTakeaways: [
-      "On-premise vs. VPC isolated deployment patterns",
-      "De-identification (PHI masking) pipelines before LLM processing",
+      "On-premise vs VPC deployment patterns",
+      "De-identification pipelines before LLMs",
       "Audit logging and medical risk mitigation framework"
     ],
     targetAudience: "Healthcare CIOs, Chief Medical Officers, Compliance Officers"
   },
   {
     id: "ai-retail",
-    title: "Personalized Customer Journeys & Inventory Optimization via AI",
+    title: "AI for Retail & E-commerce: Personalized Journeys and Inventory Optimization",
     category: "Retail & E-commerce",
     readTime: "9 min read",
     summary: "Transforming customer support and product recommendations using multi-modal AI agents and real-time inventory forecasting.",
@@ -97,7 +97,7 @@ export const PLAYBOOKS: Playbook[] = [
   },
   {
     id: "ai-finance",
-    title: "Institutional AI: Fraud Detection, Contract Analysis & RAG",
+    title: "AI for Finance & Banking: Fraud Detection, Contract Analysis & RAG",
     category: "Finance & Banking",
     readTime: "14 min read",
     summary: "Architecting financial analytical agents, automated regulatory report parsers, and institutional risk modeling platforms.",

@@ -106,9 +106,7 @@ export default function ResourcesHubPage() {
 
               <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
                 <span className="text-[10px] font-semibold text-navy-600">Target: {pb.targetAudience}</span>
-                <Button href="/contact" variant="navy" size="sm" icon={<Download className="w-3 h-3" />}>
-                  Download Playbook
-                </Button>
+
               </div>
             </div>
           ))}
