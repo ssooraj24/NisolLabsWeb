@@ -109,7 +109,7 @@ export function PlaybookPageTemplate({ playbook }: Props) {
   return (
     <div className="space-y-24 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">    
 
-      <div className="lg:ml-56 space-y-16">
+      <div className="space-y-16">
         {/* 1. HERO */}
         
         <section id="overview" className="relative rounded-3xl overflow-hidden shadow-2xl">
