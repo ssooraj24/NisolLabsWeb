@@ -25,7 +25,7 @@ export const COMPANY = {
       role: "Co-Founder & Head of Data Engineering",
       bio: "Amol is a data engineering leader with 18+ years of experience building enterprise-scale data platforms. He specializes in architecting AI-ready data infrastructure — from real-time pipelines and data lakehouses to vector databases and knowledge graphs. At Nisol Labs, Amol ensures every AI system is built on a foundation of reliable, high-quality data.",
       position:"Co-Founder",
-      image: "/images/amol-photo.png",
+      image: "/images/amol-photo-2.png",
       linkedin: "#",
       github: "#"
     },
