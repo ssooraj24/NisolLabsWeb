@@ -82,7 +82,7 @@ export default function ResourcesHubPage() {
       {activeTab === "playbooks" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PLAYBOOKS.map((pb) => (
-            <div key={pb.id} className="glass-panel rounded-2xl p-7 border border-slate-200 shadow-xs flex flex-col justify-between space-y-4">
+            <Link key={pb.id} href={`/resources/playbooks/${pb.id}`} className="glass-panel rounded-2xl p-7 border border-slate-200 shadow-xs flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-golden-700 bg-golden-100 px-2 py-0.5 rounded border border-golden-300">
@@ -108,7 +108,7 @@ export default function ResourcesHubPage() {
                 <span className="text-[10px] font-semibold text-navy-600">Target: {pb.targetAudience}</span>
 
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

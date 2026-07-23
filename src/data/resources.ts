@@ -91,7 +91,7 @@ export const PLAYBOOKS: Playbook[] = [
     keyTakeaways: [
       "Multi-modal visual product search architecture",
       "Autonomous support agents handling order changes and returns",
-      "Dynamic demand forecasting grounded in historical metrics"
+      "Dynamic demand forecasting grounded in historic metrics"
     ],
     targetAudience: "E-Commerce VPs, CMOs, Head of Customer Experience"
   },
