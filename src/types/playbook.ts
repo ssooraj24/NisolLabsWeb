@@ -16,6 +16,7 @@ export interface Playbook {
   challenges: {
     title: string;
     icon?: ReactNode; // optional
+    description?: string; // optional explanatory text
   }[];
   opportunities: {
     department: string;

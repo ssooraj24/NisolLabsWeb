@@ -107,10 +107,11 @@ export function PlaybookPageTemplate({ playbook }: Props) {
   ];
 
   return (
-    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">     
+    <div className="space-y-24 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">    
 
       <div className="lg:ml-56 space-y-16">
         {/* 1. HERO */}
+        
         <section id="overview" className="relative rounded-3xl overflow-hidden shadow-2xl">
           <div className="relative h-80 md:h-96 w-full">
             <Image
@@ -120,7 +121,7 @@ export function PlaybookPageTemplate({ playbook }: Props) {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent flex items-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-navy-950/90 via-navy-900/70 to-transparent flex items-center">
               <div className="max-w-2xl p-8 md:p-12 text-white space-y-4">
                 <Badge variant="golden" className="bg-golden-500 text-white border-none">
                   AI Playbook
