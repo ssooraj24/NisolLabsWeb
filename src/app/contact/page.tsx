@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, ShieldCheck, Clock, CheckCircle2, ArrowRight, Bot, MessageSquare } from "lucide-react";
+import { Mail, ShieldCheck, Clock, CheckCircle2, ArrowRight, Bot, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [formData, setFormData] = useState({
     fullName: "",
     workEmail: "",
@@ -17,9 +19,38 @@ export default function ContactPage() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
+  const sendAuditRequest = async () => {
+    // Validate required fields
+    if (!formData.fullName || !formData.workEmail || !formData.companyName) {
+      setErrorMessage("Please fill in all required fields (*).");
+      return;
+    }
+
+    setLoading(true);
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitted(true);
+      } else {
+        setErrorMessage(result.error || "Failed to send request. Check your API route logs.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setErrorMessage("An unexpected network error occurred.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,7 +68,6 @@ export default function ContactPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        {/* Left Column: Form */}
         <div className="lg:col-span-7 glass-panel rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm">
           {submitted ? (
             <div className="text-center py-12 space-y-6 animate-in fade-in duration-300">
@@ -49,16 +79,36 @@ export default function ContactPage() {
                 Thank you, <strong>{formData.fullName}</strong>. A senior Nisol Labs AI Architect will review your requirements and reach out within 24 business hours.
               </p>
               <div className="pt-4">
-                <Button onClick={() => setSubmitted(false)} variant="navy" size="md">
+                <Button 
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({
+                      fullName: "",
+                      workEmail: "",
+                      companyName: "",
+                      interestPillar: "agents",
+                      budgetRange: "$25k - $50k",
+                      message: ""
+                    });
+                  }} 
+                  variant="navy" 
+                  size="md"
+                >
                   Submit Another Inquiry
                 </Button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={(e) => { e.preventDefault(); sendAuditRequest(); }} className="space-y-6">
               <h2 className="text-xl font-bold text-navy-950 mb-4 border-b border-slate-200 pb-3">
                 Project & Organization Details
               </h2>
+
+              {errorMessage && (
+                <div className="p-4 rounded-xl bg-red-50 text-red-600 border border-red-200 text-xs font-medium">
+                  {errorMessage}
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -106,12 +156,12 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, interestPillar: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white font-medium"
                   >
-                    <option value="agents">Autonomous AI Agents (Flagship)</option>
-                    <option value="engineering">AI Engineering & LLMOps (Differentiator)</option>
-                    <option value="strategy">AI Strategy & Discovery</option>
-                    <option value="assistants">Enterprise AI Assistants (RAG)</option>
-                    <option value="automation">AI-Powered Automation (IDP)</option>
-                    <option value="data-readiness">Data Readiness for AI</option>
+                    <option value="Autonomous AI Agents">Autonomous AI Agents (Flagship)</option>
+                    <option value="AI Engineering & LLMOps">AI Engineering & LLMOps (Differentiator)</option>
+                    <option value="AI Strategy & Discovery">AI Strategy & Discovery</option>
+                    <option value="Enterprise AI Assistants">Enterprise AI Assistants (RAG)</option>
+                    <option value="AI-Powered Automation">AI-Powered Automation (IDP)</option>
+                    <option value="Data Readiness for AI">Data Readiness for AI</option>
                   </select>
                 </div>
               </div>
@@ -141,9 +191,18 @@ export default function ContactPage() {
                 />
               </div>
 
-              <Button type="submit" variant="primary" size="lg" className="w-full justify-center" icon={<ArrowRight className="w-4 h-4" />}>
-                Request Confidential AI Audit
-              </Button>
+              <div onClick={sendAuditRequest}>
+                <Button 
+                  type="button" 
+                  variant="primary" 
+                  size="lg" 
+                  disabled={loading}
+                  className="w-full justify-center cursor-pointer" 
+                  icon={loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
+                >
+                  {loading ? "Sending Request..." : "Request Confidential AI Audit"}
+                </Button>
+              </div>
             </form>
           )}
         </div>
@@ -177,7 +236,7 @@ export default function ContactPage() {
                 <Mail className="w-4 h-4 text-golden-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-white font-bold block">Direct Email</strong>
-                  <span>contact@nisollabs.com</span>
+                  <span>nisollabs@gmail.com</span>
                 </div>
               </div>
             </div>

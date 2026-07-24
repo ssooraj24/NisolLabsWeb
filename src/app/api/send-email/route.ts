@@ -9,8 +9,8 @@ export async function POST(req: Request) {
     const { fullName, workEmail, companyName, interestPillar, budgetRange, message } = body;
 
     const { data, error } = await resend.emails.send({
-      from: "AI Audit <onboarding@resend.dev>", // Replace with your verified domain in production
-      to: ["test@gmail.com"],
+      from: "AI Audit <onboarding@resend.dev>",
+      to: ["nisollabs@gmail.com"],
       replyTo: workEmail,
       subject: `New AI Audit Request from ${companyName}`,
       html: `
@@ -27,12 +27,13 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      return NextResponse.json({ success: false, error }, { status: 400 });
+      console.error("Resend API error:", error);
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 });
     }
 
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {
-    console.error("Failed to send email:", error);
-    return NextResponse.json({ success: false, error: "Server error" }, { status: 500 });
+    console.error("Server error:", error);
+    return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 });
   }
 }
