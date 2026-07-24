@@ -134,7 +134,7 @@ export function Footer() {
             <div className="space-y-2 text-xs text-navy-200/80">
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-golden-400" />
-                <span>contact@nisollabs.com</span>
+                <span>nisollabs@gmail.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <Globe className="w-3.5 h-3.5 text-golden-400" />
