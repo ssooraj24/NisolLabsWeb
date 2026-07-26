@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback, useRef } from "react"
+import { useState, useEffect, useCallback, useRef, useMemo } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { createBrowserClient } from "@supabase/ssr"
 import Link from "next/link"
@@ -29,48 +29,63 @@ export default function AuditQuestionnaireWizard() {
   const [loading, setLoading] = useState<boolean>(true)
   const [savingStatus, setSavingStatus] = useState<"idle" | "saving" | "saved" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const [auditTitle, setAuditTitle] = useState<string>("AI Assessment")
+  const [auditTitle, setAuditTitle] = useState<string>("AI Maturity Assessment")
 
   // Auto-save debounce timer ref
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // 1. Fetch Audit & Questions
+  // 1. Fetch Audit & Questions safely with try...finally
   useEffect(() => {
     if (!auditId) return
 
+    let isMounted = true
+
     const initData = async () => {
-      setLoading(true)
+      try {
+        setLoading(true)
 
-      // Fetch audit raw_responses and title
-      const { data: auditData } = await supabase
-        .from("audits")
-        .select("title, raw_responses")
-        .eq("id", auditId)
-        .single()
+        // Fetch audit raw_responses and title
+        const { data: auditData, error: auditErr } = await supabase
+          .from("audits")
+          .select("title, raw_responses")
+          .eq("id", auditId)
+          .maybeSingle()
 
-      if (auditData) {
-        if (auditData.title) setAuditTitle(auditData.title)
-        if (auditData.raw_responses && typeof auditData.raw_responses === "object") {
-          setResponses(auditData.raw_responses)
+        if (isMounted && auditData) {
+          if (auditData.title) setAuditTitle(auditData.title)
+          if (auditData.raw_responses && typeof auditData.raw_responses === "object") {
+            setResponses(auditData.raw_responses)
+          }
+        }
+
+        // Fetch questions from DB if available
+        const { data: dbQuestions, error: qErr } = await supabase
+          .from("questions")
+          .select("id, section, order_index, question_text, tip_discussion, triggered_patterns")
+          .order("order_index", { ascending: true })
+
+        if (isMounted) {
+          if (!qErr && dbQuestions && dbQuestions.length > 0) {
+            setQuestions(dbQuestions)
+          } else {
+            setQuestions(INITIAL_62_QUESTIONS)
+          }
+        }
+      } catch (err: any) {
+        console.error("Error initializing questionnaire:", err)
+      } finally {
+        if (isMounted) {
+          setLoading(false)
         }
       }
-
-      // Fetch questions from DB if available
-      const { data: dbQuestions, error: qErr } = await supabase
-        .from("questions")
-        .select("id, section, order_index, question_text, tip_discussion, triggered_patterns")
-        .order("order_index", { ascending: true })
-
-      if (!qErr && dbQuestions && dbQuestions.length > 0) {
-        setQuestions(dbQuestions)
-      } else {
-        setQuestions(INITIAL_62_QUESTIONS)
-      }
-
-      setLoading(false)
     }
 
     initData()
+
+    return () => {
+      isMounted = false
+      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current)
+    }
   }, [auditId, supabase])
 
   // Save responses to Supabase
@@ -83,7 +98,7 @@ export default function AuditQuestionnaireWizard() {
           .from("audits")
           .update({
             raw_responses: updatedResponses,
-            status: "data_collection",
+            status: "in_progress",
             updated_at: new Date().toISOString()
           })
           .eq("id", auditId)
@@ -105,16 +120,18 @@ export default function AuditQuestionnaireWizard() {
   )
 
   // Trigger debounced auto-save
-  const triggerAutoSave = (newResponses: Record<string, SingleResponse>) => {
-    setSavingStatus("saving")
-    if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current)
-    saveTimeoutRef.current = setTimeout(() => {
-      saveToDatabase(newResponses)
-    }, 800)
-  }
+  const triggerAutoSave = useCallback(
+    (newResponses: Record<string, SingleResponse>) => {
+      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current)
+      saveTimeoutRef.current = setTimeout(() => {
+        saveToDatabase(newResponses)
+      }, 800)
+    },
+    [saveToDatabase]
+  )
 
-  const currentQuestion = questions[currentIndex] || questions[0]
-  const currentKey = String(currentQuestion?.id || currentIndex + 1)
+  const currentQuestion = questions[currentIndex] || questions[0] || INITIAL_62_QUESTIONS[0]
+  const currentKey = String(currentQuestion.order_index || currentQuestion.id || currentIndex + 1)
   const currentResp = responses[currentKey] || { answer: "", score: 3 }
 
   // Handlers
@@ -136,33 +153,42 @@ export default function AuditQuestionnaireWizard() {
     triggerAutoSave(next)
   }
 
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+  }
+
   const handleNext = () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1)
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      scrollToTop()
     }
   }
 
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1)
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      scrollToTop()
     }
   }
 
   // Calculate completed count
-  const completedCount = Object.values(responses).filter(
-    (r) => r.answer?.trim().length > 0 || r.score !== undefined
-  ).length
+  const completedCount = useMemo(() => {
+    return Object.values(responses).filter(
+      (r) => (r.answer && r.answer.trim().length > 0) || r.score !== undefined
+    ).length
+  }, [responses])
 
   const progressPercentage = Math.round(((currentIndex + 1) / questions.length) * 100)
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-6">
-        <div className="text-center space-y-3">
+        <div className="text-center space-y-4 bg-white p-8 rounded-2xl border shadow-lg max-w-sm w-full">
           <div className="w-12 h-12 border-4 border-[#0A1E3C] border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm font-semibold text-slate-600">Loading audit wizard...</p>
+          <h3 className="text-base font-bold text-[#0A1E3C]">Loading Assessment Wizard</h3>
+          <p className="text-xs text-slate-500">Retrieving audit data and questions...</p>
         </div>
       </div>
     )
@@ -170,7 +196,7 @@ export default function AuditQuestionnaireWizard() {
 
   return (
     <section className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 font-sans">
-      {/* Top Header & Breadcrumb */}
+      {/* Top Header & Navigation */}
       <div className="max-w-7xl mx-auto mb-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div>
@@ -216,14 +242,21 @@ export default function AuditQuestionnaireWizard() {
             {/* Jump to Question Dropdown */}
             <select
               value={currentIndex}
-              onChange={(e) => setCurrentIndex(Number(e.target.value))}
+              onChange={(e) => {
+                setCurrentIndex(Number(e.target.value))
+                scrollToTop()
+              }}
               className="text-xs border rounded-lg px-3 py-2 bg-white text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#0A1E3C]"
             >
-              {questions.map((q, idx) => (
-                <option key={q.id} value={idx}>
-                  Q{q.order_index}: {q.section} ({responses[String(q.id)] ? "✓" : "–"})
-                </option>
-              ))}
+              {questions.map((q, idx) => {
+                const qKey = String(q.order_index || q.id)
+                const isAns = Boolean(responses[qKey]?.answer?.trim() || responses[qKey]?.score)
+                return (
+                  <option key={q.id || idx} value={idx}>
+                    Q{q.order_index}: {q.section} ({isAns ? "✓" : "–"})
+                  </option>
+                )
+              })}
             </select>
           </div>
         </div>
@@ -277,43 +310,36 @@ export default function AuditQuestionnaireWizard() {
             </h2>
           </div>
 
-          {/* Maturity Level Selection (Radio Buttons 1 - 5) */}
+          {/* Maturity Level Selection Buttons (1 to 5) */}
           <div className="space-y-3 pt-2">
             <label className="block text-xs uppercase tracking-wider font-bold text-slate-500">
               Maturity Score Rating (1 - 5)
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
               {[
-                { score: 1, label: "1 - Initial" },
-                { score: 2, label: "2 - Emerging" },
-                { score: 3, label: "3 - Defined" },
-                { score: 4, label: "4 - Managed" },
-                { score: 5, label: "5 - Optimized" }
+                { score: 1, label: "Initial" },
+                { score: 2, label: "Emerging" },
+                { score: 3, label: "Defined" },
+                { score: 4, label: "Managed" },
+                { score: 5, label: "Optimized" }
               ].map(({ score, label }) => {
                 const isSelected = currentResp.score === score
                 return (
-                  <label
+                  <button
                     key={score}
+                    type="button"
                     onClick={() => handleScoreChange(score)}
-                    className={`cursor-pointer border rounded-xl p-3 text-center transition-all flex flex-col items-center justify-center gap-1 ${
+                    className={`border rounded-xl p-3 text-center transition-all flex flex-col items-center justify-center gap-1 ${
                       isSelected
-                        ? "bg-[#0A1E3C] text-white border-[#0A1E3C] shadow-md ring-2 ring-blue-300"
+                        ? "bg-[#0A1E3C] text-white border-[#0A1E3C] shadow-md ring-2 ring-blue-300 font-bold"
                         : "bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200"
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name={`maturity-${currentQuestion.id}`}
-                      value={score}
-                      checked={isSelected}
-                      onChange={() => handleScoreChange(score)}
-                      className="sr-only"
-                    />
                     <span className="text-lg font-extrabold">{score}</span>
                     <span className={`text-[10px] font-medium ${isSelected ? "text-blue-200" : "text-slate-500"}`}>
-                      {label.split(" - ")[1]}
+                      {label}
                     </span>
-                  </label>
+                  </button>
                 )
               })}
             </div>
@@ -415,13 +441,15 @@ export default function AuditQuestionnaireWizard() {
             <div className="space-y-1 max-h-60 overflow-y-auto pr-1 text-xs">
               {questions.map((q, idx) => {
                 const isCurrent = idx === currentIndex
-                const isAnswered = Boolean(responses[String(q.id)]?.answer?.trim())
+                const qKey = String(q.order_index || q.id)
+                const isAnswered = Boolean(responses[qKey]?.answer?.trim() || responses[qKey]?.score)
                 return (
                   <button
-                    key={q.id}
+                    key={q.id || idx}
+                    type="button"
                     onClick={() => {
                       setCurrentIndex(idx)
-                      window.scrollTo({ top: 0, behavior: "smooth" })
+                      scrollToTop()
                     }}
                     className={`w-full text-left px-3 py-2 rounded-lg flex items-center justify-between transition-colors ${
                       isCurrent
