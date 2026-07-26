@@ -11,14 +11,14 @@ export function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-navy-800/80">
-          
+
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2">
-              <img 
-                src="/logo.png" 
-                alt="Nisol Labs Logo" 
-                className="h-14 md:h-16 w-auto object-contain rounded" 
+              <img
+                src="/logo.png"
+                alt="Nisol Labs Logo"
+                className="h-14 md:h-16 w-auto object-contain rounded"
               />
             </Link>
 
@@ -130,7 +130,16 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-
+            <h4 className="text-xs font-bold uppercase tracking-wider text-golden-400 mb-4">
+              CLIENT PORTAL
+            </h4>
+            <ul className="space-y-2.5 text-xs font-medium text-slate-300 mb-6">
+              <li>
+                <Link href="/login" className="hover:text-golden-300 transition-colors">
+                  Nisol Discovery
+                </Link>
+              </li>
+            </ul>
             <div className="space-y-2 text-xs text-navy-200/80">
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-golden-400" />
