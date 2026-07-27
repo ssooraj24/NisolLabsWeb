@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback, useRef, useMemo } from "react"
+import { useState, useEffect, useCallback, useRef, useMemo, memo } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { createBrowserClient } from "@supabase/ssr"
 import Link from "next/link"
@@ -10,6 +10,133 @@ type SingleResponse = {
   answer: string
   score: number // 1 to 5
 }
+
+// Sub-component with local state to ensure 1000fps typing speed in textarea without freezing the main thread
+function AssessmentNotesTextarea({
+  initialValue,
+  onSaveAnswer
+}: {
+  initialValue: string
+  onSaveAnswer: (text: string) => void
+}) {
+  const [text, setText] = useState(initialValue)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const onSaveRef = useRef(onSaveAnswer)
+
+  useEffect(() => {
+    onSaveRef.current = onSaveAnswer
+  }, [onSaveAnswer])
+
+  // Sync internal text state whenever initialValue changes (e.g. question navigation)
+  useEffect(() => {
+    setText(initialValue)
+  }, [initialValue])
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const val = e.target.value
+    setText(val)
+
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      onSaveRef.current(val)
+    }, 350)
+  }
+
+  const handleBlur = () => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    onSaveRef.current(text)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+    }
+  }, [])
+
+  return (
+    <textarea
+      rows={6}
+      value={text}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      placeholder="Record operational observations, key metrics, pain points, or consultant findings for this question..."
+      className="w-full text-sm border border-slate-200 rounded-xl p-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0A1E3C] focus:border-transparent transition-all shadow-inner"
+    />
+  )
+}
+
+// Memoized Jump Dropdown to prevent unnecessary re-renders during typing
+const QuestionDropdown = memo(function QuestionDropdown({
+  questions,
+  currentIndex,
+  responses,
+  onSelectQuestion
+}: {
+  questions: QuestionItem[]
+  currentIndex: number
+  responses: Record<string, SingleResponse>
+  onSelectQuestion: (index: number) => void
+}) {
+  return (
+    <select
+      value={currentIndex}
+      onChange={(e) => onSelectQuestion(Number(e.target.value))}
+      className="text-xs border rounded-lg px-3 py-2 bg-white text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#0A1E3C]"
+    >
+      {questions.map((q, idx) => {
+        const qKey = String(q.order_index || q.id)
+        const isAns = Boolean(responses[qKey]?.answer?.trim() || responses[qKey]?.score)
+        return (
+          <option key={q.id || idx} value={idx}>
+            Q{q.order_index}: {q.section} ({isAns ? "✓" : "–"})
+          </option>
+        )
+      })}
+    </select>
+  )
+})
+
+// Memoized Quick Index List
+const QuickIndexList = memo(function QuickIndexList({
+  questions,
+  currentIndex,
+  responses,
+  onSelectQuestion
+}: {
+  questions: QuestionItem[]
+  currentIndex: number
+  responses: Record<string, SingleResponse>
+  onSelectQuestion: (index: number) => void
+}) {
+  return (
+    <div className="space-y-1 max-h-60 overflow-y-auto pr-1 text-xs">
+      {questions.map((q, idx) => {
+        const isCurrent = idx === currentIndex
+        const qKey = String(q.order_index || q.id)
+        const isAnswered = Boolean(responses[qKey]?.answer?.trim() || responses[qKey]?.score)
+        return (
+          <button
+            key={q.id || idx}
+            type="button"
+            onClick={() => onSelectQuestion(idx)}
+            className={`w-full text-left px-3 py-2 rounded-lg flex items-center justify-between transition-colors ${
+              isCurrent
+                ? "bg-[#0A1E3C] text-white font-bold"
+                : "hover:bg-slate-100 text-slate-700"
+            }`}
+          >
+            <span className="truncate max-w-[170px]">
+              Q{q.order_index}. {q.question_text}
+            </span>
+            <span className="ml-2 text-[10px]">
+              {isAnswered ? "✓" : "–"}
+            </span>
+          </button>
+        )
+      })}
+    </div>
+  )
+})
 
 export default function AuditQuestionnaireWizard() {
   const params = useParams()
@@ -135,43 +262,64 @@ export default function AuditQuestionnaireWizard() {
   const currentResp = responses[currentKey] || { answer: "", score: 3 }
 
   // Handlers
-  const handleAnswerChange = (text: string) => {
-    const next = {
-      ...responses,
-      [currentKey]: { ...currentResp, answer: text }
-    }
-    setResponses(next)
-    triggerAutoSave(next)
-  }
+  const handleAnswerChange = useCallback(
+    (text: string) => {
+      setResponses((prev) => {
+        const existing = prev[currentKey] || { answer: "", score: 3 }
+        if (existing.answer === text) return prev
+        const next = {
+          ...prev,
+          [currentKey]: { ...existing, answer: text }
+        }
+        triggerAutoSave(next)
+        return next
+      })
+    },
+    [currentKey, triggerAutoSave]
+  )
 
-  const handleScoreChange = (scoreVal: number) => {
-    const next = {
-      ...responses,
-      [currentKey]: { ...currentResp, score: scoreVal }
-    }
-    setResponses(next)
-    triggerAutoSave(next)
-  }
+  const handleScoreChange = useCallback(
+    (scoreVal: number) => {
+      setResponses((prev) => {
+        const existing = prev[currentKey] || { answer: "", score: 3 }
+        const next = {
+          ...prev,
+          [currentKey]: { ...existing, score: scoreVal }
+        }
+        triggerAutoSave(next)
+        return next
+      })
+    },
+    [currentKey, triggerAutoSave]
+  )
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" })
     }
-  }
+  }, [])
 
-  const handleNext = () => {
+  const handleSelectQuestion = useCallback(
+    (index: number) => {
+      setCurrentIndex(index)
+      scrollToTop()
+    },
+    [scrollToTop]
+  )
+
+  const handleNext = useCallback(() => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1)
       scrollToTop()
     }
-  }
+  }, [currentIndex, questions.length, scrollToTop])
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1)
       scrollToTop()
     }
-  }
+  }, [currentIndex, scrollToTop])
 
   // Calculate completed count
   const completedCount = useMemo(() => {
@@ -212,7 +360,7 @@ export default function AuditQuestionnaireWizard() {
           {/* Saving Status & Index Dropdown */}
           <div className="flex items-center gap-4">
             {/* Auto-save Badge */}
-            <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border shadow-sm text-xs font-medium">
+            <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border shadow-xs text-xs font-medium">
               {savingStatus === "saving" && (
                 <>
                   <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
@@ -240,29 +388,17 @@ export default function AuditQuestionnaireWizard() {
             </div>
 
             {/* Jump to Question Dropdown */}
-            <select
-              value={currentIndex}
-              onChange={(e) => {
-                setCurrentIndex(Number(e.target.value))
-                scrollToTop()
-              }}
-              className="text-xs border rounded-lg px-3 py-2 bg-white text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#0A1E3C]"
-            >
-              {questions.map((q, idx) => {
-                const qKey = String(q.order_index || q.id)
-                const isAns = Boolean(responses[qKey]?.answer?.trim() || responses[qKey]?.score)
-                return (
-                  <option key={q.id || idx} value={idx}>
-                    Q{q.order_index}: {q.section} ({isAns ? "✓" : "–"})
-                  </option>
-                )
-              })}
-            </select>
+            <QuestionDropdown
+              questions={questions}
+              currentIndex={currentIndex}
+              responses={responses}
+              onSelectQuestion={handleSelectQuestion}
+            />
           </div>
         </div>
 
         {/* Progress Counter & Bar */}
-        <div className="bg-white rounded-xl p-4 border shadow-sm space-y-2">
+        <div className="bg-white rounded-xl p-4 border shadow-xs space-y-2">
           <div className="flex items-center justify-between text-xs font-semibold">
             <span className="text-[#0A1E3C] text-sm font-bold">
               Question {currentIndex + 1} of {questions.length}
@@ -286,7 +422,7 @@ export default function AuditQuestionnaireWizard() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-10 gap-6 items-start">
         
         {/* LEFT COLUMN: 70% (Main Question Area) */}
-        <div className="lg:col-span-7 bg-white rounded-2xl p-6 md:p-8 border shadow-sm space-y-6">
+        <div className="lg:col-span-7 bg-white rounded-2xl p-6 md:p-8 border shadow-xs space-y-6">
           
           {/* Question Meta Badges */}
           <div className="flex items-center justify-between border-b pb-4">
@@ -350,12 +486,10 @@ export default function AuditQuestionnaireWizard() {
             <label className="block text-xs uppercase tracking-wider font-bold text-slate-500">
               Assessment Notes & Findings
             </label>
-            <textarea
-              rows={6}
-              value={currentResp.answer || ""}
-              onChange={(e) => handleAnswerChange(e.target.value)}
-              placeholder="Record operational observations, key metrics, pain points, or consultant findings for this question..."
-              className="w-full text-sm border border-slate-200 rounded-xl p-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0A1E3C] focus:border-transparent transition-all shadow-inner"
+            <AssessmentNotesTextarea
+              key={currentKey}
+              initialValue={currentResp.answer || ""}
+              onSaveAnswer={handleAnswerChange}
             />
           </div>
 
@@ -397,7 +531,7 @@ export default function AuditQuestionnaireWizard() {
         <div className="lg:col-span-3 space-y-6">
           
           {/* Consultant Discussion Card */}
-          <div className="bg-white rounded-2xl p-6 border shadow-sm space-y-3">
+          <div className="bg-white rounded-2xl p-6 border shadow-xs space-y-3">
             <div className="flex items-center gap-2 text-blue-900 font-bold text-sm">
               <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -410,7 +544,7 @@ export default function AuditQuestionnaireWizard() {
           </div>
 
           {/* Triggered Patterns Card */}
-          <div className="bg-white rounded-2xl p-6 border shadow-sm space-y-3">
+          <div className="bg-white rounded-2xl p-6 border shadow-xs space-y-3">
             <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm">
               <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -434,39 +568,16 @@ export default function AuditQuestionnaireWizard() {
           </div>
 
           {/* Quick Navigator Drawer */}
-          <div className="bg-white rounded-2xl p-6 border shadow-sm space-y-3">
+          <div className="bg-white rounded-2xl p-6 border shadow-xs space-y-3">
             <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500">
               Pillar Quick Index
             </h4>
-            <div className="space-y-1 max-h-60 overflow-y-auto pr-1 text-xs">
-              {questions.map((q, idx) => {
-                const isCurrent = idx === currentIndex
-                const qKey = String(q.order_index || q.id)
-                const isAnswered = Boolean(responses[qKey]?.answer?.trim() || responses[qKey]?.score)
-                return (
-                  <button
-                    key={q.id || idx}
-                    type="button"
-                    onClick={() => {
-                      setCurrentIndex(idx)
-                      scrollToTop()
-                    }}
-                    className={`w-full text-left px-3 py-2 rounded-lg flex items-center justify-between transition-colors ${
-                      isCurrent
-                        ? "bg-[#0A1E3C] text-white font-bold"
-                        : "hover:bg-slate-100 text-slate-700"
-                    }`}
-                  >
-                    <span className="truncate max-w-[170px]">
-                      Q{q.order_index}. {q.question_text}
-                    </span>
-                    <span className="ml-2 text-[10px]">
-                      {isAnswered ? "✓" : "–"}
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
+            <QuickIndexList
+              questions={questions}
+              currentIndex={currentIndex}
+              responses={responses}
+              onSelectQuestion={handleSelectQuestion}
+            />
           </div>
 
         </div>
