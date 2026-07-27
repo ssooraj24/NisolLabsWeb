@@ -27,7 +27,7 @@ export default function DiscoveryRootLayout({
         <Sidebar />
         <div className="flex flex-col flex-1 h-screen overflow-hidden">
           <Navbar />
-          <main className="flex-1 overflow-y-auto bg-[#F8FAFC]">
+          <main id="portal-main-content" className="flex-1 overflow-y-auto bg-[#F8FAFC]">
             {children}
           </main>
         </div>

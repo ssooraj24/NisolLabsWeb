@@ -11,7 +11,7 @@ type SingleResponse = {
   score: number // 1 to 5
 }
 
-// Sub-component with local state to ensure 1000fps typing speed in textarea without freezing the main thread
+// Sub-component with local state to ensure instant focus and typing speed without main thread freezing
 function AssessmentNotesTextarea({
   initialValue,
   onSaveAnswer
@@ -59,13 +59,14 @@ function AssessmentNotesTextarea({
       value={text}
       onChange={handleChange}
       onBlur={handleBlur}
+      spellCheck={false}
       placeholder="Record operational observations, key metrics, pain points, or consultant findings for this question..."
-      className="w-full text-sm border border-slate-200 rounded-xl p-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0A1E3C] focus:border-transparent transition-all shadow-inner"
+      className="w-full text-sm border border-slate-200 rounded-xl p-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0A1E3C] focus:border-transparent transition-colors shadow-inner"
     />
   )
 }
 
-// Memoized Jump Dropdown to prevent unnecessary re-renders during typing
+// Memoized Jump Dropdown to prevent unnecessary re-renders during typing or focus
 const QuestionDropdown = memo(function QuestionDropdown({
   questions,
   currentIndex,
@@ -295,7 +296,10 @@ export default function AuditQuestionnaireWizard() {
 
   const scrollToTop = useCallback(() => {
     if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      const mainEl = document.getElementById("portal-main-content")
+      if (mainEl) {
+        mainEl.scrollTo({ top: 0, behavior: "smooth" })
+      }
     }
   }, [])
 
