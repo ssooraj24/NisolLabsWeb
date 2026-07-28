@@ -1,0 +1,2080 @@
+NISOL INTELLIGENCE - COMPLETE CONSOLIDATED SRS
+
+AI Transformation Intelligence & Advisory Platform
+
+Version: 1.0
+Product: Nisol Platform
+Module: Nisol Intelligence
+Date: July 2025
+Author: Nisol Labs Product Team
+Target AI Agent: Antigravity / Cursor / GitHub Copilot
+
+1. Introduction
+
+1.1 Purpose
+
+Nisol Intelligence is the AI-powered intelligence and advisory engine of the Nisol Platform. It analyzes assessment responses collected through Nisol Discovery and automatically generates executive insights, AI opportunities, implementation roadmaps, ROI estimates, solution blueprints, and consulting proposals.
+
+Nisol Intelligence is not a standalone application. It is a module within the authenticated Nisol Platform and shares the same authentication, database, design system, and navigation as the public website and Nisol Discovery.
+
+1.2 Product Vision
+
+The Nisol Platform enables organizations to progress from AI assessment to AI transformation through a unified experience.
+
+text
+
+Nisol Platform
+
+├── Public Website
+
+│
+
+├── Dashboard
+
+│
+
+├── Nisol Discovery
+
+│   Assess
+
+│
+
+├── Nisol Intelligence
+
+│   Analyze
+
+│
+
+├── Delivery (Future)
+
+│   Implement
+
+│
+
+├── Governance (Future)
+
+│   Manage
+
+│
+
+├── Knowledge Hub (Future)
+
+│   Learn
+
+│
+
+└── Administration
+
+The platform follows a natural business journey:
+
+Discover → Analyze → Deliver → Govern → Improve
+
+1.3 Business Objectives
+
+Nisol Intelligence should enable consultants to generate enterprise-quality consulting deliverables within minutes instead of days.
+
+The platform should automatically generate:
+
+# | Deliverable
+
+#
+
+Deliverable
+
+1 | Executive Summary
+
+1
+
+Executive Summary
+
+2 | AI Readiness Assessment
+
+2
+
+AI Readiness Assessment
+
+3 | Capability-wise Maturity Scores
+
+3
+
+Capability-wise Maturity Scores
+
+4 | AI Opportunity Matrix
+
+4
+
+AI Opportunity Matrix
+
+5 | Top 20 AI Use Cases
+
+5
+
+Top 20 AI Use Cases
+
+6 | Quick Wins vs Strategic Bets
+
+6
+
+Quick Wins vs Strategic Bets
+
+7 | AI Transformation Roadmap
+
+7
+
+AI Transformation Roadmap
+
+8 | ROI Analysis
+
+8
+
+ROI Analysis
+
+9 | Solution Blueprints
+
+9
+
+Solution Blueprints
+
+10 | Proposal Draft
+
+10
+
+Proposal Draft
+
+1.4 Scope (In-Scope for Phase 2)
+
+☑
+
+Intelligence Dashboard (Workspace for active reports)
+
+☑
+
+Audit Detail View (Raw data from Nisol Discovery)
+
+☑
+
+AI Report Generation Engine (10 distinct outputs)
+
+☑
+
+Report Editor (Edit, refine, add human nuance)
+
+☑
+
+Version Control (Every generation creates a new version)
+
+☑
+
+PDF Export (Professional, branded, client-ready)
+
+☑
+
+Solution Blueprint Generator
+
+☑
+
+Proposal Draft Generator
+
+☑
+
+Report Templates (Super Admin only)
+
+☑
+
+Solution Blueprint Library
+
+☑
+
+Read-Only Client View (Client portal for approved reports)
+
+☑
+
+Single authentication with Nisol Discovery
+
+1.5 Out of Scope (Phase 2 - DO NOT BUILD)
+
+❌ Live AI Chatbot (No real-time Q&A)
+
+❌ Multi-client Benchmarking Dashboard (Phase 3)
+
+❌ Automated Email Sending (Manual download/send for now)
+
+❌ Mobile App (Desktop/laptop only)
+
+❌ Integration with external CRM/ERP systems
+
+❌ Real-time collaboration (multi-user editing)
+
+❌ AI Model Training or Fine-tuning (Using pre-built models only)
+
+2. Application Architecture
+
+2.1 High-Level Architecture
+
+Nisol Intelligence is a module within the existing authenticated portal.
+
+text
+
+Public Website
+
+↓
+
+Authentication
+
+↓
+
+Dashboard
+
+↓
+
+Company Context
+
+↓
+
+Nisol Discovery → Nisol Intelligence → Reports
+
+2.2 Directory Structure
+
+text
+
+app/
+
+├── (public)/                     # Static website (existing)
+
+│   └── page.tsx
+
+│
+
+├── (discovery)/                  # Nisol Discovery (existing)
+
+│   ├── dashboard/
+
+│   ├── clients/
+
+│   ├── audits/
+
+│   └── questionnaire/
+
+│
+
+├── (intelligence)/               # 🆕 NISOL INTELLIGENCE (NEW)
+
+│   ├── intelligence/
+
+│   │   ├── dashboard/
+
+│   │   │   └── page.tsx
+
+│   │   ├── audits/
+
+│   │   │   ├── [id]/
+
+│   │   │   │   ├── page.tsx          # Audit detail with raw data
+
+│   │   │   │   └── report/
+
+│   │   │   │       └── page.tsx      # Report editor with tabs
+
+│   │   │   └── page.tsx              # Audit list
+
+│   │   ├── templates/
+
+│   │   │   └── page.tsx              # Report templates (Super Admin)
+
+│   │   ├── blueprints/
+
+│   │   │   └── page.tsx              # Solution blueprint library
+
+│   │   └── layout.tsx                # Intelligence layout with sidebar
+
+│   └── layout.tsx
+
+│
+
+├── (client)/                     # 🆕 Client Portal (NEW)
+
+│   └── reports/
+
+│       ├── page.tsx               # List of available reports
+
+│       └── [id]/
+
+│           └── page.tsx           # Read-only report viewer
+
+│
+
+├── api/
+
+│   └── intelligence/              # 🆕 API Routes (NEW)
+
+│       ├── generate-report/
+
+│       │   └── route.ts           # Triggers AI report generation
+
+│       ├── export-pdf/
+
+│       │   └── route.ts           # PDF generation endpoint
+
+│       └── blueprints/
+
+│           └── route.ts           # CRUD for solution blueprints
+
+│
+
+├── lib/
+
+│   ├── supabaseClient.ts          # Existing
+
+│   ├── ai/                        # 🆕 AI Integration (NEW)
+
+│   │   ├── client.ts              # Multi-model AI client
+
+│   │   ├── prompts.ts             # 10 AI prompts
+
+│   │   └── reportGenerator.ts     # Report generation pipeline
+
+│   └── utils/
+
+│       └── pdfGenerator.ts        # PDF generation utilities
+
+│
+
+└── components/
+
+├── intelligence/              # 🆕 New components
+
+│   ├── ReportTabs.tsx
+
+│   ├── EditableContent.tsx
+
+│   ├── MaturityRadar.tsx
+
+│   ├── OpportunityMatrix.tsx
+
+│   ├── RoadmapTimeline.tsx
+
+│   ├── BlueprintCard.tsx
+
+│   ├── PDFExporter.tsx
+
+│   ├── StatusBadge.tsx
+
+│   └── ReportEditor.tsx
+
+├── shared/                    # Shared components (existing)
+
+│   ├── Sidebar.tsx           # 🆕 Updated with Intelligence menu
+
+│   ├── TopNav.tsx
+
+│   └── ...
+
+└── ui/                        # shadcn/ui components (existing)
+
+2.3 Navigation
+
+Updated Sidebar (components/shared/Sidebar.tsx):
+
+typescript
+
+// Menu items for authenticated users
+
+const menuItems = [
+
+{
+
+section: '🧠 NISOL INTELLIGENCE',
+
+icon: '🧠',
+
+items: [
+
+{ label: 'Dashboard', href: '/intelligence/dashboard' },
+
+{ label: 'Audits', href: '/intelligence/audits' },
+
+{ label: 'Templates', href: '/intelligence/templates', role: 'super_admin' },
+
+{ label: 'Blueprints', href: '/intelligence/blueprints' },
+
+],
+
+},
+
+{
+
+section: '📋 NISOL DISCOVERY',
+
+icon: '📋',
+
+items: [
+
+{ label: 'My Assessments', href: '/discovery/dashboard' },
+
+{ label: 'New Assessment', href: '/discovery/audits/new' },
+
+{ label: 'Clients', href: '/discovery/clients' },
+
+{ label: 'Questionnaire', href: '/discovery/questionnaire' },
+
+],
+
+},
+
+];
+
+2.4 Company Context
+
+Every Intelligence page operates within the context of a selected company.
+
+text
+
+Companies
+
+↓
+
+ABC Technologies
+
+↓
+
+Discovery → Intelligence
+
+Users never need to select the company again while navigating between Intelligence modules.
+
+3. User Roles & Permissions
+
+3.1 Role Definitions
+
+Role | Description
+
+Role
+
+Description
+
+Super Administrator | Full system access. Manages all users, tenants, templates, and system configuration.
+
+Super Administrator
+
+Full system access. Manages all users, tenants, templates, and system configuration.
+
+Consultant | Internal Nisol staff. Conducts workshops and generates reports. Full read/write to all audits.
+
+Consultant
+
+Internal Nisol staff. Conducts workshops and generates reports. Full read/write to all audits.
+
+Client | External customer. Only sees their own tenant's finalized reports. Strictly Read-Only.
+
+Client
+
+External customer. Only sees their own tenant's finalized reports. Strictly Read-Only.
+
+3.2 Permission Matrix (RBAC)
+
+Feature / Page | Super Admin | Consultant | Client
+
+Feature / Page
+
+Super Admin
+
+Consultant
+
+Client
+
+View All Audits | ✅ | ✅ | ❌
+
+View All Audits
+
+✅
+
+✅
+
+❌
+
+View Own Tenant's Audits | ✅ | ✅ | ✅
+
+View Own Tenant's Audits
+
+✅
+
+✅
+
+✅
+
+Access Nisol Intelligence | ✅ | ✅ | ❌
+
+Access Nisol Intelligence
+
+✅
+
+✅
+
+❌
+
+Generate Draft Report | ✅ | ✅ | ❌
+
+Generate Draft Report
+
+✅
+
+✅
+
+❌
+
+Edit/Refine Report | ✅ | ✅ | ❌
+
+Edit/Refine Report
+
+✅
+
+✅
+
+❌
+
+Approve/Finalize Report | ✅ | ✅ | ❌
+
+Approve/Finalize Report
+
+✅
+
+✅
+
+❌
+
+Export to PDF | ✅ | ✅ | ❌
+
+Export to PDF
+
+✅
+
+✅
+
+❌
+
+View Final Report (Read-Only) | ✅ | ✅ | ✅
+
+View Final Report (Read-Only)
+
+✅
+
+✅
+
+✅
+
+Manage Prompt Templates | ✅ | ❌ | ❌
+
+Manage Prompt Templates
+
+✅
+
+❌
+
+❌
+
+Manage Solution Blueprints | ✅ | ❌ | ❌
+
+Manage Solution Blueprints
+
+✅
+
+❌
+
+❌
+
+Manage AI Models | ✅ | ❌ | ❌
+
+Manage AI Models
+
+✅
+
+❌
+
+❌
+
+Access Nisol Discovery | ✅ | ✅ | ✅ (Read-Only)
+
+Access Nisol Discovery
+
+✅
+
+✅
+
+✅ (Read-Only)
+
+4. Functional Modules
+
+4.1 Module 1 — Intelligence Dashboard (/intelligence/dashboard)
+
+The dashboard provides an executive overview.
+
+Features:
+
+Company profile summary
+
+Assessment status
+
+Overall AI maturity score
+
+AI readiness level
+
+Capability scorecards
+
+Radar chart preview
+
+Opportunity summary
+
+Quick wins count
+
+Strategic initiatives count
+
+Estimated ROI
+
+Proposal status
+
+Last analysis date
+
+KPI Cards:
+
+Widget | Description | Query
+
+Widget
+
+Description
+
+Query
+
+Ready for Analysis | Audits with status data_collected | SELECT COUNT(*) FROM audits WHERE status = 'data_collected'
+
+Ready for Analysis
+
+Audits with status data_collected
+
+SELECT COUNT(*) FROM audits WHERE status = 'data_collected'
+
+In Progress | Audits with status in_analysis | SELECT COUNT(*) FROM audits WHERE status = 'in_analysis'
+
+In Progress
+
+Audits with status in_analysis
+
+SELECT COUNT(*) FROM audits WHERE status = 'in_analysis'
+
+Reports Ready | Audits with status report_ready | SELECT COUNT(*) FROM audits WHERE status = 'report_ready'
+
+Reports Ready
+
+Audits with status report_ready
+
+SELECT COUNT(*) FROM audits WHERE status = 'report_ready'
+
+Presented | Audits with status presented | SELECT COUNT(*) FROM audits WHERE status = 'presented'
+
+Presented
+
+Audits with status presented
+
+SELECT COUNT(*) FROM audits WHERE status = 'presented'
+
+Audit Table:
+
+Column | Description
+
+Column
+
+Description
+
+Audit Title | Name of the workshop
+
+Audit Title
+
+Name of the workshop
+
+Client | Tenant name
+
+Client
+
+Tenant name
+
+Consultant | Who conducted it
+
+Consultant
+
+Who conducted it
+
+Status | Data Collected, In Analysis, Report Ready, Presented
+
+Status
+
+Data Collected, In Analysis, Report Ready, Presented
+
+Question Count | Number of answered questions (out of 62)
+
+Question Count
+
+Number of answered questions (out of 62)
+
+Actions | Open Studio, Delete
+
+Actions
+
+Open Studio, Delete
+
+Filters: By Status, By Consultant, Search by Client name.
+
+4.2 Module 2 — Executive Summary
+
+Automatically generate an executive consulting summary.
+
+Includes:
+
+Business overview
+
+Current AI maturity
+
+Executive observations
+
+Strengths (2-3)
+
+Weaknesses (2-3)
+
+Key risks
+
+Strategic recommendations
+
+Overall conclusion
+
+UI Layout:
+
+text
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+
+│ Executive Summary                                                          │
+
+├─────────────────────────────────────────────────────────────────────────────┤
+
+│                                                                             │
+
+│  [EDITABLE CONTENT AREA]                                                   │
+
+│                                                                             │
+
+│  Acme Inc has demonstrated a strong foundation in data management          │
+
+│  with a maturity score of 4.2/5. However, AI governance remains a          │
+
+│  critical gap that requires immediate attention...                        │
+
+│                                                                             │
+
+│  Key Recommendations:                                                       │
+
+│  1. Establish an AI Governance Council within 30 days                     │
+
+│  2. Launch a data quality initiative across all departments               │
+
+│  3. Pilot a Customer Service AI Chatbot within 90 days                    │
+
+│                                                                             │
+
+│  💡 AI Generated - Reviewed by Consultant                                   │
+
+│                                                                             │
+
+│  [Edit] [Save] [Reset to AI]                                               │
+
+└─────────────────────────────────────────────────────────────────────────────┘
+
+4.3 Module 3 — AI Readiness Assessment
+
+Evaluate organizational readiness across:
+
+Leadership
+
+Strategy
+
+Data
+
+Technology
+
+Security
+
+Governance
+
+Processes
+
+Culture
+
+Skills
+
+Architecture
+
+Each capability includes:
+
+Current score (1-5)
+
+Target score (1-5)
+
+Gap
+
+Explanation
+
+Recommendation
+
+Visualization: Radar chart (14 capabilities)
+
+4.4 Module 4 — Capability Analysis
+
+Provide graphical visualization including:
+
+Radar Chart
+
+Heat Map
+
+Maturity Matrix
+
+Gap Analysis
+
+Capability Ranking
+
+4.5 Module 5 — AI Opportunity Matrix
+
+Automatically identify and prioritize AI opportunities.
+
+Quadrants:
+
+Quick Wins (High Impact, High Feasibility)
+
+Strategic Bets (High Impact, Low Feasibility)
+
+Incremental Improvements (Low Impact, High Feasibility)
+
+Long-Term Investments (Low Impact, Low Feasibility)
+
+Each opportunity contains:
+
+Department
+
+Business Problem
+
+AI Solution
+
+Business Value
+
+Complexity
+
+Estimated Cost
+
+Estimated Benefit
+
+Priority
+
+Confidence Score
+
+Visualization: 2x2 Matrix scatter plot
+
+4.6 Module 6 — AI Use Cases
+
+Recommend approximately 20 AI initiatives.
+
+Each use case includes:
+
+Name
+
+Description
+
+Business Need
+
+Expected Benefits
+
+Implementation Complexity (Low/Medium/High)
+
+Timeline (Months)
+
+Suggested Technology Stack
+
+Business Impact
+
+Estimated Savings
+
+4.7 Module 7 — AI Transformation Roadmap
+
+Automatically generate phased implementation plans.
+
+Phase 1 — First 30 Days (Quick Wins)
+
+Governance setup
+
+Discovery validation
+
+Prioritization
+
+Data readiness
+
+Pilot selection
+
+Phase 2 — 90 Days
+
+Pilot implementations
+
+Training
+
+Data preparation
+
+Change management
+
+Phase 3 — 180 Days
+
+Scale successful pilots
+
+Integrate enterprise systems
+
+Establish AI Center of Excellence
+
+Phase 4 — 365 Days
+
+Enterprise AI rollout
+
+Automation at scale
+
+Continuous optimization
+
+AI operating model
+
+Deliverables:
+
+Timeline
+
+Milestones
+
+Dependencies
+
+Business outcomes
+
+Success metrics
+
+4.8 Module 8 — ROI Analysis
+
+Calculate:
+
+Implementation Cost
+
+Annual Savings
+
+Operational Savings
+
+Productivity Gains
+
+Payback Period (Months)
+
+ROI Percentage
+
+Three-Year Financial Benefit
+
+Risk Assessment
+
+Visualization:
+
+Bar charts by department
+
+ROI over time
+
+Cost vs Benefit comparison
+
+4.9 Module 9 — Solution Blueprints
+
+Generate detailed implementation blueprints.
+
+Each blueprint contains:
+
+Business Problem
+
+Current State
+
+Proposed AI Solution
+
+Architecture Overview
+
+Technology Stack
+
+Integration Requirements
+
+Implementation Phases
+
+Risks
+
+Business Benefits
+
+Success Metrics
+
+Blueprint Template:
+
+text
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+
+│ SOLUTION BLUEPRINT                                                         │
+
+│ Use Case: AI-Powered Customer Support Chatbot                              │
+
+├─────────────────────────────────────────────────────────────────────────────┤
+
+│                                                                             │
+
+│ Business Problem:                                                           │
+
+│ Current support team handles 5,000+ tickets monthly with 48hr response     │
+
+│                                                                             │
+
+│ Proposed AI Solution:                                                       │
+
+│ GPT-4 powered chatbot integrated with existing knowledge base             │
+
+│                                                                             │
+
+│ Technology Stack:                                                           │
+
+│ • OpenAI GPT-4 for natural language understanding                         │
+
+│ • Supabase for vector database                                             │
+
+│
+
+│                                                                             │
+
+│ Architecture:                                                               │
+
+│ [Architecture Diagram]                                                     │
+
+│                                                                             │
+
+│ Implementation Phases:                                                      │
+
+│ 1. Data preparation (2 weeks)                                             │
+
+│ 2. Model fine-tuning (1 week)                                             │
+
+│ 3. Integration (2 weeks)                                                  │
+
+│ 4. Testing & Deployment (1 week)                                          │
+
+│                                                                             │
+
+│ Success Metrics:                                                            │
+
+│ • 40% reduction in ticket resolution time                                  │
+
+│ • 60% automation rate                                                      │
+
+│ • 90% customer satisfaction                                                │
+
+│                                                                             │
+
+│ [Export Blueprint]                                                         │
+
+└─────────────────────────────────────────────────────────────────────────────┘
+
+4.10 Module 10 — Proposal Generator
+
+Automatically create consulting proposals.
+
+Sections:
+
+Executive Summary
+
+Current State Assessment
+
+AI Opportunity Summary
+
+Transformation Roadmap
+
+ROI Analysis
+
+Recommended Engagement
+
+Deliverables
+
+Commercial Approach
+
+Assumptions
+
+Next Steps
+
+Proposal Format:
+
+text
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+
+│ PROPOSAL                                                                   │
+
+│ For: Acme Inc                                                              │
+
+│ Date: July 2025                                                            │
+
+│ Prepared by: Nisol Labs                                                    │
+
+├─────────────────────────────────────────────────────────────────────────────┤
+
+│                                                                             │
+
+│ 1. Executive Summary                                                       │
+
+│    Acme Inc is well-positioned for AI transformation...                   │
+
+│                                                                             │
+
+│ 2. Current State Assessment                                                │
+
+│    AI Readiness Score: 68/100                                             │
+
+│                                                                             │
+
+│ 3. Recommended Engagement                                                  │
+
+│    Phase 1: Discovery Validation (4 weeks)                                │
+
+│    Phase 2: Pilot Implementation (8 weeks)                                │
+
+│    Phase 3: Enterprise Rollout (12 weeks)                                 │
+
+│                                                                             │
+
+│ 4. Investment                                                              │
+
+│    Total Investment: $XXX,XXX                                             │
+
+│                                                                             │
+
+│ 5. Next Steps                                                              │
+
+│    [CONSULTANT EDITABLE CONTENT]                                          │
+
+│                                                                             │
+
+│ [Save] [Export PDF] [Download Word]                                       │
+
+└─────────────────────────────────────────────────────────────────────────────┘
+
+4.11 Module 11 — Export Center
+
+Generate professional outputs in:
+
+PDF (with branding)
+
+Microsoft Word (docx)
+
+PowerPoint (pptx)
+
+Excel (xlsx)
+
+JSON
+
+Features:
+
+Select sections to export
+
+Configure branding
+
+Preview before export
+
+Batch export
+
+Future enhancements:
+
+Email delivery
+
+Shareable links
+
+Branded client portals
+
+4.12 Module 12 — Report Editor (/intelligence/audits/[id]/report)
+
+The Report Editor is the most complex component of Nisol Intelligence.
+
+Purpose: Consultant reviews, edits, and refines the AI-generated draft.
+
+Layout: Tab-based navigation for each of the 10 outputs.
+
+text
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+
+│ [Nisol Logo]  Intelligence               [Audit: Acme Inc]    [Profile]    │
+
+├─────────────────────────────────────────────────────────────────────────────┤
+
+│  Status: Data Collected  |  Questions: 62/62  |  Generated: Draft       │
+
+│  [Generate Report]  [Edit Raw Data]  [Export PDF]  [Approve & Finalize]   │
+
+├─────────────────────────────────────────────────────────────────────────────┤
+
+│  Tabs: [Summary] [Maturity] [Matrix] [Use Cases] [Roadmap] [ROI] [Blueprints] [Proposal] │
+
+├─────────────────────────────────────────────────────────────────────────────┤
+
+│  (Content based on selected tab - fully editable rich text)               │
+
+│                                                                             │
+
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+
+│  │  [EDITABLE CONTENT AREA]                                           │   │
+
+│  │  Acme Inc has demonstrated a strong foundation in data management  │   │
+
+│  │  with a maturity score of 4.2/5... [consultant can edit this]      │   │
+
+│  └─────────────────────────────────────────────────────────────────────┘   │
+
+│                                                                             │
+
+│  [Save Draft]  [Reset to AI Draft]                                         │
+
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Tabs:
+
+Tab | Content
+
+Tab
+
+Content
+
+Summary | Executive Summary
+
+Summary
+
+Executive Summary
+
+Maturity | AI Readiness Assessment + Capability Scores
+
+Maturity
+
+AI Readiness Assessment + Capability Scores
+
+Matrix | Opportunity Matrix
+
+Matrix
+
+Opportunity Matrix
+
+Use Cases | Top 20 AI Use Cases
+
+Use Cases
+
+Top 20 AI Use Cases
+
+Roadmap | Transformation Roadmap
+
+Roadmap
+
+Transformation Roadmap
+
+ROI | ROI Analysis
+
+ROI
+
+ROI Analysis
+
+Blueprints | Solution Blueprints
+
+Blueprints
+
+Solution Blueprints
+
+Proposal | Proposal Draft
+
+Proposal
+
+Proposal Draft
+
+Actions:
+
+"Save Draft" → Updates audit_reports.draft_content
+
+"Generate PDF" → Creates branded PDF
+
+"Approve & Finalize" → Sets status = 'report_ready', locks report, creates version
+
+"Reset to AI Draft" → Reverts to last AI-generated version
+
+4.13 Module 13 — Report Templates (/intelligence/templates)
+
+Access: Super Admin only.
+
+Purpose: Customize report structure and branding.
+
+Features:
+
+Add/remove sections
+
+Set order of sections
+
+Configure styling (colors, fonts, logo placement)
+
+Edit default AI prompts
+
+Save as template
+
+Template Configuration:
+
+json
+
+{
+
+"name": "Standard Report",
+
+"description": "Default Nisol Labs report template",
+
+"sections": [
+
+"executive_summary",
+
+"ai_readiness",
+
+"capability_scores",
+
+"opportunity_matrix",
+
+"use_cases",
+
+"roadmap",
+
+"roi",
+
+"blueprints",
+
+"proposal"
+
+],
+
+"styling": {
+
+"primary_color": "#0A1E3C",
+
+"secondary_color": "#EBB44B",
+
+"logo_url": "/images/nisol-logo.png",
+
+"font_family": "Inter"
+
+}
+
+}
+
+4.14 Module 14 — Solution Blueprint Library (/intelligence/blueprints)
+
+Access: Super Admin, Consultant.
+
+Purpose: Searchable library of pre-built AI solution blueprints.
+
+Features:
+
+Search by name, category, technology
+
+Filter by category
+
+View detail
+
+Export as PDF
+
+Add new blueprint (Super Admin only)
+
+Edit blueprint (Super Admin only)
+
+Delete blueprint (Super Admin only)
+
+Blueprint Detail:
+
+Use Case Description
+
+Recommended Technology Stack
+
+High-level Architecture Diagram (text/mermaid/visual)
+
+Integration Points
+
+Data Requirements
+
+Success Metrics
+
+Implementation Steps
+
+4.15 Module 15 — Client Report Viewer (/client/reports)
+
+Access: Client only.
+
+Purpose: Read-only view of finalized reports.
+
+Features:
+
+List of available reports (audit title, date, version)
+
+View report in browser (styled HTML)
+
+Download PDF
+
+No editing capabilities
+
+UI Layout:
+
+text
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+
+│ Nisol Labs                                                                 │
+
+│ Welcome, Acme Inc                                                          │
+
+├─────────────────────────────────────────────────────────────────────────────┤
+
+│ My Reports                                                                 │
+
+│                                                                             │
+
+│ ┌─────────────────────────────────────────────────────────────────────┐   │
+
+│ │ AI Transformation Report - Q1 2025                          v1.0   │   │
+
+│ │ Completed: Jan 15, 2025                                      [View] │   │
+
+│ ├─────────────────────────────────────────────────────────────────────┤   │
+
+│ │ AI Transformation Report - Q3 2024                          v1.0   │   │
+
+│ │ Completed: Jul 20, 2024                                      [View] │   │
+
+│ ├─────────────────────────────────────────────────────────────────────┤   │
+
+│ │ Baseline Assessment - Q1 2024                             v1.0   │   │
+
+│ │ Completed: Jan 10, 2024                                      [View] │   │
+
+│ └─────────────────────────────────────────────────────────────────────┘   │
+
+└─────────────────────────────────────────────────────────────────────────────┘
+
+5. Processing Pipeline
+
+text
+
+Discovery Responses
+
+↓
+
+Validation
+
+↓
+
+Capability Analysis
+
+↓
+
+AI Reasoning (OpenAI API)
+
+↓
+
+Recommendation Engine
+
+↓
+
+Opportunity Identification
+
+↓
+
+Roadmap Generator
+
+↓
+
+ROI Engine
+
+↓
+
+Blueprint Generator
+
+↓
+
+Proposal Generator
+
+↓
+
+Report Generation
+
+Each processing stage stores structured output for later use.
+
+6. AI Architecture
+
+6.1 Multi-Model Strategy
+
+The platform supports multiple AI models to avoid vendor lock-in and optimize cost vs. quality.
+
+Output | Primary Model | Fallback Model | Why
+
+Output
+
+Primary Model
+
+Fallback Model
+
+Why
+
+Executive Summary | GPT-4o | Claude Opus | Requires nuanced narrative synthesis
+
+Executive Summary
+
+GPT-4o
+
+Claude Opus
+
+Requires nuanced narrative synthesis
+
+Maturity Radar Data | GPT-4o-mini | Claude Haiku | Structured JSON—cost-efficient
+
+Maturity Radar Data
+
+GPT-4o-mini
+
+Claude Haiku
+
+Structured JSON—cost-efficient
+
+Use Case List | GPT-4o-mini | Claude Haiku | Standardized list generation
+
+Use Case List
+
+GPT-4o-mini
+
+Claude Haiku
+
+Standardized list generation
+
+ROI Analysis | GPT-4o | Claude Opus | Needs reasoning for financial projections
+
+ROI Analysis
+
+GPT-4o
+
+Claude Opus
+
+Needs reasoning for financial projections
+
+Solution Blueprints | GPT-4o | Claude Opus | Technical architecture requires depth
+
+Solution Blueprints
+
+GPT-4o
+
+Claude Opus
+
+Technical architecture requires depth
+
+Proposal Draft | GPT-4o | Claude Opus | Commercial language and persuasion
+
+Proposal Draft
+
+GPT-4o
+
+Claude Opus
+
+Commercial language and persuasion
+
+6.2 AI Client Abstraction
+
+typescript
+
+// lib/ai/client.ts
+
+type ModelProvider = 'openai' | 'anthropic' | 'google';
+
+interface ModelConfig {
+
+provider: ModelProvider;
+
+modelId: string;
+
+apiKey: string;
+
+}
+
+class AIClient {
+
+private models: ModelConfig[];
+
+async generateWithFallback(
+
+prompt: string,
+
+preferredModels: string[]
+
+): Promise<string> {
+
+for (const model of preferredModels) {
+
+try {
+
+return await this.callModel(model, prompt);
+
+} catch (error) {
+
+if (this.isRetryableError(error)) {
+
+continue; // Try next model
+
+}
+
+throw error;
+
+}
+
+}
+
+throw new Error('All models failed');
+
+}
+
+}
+
+6.3 Model Configuration
+
+typescript
+
+// lib/ai/modelConfig.ts
+
+export const MODEL_ROUTING = {
+
+executive_summary: {
+
+primary: 'openai/gpt-4o',
+
+fallbacks: ['anthropic/claude-opus-4.7', 'google/gemini-1.5-pro'],
+
+maxTokens: 4000,
+
+temperature: 0.7,
+
+},
+
+capability_scores: {
+
+primary: 'openai/gpt-4o-mini',
+
+fallbacks: ['anthropic/claude-haiku-4.5'],
+
+maxTokens: 2000,
+
+temperature: 0.3,
+
+},
+
+roi_estimates: {
+
+primary: 'openai/gpt-4o',
+
+fallbacks: ['anthropic/claude-opus-4.7'],
+
+maxTokens: 3000,
+
+temperature: 0.5,
+
+},
+
+// ... 7 more output types
+
+};
+
+6.4 AI Agents (10 Independent Services)
+
+Each agent operates independently, enabling regeneration of individual sections without rerunning the complete analysis.
+
+Executive Summary Agent — Generates narrative overview
+
+Readiness Assessment Agent — Calculates maturity scores
+
+Capability Analysis Agent — Analyzes 14 capabilities
+
+Opportunity Identification Agent — Identifies AI opportunities
+
+Use Case Recommendation Agent — Suggests 20 use cases
+
+Roadmap Planning Agent — Creates phased implementation plan
+
+ROI Analysis Agent — Calculates financial impact
+
+Solution Blueprint Agent — Generates technical blueprints
+
+Proposal Generation Agent — Creates commercial proposal
+
+Quality Review Agent — Validates and checks consistency
+
+6.5 AI Prompts (Complete)
+
+Prompt 1: Executive Summary
+
+text
+
+You are a senior AI strategy consultant at Nisol Labs.
+
+Generate a 2-page Executive Summary for {company_name}, a {industry} company.
+
+Input Data:
+
+- 62 answers: {raw_responses}
+
+- Capability Scores: {capability_scores}
+
+Structure:
+
+1. Introduction: Company context and AI maturity baseline
+
+2. Key Strengths: 2-3 areas where the company excels
+
+3. Critical Gaps: 2-3 areas requiring immediate attention
+
+4. Strategic Recommendations: Top 3 recommendations
+
+5. Expected Business Impact: Summary of ROI and benefits
+
+Tone: Professional, confident, actionable. Use specific examples from the answers.
+
+Prompt 2: AI Readiness Assessment
+
+text
+
+Based on the capability scores from the discovery workshop, calculate the AI Readiness for {company_name}.
+
+Format:
+
+- Overall AI Maturity Score: (0-100) based on weighted average
+
+- Radar Chart Data: 14 capability scores (1-5)
+
+- Benchmark: Compare to industry average (use knowledge of {industry} trends)
+
+- Interpretation: "Your score of 68/100 indicates a mature but not yet optimized AI posture. You excel in Data & Analytics but lag in AI Governance."
+
+Provide the response as structured JSON.
+
+Prompt 3: Capability-wise Maturity Scores
+
+text
+
+Based on the 62 answers from {company_name}'s discovery workshop, calculate maturity scores for each of the 14 capabilities.
+
+For each capability:
+
+1. Capability Name
+
+2. Maturity Score (1-5, with 1 decimal place)
+
+3. Strengths (2-3 bullets)
+
+4. Gaps (2-3 bullets)
+
+5. Recommendations (2-3 bullets)
+
+Capabilities:
+
+Leadership & Strategy, IT / Technology, Data & Analytics, Security & Compliance,
+
+Customer Service, Sales, Marketing, Operations & Supply Chain, Finance, HR,
+
+Procurement, Legal, Knowledge Management, Project Management, Culture & Change
+
+Provide as structured JSON.
+
+Prompt 4: Top 20 AI Use Cases
+
+text
+
+Based on the pain points and opportunities identified in the discovery workshop for {company_name} (a {industry} company), generate a prioritized list of 20 specific AI use cases.
+
+For each use case, include:
+
+1. Use Case Name
+
+2. Description (1 sentence)
+
+3. Category/Department
+
+4. Business Value (High/Medium/Low)
+
+5. Feasibility (High/Medium/Low)
+
+6. Estimated ROI (percentage)
+
+7. Implementation Effort (Months)
+
+Prioritize by: Business Value × Feasibility.
+
+Prompt 5: Opportunity Matrix
+
+text
+
+Based on the top 20 use cases, create a 2x2 Opportunity Matrix for {company_name}.
+
+Axes:
+
+- X-Axis: Feasibility (Low to High)
+
+- Y-Axis: Business Impact (Low to High)
+
+Place all 20 use cases into one of four quadrants:
+
+1. High Impact, High Feasibility → Priority
+
+2. High Impact, Low Feasibility → Strategic Bet
+
+3. Low Impact, High Feasibility → Quick Win
+
+4. Low Impact, Low Feasibility → Defer
+
+Provide as structured JSON with coordinates for each use case.
+
+Prompt 6: Quick Wins vs Strategic Bets
+
+text
+
+Categorize the top 20 use cases for {company_name} into:
+
+Quick Wins (Implementation < 3 months):
+
+- Use cases with high feasibility and immediate ROI
+
+- Low risk, high visibility
+
+Strategic Bets (Implementation 12+ months):
+
+- Use cases with high impact but complex dependencies
+
+- Transformational in nature
+
+Provide clear justification for each categorization.
+
+Prompt 7: AI Transformation Roadmap
+
+text
+
+Based on the top 20 use cases and the company's current maturity, generate an AI Transformation Roadmap for {company_name}.
+
+Structure:
+
+30 Days (Quick Wins): 3-5 use cases that can be implemented immediately.
+
+90 Days: 3-5 use cases with moderate complexity.
+
+180 Days: 3-5 strategic initiatives requiring cross-functional coordination.
+
+365 Days: 2-3 transformational bets.
+
+For each milestone, include:
+
+- Use Case Name
+
+- Description
+
+- Dependencies
+
+- Success Metrics
+
+Prompt 8: ROI Analysis
+
+text
+
+Generate a detailed ROI analysis for the AI transformation of {company_name}.
+
+Include:
+
+1. Cost Savings: Break down by department (e.g., Customer Service: ₹25L/year)
+
+2. Revenue Uplift: Projected revenue increases
+
+3. Implementation Costs: Estimated one-time and ongoing costs
+
+4. Payback Period: Months to recover investment
+
+5. 5-Year Projection: Net benefit over 5 years
+
+Be conservative, specific, and tie each estimate to specific use cases.
+
+Prompt 9: Solution Blueprints
+
+text
+
+For the top 5 use cases of {company_name}, generate detailed Solution Blueprints.
+
+Each blueprint must include:
+
+1. Use Case Description
+
+2. Recommended Technology Stack (specific tools/platforms)
+
+3. High-level Architecture (describe components and data flow)
+
+4. Integration Points (existing systems to connect)
+
+5. Data Requirements
+
+6. Success Metrics (KPIs)
+
+7. Implementation Steps (phased approach)
+
+Format as structured JSON with clear sections.
+
+Prompt 10: Proposal Draft
+
+text
+
+Generate a commercial Proposal for {company_name} based on the AI transformation plan.
+
+Include:
+
+1. Executive Summary (proposal version)
+
+2. Scope of Work (detailed deliverables)
+
+3. Implementation Timeline (from roadmap)
+
+4. Investment Details (placeholder for pricing)
+
+5. Terms & Conditions (standard Nisol Labs terms)
+
+6. Next Steps
+
+Tone: Professional, persuasive, solution-oriented.
+
+7. Database Schema
+
+7.1 New Tables (Run in Supabase SQL Editor)
+
+sql
+
+-- ============================================
+
+-- 1. AUDIT REPORTS (Stores generated content)
+
+-- ============================================
+
+CREATE TABLE public.audit_reports (
+
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+audit_id UUID NOT NULL REFERENCES public.audits(id) ON DELETE CASCADE,
+
+-- Report metadata
+
+version INT DEFAULT 1,
+
+status TEXT DEFAULT 'draft', -- 'draft', 'review', 'approved', 'finalized'
+
+-- 10 Core Outputs (stored as JSON/Text)
+
+executive_summary TEXT,
+
+ai_readiness_assessment JSONB, -- { overall_score: 3.8, radar_data: {...} }
+
+capability_scores JSONB, -- { "Leadership": 3.5, "Data": 4.2, ... }
+
+opportunity_matrix JSONB, -- { high_impact_high_feasibility: [...], ... }
+
+top_use_cases JSONB, -- Array of 20 use cases
+
+quick_wins_strategic_bets JSONB, -- { quick_wins: [...], strategic_bets: [...] }
+
+roadmap JSONB, -- { day_30: [...], day_90: [...], day_180: [...], day_365: [...] }
+
+roi_estimates JSONB, -- { cost_savings: 500000, revenue_uplift: 250000, payback_months: 6 }
+
+solution_blueprints JSONB, -- Array of 5 blueprint objects
+
+proposal_draft TEXT,
+
+-- Metadata
+
+generated_at TIMESTAMPTZ DEFAULT now(),
+
+last_edited_at TIMESTAMPTZ DEFAULT now(),
+
+finalized_at TIMESTAMPTZ,
+
+created_by UUID REFERENCES public.profiles(id),
+
+created_at TIMESTAMPTZ DEFAULT now(),
+
+updated_at TIMESTAMPTZ DEFAULT now()
+
+);
+
+-- ============================================
+
+-- 2. SOLUTION BLUEPRINTS (Master Library)
+
+-- ============================================
+
+CREATE TABLE public.solution_blueprints (
+
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+name TEXT NOT NULL,
+
+description TEXT,
+
+category TEXT, -- e.g., 'Customer Service', 'Finance', 'IT'
+
+technology_stack TEXT[],
+
+architecture_diagram TEXT, -- Mermaid or SVG URL
+
+implementation_steps TEXT[],
+
+estimated_timeline TEXT,
+
+resource_requirements TEXT,
+
+success_metrics TEXT[],
+
+created_at TIMESTAMPTZ DEFAULT now(),
+
+updated_at TIMESTAMPTZ DEFAULT now()
+
+);
+
+-- ============================================
+
+-- 3. REPORT TEMPLATES (For Super Admin customization)
+
+-- ============================================
+
+CREATE TABLE public.report_templates (
+
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+name TEXT NOT NULL,
+
+description TEXT,
+
+sections JSONB, -- Defines which sections to include and their order
+
+styling JSONB, -- Brand colors, fonts, logo placement
+
+created_at TIMESTAMPTZ DEFAULT now(),
+
+updated_at TIMESTAMPTZ DEFAULT now()
+
+);
+
+-- ============================================
+
+-- 4. INDEXES
+
+-- ============================================
+
+CREATE INDEX idx_audit_reports_audit_id ON public.audit_reports(audit_id);
+
+CREATE INDEX idx_audit_reports_status ON public.audit_reports(status);
+
+CREATE INDEX idx_audit_reports_version ON public.audit_reports(version);
+
+CREATE INDEX idx_solution_blueprints_category ON public

@@ -133,19 +133,37 @@ ALTER TABLE public.questions ENABLE ROW LEVEL SECURITY;
 -- Helper Functions
 -- ---------------------
 CREATE OR REPLACE FUNCTION get_user_role()
-RETURNS user_role AS $$
+RETURNS user_role
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
   SELECT role FROM public.profiles WHERE id = auth.uid();
-$$ LANGUAGE sql STABLE;
+$$;
 
 CREATE OR REPLACE FUNCTION get_user_tenant()
-RETURNS UUID AS $$
+RETURNS UUID
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
   SELECT tenant_id FROM public.profiles WHERE id = auth.uid();
-$$ LANGUAGE sql STABLE;
+$$;
 
 CREATE OR REPLACE FUNCTION is_internal_user()
-RETURNS BOOLEAN AS $$
-  SELECT role IN ('super_admin', 'admin', 'consultant') FROM public.profiles WHERE id = auth.uid();
-$$ LANGUAGE sql STABLE;
+RETURNS BOOLEAN
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT COALESCE(
+    (SELECT role IN ('super_admin', 'admin', 'consultant') FROM public.profiles WHERE id = auth.uid()),
+    false
+  );
+$$;
 
 -- ---------------------
 -- RLS Policies for TENANTS
