@@ -32,7 +32,10 @@ import {
   FileText,
   Check,
   X,
-  Award
+  Award,
+  Clock,
+  ChevronRight,
+  FileCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -40,39 +43,72 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SERVICES } from "@/data/services";
 import { INDUSTRIES } from "@/data/industries";
 import { COMPANY } from "@/data/company";
-import { CASE_STUDIES } from "@/data/resources";
 
 export default function HomePage() {
-  const [activeTechTab, setActiveTechTab] = useState<"agents" | "llmops" | "data">("agents");
   const [comparisonMode, setComparisonMode] = useState<"nisol" | "traditional">("nisol");
+  const [activeProcessStep, setActiveProcessStep] = useState<number>(1);
 
-  const techStackData = {
-    agents: [
-      { name: "LangGraph", role: "Multi-Agent State Orchestration", category: "Agent Framework" },
-      { name: "AutoGPT / CrewAI", role: "Autonomous Goal Planning", category: "Agent Framework" },
-      { name: "FastAPI & Python", role: "Low-Latency Agent Backend", category: "Backend Engine" },
-      { name: "Docker Sandboxes", role: "Secure Agent Code Execution", category: "Security Infrastructure" }
-    ],
-    llmops: [
-      { name: "vLLM & Ollama", role: "High-Throughput Local Model Serving", category: "Inference Engine" },
-      { name: "LlamaIndex & LangChain", role: "Modular Retrieval & Indexing", category: "RAG Infrastructure" },
-      { name: "LangSmith & W&B", role: "Prompt Evaluation & Telemetry", category: "Observability" },
-      { name: "GPTCache", role: "Semantic Cache & Latency Reducer", category: "Performance" }
-    ],
-    data: [
-      { name: "Pinecone & Qdrant", role: "Enterprise Vector Databases", category: "Vector Store" },
-      { name: "Neo4j Knowledge Graph", role: "Entity Relationship Mapping", category: "Knowledge Graph" },
-      { name: "Snowflake & Databricks", role: "Enterprise Data Lakehouse", category: "Data Warehouse" },
-      { name: "Unstructured.io", role: "Multi-modal Document Parsing", category: "ETL Processing" }
-    ]
-  };
+  const processSteps = [
+    {
+      step: 1,
+      title: "Discovery Workshop",
+      subtitle: "Executive Diagnostic",
+      description: "A structured 62-question diagnostic workshop evaluating 15 business capabilities and 8 readiness dimensions.",
+      deliverable: "Capability Stance & Gap Audit"
+    },
+    {
+      step: 2,
+      title: "Capability Assessment",
+      subtitle: "Infrastructure & Data Stance",
+      description: "In-depth audit of data availability, security requirements (PII/RBAC), and technical architecture maturity.",
+      deliverable: "Data Readiness & Security Scorecard"
+    },
+    {
+      step: 3,
+      title: "Opportunity Mapping",
+      subtitle: "Use Case Cataloging",
+      description: "Cataloging and prioritizing top 20 GenAI use cases into Quick Wins vs. Strategic Long-Term Bets.",
+      deliverable: "Prioritized Opportunity Matrix"
+    },
+    {
+      step: 4,
+      title: "ROI & Payback Analysis",
+      subtitle: "Financial Case",
+      description: "Rigorous modeling of expected labor efficiency, token cost optimization, and net payback timelines.",
+      deliverable: "Executive Financial Business Case"
+    },
+    {
+      step: 5,
+      title: "Transformation Roadmap",
+      subtitle: "Board Blueprint",
+      description: "Creating a board-ready execution blueprint, vendor-neutral architecture specs, and governance policy.",
+      deliverable: "15 Executive Deliverable Reports"
+    },
+    {
+      step: 6,
+      title: "Scaled Implementation",
+      subtitle: "Production Build",
+      description: "Transitioning from roadmap to rapid production build with continuous LLMOps telemetry and safety guardrails.",
+      deliverable: "Production-Grade AI Systems"
+    }
+  ];
+
+  const leadershipLogos = [
+    { name: "Wipro", domain: "Enterprise Systems" },
+    { name: "IBM", domain: "AI & Cloud Architecture" },
+    { name: "Infosys", domain: "Global Delivery" },
+    { name: "TCS", domain: "Enterprise Integration" },
+    { name: "Oracle", domain: "Data & Infrastructure" },
+    { name: "Microsoft", domain: "Cloud & AI Ecosystem" },
+    { name: "AWS", domain: "Cloud Infrastructure" },
+    { name: "Azure", domain: "Enterprise AI Services" }
+  ];
 
   return (
     <div className="space-y-24 pb-20">
 
       {/* SECTION 1: HERO SECTION */}
       <section className="relative min-h-[90vh] bg-navy-950 text-white flex items-center pt-12 pb-24 overflow-hidden border-b border-navy-800">
-        {/* Animated Background Gradients & Grid */}
         <div className="absolute inset-0 bg-[radial-gradient(#153C78_1px,transparent_1px)] [background-size:32px_32px] opacity-20 pointer-events-none" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-golden-500/10 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-0 right-10 w-[400px] h-[400px] bg-navy-500/20 rounded-full blur-[120px] pointer-events-none" />
@@ -94,7 +130,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-lg sm:text-xl text-navy-100/90 max-w-2xl leading-relaxed font-normal">
-                Discover exactly where AI will create the highest business value, prioritize opportunities, estimate ROI, and build an executive-ready transformation roadmap before investing in technology.
+                Discover exactly where AI creates highest business value, prioritize opportunities, quantify ROI, and build an executive roadmap <strong className="text-golden-300 font-semibold">before investing in technology</strong>.
               </p>
 
               {/* Action Buttons */}
@@ -102,8 +138,8 @@ export default function HomePage() {
                 <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
                   Book AI Discovery Workshop
                 </Button>
-                <Button href="/discovery/methodology" variant="navy" size="lg" icon={<Search className="w-4 h-4" />}>
-                  Explore Methodology
+                <Button href="/discovery" variant="navy" size="lg" icon={<Search className="w-4 h-4" />}>
+                  Explore Nisol Discovery™
                 </Button>
               </div>
 
@@ -126,7 +162,7 @@ export default function HomePage() {
 
             {/* Right Interactive Discovery Preview Card */}
             <div className="lg:col-span-5">
-              <div className="glass-panel-dark rounded-2xl p-6 shadow-2xl border border-golden-500/20 relative group hover:border-golden-500/40 transition-all">
+              <div className="glass-panel-dark rounded-2xl p-7 shadow-2xl border border-golden-500/20 relative group hover:border-golden-500/40 transition-all">
                 <div className="flex items-center justify-between pb-4 mb-4 border-b border-navy-800">
                   <div className="flex items-center gap-2.5">
                     <div className="w-3 h-3 rounded-full bg-golden-500 animate-pulse" />
@@ -139,9 +175,8 @@ export default function HomePage() {
                   </span>
                 </div>
 
-                {/* Simulated Diagnostic Telemetry Nodes */}
-                <div className="space-y-3 font-mono text-xs">
-                  <div className="p-3 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
+                <div className="space-y-3.5 font-mono text-xs">
+                  <div className="p-3.5 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
                     <Search className="w-4 h-4 text-golden-400 mt-0.5 shrink-0" />
                     <div className="flex-1">
                       <div className="flex justify-between text-[11px] text-golden-300 font-bold mb-1">
@@ -152,7 +187,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
+                  <div className="p-3.5 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
                     <Target className="w-4 h-4 text-golden-400 mt-0.5 shrink-0" />
                     <div className="flex-1">
                       <div className="flex justify-between text-[11px] text-golden-300 font-bold mb-1">
@@ -163,7 +198,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
+                  <div className="p-3.5 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
                     <FileText className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
                     <div className="flex-1">
                       <div className="flex justify-between text-[11px] text-golden-300 font-bold mb-1">
@@ -175,7 +210,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-navy-800 flex items-center justify-between text-[11px] text-navy-200">
+                <div className="mt-4 pt-3.5 border-t border-navy-800 flex items-center justify-between text-[11px] text-navy-200">
                   <span className="flex items-center gap-1.5">
                     <Lock className="w-3.5 h-3.5 text-golden-400" />
                     Proprietary Methodology
@@ -192,9 +227,75 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 2: THE DISCOVERY SECTION (THE HEART OF THE PAGE — Concise & High Impact) */}
+      {/* SECTION 1.5: WHY NISOL AI? (15-Second Executive Summary) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-panel-dark rounded-3xl p-8 lg:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden text-white">
+        <SectionHeader
+          badgeText="15-Second Executive Overview"
+          title="Why Nisol AI?"
+          subtitle="Discover Before You Invest. Quantify ROI. Build Production AI."
+          description="We provide the strategic rigor and enterprise alignment that software agencies and generic AI vendors lack."
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="glass-panel-dark rounded-2xl p-8 border border-golden-500/20 hover:border-golden-500/50 shadow-xl transition-all flex flex-col justify-between space-y-6 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 group-hover:scale-110 transition-transform shadow-md">
+                <Search className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                We Discover Before We Build
+              </h3>
+              <p className="text-sm text-navy-200 leading-relaxed">
+                Avoid costly failed AI initiatives by identifying, diagnosing, and prioritizing your highest-value enterprise opportunities before purchasing software or hiring developers.
+              </p>
+            </div>
+            <div className="pt-4 border-t border-navy-800 text-xs font-semibold text-golden-400 flex items-center justify-between">
+              <span>Risk-free discovery alignment</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          <div className="glass-panel-dark rounded-2xl p-8 border border-golden-500/20 hover:border-golden-500/50 shadow-xl transition-all flex flex-col justify-between space-y-6 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 group-hover:scale-110 transition-transform shadow-md">
+                <BarChart3 className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                We Quantify ROI
+              </h3>
+              <p className="text-sm text-navy-200 leading-relaxed">
+                Every architectural recommendation is backed by empirical financial payback metrics, cost-reduction scores, labor efficiency gains, and 1-year net return calculations.
+              </p>
+            </div>
+            <div className="pt-4 border-t border-navy-800 text-xs font-semibold text-golden-400 flex items-center justify-between">
+              <span>Measurable payback model</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          <div className="glass-panel-dark rounded-2xl p-8 border border-golden-500/20 hover:border-golden-500/50 shadow-xl transition-all flex flex-col justify-between space-y-6 group">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 group-hover:scale-110 transition-transform shadow-md">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                We Deliver Production AI
+              </h3>
+              <p className="text-sm text-navy-200 leading-relaxed">
+                From strategy to deployment, we build resilient enterprise-grade AI software with RBAC security, zero-trust data governance, and automated cost controls.
+              </p>
+            </div>
+            <div className="pt-4 border-t border-navy-800 text-xs font-semibold text-golden-400 flex items-center justify-between">
+              <span>Enterprise SLA & Governance</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 2: THE DISCOVERY SECTION (The Heart of Nisol AI) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="glass-panel-dark rounded-3xl p-8 lg:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden text-white space-y-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-golden-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 space-y-8">
@@ -214,69 +315,216 @@ export default function HomePage() {
             </div>
 
             {/* 5 Concise Pillars Preview Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+              <div className="bg-navy-900/90 rounded-xl p-6 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-4 group-hover:scale-110 transition-transform">
                     <Search className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">62-Question Assessment</h3>
-                  <p className="text-xs text-navy-200 leading-relaxed">Diagnostic across 15 core business capabilities.</p>
+                  <h3 className="text-sm font-bold text-white mb-1.5">62-Question Diagnostic</h3>
+                  <p className="text-xs text-navy-200 leading-relaxed">Deep analysis across 15 core business capabilities.</p>
                 </div>
               </div>
 
-              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+              <div className="bg-navy-900/90 rounded-xl p-6 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-4 group-hover:scale-110 transition-transform">
                     <Layers className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">8 Readiness Dimensions</h3>
+                  <h3 className="text-sm font-bold text-white mb-1.5">8 Readiness Dimensions</h3>
                   <p className="text-xs text-navy-200 leading-relaxed">Technical, data, security, & cultural maturity score.</p>
                 </div>
               </div>
 
-              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+              <div className="bg-navy-900/90 rounded-xl p-6 border border-golden-500/50 transition-all flex flex-col justify-between group">
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-4 group-hover:scale-110 transition-transform">
                     <Target className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">Opportunity Matrix</h3>
+                  <h3 className="text-sm font-bold text-white mb-1.5">Opportunity Matrix</h3>
                   <p className="text-xs text-navy-200 leading-relaxed">Top 20 Use Cases cataloged by Quick Wins vs. Strategic Bets.</p>
                 </div>
               </div>
 
-              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+              <div className="bg-navy-900/90 rounded-xl p-6 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-4 group-hover:scale-110 transition-transform">
                     <BarChart3 className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">ROI & Business Case</h3>
+                  <h3 className="text-sm font-bold text-white mb-1.5">ROI & Business Case</h3>
                   <p className="text-xs text-navy-200 leading-relaxed">Quantified financial payback & cost reduction metrics.</p>
                 </div>
               </div>
 
-              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+              <div className="bg-navy-900/90 rounded-xl p-6 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-4 group-hover:scale-110 transition-transform">
                     <Workflow className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">Executive Roadmap</h3>
+                  <h3 className="text-sm font-bold text-white mb-1.5">Executive Roadmap</h3>
                   <p className="text-xs text-navy-200 leading-relaxed">Board-ready implementation blueprints & governance.</p>
                 </div>
               </div>
             </div>
 
-            {/* Section Footer CTA */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-navy-800">
-              <span className="text-xs text-navy-200 font-medium">
-                Start with clarity before investing millions in unverified AI technology.
-              </span>
-              <Button href="/discovery" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-                Explore Nisol Discovery →
-              </Button>
+            {/* Why Nisol Discovery™ Metrics Summary & Scope Hint */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-4">
+              
+              {/* Summary Metrics Box */}
+              <div className="lg:col-span-7 bg-navy-900/80 p-6 rounded-2xl border border-navy-700/90 space-y-4">
+                <div className="flex items-center justify-between text-xs font-bold text-golden-400 uppercase tracking-wider">
+                  <span>Why Nisol Discovery™ Summary</span>
+                  <Sparkles className="w-4 h-4" />
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-1">
+                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
+                    <div className="text-xl font-black text-golden-400">62</div>
+                    <div className="text-[11px] text-navy-200 font-medium">Business Questions</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
+                    <div className="text-xl font-black text-golden-400">15</div>
+                    <div className="text-[11px] text-navy-200 font-medium">Capability Areas</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
+                    <div className="text-xl font-black text-golden-400">8</div>
+                    <div className="text-[11px] text-navy-200 font-medium">Readiness Dimensions</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
+                    <div className="text-xl font-black text-emerald-400">20</div>
+                    <div className="text-[11px] text-navy-200 font-medium">AI Opportunities</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
+                    <div className="text-xl font-black text-emerald-400">15</div>
+                    <div className="text-[11px] text-navy-200 font-medium">Executive Reports</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
+                    <div className="text-xl font-black text-white">10–14 Days</div>
+                    <div className="text-[11px] text-navy-200 font-medium">Full Assessment</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Engagement Scope Hint Box */}
+              <div className="lg:col-span-5 bg-gradient-to-br from-navy-900 to-navy-950 p-6 rounded-2xl border border-golden-500/30 flex flex-col justify-between space-y-4">
+                <div>
+                  <div className="text-xs font-bold text-golden-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-golden-400" />
+                    <span>Typical Discovery Engagement</span>
+                  </div>
+                  <p className="text-xs text-navy-200 leading-relaxed mb-4">
+                    Clear scope, rapid execution, and executive-ready deliverables designed for enterprise leadership teams.
+                  </p>
+
+                  <ul className="space-y-2 text-xs font-semibold text-white">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>2-Week Discovery Workshop & Audit</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>Fixed Scope & Guaranteed Milestones</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>3 Strategic Packs (15 Executive Deliverables)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pt-3 border-t border-navy-800">
+                  <Button href="/discovery" variant="primary" size="md" className="w-full justify-center" icon={<ArrowRight className="w-4 h-4" />}>
+                    Explore Nisol Discovery™
+                  </Button>
+                </div>
+              </div>
+
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* SECTION 2.5: 6-STEP VISUAL TRANSFORMATION PROCESS DIAGRAM */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          badgeText="Methodology Process"
+          title="The Discovery & Transformation Journey"
+          subtitle="6 Steps from Diagnostic to Scaled Execution"
+          description="How Nisol AI takes your enterprise from initial discovery alignment to production AI software."
+        />
+
+        <div className="space-y-8">
+          {/* Stepper Tabs / Header */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {processSteps.map((s) => (
+              <button
+                key={s.step}
+                onClick={() => setActiveProcessStep(s.step)}
+                className={`p-4 rounded-xl border text-left transition-all relative ${
+                  activeProcessStep === s.step
+                    ? "bg-navy-950 text-white border-golden-500 shadow-xl"
+                    : "bg-white text-navy-950 border-slate-200 hover:border-golden-500/50 hover:bg-slate-50"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${
+                    activeProcessStep === s.step
+                      ? "bg-golden-500 text-navy-950"
+                      : "bg-navy-900 text-golden-400"
+                  }`}>
+                    {s.step}
+                  </span>
+                  {s.step < 6 && <ChevronRight className="w-3.5 h-3.5 text-slate-400 hidden lg:block" />}
+                </div>
+                <div className="text-xs font-bold truncate">{s.title}</div>
+                <div className={`text-[10px] truncate ${activeProcessStep === s.step ? "text-golden-300" : "text-navy-600"}`}>
+                  {s.subtitle}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Active Step Detailed Card View */}
+          {processSteps.find(s => s.step === activeProcessStep) && (
+            <div className="bg-navy-950 text-white rounded-2xl p-8 border border-golden-500/30 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-golden-500/10 rounded-full blur-3xl pointer-events-none" />
+              
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-8 space-y-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-golden-500/20 text-golden-300 text-xs font-bold border border-golden-500/30">
+                    <span>STEP {activeProcessStep} OF 6</span>
+                    <span>•</span>
+                    <span>{processSteps[activeProcessStep - 1].subtitle}</span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                    {processSteps[activeProcessStep - 1].title}
+                  </h3>
+
+                  <p className="text-sm sm:text-base text-navy-100 leading-relaxed">
+                    {processSteps[activeProcessStep - 1].description}
+                  </p>
+
+                  <div className="pt-2 flex items-center gap-3">
+                    <div className="px-3 py-1.5 rounded-lg bg-navy-900 border border-navy-700 text-xs font-semibold text-golden-300 flex items-center gap-2">
+                      <FileCheck className="w-4 h-4 text-emerald-400" />
+                      <span>Deliverable: {processSteps[activeProcessStep - 1].deliverable}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
+                  <Button href="/contact" variant="primary" size="md" className="justify-center" icon={<ArrowRight className="w-4 h-4" />}>
+                    Schedule Workshop Step
+                  </Button>
+                  <Button href="/discovery/methodology" variant="navy" size="md" className="justify-center" icon={<Search className="w-4 h-4" />}>
+                    View Full Methodology
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -291,8 +539,8 @@ export default function HomePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Standard AI Wrappers (The Problem) */}
-          <div className="bg-red-50/50 rounded-2xl p-8 border border-red-200 shadow-sm relative">
-            <div className="flex items-center gap-3 mb-6">
+          <div className="bg-red-50/50 rounded-2xl p-8 border border-red-200 shadow-sm relative space-y-6">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center text-red-600">
                 <AlertTriangle className="w-5 h-5" />
               </div>
@@ -309,22 +557,22 @@ export default function HomePage() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✕</span>
-                <span><strong>Runaway Token Spend:</strong> Naive LLM queries routing simple tasks to expensive models like GPT-4o.</span>
+                <span><strong>Runaway Token Spend:</strong> Naive LLM queries routing simple tasks to expensive third-party endpoints.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✕</span>
-                <span><strong>Security & Data Leaks:</strong> Sensitive customer data passed directly into third-party endpoints without PII masking.</span>
+                <span><strong>Security & Data Leaks:</strong> Sensitive customer data passed directly into public API endpoints without governance.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✕</span>
-                <span><strong>No Telemetry or Evaluation:</strong> Hallucinations go unnoticed without regression benchmarking.</span>
+                <span><strong>No Telemetry or Evaluation:</strong> Unchecked hallucinations go unnoticed without regression benchmarking.</span>
               </li>
             </ul>
           </div>
 
           {/* Nisol AI Approach (The Solution) */}
-          <div className="bg-navy-950 rounded-2xl p-8 border border-golden-500/30 shadow-xl relative text-white">
-            <div className="flex items-center gap-3 mb-6">
+          <div className="bg-navy-950 rounded-2xl p-8 border border-golden-500/30 shadow-xl relative text-white space-y-6">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-golden-500/20 border border-golden-500/40 flex items-center justify-center text-golden-400">
                 <Bot className="w-5 h-5" />
               </div>
@@ -337,26 +585,26 @@ export default function HomePage() {
             <ul className="space-y-4 text-sm text-navy-100">
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-golden-400 shrink-0 mt-0.5" />
-                <span><strong>Stateful Multi-Agent Graph:</strong> Reasoning loops with self-correction, tool validation, and fallback handling.</span>
+                <span><strong>Stateful Multi-Agent Reasoning:</strong> Self-correcting workflows, tool validation, and fallback handling.</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-golden-400 shrink-0 mt-0.5" />
-                <span><strong>Intelligent Model Router:</strong> Dynamic task routing to fine-tuned local Llama 3 models or GPT-4o based on cost/latency requirements.</span>
+                <span><strong>Cost & Model Optimization:</strong> Dynamic task routing to fine-tuned local models or GPT-4o based on cost/latency.</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-golden-400 shrink-0 mt-0.5" />
-                <span><strong>Zero-Trust Security & PII Masking:</strong> Mandatory document access filters (RBAC) and automated data sanitization.</span>
+                <span><strong>Zero-Trust Security & RBAC:</strong> Mandatory document access filters, PII masking, and data sanitization.</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-golden-400 shrink-0 mt-0.5" />
-                <span><strong>Continuous LLMOps Telemetry:</strong> Real-time latency tracking, token caching, and automated hallucination scoring.</span>
+                <span><strong>Continuous LLMOps Telemetry:</strong> Real-time latency tracking, token caching, and automated evaluation metrics.</span>
               </li>
             </ul>
           </div>
         </div>
       </section>
 
-      {/* SECTION 4: WHY NISOL AI (Interactive Comparison Toggle Card & Trust Builders) */}
+      {/* SECTION 4: THE DISCOVERY ADVANTAGE (Interactive Comparison Toggle Card) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badgeText="The Discovery Advantage"
@@ -365,10 +613,8 @@ export default function HomePage() {
           description="See how our technology-backed discovery methodology outperforms standard manual consulting."
         />
 
-        {/* Interactive Comparison Toggle Card */}
         <div className="glass-panel rounded-3xl p-8 border border-slate-200 shadow-xl space-y-8">
           
-          {/* Toggle Switch Controls */}
           <div className="flex justify-center">
             <div className="bg-slate-200/80 p-1.5 rounded-2xl flex items-center gap-2 max-w-md w-full">
               <button
@@ -396,7 +642,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Toggle Content View */}
           {comparisonMode === "nisol" ? (
             <div className="bg-navy-950 text-white rounded-2xl p-8 border border-golden-500/30 shadow-xl space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-navy-800">
@@ -529,133 +774,157 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* Key Trust Signals (Leadership & Deliverables) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center shrink-0">
-                <Award className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-navy-950 mb-1">40+ Combined Leadership Years</h4>
-                <p className="text-xs text-navy-700 leading-relaxed">Enterprise transformation & GenAI architectural oversight led by industry veterans.</p>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center shrink-0">
-                <Bot className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-navy-950 mb-1">Proprietary AI Platform</h4>
-                <p className="text-xs text-navy-700 leading-relaxed">Nisol Discovery™ + Nisol Intelligence™ engines automate diagnostic analysis.</p>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center shrink-0">
-                <FileText className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-navy-950 mb-1">15 Board-Ready Deliverables</h4>
-                <p className="text-xs text-navy-700 leading-relaxed">Complete Executive, Opportunity, and Transformation Packs ready for C-suite sign-off.</p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
-      {/* SECTION 5: SOLUTIONS OVERVIEW (7 Solution Areas) */}
+      {/* SECTION 5: SOLUTIONS OVERVIEW (With Learn More Links) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badgeText="Post-Discovery Execution"
-          title="Solutions — AI Implementation"
-          subtitle="From Discovery Roadmap to Scaled Execution"
-          description="After Discovery, we help you build and deploy production-grade enterprise software across 7 core specialized areas."
+          title="Solutions — Scaled Implementation"
+          subtitle="From Discovery Roadmap to Production AI Software"
+          description="After Discovery, we help you build and deploy production-grade enterprise software across specialized core solution areas."
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
-          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
-            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
-              <Compass className="w-6 h-6" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-xl transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+                <Compass className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-navy-950 text-lg">AI Strategy & Governance</h4>
+              <p className="text-xs text-navy-700 font-normal leading-relaxed">
+                Executive roadmap planning, data stance evaluation, risk mitigation, and compliance frameworks for C-suite alignment.
+              </p>
             </div>
-            <h4 className="font-bold text-navy-950 text-base">AI Strategy</h4>
-            <p className="text-xs text-navy-700 font-medium">Governance & Strategic Roadmap</p>
+            <div className="pt-3 border-t border-slate-200">
+              <Link href="/services/strategy" className="text-xs font-bold text-navy-900 group-hover:text-golden-600 flex items-center gap-1">
+                <span>Learn More</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
-            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
-              <Cpu className="w-6 h-6" />
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-xl transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+                <Cpu className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-navy-950 text-lg">AI Engineering & DevOps</h4>
+              <p className="text-xs text-navy-700 font-normal leading-relaxed">
+                Production-grade model serving, fine-tuning pipelines, low-latency architecture, and continuous evaluation guardrails.
+              </p>
             </div>
-            <h4 className="font-bold text-navy-950 text-base">AI Engineering</h4>
-            <p className="text-xs text-navy-700 font-medium">Custom Model & API Pipelines</p>
+            <div className="pt-3 border-t border-slate-200">
+              <Link href="/services/engineering" className="text-xs font-bold text-navy-900 group-hover:text-golden-600 flex items-center gap-1">
+                <span>Learn More</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
-            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
-              <Zap className="w-6 h-6" />
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-xl transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+                <Zap className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-navy-950 text-lg">AI-Powered Automation</h4>
+              <p className="text-xs text-navy-700 font-normal leading-relaxed">
+                Intelligent document parsing, operational workflow automation, and enterprise process optimization.
+              </p>
             </div>
-            <h4 className="font-bold text-navy-950 text-base">AI Automation</h4>
-            <p className="text-xs text-navy-700 font-medium">Workflow & IDP Optimization</p>
+            <div className="pt-3 border-t border-slate-200">
+              <Link href="/services/automation" className="text-xs font-bold text-navy-900 group-hover:text-golden-600 flex items-center gap-1">
+                <span>Learn More</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
-            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
-              <Bot className="w-6 h-6" />
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-xl transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+                <Bot className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-navy-950 text-lg">Agentic AI & Multi-Agents</h4>
+              <p className="text-xs text-navy-700 font-normal leading-relaxed">
+                Autonomous task execution clusters with stateful reasoning loops, tool integration, and human-in-the-loop oversight.
+              </p>
             </div>
-            <h4 className="font-bold text-navy-950 text-base">Agentic AI</h4>
-            <p className="text-xs text-navy-700 font-medium">Autonomous Multi-Agent Graphs</p>
+            <div className="pt-3 border-t border-slate-200">
+              <Link href="/services/agents" className="text-xs font-bold text-navy-900 group-hover:text-golden-600 flex items-center gap-1">
+                <span>Learn More</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
-            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
-              <Database className="w-6 h-6" />
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-xl transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+                <MessageSquareCode className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-navy-950 text-lg">Enterprise RAG Systems</h4>
+              <p className="text-xs text-navy-700 font-normal leading-relaxed">
+                Hybrid vector-dense memory engines, document retrieval, and enterprise knowledge copilots with zero-trust RBAC.
+              </p>
             </div>
-            <h4 className="font-bold text-navy-950 text-base">RAG Systems</h4>
-            <p className="text-xs text-navy-700 font-medium">Vector Knowledge Retrieval</p>
+            <div className="pt-3 border-t border-slate-200">
+              <Link href="/services/assistants" className="text-xs font-bold text-navy-900 group-hover:text-golden-600 flex items-center gap-1">
+                <span>Learn More</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
-            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
-              <Workflow className="w-6 h-6" />
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-xl transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <h4 className="font-bold text-navy-950 text-lg">Data Readiness & Security</h4>
+              <p className="text-xs text-navy-700 font-normal leading-relaxed">
+                ETL data pipelines, PII redaction, role-based access control, and enterprise compliance stance audits.
+              </p>
             </div>
-            <h4 className="font-bold text-navy-950 text-base">LLMOps</h4>
-            <p className="text-xs text-navy-700 font-medium">Telemetry & Guardrails</p>
+            <div className="pt-3 border-t border-slate-200">
+              <Link href="/services/data-readiness" className="text-xs font-bold text-navy-900 group-hover:text-golden-600 flex items-center gap-1">
+                <span>Learn More</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group col-span-2 md:col-span-2">
-            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <h4 className="font-bold text-navy-950 text-base">AI Governance</h4>
-            <p className="text-xs text-navy-700 font-medium">Zero-Trust & Compliance Audits</p>
-          </div>
         </div>
       </section>
 
       {/* SECTION 6: INDUSTRIES WE SERVE */}
       <section className="bg-slate-100/70 py-16 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <SectionHeader
             badgeText="Industry Verticals"
             title="Industries We Serve"
-            subtitle="Tailored AI Solutions for Core Sectors"
+            subtitle="Tailored AI Solutions for Core Enterprise Sectors"
             description="Deep domain expertise across high-compliance and high-scale enterprise verticals."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {INDUSTRIES.map((ind) => (
-              <div key={ind.id} className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs hover:shadow-md transition-shadow">
-                <div className="w-10 h-10 rounded-lg bg-navy-900 text-golden-400 flex items-center justify-center mb-3">
-                  {ind.id === "it-software" && <Code className="w-5 h-5" />}
-                  {ind.id === "bfsi" && <Building2 className="w-5 h-5" />}
-                  {ind.id === "healthcare" && <Activity className="w-5 h-5" />}
-                  {ind.id === "manufacturing" && <Factory className="w-5 h-5" />}
-                  {ind.id === "professional-services" && <Briefcase className="w-5 h-5" />}
+              <div key={ind.id} className="bg-white rounded-xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between space-y-4">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-navy-900 text-golden-400 flex items-center justify-center mb-3">
+                    {ind.id === "it-software" && <Code className="w-5 h-5" />}
+                    {ind.id === "bfsi" && <Building2 className="w-5 h-5" />}
+                    {ind.id === "healthcare" && <Activity className="w-5 h-5" />}
+                    {ind.id === "manufacturing" && <Factory className="w-5 h-5" />}
+                    {ind.id === "professional-services" && <Briefcase className="w-5 h-5" />}
+                  </div>
+                  <h4 className="text-sm font-bold text-navy-950 mb-1">{ind.name}</h4>
+                  <p className="text-xs text-navy-700/80 leading-relaxed line-clamp-2">{ind.tagline}</p>
                 </div>
-                <h4 className="text-sm font-bold text-navy-950 mb-1">{ind.name}</h4>
-                <p className="text-xs text-navy-700/80 mb-3 line-clamp-2">{ind.tagline}</p>
-                <div className="text-[11px] font-bold text-emerald-700 bg-emerald-50 p-2 rounded">
+
+                <div className="text-[11px] font-bold text-emerald-800 bg-emerald-50/80 p-2.5 rounded-lg border border-emerald-100">
                   {ind.sampleImpact}
                 </div>
               </div>
@@ -664,7 +933,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 7: FEATURED AI ROI CALCULATOR SECTION */}
+      {/* SECTION 7: FEATURED AI ROI CALCULATOR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="glass-panel rounded-3xl p-8 lg:p-12 border border-golden-500/40 shadow-xl bg-gradient-to-br from-white via-slate-50 to-golden-50/30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-5">
@@ -677,19 +946,19 @@ export default function HomePage() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-navy-900 pt-2">
-              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+              <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>AI Maturity Score (0-100)</span>
               </div>
-              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+              <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Estimated Annual Savings ($ / ₹)</span>
               </div>
-              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+              <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>1-Year Net ROI & Payback Months</span>
               </div>
-              <div className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+              <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Personalized AI Implementation Roadmap</span>
               </div>
@@ -729,52 +998,130 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 8: TESTIMONIALS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* SECTION 8: ENTERPRISE TRUST & LEADERSHIP PROOF (Replacing Fake Testimonials) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
-          badgeText="Client Verification"
-          title="What Our Clients Say"
-          subtitle="Real Impact from Nisol Discovery™"
-          description="Hear how executive leadership teams gained clarity and unlocked high-ROI transformation opportunities."
+          badgeText="Enterprise Trust"
+          title="Leadership Experience & Outcomes"
+          subtitle="Backed by Decades of Enterprise Transformation Leadership"
+          description="Our architects and leadership team bring extensive experience from world-class technology and enterprise consulting firms."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-sm relative flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="flex text-golden-500 gap-1 text-sm">
-                ★★★★★
-              </div>
-              <p className="text-navy-900 text-base font-medium leading-relaxed italic">
-                &ldquo;Nisol Discovery™ gave us clarity on our AI priorities in just 10 days. We identified 8 high-impact use cases and have a clear roadmap for implementation.&rdquo;
-              </p>
+        {/* Leadership Brand Marquee Grid */}
+        <div className="bg-navy-950 rounded-3xl p-8 lg:p-10 border border-golden-500/30 text-white space-y-6 shadow-2xl">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-navy-800">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-golden-400">Leadership Experience Includes</span>
+              <h3 className="text-xl font-bold text-white mt-0.5">Proven Enterprise Delivery Across Global Platforms</h3>
             </div>
-
-            <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between">
-              <div>
-                <div className="font-bold text-navy-950 text-sm">CTO</div>
-                <div className="text-xs text-navy-600 font-medium">Acme Corp</div>
-              </div>
-              <Badge variant="golden">Discovery Client</Badge>
-            </div>
+            <Badge variant="golden">Executive Background</Badge>
           </div>
 
-          <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-sm relative flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="flex text-golden-500 gap-1 text-sm">
-                ★★★★★
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 pt-2">
+            {leadershipLogos.map((brand) => (
+              <div key={brand.name} className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 text-center hover:border-golden-500/50 transition-colors">
+                <div className="text-base font-black text-golden-300 tracking-tight">{brand.name}</div>
+                <div className="text-[10px] text-navy-300 mt-0.5">{brand.domain}</div>
               </div>
-              <p className="text-navy-900 text-base font-medium leading-relaxed italic">
-                &ldquo;The ROI analysis was eye-opening. We discovered a ₹2.4 Cr annual savings opportunity we had completely missed.&rdquo;
-              </p>
+            ))}
+          </div>
+        </div>
+
+        {/* Representative Enterprise Outcomes Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-bold">
+              52%
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">Token Spend Optimization</h4>
+            <p className="text-xs text-navy-700 leading-relaxed">
+              Achieved through intelligent model routing, semantic caching, and dynamic task delegation.
+            </p>
+          </div>
+
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-golden-50 border border-golden-200 text-golden-700 flex items-center justify-center font-bold">
+              10D
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">Executive Roadmap Clarity</h4>
+            <p className="text-xs text-navy-700 leading-relaxed">
+              Rapid turnaround delivering board-ready transformation deliverables with clear financial payback metrics.
+            </p>
+          </div>
+
+          <div className="glass-panel p-7 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-navy-50 border border-navy-200 text-navy-900 flex items-center justify-center font-bold">
+              100%
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">Zero-Trust Security Stance</h4>
+            <p className="text-xs text-navy-700 leading-relaxed">
+              Role-based access control, document-level permissions, and zero data leakage across GenAI RAG deployments.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 8.5: MEET THE FOUNDER & LEADERSHIP */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="glass-panel-dark rounded-3xl p-8 lg:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden text-white">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            {/* Founder Image & Credentials */}
+            <div className="lg:col-span-5 flex flex-col items-center text-center space-y-4">
+              <div className="relative group">
+                <div className="w-44 h-44 rounded-2xl overflow-hidden border-2 border-golden-500/40 shadow-2xl bg-navy-900">
+                  <img 
+                    src={COMPANY.founders[0].image} 
+                    alt={COMPANY.founders[0].name}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-golden-500 text-navy-950 rounded-full text-[10px] font-black tracking-wider uppercase shadow-md">
+                  FOUNDER & CHIEF ARCHITECT
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <h3 className="text-2xl font-black text-white">{COMPANY.founders[0].name}</h3>
+                <p className="text-xs text-golden-300 font-semibold">{COMPANY.founders[0].role}</p>
+              </div>
+
+              {/* Credential Tags */}
+              <div className="flex flex-wrap justify-center gap-2 pt-1">
+                <span className="px-2.5 py-1 rounded-md bg-navy-900 border border-navy-700 text-[11px] text-slate-300 font-medium">
+                  24+ Years IT Leadership
+                </span>
+                <span className="px-2.5 py-1 rounded-md bg-navy-900 border border-navy-700 text-[11px] text-slate-300 font-medium">
+                  15+ Years Program Mgmt
+                </span>
+                <span className="px-2.5 py-1 rounded-md bg-navy-900 border border-navy-700 text-[11px] text-slate-300 font-medium">
+                  AI Transformation Specialist
+                </span>
+              </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between">
-              <div>
-                <div className="font-bold text-navy-950 text-sm">CFO</div>
-                <div className="text-xs text-navy-600 font-medium">TechWave Inc</div>
+            {/* Founder Quote & Bio Column */}
+            <div className="lg:col-span-7 space-y-6">
+              <Badge variant="golden">Meet the Leadership</Badge>
+
+              <blockquote className="text-lg sm:text-xl font-medium text-slate-100 italic leading-relaxed border-l-4 border-golden-500 pl-4">
+                &ldquo;Enterprise AI transformation isn&apos;t about chasing software hype—it&apos;s about delivering measurable business outcomes. We start with Nisol Discovery™ so leaders can invest in technology with absolute clarity and confidence.&rdquo;
+              </blockquote>
+
+              <p className="text-sm text-navy-200 leading-relaxed font-normal">
+                {COMPANY.founders[0].bio}
+              </p>
+
+              <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
+                <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
+                  Book Discovery Workshop with Ssooraj
+                </Button>
+                <Link href="/about" className="text-xs font-semibold text-golden-400 hover:underline">
+                  Meet the Full Team →
+                </Link>
               </div>
-              <Badge variant="golden">Discovery Client</Badge>
             </div>
+
           </div>
         </div>
       </section>
