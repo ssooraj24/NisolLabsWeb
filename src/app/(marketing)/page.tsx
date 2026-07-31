@@ -998,130 +998,188 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 8: ENTERPRISE TRUST & LEADERSHIP PROOF (Replacing Fake Testimonials) */}
+      {/* SECTION 8: ENTERPRISE EXPERTISE — PROVEN DELIVERY AT SCALE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
-          badgeText="Enterprise Trust"
-          title="Leadership Experience & Outcomes"
-          subtitle="Backed by Decades of Enterprise Transformation Leadership"
-          description="Our architects and leadership team bring extensive experience from world-class technology and enterprise consulting firms."
+          badgeText="Enterprise Trust & Capability"
+          title="ENTERPRISE EXPERTISE — PROVEN DELIVERY AT SCALE"
+          subtitle="Backed by 40+ Years of Combined Leadership & Enterprise Transformation Experience"
+          subtitleClassName="block golden-gradient-text text-2xl"
+          description="Our leadership team brings 40+ years of combined expertise in enterprise AI, cloud architecture, and digital transformation. Here's what that means for your organization:"
         />
 
-        {/* Leadership Brand Marquee Grid */}
-        <div className="bg-navy-950 rounded-3xl p-8 lg:p-10 border border-golden-500/30 text-white space-y-6 shadow-2xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-navy-800">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-golden-400">Leadership Experience Includes</span>
-              <h3 className="text-xl font-bold text-white mt-0.5">Proven Enterprise Delivery Across Global Platforms</h3>
+        {/* 3 Core Expertise Pillars */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Pillar 1: Strategic Direction & Governance */}
+          <div className="bg-navy-950 text-white rounded-3xl p-8 border border-golden-500/30 shadow-2xl flex flex-col justify-between space-y-6 relative overflow-hidden group hover:border-golden-500/60 transition-all duration-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-golden-500/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="space-y-6 relative z-10">
+              <div className="flex items-center justify-between pb-4 border-b border-navy-800">
+                <div className="w-12 h-12 rounded-2xl bg-golden-500/20 border border-golden-500/40 flex items-center justify-center text-golden-400 font-bold">
+                  <Compass className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-golden-400 bg-golden-500/10 px-3 py-1 rounded-full border border-golden-500/20">Pillar 01</span>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-extrabold text-white">1. Strategic Direction & Governance</h3>
+                <p className="text-xs text-navy-200 mt-1">Establishing executive alignment, ethical guardrails, and enterprise portfolio ROI.</p>
+              </div>
+
+              <ul className="space-y-4 pt-2 text-xs">
+                <li className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 space-y-1 hover:border-golden-500/40 transition-colors">
+                  <div className="font-bold text-golden-300 flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>AI Strategy & Governance</span>
+                  </div>
+                  <p className="text-navy-200 leading-relaxed pl-6">Operationalizing responsible AI frameworks and ethical AI deployment across the enterprise.</p>
+                </li>
+
+                <li className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 space-y-1 hover:border-golden-500/40 transition-colors">
+                  <div className="font-bold text-golden-300 flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Program & Portfolio Management</span>
+                  </div>
+                  <p className="text-navy-200 leading-relaxed pl-6">Driving multi-stream alignment and measurable ROI across complex transformation programs.</p>
+                </li>
+
+                <li className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 space-y-1 hover:border-golden-500/40 transition-colors">
+                  <div className="font-bold text-golden-300 flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Executive Stakeholder Management</span>
+                  </div>
+                  <p className="text-navy-200 leading-relaxed pl-6">Bridging business goals and technical delivery to ensure leadership alignment and board-ready outcomes.</p>
+                </li>
+              </ul>
             </div>
-            <Badge variant="golden">Executive Background</Badge>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 pt-2">
-            {leadershipLogos.map((brand) => (
-              <div key={brand.name} className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 text-center hover:border-golden-500/50 transition-colors">
-                <div className="text-base font-black text-golden-300 tracking-tight">{brand.name}</div>
-                <div className="text-[10px] text-navy-300 mt-0.5">{brand.domain}</div>
+          {/* Pillar 2: Architecture & Delivery */}
+          <div className="bg-navy-950 text-white rounded-3xl p-8 border border-golden-500/30 shadow-2xl flex flex-col justify-between space-y-6 relative overflow-hidden group hover:border-golden-500/60 transition-all duration-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-golden-500/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="space-y-6 relative z-10">
+              <div className="flex items-center justify-between pb-4 border-b border-navy-800">
+                <div className="w-12 h-12 rounded-2xl bg-golden-500/20 border border-golden-500/40 flex items-center justify-center text-golden-400 font-bold">
+                  <Cpu className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-golden-400 bg-golden-500/10 px-3 py-1 rounded-full border border-golden-500/20">Pillar 02</span>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-extrabold text-white">2. Architecture & Delivery</h3>
+                <p className="text-xs text-navy-200 mt-1">Building resilient, production-ready systems and cloud-native modern infrastructure.</p>
+              </div>
+
+              <ul className="space-y-4 pt-2 text-xs">
+                <li className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 space-y-1 hover:border-golden-500/40 transition-colors">
+                  <div className="font-bold text-golden-300 flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Enterprise Platform Delivery</span>
+                  </div>
+                  <p className="text-navy-200 leading-relaxed pl-6">End-to-end rollout of mission-critical systems with zero downtime and full stakeholder adoption.</p>
+                </li>
+
+                <li className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 space-y-1 hover:border-golden-500/40 transition-colors">
+                  <div className="font-bold text-golden-300 flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>AI Solution Architecture</span>
+                  </div>
+                  <p className="text-navy-200 leading-relaxed pl-6">Designing scalable, production-ready AI models that integrate seamlessly with existing enterprise systems.</p>
+                </li>
+
+                <li className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 space-y-1 hover:border-golden-500/40 transition-colors">
+                  <div className="font-bold text-golden-300 flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>DevOps & Cloud Modernization</span>
+                  </div>
+                  <p className="text-navy-200 leading-relaxed pl-6">Building cloud-native, resilient infrastructure with automated CI/CD pipelines and observability.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Pillar 3: Operational Efficiency */}
+          <div className="bg-navy-950 text-white rounded-3xl p-8 border border-golden-500/30 shadow-2xl flex flex-col justify-between space-y-6 relative overflow-hidden group hover:border-golden-500/60 transition-all duration-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-golden-500/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="space-y-6 relative z-10">
+              <div className="flex items-center justify-between pb-4 border-b border-navy-800">
+                <div className="w-12 h-12 rounded-2xl bg-golden-500/20 border border-golden-500/40 flex items-center justify-center text-golden-400 font-bold">
+                  <Zap className="w-6 h-6" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-golden-400 bg-golden-500/10 px-3 py-1 rounded-full border border-golden-500/20">Pillar 03</span>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-extrabold text-white">3. Operational Efficiency</h3>
+                <p className="text-xs text-navy-200 mt-1">Accelerating execution velocity, reducing friction, and eliminating operational waste.</p>
+              </div>
+
+              <ul className="space-y-4 pt-2 text-xs">
+                <li className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 space-y-1 hover:border-golden-500/40 transition-colors">
+                  <div className="font-bold text-golden-300 flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Digital Transformation & Process Automation</span>
+                  </div>
+                  <p className="text-navy-200 leading-relaxed pl-6">Eliminating friction through automated enterprise workflows, reducing costs, and accelerating time-to-market.</p>
+                </li>
+              </ul>
+
+              {/* Embedding Callout Box */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-golden-500/20 to-golden-600/10 border border-golden-500/40 space-y-3 mt-6">
+                <div className="flex items-center gap-2 text-golden-300 font-bold text-xs uppercase tracking-wider">
+                  <Sparkles className="w-4 h-4 text-golden-400" />
+                  <span>Embedded Advantage</span>
+                </div>
+                <p className="text-xs text-white font-medium leading-relaxed">
+                  This expertise is embedded in every Nisol Discovery™ engagement.
+                </p>
+                <Button href="/discovery" variant="primary" size="sm" className="w-full justify-center text-xs" icon={<Search className="w-3.5 h-3.5" />}>
+                  Start Your Discovery
+                </Button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* HOW NISOL DISCOVERY™ ADDRESSES ENTERPRISE PAIN POINTS Matrix */}
+        <div className="glass-panel rounded-3xl p-8 lg:p-10 border border-slate-200 shadow-xl space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-golden-600">Enterprise Impact Matrix</span>
+              <h3 className="text-xl sm:text-2xl font-black text-navy-950 mt-0.5">
+                How Nisol Discovery™ Addresses Enterprise Pain Points
+              </h3>
+            </div>
+            <Badge variant="navy">Problem → Solution Mapping</Badge>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { pain: "No clear AI strategy", solution: "AI Strategy & Governance" },
+              { pain: "Unclear AI ROI", solution: "ROI Analysis & Business Case" },
+              { pain: "Fragmented AI initiatives", solution: "Program & Portfolio Management" },
+              { pain: "Siloed business & IT", solution: "Executive Stakeholder Alignment" },
+              { pain: "Slow time-to-market", solution: "Enterprise Platform Delivery" },
+              { pain: "AI that doesn't scale", solution: "AI Solution Architecture" },
+              { pain: "Outdated infrastructure", solution: "DevOps & Cloud Modernization" },
+              { pain: "Manual, inefficient processes", solution: "Digital Transformation & Automation" }
+            ].map((item, idx) => (
+              <div key={idx} className="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2 hover:border-golden-500/40 transition-all">
+                <div className="flex items-center gap-2 text-xs font-semibold text-red-600 bg-red-50 p-2 rounded-lg border border-red-100">
+                  <X className="w-4 h-4 shrink-0 text-red-500" />
+                  <span className="truncate">{item.pain}</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-bold text-emerald-900 bg-emerald-50 p-2 rounded-lg border border-emerald-100">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                  <span className="truncate">{item.solution}</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
-
-        {/* Representative Enterprise Outcomes Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="glass-panel p-7 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-bold">
-              52%
-            </div>
-            <h4 className="font-bold text-navy-950 text-base">Token Spend Optimization</h4>
-            <p className="text-xs text-navy-700 leading-relaxed">
-              Achieved through intelligent model routing, semantic caching, and dynamic task delegation.
-            </p>
-          </div>
-
-          <div className="glass-panel p-7 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-golden-50 border border-golden-200 text-golden-700 flex items-center justify-center font-bold">
-              10D
-            </div>
-            <h4 className="font-bold text-navy-950 text-base">Executive Roadmap Clarity</h4>
-            <p className="text-xs text-navy-700 leading-relaxed">
-              Rapid turnaround delivering board-ready transformation deliverables with clear financial payback metrics.
-            </p>
-          </div>
-
-          <div className="glass-panel p-7 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-navy-50 border border-navy-200 text-navy-900 flex items-center justify-center font-bold">
-              100%
-            </div>
-            <h4 className="font-bold text-navy-950 text-base">Zero-Trust Security Stance</h4>
-            <p className="text-xs text-navy-700 leading-relaxed">
-              Role-based access control, document-level permissions, and zero data leakage across GenAI RAG deployments.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 8.5: MEET THE FOUNDER & LEADERSHIP */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-panel-dark rounded-3xl p-8 lg:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden text-white">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
-            {/* Founder Image & Credentials */}
-            <div className="lg:col-span-5 flex flex-col items-center text-center space-y-4">
-              <div className="relative group">
-                <div className="w-44 h-44 rounded-2xl overflow-hidden border-2 border-golden-500/40 shadow-2xl bg-navy-900">
-                  <img 
-                    src={COMPANY.founders[0].image} 
-                    alt={COMPANY.founders[0].name}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>                
-              </div>
-
-              <div className="pt-2">
-                <h3 className="text-2xl font-black text-white">{COMPANY.founders[0].name}</h3>
-                <p className="text-xs text-golden-300 font-semibold">{COMPANY.founders[0].role}</p>
-              </div>
-
-              {/* Credential Tags */}
-              <div className="flex flex-wrap justify-center gap-2 pt-1">
-                <span className="px-2.5 py-1 rounded-md bg-navy-900 border border-navy-700 text-[11px] text-slate-300 font-medium">
-                  24+ Years IT Leadership
-                </span>
-                <span className="px-2.5 py-1 rounded-md bg-navy-900 border border-navy-700 text-[11px] text-slate-300 font-medium">
-                  15+ Years Program Mgmt
-                </span>
-                <span className="px-2.5 py-1 rounded-md bg-navy-900 border border-navy-700 text-[11px] text-slate-300 font-medium">
-                  AI Transformation Specialist
-                </span>
-              </div>
-            </div>
-
-            {/* Founder Quote & Bio Column */}
-            <div className="lg:col-span-7 space-y-6">
-              <Badge variant="golden">Meet the Leadership</Badge>
-
-              <blockquote className="text-lg sm:text-xl font-medium text-slate-100 italic leading-relaxed border-l-4 border-golden-500 pl-4">
-                &ldquo;Enterprise AI transformation isn&apos;t about chasing software hype—it&apos;s about delivering measurable business outcomes. We start with Nisol Discovery™ so leaders can invest in technology with absolute clarity and confidence.&rdquo;
-              </blockquote>
-
-              <p className="text-sm text-navy-200 leading-relaxed font-normal">
-                {COMPANY.founders[0].bio}
-              </p>
-
-              <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
-                <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-                  Book Discovery Workshop with Ssooraj
-                </Button>
-                <Link href="/about" className="text-xs font-semibold text-golden-400 hover:underline">
-                  Meet the Full Team →
-                </Link>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+        
+      </section>      
 
       {/* SECTION 9: FINAL CTA BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

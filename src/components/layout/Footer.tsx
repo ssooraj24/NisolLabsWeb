@@ -25,13 +25,7 @@ export function Footer() {
             <p className="text-sm text-navy-200/80 leading-relaxed max-w-sm">
               {COMPANY.vision} Enterprise-grade AI Strategy, Autonomous Multi-Agent Orchestration, LLMOps, and Intelligent Document Processing.
             </p>
-
-            <div className="flex items-center gap-3 pt-2 text-xs font-semibold text-golden-400">
-              <div className="flex items-center gap-1.5 bg-navy-900/90 px-3 py-1.5 rounded-lg border border-navy-800">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Enterprise SOC-2 Security Ready</span>
-              </div>
-            </div>
+            
           </div>
 
           {/* Quick Links: Services */}

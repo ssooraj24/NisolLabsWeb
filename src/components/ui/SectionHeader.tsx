@@ -7,6 +7,7 @@ interface SectionHeaderProps {
   badgeVariant?: "golden" | "navy" | "emerald" | "outline";
   title: string;
   subtitle?: string;
+  subtitleClassName?: string;
   description?: string;
   centered?: boolean;
   theme?: "light" | "dark";
@@ -18,6 +19,7 @@ export function SectionHeader({
   badgeVariant = "golden",
   title,
   subtitle,
+  subtitleClassName,
   description,
   centered = true,
   theme = "light",
@@ -39,7 +41,7 @@ export function SectionHeader({
       >
         {title}{" "}
         {subtitle && (
-          <span className="block mt-1 golden-gradient-text font-black">
+          <span className={cn("block mt-1 golden-gradient-text font-black", subtitleClassName)}>
             {subtitle}
           </span>
         )}

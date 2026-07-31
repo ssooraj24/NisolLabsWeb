@@ -1,0 +1,107 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ENTERPRISE EXPERTISE — PROVEN DELIVERY AT SCALE                         │
+│                                                                             │
+ 
+    Our leadership team brings 40+ years of combined expertise in enterprise AI, 
+  cloud architecture, and digital transformation.           │
+│  Here's what that means for your organization:                             │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  1. STRATEGIC DIRECTION & GOVERNANCE                                       │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ✅ AI Strategy & Governance                                        │   │
+│  │     Operationalizing responsible AI frameworks and ethical          │   │
+│  │     AI deployment across the enterprise.                            │   │
+│  │                                                                      │   │
+│  │  ✅ Program & Portfolio Management                                  │   │
+│  │     Driving multi-stream alignment and measurable ROI across        │   │
+│  │     complex transformation programs.                                │   │
+│  │                                                                      │   │
+│  │  ✅ Executive Stakeholder Management                                │   │
+│  │     Bridging business goals and technical delivery to ensure        │   │
+│  │     leadership alignment and board-ready outcomes.                  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  2. ARCHITECTURE & DELIVERY                                                │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ✅ Enterprise Platform Delivery                                   │   │
+│  │     End-to-end rollout of mission-critical systems with            │   │
+│  │     zero downtime and full stakeholder adoption.                   │   │
+│  │                                                                      │   │
+│  │  ✅ AI Solution Architecture                                        │   │
+│  │     Designing scalable, production-ready AI models that            │   │
+│  │     integrate seamlessly with existing enterprise systems.          │   │
+│  │                                                                      │   │
+│  │  ✅ DevOps & Cloud Modernization                                   │   │
+│  │     Building cloud-native, resilient infrastructure with           │   │
+│  │     automated CI/CD pipelines and observability.                   │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  3. OPERATIONAL EFFICIENCY                                                │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ✅ Digital Transformation & Process Automation                    │   │
+│  │     Eliminating friction through automated enterprise workflows,   │   │
+│  │     reducing costs, and accelerating time-to-market.               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  This expertise is embedded in every Nisol Discovery™ engagement.         │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🔍 Start Your Discovery                                            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  HOW NISOL DISCOVERY™ ADDRESSES ENTERPRISE PAIN POINTS                     │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                                                                      │   │
+│  │  Enterprise Pain Point              Nisol Discovery™ Solution       │   │
+│  │  ─────────────────────────          ─────────────────────────       │   │
+│  │                                                                      │   │
+│  │  ❌ No clear AI strategy            ✅ AI Strategy & Governance     │   │
+│  │                                                                      │   │
+│  │  ❌ Unclear AI ROI                  ✅ ROI Analysis & Business Case │   │
+│  │                                                                      │   │
+│  │  ❌ Fragmented AI initiatives       ✅ Program & Portfolio          │   │
+│  │                                                                      │   │
+│  │  ❌ Siloed business & IT            ✅ Executive Stakeholder         │   │
+│  │                                                                      │   │
+│  │  ❌ Slow time-to-market             ✅ Enterprise Platform Delivery │   │
+│  │                                                                      │   │
+│  │  ❌ AI that doesn't scale           ✅ AI Solution Architecture     │   │
+│  │                                                                      │   │
+│  │  ❌ Outdated infrastructure         ✅ DevOps & Cloud Modernization │   │
+│  │                                                                      │   │
+│  │  ❌ Manual, inefficient processes   ✅ Digital Transformation &     │   │
+│  │                                        Process Automation           │   │
+│  │                                                                      │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Visual Design Options
+Icon + Category
+text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  1. STRATEGIC DIRECTION & GOVERNANCE                                    │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📊 AI Strategy & Governance                                       │   │
+│  │  Operationalizing responsible AI frameworks...                     │   │
+│  │                                                                      │   │
+│  │  📈 Program & Portfolio Management                                 │   │
+│  │  Driving multi-stream alignment and ROI...                         │   │
+│  │                                                                      │   │
+│  │  🤝 Executive Stakeholder Management                               │   │
+│  │  Bridging business goals and technical delivery...                 │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
