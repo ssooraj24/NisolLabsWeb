@@ -1075,10 +1075,7 @@ export default function HomePage() {
                     alt={COMPANY.founders[0].name}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                   />
-                </div>
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-golden-500 text-navy-950 rounded-full text-[10px] font-black tracking-wider uppercase shadow-md">
-                  FOUNDER & CHIEF ARCHITECT
-                </div>
+                </div>                
               </div>
 
               <div className="pt-2">
