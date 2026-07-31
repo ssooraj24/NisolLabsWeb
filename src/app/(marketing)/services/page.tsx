@@ -9,7 +9,7 @@ import { SERVICES } from "@/data/services";
 
 export const metadata: Metadata = {
   title: "AI Services & Core Pillars | Autonomous Agents, LLMOps & Strategy",
-  description: "Explore Nisol Labs' 6 core AI pillars: Autonomous AI Agents, AI Engineering & DevOps, AI Strategy, AI Assistants, Automation, and Data Readiness."
+  description: "Explore Nisol AI's 6 core AI pillars: Autonomous AI Agents, AI Engineering & DevOps, AI Strategy, AI Assistants, Automation, and Data Readiness."
 };
 
 export default function ServicesPage() {

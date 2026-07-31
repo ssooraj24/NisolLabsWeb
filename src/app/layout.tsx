@@ -10,10 +10,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Nisol Labs | The Core of Intelligence — Enterprise AI Consulting & Multi-Agent Engineering",
-    template: "%s | Nisol Labs"
+    default: "Nisol AI | The Core of Intelligence — Enterprise AI Consulting & Multi-Agent Engineering",
+    template: "%s | Nisol AI"
   },
-  description: "Nisol Labs helps businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions. Autonomous Agents, AI Engineering, LLMOps, Strategy, and RAG.",
+  description: "Nisol AI helps businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions. Autonomous Agents, AI Engineering, LLMOps, Strategy, and RAG.",
   keywords: [
     "Enterprise AI Consulting",
     "Autonomous AI Agents",
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     "Multi-Agent Systems",
     "AI Engineering",
     "Intelligent Document Processing",
-    "Nisol Labs"
+    "Nisol AI"
   ],
-  authors: [{ name: "Nisol Labs Engineering Team" }],
+  authors: [{ name: "Nisol AI Engineering Team" }],
   openGraph: {
-    title: "Nisol Labs — The Core of Intelligence",
+    title: "Nisol AI — The Core of Intelligence",
     description: "Enterprise-grade AI Strategy, Autonomous Multi-Agent Orchestration, LLMOps, and Intelligent Document Automation.",
-    siteName: "Nisol Labs",
+    siteName: "Nisol AI",
     locale: "en_US",
     type: "website"
   }

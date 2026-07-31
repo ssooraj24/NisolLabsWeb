@@ -25,8 +25,8 @@ import { AITransformationFramework } from "@/components/home/AITransformationFra
 
 
 export const metadata: Metadata = {
-  title: "About Nisol Labs | Our Story & Founders",
-  description: "Learn about Nisol Labs' mission to help businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions."
+  title: "About Nisol AI | Our Story & Founders",
+  description: "Learn about Nisol AI's mission to help businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions."
 };
 
 export default function AboutPage() {
@@ -34,7 +34,7 @@ export default function AboutPage() {
     <div className="space-y-20 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Hero Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4 pt-6">
-        <Badge variant="golden">About Nisol Labs</Badge>
+        <Badge variant="golden">About Nisol AI</Badge>
         <h1 className="text-4xl sm:text-5xl font-black text-navy-950 tracking-tight">
           The Core of <span className="golden-gradient-text">Intelligence</span>
         </h1>
@@ -118,7 +118,7 @@ export default function AboutPage() {
           </div>
           <p className="text-gray-600 text-lg leading-relaxed mb-6">
             That's why we founded{" "}
-            <strong className="text-navy-950">Nisol Labs</strong>.
+            <strong className="text-navy-950">Nisol AI</strong>.
           </p>
 
           {/* Team Capabilities */}
@@ -176,13 +176,13 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* The Nisol Labs Standard — Table */}
+      {/* The Nisol AI Standard — Table */}
       <div className="max-w-4xl mx-auto">
         <div className="bg-navy-950 rounded-2xl p-8 md:p-10 border border-navy-800">
           <div className="flex items-start gap-3 mb-4">
             <CheckCircle2 className="w-6 h-6 text-golden-500 flex-shrink-0 mt-1" />
             <h3 className="text-2xl font-bold text-white">
-              The Nisol Labs Standard
+              The Nisol AI Standard
             </h3>
           </div>
           <p className="text-gray-400 text-lg leading-relaxed mb-6">
@@ -331,9 +331,9 @@ export default function AboutPage() {
       <section className="space-y-10">
         <SectionHeader
           badgeText="Leadership & Team"
-          title="Meet The Team Behind Nisol Labs"
+          title="Meet The Team Behind Nisol AI"
           subtitle="Where Enterprise Experience Meets AI Innovation."
-          description="Nisol Labs brings together experienced enterprise technology leaders and emerging AI engineers to design, build, and deliver practical AI solutions. Through mentorship and hands-on experience, our team combines proven industry expertise with the innovation of the next generation."
+          description="Nisol AI brings together experienced enterprise technology leaders and emerging AI engineers to design, build, and deliver practical AI solutions. Through mentorship and hands-on experience, our team combines proven industry expertise with the innovation of the next generation."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -378,7 +378,7 @@ export default function AboutPage() {
       <section className="space-y-8">
         <SectionHeader
           badgeText="Our Core Values"
-          title="What Guides Nisol Labs"
+          title="What Guides Nisol AI"
           description="Every line of code and architectural recommendation is guided by these principles."
         />
 
@@ -394,7 +394,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <div className="bg-navy-950 text-white rounded-3xl p-10 text-center space-y-6 border border-golden-500/30">
-        <h2 className="text-3xl font-black text-white">Partner with Nisol Labs Today</h2>
+        <h2 className="text-3xl font-black text-white">Partner with Nisol AI Today</h2>
         <p className="text-sm text-navy-200 max-w-xl mx-auto">
           Let's discuss your AI adoption roadmap and evaluate how autonomous agents can transform your operational efficiency.
         </p>

@@ -16,8 +16,8 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2">
               <img
-                src="/logo.png"
-                alt="Nisol Labs Logo"
+                src="/NisolAI-Logo-R.png"
+                alt="Nisol AI Logo"
                 className="h-14 md:h-16 w-auto object-contain rounded"
               />
             </Link>
@@ -125,8 +125,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-golden-300 transition-colors">
-                  Book AI Discovery Call
+                <Link href="/contact?type=discovery-call" className="hover:text-golden-300 transition-colors">
+                  Book Discovery Call
                 </Link>
               </li>
             </ul>
@@ -157,7 +157,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-navy-300">
           <div>
-            © {new Date().getFullYear()} Nisol Labs. All rights reserved. The Core of Intelligence.
+            © {new Date().getFullYear()} Nisol AI. All rights reserved. The Core of Intelligence.
           </div>
 
           <div className="flex items-center gap-6 font-medium">

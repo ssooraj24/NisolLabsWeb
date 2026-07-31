@@ -10,7 +10,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Login – Nisol Discovery",
-  description: "Sign in to access the Nisol Labs Discovery Portal",
+  description: "Sign in to access the Nisol AI Discovery Portal",
 };
 
 export default function LoginLayout({ children }: Readonly<{ children: React.ReactNode }>) {

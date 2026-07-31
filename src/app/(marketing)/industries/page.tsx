@@ -8,8 +8,8 @@ import { Badge } from "@/components/ui/Badge";
 import { INDUSTRIES } from "@/data/industries";
 
 export const metadata: Metadata = {
-  title: "Industries | IT, BFSI, Healthcare, Manufacturing & Professional Services | Nisol Labs",
-  description: "Discover how Nisol Labs delivers specialized AI solutions tailored for high-scale enterprise verticals."
+  title: "Industries | IT, BFSI, Healthcare, Manufacturing & Professional Services | Nisol AI",
+  description: "Discover how Nisol AI delivers specialized AI solutions tailored for high-scale enterprise verticals."
 };
 
 export default function IndustriesPage() {

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Enterprise AI Assistants | Nisol Labs",
+  title: "Enterprise AI Assistants | Nisol AI",
   description: "Empower your workforce with context-aware conversational assistants securely connected to proprietary knowledge bases."
 };
 
@@ -31,7 +31,7 @@ export default function AssistantsPage() {
         "Full multi-modal parsing of tables, layouts, and scans"
       ]}
       whatIsTitle="What Are Enterprise AI Assistants?"
-      whatIsDescription="Generic chat systems fail in enterprise settings because they lack proprietary context and violate access boundaries. Nisol Labs builds Enterprise AI Assistants utilizing advanced Hybrid Retrieval-Augmented Generation (RAG). We index your unstructured data (PDFs, Wikis, Shared Drives) into high-performance vector databases, apply dense-sparse semantic reranking to find exact answers, and enforce strict document-level role permissions (RBAC) so users only see answers they are authorized to access."
+      whatIsDescription="Generic chat systems fail in enterprise settings because they lack proprietary context and violate access boundaries. Nisol AI builds Enterprise AI Assistants utilizing advanced Hybrid Retrieval-Augmented Generation (RAG). We index your unstructured data (PDFs, Wikis, Shared Drives) into high-performance vector databases, apply dense-sparse semantic reranking to find exact answers, and enforce strict document-level role permissions (RBAC) so users only see answers they are authorized to access."
       applications={[
         { department: "Operations", useCase: "Technical SOP Copilots" },
         { department: "HR & Onboarding", useCase: "Internal Policy Assistants" },

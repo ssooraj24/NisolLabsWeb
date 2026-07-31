@@ -1,0 +1,498 @@
+# Nisol AI — Discovery Deliverables Page
+
+## What to Include on `/discovery/deliverables`
+
+The **Discovery Deliverables** page is where you **show the tangible value** of a Nisol Discovery engagement. It answers the client's most important question: *"What exactly do I get?"*
+
+---
+
+## 1. Page Structure Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  DELIVERABLES                                                              │
+│  "What You Receive from a Nisol Discovery Engagement"                      │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  Section 1: Hero Header                                                    │
+│  "Executive-Grade Deliverables, AI-Powered, Consultant-Reviewed"           │
+│                                                                             │
+│  Section 2: Deliverables Overview                                          │
+│  15 deliverables grouped into 3 strategic packs                            │
+│                                                                             │
+│  Section 3: Executive Intelligence Pack                                    │
+│  Summary, Readiness, Dashboard, Scorecard                                  │
+│                                                                             │
+│  Section 4: AI Opportunity Pack                                            │
+│  Matrix, Use Cases, Quick Wins, Prioritization                             │
+│                                                                             │
+│  Section 5: Transformation Pack                                            │
+│  Roadmap, ROI, Business Case, Blueprints, Change                           │
+│                                                                             │
+│  Section 6: Sample Deliverables Preview                                    │
+│  Visual previews of actual deliverables                                    │
+│                                                                             │
+│  Section 7: Why These Deliverables Matter                                  │
+│  Business value of each pack                                               │
+│                                                                             │
+│  Section 8: Comparison — Before vs After                                   │
+│  What you have vs. what you get                                            │
+│                                                                             │
+│  Section 9: CTA — Get Your Deliverables                                    │
+│  Book Discovery Call                                                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2. Section 1: Hero Header
+
+### Headline Options:
+
+| Option | Headline | Best For |
+| :--- | :--- | :--- |
+| **1** | Executive-Grade Deliverables, AI-Powered, Consultant-Reviewed | Quality positioning |
+| **2** | What You Get from a Nisol Discovery Engagement | Direct, clear |
+| **3** | 15 Deliverables That Drive AI Transformation | Number-driven |
+| **4** | From Discovery to Transformation — The Complete Package | Journey-focused |
+
+### Sub-headline:
+
+> "Our Nisol Discovery™ engagement delivers **15 executive-ready reports** across three strategic packs. Each deliverable is AI-generated and consultant-reviewed to ensure quality and relevance."
+
+### Visual Element:
+
+- **Background:** A document or report icon
+- **Text Overlay:** "15 Deliverables. 3 Strategic Packs. 1 Transformation."
+
+---
+
+## 3. Section 2: Deliverables Overview
+
+### Header:
+
+> "15 Executive-Ready Deliverables, Organized for Impact"
+
+### Visual Layout (3 Packs):
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐ │
+│  │                     │  │                     │  │                     │ │
+│  │  EXECUTIVE          │  │  AI OPPORTUNITY     │  │  TRANSFORMATION     │ │
+│  │  INTELLIGENCE PACK  │  │  PACK               │  │  PACK               │ │
+│  │                     │  │                     │  │                     │ │
+│  │  • Executive        │  │  • Opportunity      │  │  • Roadmap          │ │
+│  │    Summary          │  │    Matrix           │  │  • ROI Analysis     │ │
+│  │  • Readiness        │  │  • Top 20 Use       │  │  • Business Case    │ │
+│  │    Assessment       │  │    Cases            │  │  • Solution         │ │
+│  │  • Executive        │  │  • Quick Wins vs    │  │    Blueprints       │ │
+│  │    Dashboard        │  │    Strategic Bets   │  │  • Change           │ │
+│  │  • AI Scorecard     │  │  • Implementation   │  │    Management       │ │
+│  │                     │  │    Prioritization   │  │  • Risk Assessment  │ │
+│  │                     │  │                     │  │  • Success Metrics  │ │
+│  └─────────────────────┘  └─────────────────────┘  └─────────────────────┘ │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 4. Section 3: Executive Intelligence Pack
+
+### Header:
+
+> "Executive Intelligence Pack — Clarity for Leadership"
+
+### Content:
+
+> "This pack gives your leadership team the clarity needed to make informed decisions about your AI transformation. It provides a comprehensive view of where you are, what you need, and where you can go."
+
+### Deliverables Table:
+
+| # | Deliverable | Description | Benefit |
+| :--- | :--- | :--- | :--- |
+| 1 | **Executive Summary** | High-level overview of findings, opportunities, and recommendations | Quick understanding for board and leadership |
+| 2 | **AI Readiness Assessment** | Overall AI maturity score and capability breakdown | Understand your starting point |
+| 3 | **Executive Dashboard** | Visual intelligence dashboard with key metrics | Real-time visibility for leadership |
+| 4 | **AI Scorecard** | 15 capability scores with gap analysis | Identify strengths and weaknesses |
+
+### Visual Element:
+
+- **Sample Image:** A radar chart with 15 capabilities
+- **Caption:** "AI Readiness Radar — Visualizing Your Capabilities"
+
+---
+
+## 5. Section 4: AI Opportunity Pack
+
+### Header:
+
+> "AI Opportunity Pack — What's Possible"
+
+### Content:
+
+> "This pack identifies and prioritizes AI opportunities across your organization. It answers the question: 'Where should we invest first?'"
+
+### Deliverables Table:
+
+| # | Deliverable | Description | Benefit |
+| :--- | :--- | :--- | :--- |
+| 5 | **AI Opportunity Matrix** | 2x2 matrix (Impact vs. Feasibility) | Visual prioritization of opportunities |
+| 6 | **Top 20 AI Use Cases** | 20 specific use cases with ROI and feasibility scores | Concrete, actionable ideas |
+| 7 | **Quick Wins vs Strategic Bets** | Categorization of initiatives by timeline and impact | Balanced portfolio approach |
+| 8 | **Implementation Prioritization** | Clear sequence for implementation | Focused execution plan |
+
+### Visual Element:
+
+- **Sample Image:** 2x2 Opportunity Matrix with bubbles
+- **Caption:** "AI Opportunity Matrix — Impact vs. Feasibility"
+
+---
+
+## 6. Section 5: Transformation Pack
+
+### Header:
+
+> "Transformation Pack — Your Roadmap to Success"
+
+### Content:
+
+> "This pack provides the comprehensive plan needed to execute your AI transformation. It includes the roadmap, financial case, and technical blueprints to get started."
+
+### Deliverables Table:
+
+| # | Deliverable | Description | Benefit |
+| :--- | :--- | :--- | :--- |
+| 9 | **AI Transformation Roadmap** | 30/90/180/365-day implementation plan | Clear path forward |
+| 10 | **ROI Analysis** | Financial impact, cost savings, payback period | Business case justification |
+| 11 | **Business Case** | Comprehensive business case for AI investment | Executive approval support |
+| 12 | **Solution Blueprints** | Technical architecture for top 5 use cases | Implementation-ready designs |
+| 13 | **Change Management Recommendations** | People and culture recommendations | Organizational readiness |
+| 14 | **Risk Assessment** | Key risks and mitigation strategies | Risk-aware planning |
+| 15 | **Success Metrics Framework** | KPIs to measure transformation success | Track and measure progress |
+
+### Visual Element:
+
+- **Sample Image:** Implementation Roadmap timeline
+- **Caption:** "AI Transformation Roadmap — 30/90/180/365 Day Phases"
+
+---
+
+## 7. Section 6: Sample Deliverables Preview
+
+### Header:
+
+> "See What Our Deliverables Look Like"
+
+### Content:
+
+> "Get a preview of the quality and depth of our deliverables."
+
+### Visual Previews:
+
+#### Preview 1: Executive Summary (Sample Page)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  EXECUTIVE SUMMARY                                                         │
+│  Acme Corp — AI Readiness Assessment                                       │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  Acme Corp has demonstrated a strong foundation in data management         │
+│  with a maturity score of 4.2/5. However, AI governance remains a          │
+│  critical gap that requires immediate attention.                          │
+│                                                                             │
+│  Key Findings:                                                             │
+│  • Strong cloud infrastructure (4.5/5)                                    │
+│  • Data governance maturity (4.0/5)                                       │
+│  • AI governance framework (1.9/5) — Critical gap                        │
+│  • AI skills and literacy (2.4/5) — Significant gap                      │
+│                                                                             │
+│  Top 3 Recommendations:                                                    │
+│  1. Establish an AI Governance Committee within 30 days                   │
+│  2. Launch a data quality initiative across all departments               │
+│  3. Pilot a Customer Service AI Chatbot within 90 days                   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Preview 2: Radar Chart
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  AI READINESS RADAR                                                       │
+│                                                                             │
+│              Leadership & Strategy                                         │
+│                  ╱         ╲                                               │
+│                 ╱  4.2      ╲                                              │
+│    IT & Tech ╱               ╲  Data                                      │
+│            ╱  3.7             ╲  4.0                                       │
+│           ╱                   ╲                                            │
+│  Security ╱                     ╲  Customer                              │
+│          ╱  3.5                 ╲  Service                                │
+│         ╱                       ╲  3.2                                    │
+│         ╲                       ╱                                          │
+│  Sales   ╲  3.0                ╱  Marketing                               │
+│           ╲                   ╱  2.8                                      │
+│            ╲                 ╱                                             │
+│    Ops      ╲               ╱   Finance                                   │
+│              ╲  3.5         ╱   3.7                                       │
+│               ╲            ╱                                              │
+│                 ╲        ╱                                                │
+│                  ╲      ╱                                                 │
+│                   HR    3.1                                               │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Preview 3: Transformation Roadmap
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  AI TRANSFORMATION ROADMAP                                                 │
+│  30/90/180/365 Day Implementation Plan                                     │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  30 DAYS — Foundation & Governance                                         │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ✓ AI Steering Council Formation                                   │   │
+│  │  ✓ Data Readiness Assessment                                        │   │
+│  │  ✓ AI Governance Framework                                          │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  90 DAYS — Pilot Implementation & Quick Wins                              │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ✓ Customer Support Chatbot Pilot                                  │   │
+│  │  ✓ Automated Document Processing                                    │   │
+│  │  ✓ AI Literacy Training                                             │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  180 DAYS — Scale & System Integration                                   │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ✓ Enterprise Chatbot Rollout                                      │   │
+│  │  ✓ Data Governance Implementation                                   │   │
+│  │  ✓ AI Center of Excellence Establishment                           │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  365 DAYS — Enterprise Automation & Continuous Optimization             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ✓ Enterprise AI Rollout                                           │   │
+│  │  ✓ Continuous Optimization                                          │   │
+│  │  ✓ AI Operating Model                                               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### CTA:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  Want to see the full deliverable set?                                     │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📄 Download Sample Deliverables PDF                               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 8. Section 7: Why These Deliverables Matter
+
+### Header:
+
+> "The Business Value of Every Deliverable"
+
+### Content Table:
+
+| Deliverable | Why It Matters to Your Business |
+| :--- | :--- |
+| **Executive Summary** | Aligns leadership on AI priorities |
+| **AI Readiness Assessment** | Prevents wasted investment on the wrong initiatives |
+| **Opportunity Matrix** | Focuses resources on highest-impact opportunities |
+| **Top 20 Use Cases** | Provides a clear starting point for implementation |
+| **AI Transformation Roadmap** | Creates accountability and timeline clarity |
+| **ROI Analysis** | Makes the business case for investment |
+| **Solution Blueprints** | Reduces implementation risk and time |
+| **Change Management** | Ensures organizational adoption |
+| **Success Metrics** | Enables ongoing tracking and optimization |
+
+---
+
+## 9. Section 8: Comparison — Before vs After
+
+### Header:
+
+> "What You Have Today vs. What You Get"
+
+### Comparison Table:
+
+| Before (Without Nisol Discovery) | After (With Nisol Discovery) |
+| :--- | :--- |
+| Unclear AI priorities | Clear, prioritized AI opportunities |
+| Unknown AI maturity | Comprehensive AI readiness score |
+| No clear roadmap | Phased 30/90/180/365-day roadmap |
+| Fragmented data | 15 capability scores with gap analysis |
+| No financial justification | Detailed ROI analysis |
+| High execution risk | Implementation-ready blueprints |
+| Uncertainty about next steps | Clear, actionable recommendations |
+
+---
+
+## 10. Section 9: Call to Action (CTA)
+
+### Header:
+
+> "Ready to Get Your Discovery Deliverables?"
+
+### Content:
+
+> "Get the complete set of 15 deliverables for your organization. Our fixed-price engagement delivers executive clarity in weeks—not months."
+
+### CTA Buttons:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📅 Book a Discovery Call                                            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📄 Request a Proposal                                               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  Or, explore more:                                                         │
+│  • [Learn About Discovery Methodology →]                                  │
+│  • [Try the ROI Calculator →]                                             │
+│  • [View Sample Deliverables →]                                           │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 11. Page Structure — Full Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  HERO SECTION                                                              │
+│  "Executive-Grade Deliverables, AI-Powered, Consultant-Reviewed"           │
+│  Sub-headline + CTA button                                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  DELIVERABLES OVERVIEW                                                     │
+│  15 deliverables grouped into 3 strategic packs                            │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  EXECUTIVE INTELLIGENCE PACK                                               │
+│  Header + 4 deliverables with descriptions                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  AI OPPORTUNITY PACK                                                       │
+│  Header + 4 deliverables with descriptions                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  TRANSFORMATION PACK                                                       │
+│  Header + 7 deliverables with descriptions                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  SAMPLE DELIVERABLES PREVIEW                                               │
+│  Visual previews + download option                                        │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  WHY THESE DELIVERABLES MATTER                                             │
+│  Business value table                                                      │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  COMPARISON — BEFORE VS AFTER                                              │
+│  Side-by-side comparison table                                            │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  CTA SECTION                                                               │
+│  "Ready to Get Your Discovery Deliverables?" + CTAs                        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 12. SEO Considerations
+
+| Element | Recommendation |
+| :--- | :--- |
+| **Meta Title** | Discovery Deliverables — What You Get from Nisol AI |
+| **Meta Description** | Get 15 executive-ready deliverables from a Nisol Discovery engagement. Executive Summary, AI Readiness, Opportunity Matrix, Roadmap, and more. |
+| **Keywords** | AI discovery deliverables, AI transformation reports, AI readiness assessment report, AI consulting deliverables |
+| **URL** | `/discovery/deliverables` |
+
+---
+
+## 13. Lead Capture Opportunities
+
+| Lead Capture Point | Format | Purpose |
+| :--- | :--- | :--- |
+| **Sample Deliverables Download** | Form (or no-form) | Quality lead generation |
+| **Book a Discovery Call** | Form | High-intent lead |
+| **Request a Proposal** | Form | High-intent lead |
+| **ROI Calculator CTA** | Link | Lead nurturing |
+
+---
+
+## 14. Summary
+
+| Section | Purpose |
+| :--- | :--- |
+| **Hero** | Set expectations for deliverables |
+| **Overview** | Give a high-level view of what's included |
+| **3 Packs** | Break down deliverables into logical groups |
+| **Sample Previews** | Build trust and show quality |
+| **Why It Matters** | Connect deliverables to business value |
+| **Before vs After** | Show the transformation |
+| **CTA** | Convert visitors to leads |
+
+---
+
+## 15. Development Note
+
+### Page Visual Elements:
+
+| Element | Implementation |
+| :--- | :--- |
+| **Capability Grid** | Responsive grid with hover states |
+| **Deliverable Cards** | Expandable cards with details |
+| **Sample Previews** | Interactive image carousel or lightbox |
+| **Comparison Table** | Clean, responsive table |
+| **CTAs** | High-contrast buttons (Gold/Navy) |
+
+### Interactive Features:
+
+| Feature | Purpose |
+| :--- | :--- |
+| **Expandable Deliverables** | Show more details without cluttering the page |
+| **Image Carousel** | Show multiple sample pages |
+| **Download Modal** | Capture lead before downloading sample |
+
+This page positions the **Nisol Discovery deliverables** as the tangible outcome of a premium consulting engagement. 🚀

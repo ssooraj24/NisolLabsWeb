@@ -1,0 +1,392 @@
+# Nisol AI — AI Readiness Assessment Page
+
+## What to Include on `/discovery/readiness`
+
+The **AI Readiness Assessment** page serves as a **powerful lead generation tool** and a **demonstration of your methodology's value**. It should not just describe the assessment—it should **show** what the client will receive and **convince** them to take the next step.
+
+---
+
+## 1. Page Structure Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  AI READINESS ASSESSMENT                                                   │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  Section 1: Hero Header                                                    │
+│  "Understand Your AI Maturity in Weeks, Not Months"                        │
+│                                                                             │
+│  Section 2: What Is the AI Readiness Assessment?                           │
+│  The framework overview                                                    │
+│                                                                             │
+│  Section 3: The 15 Capabilities We Assess                                  │
+│  Visual capability wheel / grid                                            │
+│                                                                             │
+│  Section 4: What You Will Receive                                          │
+│  Deliverables preview                                                      │
+│                                                                             │
+│  Section 5: Sample Assessment Report                                       │
+│  Download a sanitized sample                                               │
+│                                                                             │
+│  Section 6: Why This Matters                                               │
+│  Business value of understanding your AI readiness                         │
+│                                                                             │
+│  Section 7: Success Stories                                                │
+│  Case study snippets                                                       │
+│                                                                             │
+│  Section 8: CTA — Get Your Assessment                                      │
+│  Book Discovery Call                                                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2. Section 1: Hero Header
+
+### Headline Options:
+
+| Option | Headline | Best For |
+| :--- | :--- | :--- |
+| **1** | Understand Your AI Maturity in Weeks, Not Months | Speed/value positioning |
+| **2** | The AI Readiness Assessment for Enterprise Leaders | Executive targeting |
+| **3** | Where Does Your Organization Stand on AI? | Curiosity-driven |
+| **4** | AI Readiness Assessment — Powered by Nisol Intelligence™ | Platform differentiation |
+
+### Sub-headline:
+
+> "Our proprietary AI Readiness Assessment evaluates your organization across **15 capabilities** and **62 metrics** to deliver a clear, actionable picture of your AI maturity."
+
+### Visual Element:
+
+- **Background:** A stylized radar chart (static or animated)
+- **Text Overlay:** "Discover Your AI Maturity Score"
+
+---
+
+## 3. Section 2: What Is the AI Readiness Assessment?
+
+### Content:
+
+> **The Nisol AI Readiness Assessment** is a structured, data-driven evaluation of your organization's AI maturity. It combines a 62-question diagnostic workshop with AI-powered analysis to deliver a comprehensive view of your AI capabilities.
+
+### Key Points (Bullet List):
+
+| Point | Description |
+| :--- | :--- |
+| **Comprehensive** | Covers 15 capabilities across leadership, technology, operations, and culture |
+| **Data-Driven** | 62 structured questions with a 1-5 scoring framework |
+| **AI-Powered** | Nisol Intelligence™ analyzes responses and generates insights |
+| **Executive-Ready** | Delivered as a professional report with radar charts and action plans |
+
+### Visual Element:
+
+- **Icon:** A magnifying glass over a radar chart
+- **Text:** "AI-Powered Assessment" tag
+
+---
+
+## 4. Section 3: The 15 Capabilities We Assess
+
+### Header:
+
+> "We Assess 15 Critical Capabilities That Drive AI Success"
+
+### Visual Display:
+
+**Option A: Interactive Capability Wheel**
+
+```
+                    ┌─────────────────────┐
+                    │   Leadership &       │
+                    │   Strategy           │
+                    ├─────────────────────┤
+                    │   IT & Technology    │
+                    ├─────────────────────┤
+                    │   Data & Analytics   │
+                    ├─────────────────────┤
+                    │   Security &         │
+                    │   Compliance         │
+                    └─────────────────────┘
+```
+
+**Option B: Capability Grid (Recommended)**
+
+| # | Capability | # | Capability |
+| :--- | :--- | :--- | :--- |
+| 1 | Leadership & Strategy | 9 | Finance |
+| 2 | IT & Technology | 10 | HR |
+| 3 | Data & Analytics | 11 | Procurement |
+| 4 | Security & Compliance | 12 | Legal |
+| 5 | Customer Service | 13 | Knowledge Management |
+| 6 | Sales | 14 | Project Management |
+| 7 | Marketing | 15 | Culture & Change |
+| 8 | Operations & Supply Chain | | |
+
+### Interactive Element:
+
+- Each capability is **clickable** → Expands to show:
+  - What is assessed
+  - Example questions
+  - Why it matters
+
+### Example Expansion (Leadership & Strategy):
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Leadership & Strategy — What We Assess                                    │
+│                                                                             │
+│  • AI vision and strategic alignment                                       │
+│  • Investment posture and budget authority                                 │
+│  • Decision-making structure and governance                                │
+│  • Transformation history and appetite                                     │
+│  • AI ethics and governance framework                                      │
+│                                                                             │
+│  Why It Matters:                                                           │
+│  Leadership commitment is the #1 predictor of AI transformation success.  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 5. Section 4: What You Will Receive
+
+### Header:
+
+> "Your AI Readiness Assessment Deliverables"
+
+### Deliverables Table:
+
+| Deliverable | Description |
+| :--- | :--- |
+| **AI Readiness Score** | Your overall maturity score (0-100) |
+| **15 Capability Scores** | Detailed scores across all capabilities |
+| **Radar Chart** | Visual comparison of your scores |
+| **Gap Analysis** | Strengths, weaknesses, and opportunities |
+| **Benchmarking** | Comparison to industry averages |
+| **Actionable Recommendations** | Prioritized next steps |
+
+### Visual Element:
+
+- **Sample Radar Chart** (static image or interactive preview)
+
+---
+
+## 6. Section 5: Sample Assessment Report
+
+### Header:
+
+> "See What a Nisol AI Readiness Assessment Looks Like"
+
+### Content:
+
+> Download a sample AI Readiness Assessment report to understand the depth and quality of our deliverables.
+
+### CTA:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📄 Download Sample Report                                          │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  [No email required]  [Format: PDF]  [Pages: 15]                           │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Sample Report Content Preview:
+
+| Page | Content |
+| :--- | :--- |
+| 1 | Executive Summary |
+| 2 | AI Readiness Score & Radar Chart |
+| 3-4 | Capability-wise Breakdown (15 scores) |
+| 5-6 | Gap Analysis & Key Findings |
+| 7 | Benchmarking Data |
+| 8-10 | Actionable Recommendations |
+| 11-15 | Appendix — Detailed Question Responses |
+
+---
+
+## 7. Section 6: Why This Matters
+
+### Header:
+
+> "Why Understanding Your AI Readiness is Critical"
+
+### Content Blocks:
+
+#### Block 1: The AI Imperative
+
+> 85% of AI transformations fail to deliver expected value. The primary reason? Organizations jump into implementation without understanding their current AI maturity.
+
+#### Block 2: The Nisol AI Advantage
+
+> Our assessment identifies your strengths, exposes gaps, and provides a clear, prioritized roadmap for AI transformation—before you invest in implementation.
+
+#### Block 3: The Cost of Not Knowing
+
+| Risk | Impact |
+| :--- | :--- |
+| Wrong AI investments | Wasted budget (₹1-5 Cr+) |
+| Failed implementations | Delayed transformation (12-24 months) |
+| Competitive disadvantage | Lost market share |
+| Governance gaps | Regulatory fines and reputational damage |
+
+---
+
+## 8. Section 7: Success Stories
+
+### Header:
+
+> "How Our Readiness Assessment Has Helped Clients"
+
+### Case Study Snippet:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  Acme Corp — Manufacturing                                                  │
+│                                                                             │
+│  Challenge:                                                               │
+│  "We knew we needed AI, but didn't know where to start."                  │
+│                                                                             │
+│  Our Assessment:                                                           │
+│  62-question workshop across 5 business functions                          │
+│                                                                             │
+│  Results:                                                                  │
+│  • Identified 3 high-impact AI opportunities                               │
+│  • Prioritized 8 use cases                                                 │
+│  • ₹2.4 Cr annual savings identified                                       │
+│  • Clear implementation roadmap delivered                                 │
+│                                                                             │
+│  Read Full Case Study →                                                    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 9. Section 8: Call to Action (CTA)
+
+### Header:
+
+> "Ready to Assess Your AI Readiness?"
+
+### Content:
+
+> Get a comprehensive AI Readiness Assessment for your organization. Our fixed-price engagement delivers executive clarity in weeks—not months.
+
+### CTA Buttons:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📅 Book a Discovery Call                                            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📄 Request a Proposal                                               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  Or, start exploring:                                                      │
+│  • [Learn About Discovery Methodology →]                                  │
+│  • [Try the ROI Calculator →]                                             │
+│  • [View Sample Deliverables →]                                           │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 10. Page Structure — Full Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  HERO SECTION                                                              │
+│  "Understand Your AI Maturity in Weeks, Not Months"                        │
+│  Sub-headline + CTA button                                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  WHAT IS THE AI READINESS ASSESSMENT?                                     │
+│  Overview + key points + visual icon                                      │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  THE 15 CAPABILITIES WE ASSESS                                              │
+│  Capability grid + interactive expandable items                            │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  WHAT YOU WILL RECEIVE                                                     │
+│  Deliverables table + sample radar chart preview                           │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  SAMPLE ASSESSMENT REPORT                                                  │
+│  Download sample PDF                                                       │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  WHY THIS MATTERS                                                          │
+│  Business value + cost of not knowing + AI imperative                     │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  SUCCESS STORIES                                                           │
+│  Case study snippets                                                       │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  CTA SECTION                                                               │
+│  "Ready to Assess Your AI Readiness?" + 2 primary CTAs + secondary links  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 11. SEO Considerations
+
+| Element | Recommendation |
+| :--- | :--- |
+| **Meta Title** | AI Readiness Assessment — Nisol AI |
+| **Meta Description** | Get a comprehensive AI Readiness Assessment powered by Nisol Intelligence™. Evaluate 15 capabilities and get actionable insights in weeks. |
+| **Keywords** | AI readiness assessment, AI maturity assessment, AI transformation consulting, AI capability assessment |
+| **URL** | `/discovery/readiness` |
+
+---
+
+## 12. Lead Capture Opportunities
+
+| Lead Capture Point | Format | Purpose |
+| :--- | :--- | :--- |
+| **Sample Report Download** | Form (or no-form) | Quality lead generation |
+| **Book a Discovery Call** | Form | High-intent lead |
+| **Request a Proposal** | Form | High-intent lead |
+| **ROI Calculator CTA** | Link | Lead nurturing |
+| **Capability Wheel Click** | Event tracking | Interest qualification |
+
+---
+
+## 13. Summary
+
+| Section | Purpose |
+| :--- | :--- |
+| **Hero** | Capture attention, communicate value |
+| **What Is It** | Explain the assessment |
+| **15 Capabilities** | Demonstrate depth and rigor |
+| **Deliverables** | Show what they get |
+| **Sample Report** | Build trust, generate leads |
+| **Why This Matters** | Create urgency |
+| **Success Stories** | Provide social proof |
+| **CTA** | Convert visitors to leads |
+
+This page positions the **AI Readiness Assessment** as a **premium, proprietary, and valuable service** that only Nisol AI can deliver. 🚀

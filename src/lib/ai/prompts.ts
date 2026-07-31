@@ -58,7 +58,7 @@ export const PROMPTS = {
   // Prompt 1: Executive Summary (Markdown format)
   buildExecutiveSummaryPrompt(companyName: string, industry: string, rawResponses: any, capabilityScores?: any) {
     return `
-You are a senior AI strategy consultant at Nisol Labs.
+You are a senior AI strategy consultant at Nisol AI.
 Generate a comprehensive Executive Summary for ${companyName}, an enterprise in the ${industry} industry.
 
 Input Data:
@@ -81,7 +81,7 @@ Tone: Executive, authoritative, highly actionable, and tailored specifically to 
   // Prompt 2: AI Readiness Assessment (JSON format)
   buildAIReadinessPrompt(companyName: string, industry: string, rawResponses: any, capabilityScores?: any) {
     return `
-You are an enterprise AI assessment architect at Nisol Labs.
+You are an enterprise AI assessment architect at Nisol AI.
 Based on the discovery workshop responses for ${companyName} (${industry}), evaluate overall organizational readiness.
 
 Input Data:
@@ -505,7 +505,7 @@ Generate exactly 5 complete blueprint objects. Keep technology recommendations g
   // Prompt 10: Proposal Draft (Markdown format)
   buildProposalDraftPrompt(companyName: string, industry: string, rawResponses: any, roadmap?: any, roi?: any) {
     return `
-Generate a formal commercial consulting proposal draft from Nisol Labs to ${companyName} (${industry}).
+Generate a formal commercial consulting proposal draft from Nisol AI to ${companyName} (${industry}).
 
 Input Context:
 - Raw Responses: ${JSON.stringify(rawResponses, null, 2)}
@@ -534,7 +534,7 @@ Structure in clean, professional markdown format:
    - ROI projections and payback period
    - Value realization timeline
 
-5. **Nisol Labs Capabilities & Methodology**
+5. **Nisol AI Capabilities & Methodology**
    - Our approach to AI transformation
    - Technology partnerships and ecosystem
    - Success stories and case studies
@@ -553,9 +553,9 @@ Tone: Professional, compelling, client-ready consulting proposal.
 // ============================================
 
 export const SYSTEM_PROMPTS = {
-  executive_summary: `You are a senior AI strategy consultant at Nisol Labs. Generate executive-level, actionable, and authoritative consulting summaries. Focus on specific insights derived from the data provided. Avoid generic filler language. Use clear markdown formatting with headings and bullet points.`,
+  executive_summary: `You are a senior AI strategy consultant at Nisol AI. Generate executive-level, actionable, and authoritative consulting summaries. Focus on specific insights derived from the data provided. Avoid generic filler language. Use clear markdown formatting with headings and bullet points.`,
   
-  readiness_assessment: `You are an enterprise AI assessment architect at Nisol Labs. Provide rigorous, data-driven readiness evaluations with clear benchmarks and actionable insights. Return ONLY valid JSON, without markdown wrappers.`,
+  readiness_assessment: `You are an enterprise AI assessment architect at Nisol AI. Provide rigorous, data-driven readiness evaluations with clear benchmarks and actionable insights. Return ONLY valid JSON, without markdown wrappers.`,
   
   capability_scores: `You are an AI maturity assessment expert. Calculate structured capability scores based on the provided data. Ensure consistency and provide specific evidence for each score. Return ONLY valid JSON, without markdown wrappers.`,
   

@@ -1,5 +1,5 @@
 export const COMPANY = {
-  name: "Nisol Labs",
+  name: "Nisol AI",
   tagline: "The Core of Intelligence",
   vision: "Help businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions.",
   mission: "Enable organizations to discover, implement, and scale AI through Strategy, Assistants, Agents, Automation, and Engineering.",
@@ -14,7 +14,7 @@ export const COMPANY = {
     {
       name: "Ssooraj Rauth",
       role: "Co-Founder & Chief AI Architect",
-      bio: "Ssooraj Rauth has spent 24+ years architecting enterprise systems — from cloud-native platforms to AI-powered solutions. He specializes in AI engineering, LLMOps, and multi-agent orchestration, helping enterprises move from AI experimentation to production-grade systems. At Nisol Labs, he leads the design and delivery of AI solutions that are reliable, scalable, and business-aligned.",
+      bio: "Ssooraj Rauth has spent 24+ years architecting enterprise systems — from cloud-native platforms to AI-powered solutions. He specializes in AI engineering, LLMOps, and multi-agent orchestration, helping enterprises move from AI experimentation to production-grade systems. At Nisol AI, he leads the design and delivery of AI solutions that are reliable, scalable, and business-aligned.",
       position:"Co-Founder",
       image: "/images/ssooraj-photo.png",
       linkedin: "#",
@@ -23,7 +23,7 @@ export const COMPANY = {
     {
       name: "Amol",
       role: "Co-Founder & Head of Data Engineering",
-      bio: "Amol is a data engineering leader with 18+ years of experience building enterprise-scale data platforms. He specializes in architecting AI-ready data infrastructure — from real-time pipelines and data lakehouses to vector databases and knowledge graphs. At Nisol Labs, Amol ensures every AI system is built on a foundation of reliable, high-quality data.",
+      bio: "Amol is a data engineering leader with 18+ years of experience building enterprise-scale data platforms. He specializes in architecting AI-ready data infrastructure — from real-time pipelines and data lakehouses to vector databases and knowledge graphs. At Nisol AI, Amol ensures every AI system is built on a foundation of reliable, high-quality data.",
       position:"Co-Founder",
       image: "/images/amol-photo-2.png",
       linkedin: "#",

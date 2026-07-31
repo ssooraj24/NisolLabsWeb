@@ -1,0 +1,280 @@
+# Nisol Labs — Website Pricing Strategy
+
+You are absolutely right. **Do not publish a simple pricing table.** That would commoditize your offering and reduce it to a price comparison, when what you are selling is **strategic AI transformation**.
+
+Instead, position your pricing page as an **Engagements & Investment** page that communicates value first, investment second.
+
+---
+
+## 1. Recommended Page Title
+
+**Option A (Best):**  
+> **AI Transformation Engagements**
+
+**Option B:**  
+> **Engagements & Investment**
+
+**Option C:**  
+> **How We Partner with You**
+
+These titles focus on the **relationship** and **outcome**, not the cost.
+
+---
+
+## 2. Page Structure
+
+### 2.1 Hero Section (Value-First)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  AI TRANSFORMATION ENGAGEMENTS                                              │
+│                                                                             │
+│  Gain executive clarity on your AI opportunities, prioritize high-impact   │
+│  initiatives, and receive a practical roadmap for implementation.         │
+│                                                                             │
+│  Our fixed-price engagements combine proprietary AI-powered analysis       │
+│  with expert consulting to deliver executive-ready recommendations in     │
+│  weeks—not months.                                                         │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  👋 Start with a no-obligation Discovery Call                      │   │
+│  │  [Schedule Your Call]                                               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 2.2 Engagement Packages (Three Tiers)
+
+#### Foundation Engagement
+
+**Starting at ₹3.5 Lakhs**
+
+*Ideal for organizations beginning their AI transformation journey.*
+
+| What's Included | Duration | Best For |
+| :--- | :--- | :--- |
+| Executive Discovery Workshop | **1–2 weeks** | Single business unit or small organization |
+| AI Readiness Assessment | | |
+| AI Opportunity Identification | | |
+| Executive Intelligence Pack | | |
+| AI Transformation Roadmap | | |
+| ROI Assessment | | |
+| Executive Presentation | | |
+
+**CTA:** Schedule Discovery Call
+
+---
+
+#### Growth Engagement
+
+**Starting at ₹7.5 Lakhs**
+
+*Ideal for organizations ready to build an enterprise-wide AI roadmap.*
+
+| What's Included | Duration | Best For |
+| :--- | :--- | :--- |
+| **Everything in Foundation** | **2–4 weeks** | Mid-market and large enterprises |
+| Business Case Development | | |
+| Solution Blueprints (Top 5) | | |
+| AI Governance Framework | | |
+| Change Management Strategy | | |
+| Executive Steering Workshops | | |
+| Implementation Readiness Assessment | | |
+
+**CTA:** Talk to an AI Strategist
+
+---
+
+#### Enterprise Engagement
+
+**Custom Pricing**
+
+*Designed for large enterprises and complex organizations.*
+
+| What's Included | Duration | Best For |
+| :--- | :--- | :--- |
+| Multi-location workshops | **4–8 weeks** | Large enterprises (1000+ employees) |
+| Executive Steering Committee | | |
+| Industry Benchmarking | | |
+| AI Portfolio Management | | |
+| Transformation Office Setup | | |
+| Ongoing Advisory | | |
+| Custom Deliverables | | |
+
+**CTA:** Request Proposal
+
+---
+
+### 2.3 Comparison Table
+
+| Feature | Foundation | Growth | Enterprise |
+| :--- | :---: | :---: | :---: |
+| Discovery Workshop | ✅ | ✅ | ✅ |
+| AI Readiness Assessment | ✅ | ✅ | ✅ |
+| Opportunity Matrix | ✅ | ✅ | ✅ |
+| Executive Dashboard | ✅ | ✅ | ✅ |
+| AI Transformation Roadmap | ✅ | ✅ | ✅ |
+| ROI Analysis | ✅ | ✅ | ✅ |
+| Executive Presentation | ✅ | ✅ | ✅ |
+| Solution Blueprints | — | ✅ | ✅ |
+| Business Case | — | ✅ | ✅ |
+| Governance Framework | — | ✅ | ✅ |
+| Change Management | — | ✅ | ✅ |
+| Benchmarking | — | ✅ | ✅ |
+| Multi-location Workshops | — | — | ✅ |
+| Executive Steering | — | — | ✅ |
+| Ongoing Advisory | — | — | ✅ |
+| **Starting Investment** | **₹3.5 Lakhs** | **₹7.5 Lakhs** | **Custom** |
+
+---
+
+### 2.4 Pricing Calculator (Interactive)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ESTIMATE YOUR AI DISCOVERY ENGAGEMENT                                    │
+│                                                                             │
+│  Get a personalized estimate for your organization.                        │
+│                                                                             │
+│  Industry              [Dropdown ▼]                                        │
+│  Number of Functions   [Dropdown: 1-3 / 4-6 / 7+]                         │
+│  Company Size          [Dropdown: 10-50 / 51-250 / 251-1000 / 1000+]     │
+│  Locations             [Dropdown: 1 / 2-3 / 4+]                           │
+│  Desired Depth         [Dropdown: Foundation / Growth / Enterprise]       │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  📊 Estimated Investment: ₹6,20,000                                        │
+│  📅 Estimated Duration: 10 business days                                   │
+│  📦 Recommended Package: Growth Engagement                                 │
+│                                                                             │
+│  [Book Consultation]  [Request Detailed Proposal]                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**How It Works:**
+- The calculator adjusts the estimated price based on client inputs
+- It does **not** show a fixed price table—it gives a **range**
+- It encourages the client to schedule a call for a precise quote
+
+**Backend Logic (Simplified):**
+
+| Input | Weight |
+| :--- | :--- |
+| Industry | 1.0x (base) |
+| Number of Functions | +0.5x per function beyond 3 |
+| Company Size | +0.3x for 51-250, +0.6x for 250-1000, +1.0x for 1000+ |
+| Locations | +0.3x for 2-3, +0.5x for 4+ |
+| Desired Depth | Foundation: 1.0x, Growth: 1.5x, Enterprise: 2.0x |
+
+**Example Calculation:**
+
+```
+Base Price: ₹3,50,000
+Industry: Manufacturing (1.0x)
+Functions: 5 (1.0x + 0.5x + 0.5x = 2.0x)
+Size: 150 employees (1.0x + 0.3x = 1.3x)
+Locations: 2 (1.0x + 0.3x = 1.3x)
+Depth: Growth (1.5x)
+
+Estimated: ₹3,50,000 × 2.0 × 1.3 × 1.3 × 1.5 = ₹17,74,500
+```
+
+**Display:** ₹16,00,000 – ₹20,00,000
+
+---
+
+### 2.5 Frequently Asked Questions
+
+**Q: What is included in the Discovery Workshop?**  
+A: The workshop covers 62 questions across 15 capabilities, conducted over 2–4 days with your leadership and key stakeholders.
+
+**Q: How long does the engagement take?**  
+A: Typically 1–4 weeks, depending on the package and stakeholder availability.
+
+**Q: What if we need additional workshops or locations?**  
+A: These can be added through a Change Request. We are flexible and will work with you to ensure the right scope.
+
+**Q: Do you offer ongoing advisory after the engagement?**  
+A: Yes. We offer monthly advisory, executive dashboards, and implementation support as add-on services.
+
+**Q: How do we get started?**  
+A: Simply schedule a no-obligation Discovery Call. We will discuss your goals and recommend the right engagement for your organization.
+
+---
+
+### 2.6 Call to Action (CTA) Section
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  Ready to Start Your AI Transformation?                                    │
+│                                                                             │
+│  Schedule a no-obligation Discovery Call with our AI strategist.           │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📅 Schedule Your Call                                              │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  Or, if you prefer,                                                        │
+│  📧 Email us at hello@nisollabs.com                                        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 3. Why This Works
+
+| Strategy | Why It Works |
+| :--- | :--- |
+| **Value-First Messaging** | Clients focus on what they get, not what they pay |
+| **Transparent Starting Prices** | Provides clarity without commoditizing |
+| **Tiered Packages** | Creates a natural upgrade path |
+| **Comparison Table** | Helps clients understand the differences |
+| **Interactive Calculator** | Engages visitors and generates qualified leads |
+| **FAQs** | Addresses common objections upfront |
+| **No Hourly Rates** | Communicates that this is a strategic engagement, not staff augmentation |
+
+---
+
+## 4. Recommended Implementation
+
+| Page Element | Tool/Plugin |
+| :--- | :--- |
+| **Pricing Calculator** | Custom JavaScript (or WordPress plugin like WP Forms with calculations) |
+| **Comparison Table** | HTML table or Page Builder (Elementor, Divi) |
+| **FAQs** | Accordion (Bootstrap or Page Builder) |
+| **CTA Buttons** | High-contrast buttons (Gold/Navy) |
+
+---
+
+## 5. Positioning Statement
+
+> **Nisol Labs** offers **fixed-price AI transformation engagements** that combine proprietary AI-powered intelligence with deep consulting expertise. Our engagements are designed to deliver executive clarity, actionable roadmaps, and measurable business value—typically in weeks, not months.
+
+---
+
+## 6. Final Verdict
+
+| Aspect | Rating | Notes |
+| :--- | :--- | :--- |
+| **Value Positioning** | ⭐⭐⭐⭐⭐ | Clients understand what they get |
+| **Transparency** | ⭐⭐⭐⭐⭐ | Starting prices provide clarity |
+| **Lead Generation** | ⭐⭐⭐⭐⭐ | Calculator and CTAs encourage engagement |
+| **Premium Branding** | ⭐⭐⭐⭐⭐ | No commoditization |
+| **Flexibility** | ⭐⭐⭐⭐⭐ | Customization for enterprise clients |
+
+---
+
+## 7. Summary: What to Do Next
+
+1. **Create the "Engagements & Investment" page** with the structure above
+2. **Add the comparison table** and three tiered packages
+3. **Implement the pricing calculator** (optional but highly recommended)
+4. **Write clear CTAs** that lead to a consultation booking form
+5. **Test and iterate** based on client feedback
+
+This page will position Nisol Labs as a **premium AI transformation partner** while being transparent about investment—a rare and powerful combination. 🚀

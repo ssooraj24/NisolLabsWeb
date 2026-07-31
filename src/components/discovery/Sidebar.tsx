@@ -72,7 +72,7 @@ export const Sidebar = () => {
       <div>
         <div className="px-3 py-4 border-b border-white/10 mb-4">
           <span className="text-xs uppercase tracking-wider text-blue-300 font-bold block">
-            Nisol Labs
+            Nisol AI
           </span>
           <span className="text-lg font-bold text-white">Platform Portal</span>
         </div>

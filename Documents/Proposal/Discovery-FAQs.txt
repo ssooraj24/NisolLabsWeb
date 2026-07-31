@@ -1,0 +1,341 @@
+# Nisol AI — Discovery FAQs Page
+
+## What to Include on `/discovery/faqs`
+
+The **Discovery FAQs** page serves as a **conversion tool** that addresses client objections before they become obstacles. It should build confidence, clarify the engagement process, and guide visitors toward taking the next step.
+
+---
+
+## 1. Page Structure Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  FREQUENTLY ASKED QUESTIONS                                                │
+│  "Your Questions About Nisol Discovery™, Answered"                         │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  Section 1: Hero Header                                                    │
+│  "Everything You Need to Know About Our Discovery Engagement"              │
+│                                                                             │
+│  Section 2: Quick Jump Navigation                                          │
+│  Category links for easy browsing                                          │
+│                                                                             │
+│  Section 3: FAQs by Category                                               │
+│  Accordion-style expandable answers                                        │
+│                                                                             │
+│  Section 4: Still Have Questions?                                          │
+│  CTA to contact us                                                         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2. Section 1: Hero Header
+
+### Headline Options:
+
+| Option | Headline | Best For |
+| :--- | :--- | :--- |
+| **1** | Everything You Need to Know About Nisol Discovery™ | Comprehensive coverage |
+| **2** | Your Questions About AI Discovery, Answered | Direct, approachable |
+| **3** | FAQs — Nisol Discovery™ Engagement | Clean, professional |
+| **4** | We've Got Answers | Short and confident |
+
+### Sub-headline:
+
+> "Explore our most frequently asked questions about the Nisol Discovery™ engagement. If you don't find what you're looking for, we're here to help."
+
+### Visual Element:
+
+- **Icon:** A question mark or chat bubble icon
+- **Tagline:** "Ask Us Anything" (optional)
+
+---
+
+## 3. Section 2: Quick Jump Navigation
+
+### Header:
+
+> "Jump to a Category"
+
+### Category Links:
+
+| Category | Questions | Emoji |
+| :--- | :--- | :--- |
+| **About Nisol Discovery™** | What is it? Who is it for? Why Nisol? | 🔍 |
+| **The Engagement Process** | How does it work? How long? What's included? | 📋 |
+| **Deliverables & Reports** | What do I get? How many reports? | 📄 |
+| **Investment & Pricing** | How much does it cost? What's included? | 💰 |
+| **Timeline & Logistics** | How long does it take? Remote or on-site? | ⏱️ |
+| **Qualifications & Fit** | Who is this for? Do I qualify? | ✅ |
+| **Next Steps** | How do I get started? | 🚀 |
+
+---
+
+## 4. Section 3: FAQs by Category
+
+### Category 1: About Nisol Discovery™
+
+| Question | Answer |
+| :--- | :--- |
+| **What is Nisol Discovery™?** | Nisol Discovery™ is a fixed-price, outcome-based AI transformation discovery engagement. It combines a structured 62-question diagnostic workshop with AI-powered analysis to deliver executive-ready insights, opportunities, and a transformation roadmap in weeks—not months. |
+| **Who is Nisol Discovery™ for?** | Nisol Discovery™ is designed for organizations that are serious about AI transformation. It's ideal for mid-market to enterprise companies (50+ employees) across industries like Manufacturing, BFSI, Healthcare, Retail, and Professional Services. |
+| **Why should I choose Nisol Discovery™ over traditional consulting?** | Traditional consulting engagements take months, deliver generic recommendations, and depend on a single consultant's expertise. Nisol Discovery™ is faster (weeks vs. months), data-driven (62 questions, AI-powered), and delivers a repeatable, proprietary methodology. |
+
+---
+
+### Category 2: The Engagement Process
+
+| Question | Answer |
+| :--- | :--- |
+| **How does the engagement work?** | The engagement follows a structured 4-phase process: Discovery Workshop (2–4 days), Data Validation & Analysis (1–2 days), AI Report Generation (0.5–1 day), Consultant Review & Quality Assurance (1–2 days), and Executive Presentation (0.5–1 day). |
+| **How long does a Nisol Discovery™ engagement take?** | A typical engagement takes 7–11 business days, depending on stakeholder availability and the number of business functions involved. The Discovery Workshop itself is 2–4 days. |
+| **What is included in the Discovery Workshop?** | The workshop covers 62 questions across 15 capabilities, conducted with your leadership and key stakeholders. It includes detailed discussions about your AI readiness, technology, operations, and culture. |
+| **Can the workshops be conducted remotely?** | Yes, workshops can be conducted remotely or on-site, depending on your preference and location. We work with you to choose the most effective format. |
+
+---
+
+### Category 3: Deliverables & Reports
+
+| Question | Answer |
+| :--- | :--- |
+| **What will I receive from the engagement?** | You will receive 15 executive-ready deliverables across three strategic packs: **Executive Intelligence Pack** (Executive Summary, AI Readiness Assessment, Executive Dashboard, AI Scorecard), **AI Opportunity Pack** (Opportunity Matrix, Top 20 Use Cases, Quick Wins vs Strategic Bets, Implementation Prioritization), and **Transformation Pack** (Roadmap, ROI Analysis, Business Case, Solution Blueprints, Change Management, Risk Assessment, Success Metrics). |
+| **Will I get actual reports, not just insights?** | Yes, you will receive professionally formatted executive reports for each deliverable, ready for leadership, board presentations, and implementation planning. |
+| **Can I download a sample report?** | Yes. We provide a sample report download on our [Deliverables page](/discovery/deliverables) so you can see the quality and depth of our output before engaging. |
+
+---
+
+### Category 4: Investment & Pricing
+
+| Question | Answer |
+| :--- | :--- |
+| **How much does a Nisol Discovery™ engagement cost?** | Nisol Discovery™ is a fixed-price engagement starting at ₹3.5 Lakhs. The final investment depends on the scope of your organization, the number of functions involved, and the depth of analysis required. We provide a custom proposal after our initial consultation. |
+| **Why is it a fixed-price engagement?** | We believe in outcome-based pricing. The investment is based on the value delivered, not the number of hours or days spent. This aligns our interests with yours—we focus on delivering exceptional results, not maximizing billable hours. |
+| **What are the payment terms?** | We offer flexible payment terms: 40% upfront, 40% after the Discovery Workshop, and 20% after final delivery. Specific terms can be discussed during the proposal phase. |
+| **Are there any hidden costs?** | No. The fixed-price engagement includes all workshop sessions, analysis, AI-generated reports, consultant review, and final deliverables. Travel expenses (if on-site) are billed separately and discussed upfront. |
+
+---
+
+### Category 5: Timeline & Logistics
+
+| Question | Answer |
+| :--- | :--- |
+| **How quickly can we start?** | We can typically start within 1–2 weeks of signing the proposal, depending on stakeholder availability and your schedule. |
+| **Can the timeline be compressed?** | Yes, if you have urgent timelines, we can work with you to accelerate the engagement. Rush delivery may involve additional fees, which we'll discuss upfront. |
+| **What happens if we need more time?** | The engagement timeline is flexible. If you need additional workshops, expanded scope, or extra review cycles, we handle these through a Change Request. Commercial terms remain unchanged unless there is a mutually agreed change in scope. |
+| **What happens after the engagement ends?** | We provide 30-day post-engagement email support. For ongoing advisory, implementation support, or executive dashboards, we offer add-on services that can be discussed during the engagement. |
+
+---
+
+### Category 6: Qualifications & Fit
+
+| Question | Answer |
+| :--- | :--- |
+| **Is Nisol Discovery™ right for my organization?** | Nisol Discovery™ is designed for organizations with 50+ employees that are serious about AI transformation. If you're unsure whether it fits, schedule a Discovery Call and we'll discuss your specific needs. |
+| **What if we already know our AI priorities?** | Even if you have some ideas, our assessment provides a structured, data-driven validation of your assumptions, identifies hidden opportunities, and delivers a prioritized roadmap. It's often surprising what we uncover. |
+| **What if our organization is not technically mature?** | That's exactly when Nisol Discovery™ is most valuable. We identify gaps and provide a phased roadmap that starts with foundational capabilities before moving to advanced AI. |
+
+---
+
+### Category 7: Next Steps
+
+| Question | Answer |
+| :--- | :--- |
+| **How do we get started?** | The best way to get started is to schedule a no-obligation Discovery Call. We'll discuss your goals, understand your context, and recommend the right engagement for you. |
+| **Do I need to prepare anything before the engagement?** | We'll provide a kickoff document before the engagement. You'll need to nominate a project sponsor, identify key stakeholders, and schedule workshop dates. |
+| **How do I get a custom proposal?** | You can request a custom proposal through our [Request Proposal page](/discovery/request-proposal) or by contacting us directly at hello@nisol.ai. |
+| **What is the first step after I decide to engage?** | After you sign the proposal, we'll schedule a kickoff meeting, align on stakeholder availability, and begin the Discovery Workshop. |
+
+---
+
+## 5. Section 4: Still Have Questions?
+
+### Header:
+
+> "Still Have Questions? We're Here to Help."
+
+### Content:
+
+> "We understand that every organization is unique. If you have a question that's not covered here, we'd love to hear from you."
+
+### CTA Buttons:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📅 Book a Discovery Call                                            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📧 Ask Us a Question                                                │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 6. Page Structure — Full Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  HERO SECTION                                                              │
+│  "Everything You Need to Know About Our Discovery Engagement"              │
+│  Sub-headline + CTA button                                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  QUICK JUMP NAVIGATION                                                     │
+│  Category links (7 categories)                                             │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  FAQS BY CATEGORY                                                          │
+│                                                                             │
+│  🔍 About Nisol Discovery™ (3 Q&As)                                       │
+│  📋 Engagement Process (4 Q&As)                                           │
+│  📄 Deliverables & Reports (3 Q&As)                                       │
+│  💰 Investment & Pricing (4 Q&As)                                         │
+│  ⏱️ Timeline & Logistics (4 Q&As)                                         │
+│  ✅ Qualifications & Fit (3 Q&As)                                         │
+│  🚀 Next Steps (4 Q&As)                                                   │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  STILL HAVE QUESTIONS?                                                     │
+│  "We're Here to Help" + 2 CTAs                                            │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 7. SEO Considerations
+
+| Element | Recommendation |
+| :--- | :--- |
+| **Meta Title** | FAQs — Nisol Discovery™ AI Transformation Engagement |
+| **Meta Description** | Get answers to frequently asked questions about Nisol Discovery™. Learn about the engagement process, deliverables, pricing, timeline, and more. |
+| **Keywords** | AI Discovery FAQs, AI transformation consulting FAQs, Nisol Discovery questions, AI readiness assessment FAQs |
+| **URL** | `/discovery/faqs` |
+
+---
+
+## 8. Lead Capture Opportunities
+
+| Lead Capture Point | Format | Purpose |
+| :--- | :--- | :--- |
+| **"Book a Discovery Call"** | Form | High-intent lead |
+| **"Ask Us a Question"** | Form | Low-friction lead |
+| **"Request a Proposal"** | Link | High-intent lead |
+| **"ROI Calculator"** | Link | Lead nurturing |
+
+---
+
+## 9. Design Recommendations
+
+### Accordion Style:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ▼ What is Nisol Discovery™?                                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Nisol Discovery™ is a fixed-price, outcome-based AI transformation       │
+│  discovery engagement...                                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Category Accordion (Grouped):
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  🔍 About Nisol Discovery™                              [▼ Expand All]    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  ▼ What is Nisol Discovery™?                                              │
+│  ───────────────────────────────────────────────────────────────────────── │
+│  Nisol Discovery™ is a fixed-price...                                     │
+│                                                                             │
+│  ▼ Who is Nisol Discovery™ for?                                           │
+│  ───────────────────────────────────────────────────────────────────────── │
+│  Nisol Discovery™ is designed for organizations...                        │
+│                                                                             │
+│  ▼ Why should I choose Nisol Discovery™ over traditional consulting?      │
+│  ───────────────────────────────────────────────────────────────────────── │
+│  Traditional consulting engagements take months...                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Visual Features:
+
+| Feature | Purpose |
+| :--- | :--- |
+| **Category Icons** | Visual differentiation |
+| **Expand All/Collapse All** | Improved UX for power users |
+| **Search Bar** | Allow users to search FAQs (optional) |
+| **Related FAQs** | Show related questions at the bottom |
+| **Contact CTA** | Always visible on the page |
+
+---
+
+## 10. Development Note
+
+### Accessibility:
+
+| Element | Implementation |
+| :--- | :--- |
+| **Accordion** | Use `aria-expanded`, `aria-controls` for screen readers |
+| **Keyboard Navigation** | Allow Tab and Enter/Space to expand |
+| **Focus Management** | Ensure focus stays within the accordion |
+
+### FAQ Schema Markup:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Nisol Discovery™?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nisol Discovery™ is a fixed-price, outcome-based AI transformation discovery engagement..."
+      }
+    }
+  ]
+}
+</script>
+```
+
+---
+
+## 11. Summary
+
+| Section | Purpose |
+| :--- | :--- |
+| **Hero** | Set expectations for FAQs |
+| **Quick Jump** | Allow easy navigation |
+| **FAQs by Category** | Address client concerns comprehensively |
+| **Still Have Questions?** | Lead capture and conversion |
+
+---
+
+## 12. Final Checklist
+
+Before going live, ensure:
+
+- [ ] All questions are answered completely and accurately
+- [ ] All links are working (Disclosure, Privacy Policy, etc.)
+- [ ] At least 8–10 essential FAQs are present
+- [ ] FAQ Schema markup is implemented
+- [ ] CTAs are prominent and clear
+- [ ] Mobile-responsive accordions work properly
+- [ ] Category jump links are functional
+
+This page is designed to **build trust**, **preempt objections**, and **drive conversions** while reinforcing your premium positioning. 🚀

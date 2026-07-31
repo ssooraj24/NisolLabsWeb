@@ -53,7 +53,7 @@ export const SERVICES: ServicePillar[] = [
     badge: "DIFFERENTIATOR",
     tagline: "Enterprise LLMOps, model fine-tuning, latency optimization, and automated CI/CD pipelines for AI.",
     description: "Transition prototype models into robust, resilient, low-latency enterprise AI applications backed by bulletproof continuous deployment and observability.",
-    fullDescription: "AI Engineering is our core differentiator. Many firms build AI wrappers; Nisol Labs engineers resilient AI infrastructure. From custom model fine-tuning and quantization to real-time latency optimization, prompt caching, guardrail validation, and automated continuous evaluation (LLMEval), we make AI software dependable.",
+    fullDescription: "AI Engineering is our core differentiator. Many firms build AI wrappers; Nisol AI engineers resilient AI infrastructure. From custom model fine-tuning and quantization to real-time latency optimization, prompt caching, guardrail validation, and automated continuous evaluation (LLMEval), we make AI software dependable.",
     iconName: "Cpu",
     keyBenefits: [
       "Sub-200ms latency through model quantization & semantic caching",
@@ -107,7 +107,7 @@ export const SERVICES: ServicePillar[] = [
     title: "Enterprise AI Assistants",
     tagline: "Context-aware conversational assistants connected to proprietary knowledge bases and tools.",
     description: "Empower your workforce with enterprise-grade copilots that securely query internal documentation, databases, and enterprise software.",
-    fullDescription: "Generic chatbots fail enterprise expectations. Nisol Labs builds context-aware AI Assistants leveraging advanced Retrieval-Augmented Generation (RAG), semantic vector search, and strict document-level security permissions. Give your team instant answers grounded directly in your organizational memory.",
+    fullDescription: "Generic chatbots fail enterprise expectations. Nisol AI builds context-aware AI Assistants leveraging advanced Retrieval-Augmented Generation (RAG), semantic vector search, and strict document-level security permissions. Give your team instant answers grounded directly in your organizational memory.",
     iconName: "MessageSquareCode",
     keyBenefits: [
       "Instant, verified answers backed by source document citations",
@@ -134,7 +134,7 @@ export const SERVICES: ServicePillar[] = [
     title: "AI-Powered Automation",
     tagline: "Intelligent document processing, extraction, and automated decision-making workflows.",
     description: "Transform manual document processing, invoice validation, email triage, and complex workflow steps into zero-touch intelligent automated channels.",
-    fullDescription: "Standard Robotic Process Automation (RPA) breaks when encountering unstructured data. Nisol Labs combines vision-language models, structured output extraction, and intelligent routing to automate end-to-end business workflows that adapt to unstructured forms, contracts, and receipts.",
+    fullDescription: "Standard Robotic Process Automation (RPA) breaks when encountering unstructured data. Nisol AI combines vision-language models, structured output extraction, and intelligent routing to automate end-to-end business workflows that adapt to unstructured forms, contracts, and receipts.",
     iconName: "Zap",
     keyBenefits: [
       "Automated extraction from unstructured PDFs, handwritten forms, and scanned images",
@@ -161,7 +161,7 @@ export const SERVICES: ServicePillar[] = [
     title: "Data Readiness for AI",
     tagline: "Data cleaning, vector database engineering, structured ETL pipelines, and semantic indexing.",
     description: "Prepare your enterprise data foundation for high-performance AI through synthetic generation, chunking optimization, and vector lakehouse architectures.",
-    fullDescription: "AI is only as good as the underlying data context. Nisol Labs audits, structures, cleans, and indexes legacy enterprise datasets, enabling seamless ingestion into vector search, knowledge graphs, and LLM fine-tuning datasets.",
+    fullDescription: "AI is only as good as the underlying data context. Nisol AI audits, structures, cleans, and indexes legacy enterprise datasets, enabling seamless ingestion into vector search, knowledge graphs, and LLM fine-tuning datasets.",
     iconName: "Database",
     keyBenefits: [
       "High-precision chunking, deduplication, and metadata enrichment",

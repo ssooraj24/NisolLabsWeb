@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "AI Engineering & DevOps | Nisol Labs",
+  title: "AI Engineering & DevOps | Nisol AI",
   description: "Transition prototype models into robust, resilient, low-latency enterprise applications backed by continuous deployment and observability."
 };
 
@@ -31,7 +31,7 @@ export default function EngineeringPage() {
         "Real-time token cost and hallucination monitoring"
       ]}
       whatIsTitle="What Is AI Engineering & DevOps?"
-      whatIsDescription="Many agencies build simple API wrappers. Nisol Labs builds robust AI software engineering platforms. We optimize every layer of the AI lifecycle: from quantization of open weights (Mistral/Llama 3) to deployment on dedicated local vLLM nodes, setup of hybrid dense-sparse vector indexing, implementation of Redis semantic caching to prevent duplicate API hits, and establishing automated prompt validation pipelines (CI/CD for LLMs) so prompt adjustments never break production features."
+      whatIsDescription="Many agencies build simple API wrappers. Nisol AI builds robust AI software engineering platforms. We optimize every layer of the AI lifecycle: from quantization of open weights (Mistral/Llama 3) to deployment on dedicated local vLLM nodes, setup of hybrid dense-sparse vector indexing, implementation of Redis semantic caching to prevent duplicate API hits, and establishing automated prompt validation pipelines (CI/CD for LLMs) so prompt adjustments never break production features."
       applications={[
         { department: "Engineering", useCase: "CI/CD LLM Eval pipelines" },
         { department: "Operations", useCase: "Model Routing & Caching Engines" },

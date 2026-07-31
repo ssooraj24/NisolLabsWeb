@@ -76,7 +76,7 @@ export default function ContactPage() {
               </div>
               <h3 className="text-2xl font-bold text-navy-950">Discovery Request Received</h3>
               <p className="text-sm text-navy-700 max-w-md mx-auto">
-                Thank you, <strong>{formData.fullName}</strong>. A senior Nisol Labs AI Architect will review your requirements and reach out within 24 business hours.
+                Thank you, <strong>{formData.fullName}</strong>. A senior Nisol AI Architect will review your requirements and reach out within 24 business hours.
               </p>
               <div className="pt-4">
                 <Button 
@@ -156,7 +156,8 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, interestPillar: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white font-medium"
                   >
-                    <option value="Autonomous AI Agents">Autonomous AI Agents (Flagship)</option>
+                    <option value="Nisol AI Discovery Call">Nisol AI Discovery Call (Flagship)</option>
+                    <option value="Autonomous AI Agents">Autonomous AI Agents</option>
                     <option value="AI Engineering & LLMOps">AI Engineering & LLMOps (Differentiator)</option>
                     <option value="AI Strategy & Discovery">AI Strategy & Discovery</option>
                     <option value="Enterprise AI Assistants">Enterprise AI Assistants (RAG)</option>

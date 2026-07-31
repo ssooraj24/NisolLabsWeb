@@ -137,7 +137,7 @@ export default function ClientReportsListPage() {
           <div className="p-12 text-center text-slate-500 text-sm space-y-2">
             <p className="font-bold text-slate-700">No Finalized Reports Available Yet</p>
             <p className="text-xs text-slate-400">
-              Once Nisol Labs consultants finalize your AI Assessment Advisory Report, it will appear here.
+              Once Nisol AI consultants finalize your AI Assessment Advisory Report, it will appear here.
             </p>
           </div>
         ) : (

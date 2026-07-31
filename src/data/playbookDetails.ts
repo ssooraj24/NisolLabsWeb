@@ -458,7 +458,7 @@ const smallBusinessPlaybook: Playbook = {
   },
   purpose: `Small businesses don't have massive IT budgets or data science teams—but they can still leverage AI to compete with larger players. This playbook focuses on low‑cost, high‑impact AI tools and strategies that deliver immediate results.
 
-  From automating customer service to generating marketing content and analysing financials, you'll discover how to start small, learn fast, and scale wisely. Most importantly, this playbook shows you exactly how Nisol Labs guides your journey—from Discovery Workshop to optimisation.`,
+  From automating customer service to generating marketing content and analysing financials, you'll discover how to start small, learn fast, and scale wisely. Most importantly, this playbook shows you exactly how Nisol AI guides your journey—from Discovery Workshop to optimisation.`,
   challenges: [
     { title: 'Limited Marketing Budget', description: 'Can\'t afford agencies or full-time creators. Content output is inconsistent and slow.' },
     { title: 'Customer Service Overhead', description: 'Small teams can\'t cover 24/7 support—queries go unanswered and leads are lost.' },
@@ -531,7 +531,7 @@ const smallBusinessPlaybook: Playbook = {
     { q: 'What if I don\'t have much data?', a: 'Many AI tools work well with minimal historical data. We leverage pre‑trained models and your existing documents, emails, and website content.' },
     { q: 'How fast can I see results?', a: 'Chatbots and content tools show value in the first week. ROI is typically visible within 30 days of going live.' },
     { q: 'Will AI replace my team?', a: 'No — AI handles repetitive, time-consuming tasks so your team can focus on higher-value work. Most clients find their team is more productive and happier after AI adoption.' },
-    { q: 'What is an AI Discovery Workshop?', a: 'A focused 2-hour session (virtual or in-person) where Nisol Labs consultants audit your current operations, identify your top AI opportunities, and deliver a prioritised roadmap on the day.' },
+    { q: 'What is an AI Discovery Workshop?', a: 'A focused 2-hour session (virtual or in-person) where Nisol AI consultants audit your current operations, identify your top AI opportunities, and deliver a prioritised roadmap on the day.' },
   ],
 };
 

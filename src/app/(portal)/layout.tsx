@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Nisol Labs Discovery Portal",
+  title: "Nisol AI Discovery Portal",
   description: "Enterprise AI Discovery & Maturity Assessment Portal",
 }
 

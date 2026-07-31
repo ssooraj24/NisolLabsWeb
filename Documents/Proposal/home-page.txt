@@ -1,0 +1,474 @@
+# Nisol AI — Homepage Discovery Section
+
+You are absolutely right. **Discovery is the heart of Nisol AI.** The homepage should immediately communicate that Discovery is your flagship differentiator—not just another service, but the proprietary methodology that sets you apart.
+
+---
+
+## Current Homepage vs. Recommended Homepage
+
+### Current (Generic):
+```
+Homepage
+├── Hero: "AI Transformation, Delivered."
+├── Services Overview
+├── Why Nisol Labs
+├── Industries
+├── Testimonials
+└── Contact
+```
+
+### Recommended (Discovery-Centric):
+```
+Homepage
+├── Hero: "Nisol Discovery™ — AI Transformation, Delivered."
+├── Discovery Section ← ⭐ NEW (The Heart)
+│   ├── What is Nisol Discovery?
+│   ├── 15 Capabilities Visual
+│   ├── 4-Phase Methodology Preview
+│   ├── Key Deliverables
+│   └── CTA: "Start Your Discovery"
+├── Why Enterprise AI Projects Fail
+├── Why Nisol AI
+├── Solutions Overview
+├── Industries
+├── ROI Calculator (Featured)
+├── Testimonials
+└── Final CTA
+```
+
+---
+
+## Complete Homepage Redesign (Discovery-Centric)
+
+---
+
+### Section 1: Hero (Updated)
+
+### Before:
+```
+NISOL AI
+AI Transformation, Delivered.
+```
+
+### After:
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  NISOL AI                                                                  │
+│  Nisol Discovery™ — AI Transformation, Delivered.                          │
+│                                                                             │
+│  Transform your organization with our proprietary AI Discovery             │
+│  methodology. 62 questions. 15 capabilities. Executive-ready insights     │
+│  in weeks—not months.                                                      │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🔍 Start Your Discovery                                            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📊 Try the ROI Calculator                                           │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Key Changes:**
+- **Nisol Discovery™** is now the hero headline
+- The sub-headline explains what Discovery is
+- Two CTAs: "Start Your Discovery" and "Try the ROI Calculator"
+
+---
+
+
+### Section 2: The Discovery Section (NEW — The Heart of the Page)
+
+This is the **most important section** of your homepage.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🔍 NISOL DISCOVERY™                                                │   │
+│  │  The Heart of Your AI Transformation                                │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  Nisol Discovery™ is our proprietary AI transformation discovery           │
+│  methodology. It combines a structured 62-question diagnostic workshop     │
+│  with AI-powered analysis to deliver executive-ready insights,            │
+│  opportunities, and a transformation roadmap in weeks—not months.          │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  WHAT WE ASSESS — 15 CAPABILITIES                                          │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  1. Leadership & Strategy    9. Finance                            │   │
+│  │  2. IT & Technology         10. HR                                 │   │
+│  │  3. Data & Analytics        11. Procurement                       │   │
+│  │  4. Security & Compliance   12. Legal                             │   │
+│  │  5. Customer Service        13. Knowledge Management              │   │
+│  │  6. Sales                   14. Project Management                │   │
+│  │  7. Marketing               15. Culture & Change                  │   │
+│  │  8. Operations & Supply Chain                                      │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  HOW IT WORKS — 4 PHASES                                                   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  ⚡ Phase 1           ⚡ Phase 2           ⚡ Phase 3           ⚡ Phase 4 │
+│  │  DISCOVERY            ANALYSIS             REVIEW             DELIVERY │
+│  │  2-4 Days             1-2 Days             1-2 Days           0.5-1 Day │
+│  │                                                                         │
+│  │  Workshop with        AI-powered           Consultant        Executive │
+│  │  leadership across    report generation    review and        presentation │
+│  │  15 capabilities      and analysis         refinement        and final │
+│  │                                                                         │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  WHAT YOU GET — 15 DELIVERABLES                                            │
+│                                                                             │
+│  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐ │
+│  │  EXECUTIVE          │  │  AI OPPORTUNITY     │  │  TRANSFORMATION     │ │
+│  │  INTELLIGENCE PACK  │  │  PACK               │  │  PACK               │ │
+│  │                     │  │                     │  │                     │ │
+│  │  • Executive        │  │  • Opportunity      │  │  • Roadmap          │ │
+│  │    Summary          │  │    Matrix           │  │  • ROI Analysis     │ │
+│  │  • Readiness        │  │  • Top 20 Use       │  │  • Business Case    │ │
+│  │    Assessment       │  │    Cases            │  │  • Solution         │ │
+│  │  • Executive        │  │  • Quick Wins vs    │  │    Blueprints       │ │
+│  │    Dashboard        │  │    Strategic Bets   │  │  • Change           │ │
+│  │  • AI Scorecard     │  │  • Implementation   │  │    Management       │ │
+│  │                     │  │    Prioritization   │  │  • Risk Assessment  │ │
+│  │                     │  │                     │  │  • Success Metrics  │ │
+│  └─────────────────────┘  └─────────────────────┘  └─────────────────────┘ │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🔍 Start Your Discovery                                            │   │
+│  │  Schedule a no-obligation Discovery Call to learn more.             │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+Section 3: Why Enterprise AI Projects Fail --> Keep this as it is
+
+------------------------
+
+### Section 4: Why Nisol AI (Trust Builders)
+
+This section should reinforce why Discovery is unique to Nisol AI.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  WHY NISOL AI?                                                             │
+│  "The Discovery Advantage"                                                 │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                                                                      │   │
+│  │  Traditional Consulting          Nisol Discovery™                   │   │
+│  │  ─────────────────────────      ─────────────────────────           │   │
+│  │  • Months of interviews          • Weeks to insights               │   │
+│  │  • Generic recommendations       • Data-driven, specific insights  │   │
+│  │  • Consultant-dependent          • Proprietary AI platform         │   │
+│  │  • Static reports                • Intelligence-driven deliverables│   │
+│  │  • Limited benchmarking          • AI maturity benchmarking        │   │
+│  │  • One-time engagement           • Continuous Intelligence Platform│   │
+│  │                                                                      │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  🔥 25+ YEARS EXPERIENCE                                                   │
+│  • Delivery & Program Management                                          │
+│  • GenAI & Agentic AI                                                     │
+│  • Enterprise Transformation                                              │
+│                                                                             │
+│  🤖 PROPRIETARY PLATFORM                                                   │
+│  • Nisol Discovery™ — 62 Questions, 15 Capabilities                       │
+│  • Nisol Intelligence™ — AI-Powered Report Generation                     │
+│                                                                             │
+│  📊 EXECUTIVE DELIVERABLES                                                 │
+│  • 15 Reports Across 3 Strategic Packs                                    │
+│  • Board-Ready Quality                                                    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Section 5: Solutions Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  SOLUTIONS — AI IMPLEMENTATION                                             │
+│                                                                             │
+│  After Discovery, we help you implement with:                              │
+│                                                                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐       │
+│  │  AI Strategy  │  │  AI        │  │  AI         │  │  Agentic    │       │
+│  │              │  │  Engineering│  │  Automation │  │  AI         │       │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘       │
+│                                                                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                       │
+│  │  RAG Systems  │  │  LLMOps     │  │  AI        │                       │
+│  │              │  │             │  │  Governance │                       │
+│  └─────────────┘  └─────────────┘  └─────────────┘                       │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Section 6: Industries We Serve
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  INDUSTRIES WE SERVE                                                       │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🏭 Manufacturing    🏦 BFSI        🏥 Healthcare    🛒 Retail    │   │
+│  │  🎓 Education        💼 Professional   🏗️ Construction   ⚡ Energy │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Section 7: ROI Calculator (Featured)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ESTIMATE YOUR AI TRANSFORMATION ROI                                       │
+│                                                                             │
+│  Get a personalized estimate for your organization.                        │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  Industry              [Dropdown ▼]                                │   │
+│  │  Employee Count        [Dropdown: 10-50 / 51-250 / 251-1000+]     │   │
+│  │  Business Functions    [Slider: 1 to 10]                           │   │
+│  │  Engagement Depth      [Dropdown: Foundation / Growth / Enterprise]│   │
+│  │                                                                      │   │
+│  │  📊 Estimated Investment: ₹6,00,000 – ₹8,00,000                    │   │
+│  │  📅 Estimated Duration: 10–12 business days                         │   │
+│  │                                                                      │   │
+│  │  [Get Detailed Proposal]                                            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Section 8: Testimonials
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  WHAT OUR CLIENTS SAY                                                      │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  "Nisol Discovery™ gave us clarity on our AI priorities in just     │   │
+│  │  10 days. We identified 8 high-impact use cases and have a clear   │   │
+│  │  roadmap for implementation."                                       │   │
+│  │                                                                      │   │
+│  │  — CTO, Acme Corp                                                   │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  "The ROI analysis was eye-opening. We discovered a                │   │
+│  │  ₹2.4 Cr annual savings opportunity we had completely missed."     │   │
+│  │                                                                      │   │
+│  │  — CFO, TechWave Inc                                                │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Section 9: Final CTA
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  READY TO START YOUR AI TRANSFORMATION?                                    │
+│                                                                             │
+│  Discover your AI readiness, identify high-impact opportunities,          │
+│  and build a transformation roadmap in weeks—not months.                   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🔍 Book Your Discovery Call                                        │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📊 Try the ROI Calculator                                           │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Complete Homepage Structure
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  1. HERO SECTION                                                           │
+│     "Nisol Discovery™ — AI Transformation, Delivered."                     │
+│     [Start Your Discovery]  [ROI Calculator]                               │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  2. DISCOVERY SECTION (THE HEART) — ⭐ NEW                                 │
+│     What is Nisol Discovery™?                                              │
+│     15 Capabilities Visual                                                 │
+│     4-Phase Methodology Preview                                            │
+│     15 Deliverables (3 Packs)                                              │
+│     [Start Your Discovery]                                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│ 3. Why Enterprise AI Projects Fail --> Keep this as it is
+
+
+│  ───────────────────────────────────────────────────────────────────────── │                                                                      │
+│  4. WHY NISOL AI                                                           │
+│                                                        │
+│     Proprietary Platform (Discovery + Intelligence)                        │
+│     Comparison: Traditional vs. Nisol Discovery™                          │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  5. SOLUTIONS OVERVIEW                                                     │
+│     7 Solution Areas                                                       │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  6. INDUSTRIES WE SERVE                                                    │
+│     7+ Industries                                                          │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  7. ROI CALCULATOR (FEATURED)                                              │
+│     Interactive Calculator                                                 │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  8. TESTIMONIALS                                                           │
+│     Client Quotes                                                          │
+│                                                                             │
+│  ───────────────────────────────────────────────────────────────────────── │
+│                                                                             │
+│  9. FINAL CTA                                                              │
+│     "Ready to Start Your AI Transformation?"                               │
+│     [Book Your Discovery Call]  [Try the ROI Calculator]                   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Summary: What Changed
+
+| Element | Before | After |
+| :--- | :--- | :--- |
+| **Hero** | Generic "AI Transformation" | "Nisol Discovery™ — AI Transformation" |
+| **Discovery Section** | Not prominent | **The Heart of the Page** — Full section |
+| **15 Capabilities** | Not shown on homepage | Visual grid on homepage |
+| **4-Phase Methodology** | Not shown | Visual timeline on homepage |
+| **15 Deliverables** | Not shown | 3 pack preview on homepage |
+| **ROI Calculator** | Separate | Featured prominently |
+| **CTA** | "Book Consultation" | "Start Your Discovery" |
+
+---
+
+## Development Notes
+
+| Element | Implementation |
+| :--- | :--- |
+| **Discovery Section** | Full-width, visually distinct section |
+| **15 Capabilities** | Responsive grid with hover states |
+| **4-Phase Methodology** | Interactive accordion or visual timeline |
+| **Deliverables** | Expandable cards for each pack |
+| **CTAs** | High-contrast buttons (Gold/Navy) |
+| **ROI Calculator** | Interactive widget (custom JavaScript) |
+
+---
+
+## Recommended Quick Wins
+
+If you want to implement this incrementally:
+
+1. **Start with the Hero Update** — Change to "Nisol Discovery™ — AI Transformation, Delivered."
+2. **Add the Discovery Section** — Make it the second section on the page
+3. **Update CTAs** — Change "Book Consultation" to "Start Your Discovery"
+4. **Add the 15 Capabilities Grid** — Visual representation of what you assess
+5. **Feature the ROI Calculator** — Make it prominent on the homepage
+
+---
+
+## Final Verdict
+
+| Aspect | Rating | Notes |
+| :--- | :--- | :--- |
+| **Discovery as Heart** | ⭐⭐⭐⭐⭐ | Perfect—it's now the central message |
+| **Visual Capabilities** | ⭐⭐⭐⭐⭐ | Shows depth and rigor |
+| **Methodology Preview** | ⭐⭐⭐⭐⭐ | Builds trust and credibility |
+| **Deliverables Preview** | ⭐⭐⭐⭐⭐ | Shows tangible value |
+| **CTAs** | ⭐⭐⭐⭐⭐ | Clear, action-oriented |
+
+This homepage redesign positions **Discovery** as the flagship differentiator and makes it immediately clear that Nisol AI is not a generic consulting firm—it's a **proprietary AI transformation methodology**. 🚀
+
+I would also simplify the Discovery section
+
+The draft you shared is excellent in terms of content, but it is too dense for a homepage.
+
+A homepage should create curiosity, not explain your entire methodology.
+
+Instead of showing all 15 capabilities, 15 deliverables, and every phase on the homepage, show a concise preview:
+
+Nisol Discovery™
+62-Question Business Assessment
+8 AI Readiness Dimensions
+AI Opportunity Matrix
+ROI & Business Case
+Executive Transformation Roadmap
+
+Then add a prominent button:
+
+Explore Nisol Discovery →
+===============================
+
+This is hero section:
+
+Transform Your Business with Confidence.
+Start with Nisol Discovery™
+
+Discover exactly where AI will create the highest business value, prioritize opportunities, estimate ROI, and build an executive-ready transformation roadmap before investing in technology.
+
+Primary CTA
+
+Book AI Discovery Workshop
+
+Secondary CTA
+
+Explore Methodology
+
+==================
+
+Keep Proven Enterprise Outcomes this section as it is
+
+Keep Discover Your AI Opportunity this section as it is

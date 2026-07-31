@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "AI-Powered Automation | Nisol Labs",
+  title: "AI-Powered Automation | Nisol AI",
   description: "Transform manual document processing, invoice validation, email triage, and complex workflow steps into zero-touch intelligent automated channels."
 };
 
@@ -31,7 +31,7 @@ export default function AutomationPage() {
         "Instant web hook synchronization to SAP, Salesforce, or Oracle"
       ]}
       whatIsTitle="What Is AI-Powered Automation?"
-      whatIsDescription="Robotic Process Automation (RPA) is fragile because it depends on fixed coordinates. Nisol Labs engineers Intelligent Document Processing (IDP) pipelines utilizing vision LLMs and structured output schemas (Pydantic). Our pipelines read document images, understand content semantically, extract key-value data with confidence scoring, and route exceptions to human review UI screens, allowing you to scale transaction volumes without adding headcount."
+      whatIsDescription="Robotic Process Automation (RPA) is fragile because it depends on fixed coordinates. Nisol AI engineers Intelligent Document Processing (IDP) pipelines utilizing vision LLMs and structured output schemas (Pydantic). Our pipelines read document images, understand content semantically, extract key-value data with confidence scoring, and route exceptions to human review UI screens, allowing you to scale transaction volumes without adding headcount."
       applications={[
         { department: "Finance", useCase: "AP Invoice Processing" },
         { department: "Logistics", useCase: "Freight Bill Auditing" },

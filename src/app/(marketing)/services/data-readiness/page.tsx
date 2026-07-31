@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Data Readiness for AI | Nisol Labs",
+  title: "Data Readiness for AI | Nisol AI",
   description: "Prepare your enterprise data foundation for high-performance AI through data cleaning, vector database engineering, structured ETL pipelines, and semantic indexing."
 };
 
@@ -31,7 +31,7 @@ export default function DataReadinessPage() {
         "Continuous automated re-indexing pipelines as files change"
       ]}
       whatIsTitle="What Is Data Readiness for AI?"
-      whatIsDescription="Many enterprise RAG projects fail because the underlying data is noisy, outdated, or poorly indexed. Data Readiness for AI is the engineering process of transforming raw file shares into structured semantic memory. Nisol Labs designs custom ETL pipelines that parse PDFs, remove duplicates, extract entity relationships, mask personal identifiers (PII), optimize chunk sizes for LLM context windows, and index outputs into production-grade vector lakehouses."
+      whatIsDescription="Many enterprise RAG projects fail because the underlying data is noisy, outdated, or poorly indexed. Data Readiness for AI is the engineering process of transforming raw file shares into structured semantic memory. Nisol AI designs custom ETL pipelines that parse PDFs, remove duplicates, extract entity relationships, mask personal identifiers (PII), optimize chunk sizes for LLM context windows, and index outputs into production-grade vector lakehouses."
       applications={[
         { department: "IT & Systems", useCase: "Vector Database Setup" },
         { department: "Compliance", useCase: "PII Masking & Filtering" },

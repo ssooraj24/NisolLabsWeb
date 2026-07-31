@@ -106,7 +106,7 @@ export function ServicePageTemplate({
         <div className="relative z-10 max-w-4xl space-y-6">
           <div className="flex items-center gap-3">
             <Badge variant="golden">{badgeText}</Badge>
-            <span className="text-xs text-navy-200 font-mono hidden sm:inline">Nisol Labs Enterprise AI Framework</span>
+            <span className="text-xs text-navy-200 font-mono hidden sm:inline">Nisol AI Enterprise AI Framework</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
@@ -372,11 +372,11 @@ export function ServicePageTemplate({
         </div>
       </section>
 
-      {/* SECTION 12: WHY NISOL LABS */}
+      {/* SECTION 12: WHY NISOL AI */}
       <section className="space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <Badge variant="navy">Why Partner with Us?</Badge>
-          <h2 className="text-3xl font-black text-navy-950">Why Nisol Labs</h2>
+          <h2 className="text-3xl font-black text-navy-950">Why Nisol AI</h2>
           <p className="text-sm text-navy-700">How we engineer value and security beyond standard wrappers.</p>
         </div>
 

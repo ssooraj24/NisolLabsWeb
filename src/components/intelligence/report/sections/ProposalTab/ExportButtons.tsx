@@ -38,7 +38,7 @@ export function ExportButtons({ proposalText, companyName = "Proposal", onExport
         </head>
         <body>
           <div class="header-banner">
-            <h1 style="color: #FFFFFF; border: none;">NISOL LABS</h1>
+            <h1 style="color: #FFFFFF; border: none;">NISOL AI</h1>
             <p style="color: #EBB44B; font-weight: bold; margin: 0;">AI Transformation Intelligence & Commercial Proposal</p>
           </div>
 
@@ -55,7 +55,7 @@ export function ExportButtons({ proposalText, companyName = "Proposal", onExport
           </div>
 
           <div class="footer">
-            <p>Confidential • Prepared exclusively for ${companyName} by Nisol Labs Product Team.</p>
+            <p>Confidential • Prepared exclusively for ${companyName} by Nisol AI Product Team.</p>
           </div>
         </body>
         </html>

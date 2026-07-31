@@ -27,7 +27,12 @@ import {
   BarChart3,
   Terminal,
   FileCode2,
-  AlertTriangle
+  AlertTriangle,
+  Search,
+  FileText,
+  Check,
+  X,
+  Award
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -39,6 +44,7 @@ import { CASE_STUDIES } from "@/data/resources";
 
 export default function HomePage() {
   const [activeTechTab, setActiveTechTab] = useState<"agents" | "llmops" | "data">("agents");
+  const [comparisonMode, setComparisonMode] = useState<"nisol" | "traditional">("nisol");
 
   const techStackData = {
     agents: [
@@ -64,7 +70,7 @@ export default function HomePage() {
   return (
     <div className="space-y-24 pb-20">
 
-      {/* 1. HERO SECTION */}
+      {/* SECTION 1: HERO SECTION */}
       <section className="relative min-h-[90vh] bg-navy-950 text-white flex items-center pt-12 pb-24 overflow-hidden border-b border-navy-800">
         {/* Animated Background Gradients & Grid */}
         <div className="absolute inset-0 bg-[radial-gradient(#153C78_1px,transparent_1px)] [background-size:32px_32px] opacity-20 pointer-events-none" />
@@ -78,92 +84,93 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/90 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
                 <Sparkles className="w-4 h-4 text-golden-400" />
-                <span>Enterprise AI Architecture & Multi-Agent Systems</span>
+                <span>Proprietary AI Transformation Methodology</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-                The Core of <br className="hidden sm:block" />
-                <span className="golden-gradient-text">Enterprise Intelligence</span>
+                Transform Your Business <br className="hidden sm:block" />
+                with Confidence. <br className="hidden sm:block" />
+                <span className="golden-gradient-text">Start with Nisol Discovery™</span>
               </h1>
 
               <p className="text-lg sm:text-xl text-navy-100/90 max-w-2xl leading-relaxed font-normal">
-                Nisol Labs turns AI promise into enterprise reality. We build production-grade <strong className="text-white font-semibold">Autonomous AI Agents</strong>, <strong className="text-white font-semibold">LLMOps Pipelines</strong>, and enterprise RAG systems engineered for scale, security, and measurable ROI.
+                Discover exactly where AI will create the highest business value, prioritize opportunities, estimate ROI, and build an executive-ready transformation roadmap before investing in technology.
               </p>
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-                  Book AI Strategy Call
+                  Book AI Discovery Workshop
                 </Button>
-                <Button href="/resources/roi-calculator" variant="navy" size="lg" icon={<BarChart3 className="w-4 h-4" />}>
-                  Calculate AI ROI
+                <Button href="/discovery/methodology" variant="navy" size="lg" icon={<Search className="w-4 h-4" />}>
+                  Explore Methodology
                 </Button>
               </div>
 
               {/* Key Trust Signals */}
               <div className="pt-6 border-t border-navy-800/80 grid grid-cols-3 gap-4 text-left">
                 <div>
-                  <div className="text-2xl font-extrabold text-golden-400">45+</div>
-                  <div className="text-xs text-navy-200">AI Deployments</div>
+                  <div className="text-2xl font-extrabold text-golden-400">62</div>
+                  <div className="text-xs text-navy-200">Business Diagnostics</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-extrabold text-golden-400">52%</div>
-                  <div className="text-xs text-navy-200">Avg Token Savings</div>
+                  <div className="text-2xl font-extrabold text-golden-400">15</div>
+                  <div className="text-xs text-navy-200">Capabilities Assessed</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-extrabold text-golden-400">99.9%</div>
-                  <div className="text-xs text-navy-200">Security SLA</div>
+                  <div className="text-2xl font-extrabold text-golden-400">100%</div>
+                  <div className="text-xs text-navy-200">Executive Clarity</div>
                 </div>
               </div>
             </div>
 
-            {/* Right Interactive Multi-Agent Preview Card */}
+            {/* Right Interactive Discovery Preview Card */}
             <div className="lg:col-span-5">
               <div className="glass-panel-dark rounded-2xl p-6 shadow-2xl border border-golden-500/20 relative group hover:border-golden-500/40 transition-all">
                 <div className="flex items-center justify-between pb-4 mb-4 border-b border-navy-800">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                    <div className="w-3 h-3 rounded-full bg-golden-500 animate-pulse" />
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                      Live Multi-Agent Graph Telemetry
+                      Nisol Discovery™ Diagnostic Engine
                     </span>
                   </div>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-golden-500/20 text-golden-300">
-                    Nisol Orchestrator v3
+                    Flagship Assessment
                   </span>
                 </div>
 
-                {/* Simulated Agent Telemetry Nodes */}
+                {/* Simulated Diagnostic Telemetry Nodes */}
                 <div className="space-y-3 font-mono text-xs">
                   <div className="p-3 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
-                    <Bot className="w-4 h-4 text-golden-400 mt-0.5 shrink-0" />
+                    <Search className="w-4 h-4 text-golden-400 mt-0.5 shrink-0" />
                     <div className="flex-1">
                       <div className="flex justify-between text-[11px] text-golden-300 font-bold mb-1">
-                        <span>[Planner Agent]</span>
-                        <span className="text-emerald-400">STABILITY 100%</span>
+                        <span>[Diagnostic Phase]</span>
+                        <span className="text-emerald-400">62 QUESTIONS</span>
                       </div>
-                      <p className="text-slate-300 text-[11px]">Decomposing ambiguous query into sub-tasks & selecting API schemas...</p>
+                      <p className="text-slate-300 text-[11px]">Evaluating 15 enterprise capabilities & 8 AI readiness dimensions...</p>
                     </div>
                   </div>
 
                   <div className="p-3 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
-                    <Cpu className="w-4 h-4 text-navy-300 mt-0.5 shrink-0" />
+                    <Target className="w-4 h-4 text-golden-400 mt-0.5 shrink-0" />
                     <div className="flex-1">
                       <div className="flex justify-between text-[11px] text-golden-300 font-bold mb-1">
-                        <span>[Executor Agent]</span>
-                        <span className="text-golden-400">LATENCY 142ms</span>
+                        <span>[Opportunity Matrix]</span>
+                        <span className="text-golden-400">TOP 20 USE CASES</span>
                       </div>
-                      <p className="text-slate-300 text-[11px]">Executing tool calling against PostgreSQL Vector Store (Qdrant)...</p>
+                      <p className="text-slate-300 text-[11px]">Categorizing Quick Wins vs. Strategic Bets with ROI impact score...</p>
                     </div>
                   </div>
 
                   <div className="p-3 rounded-lg bg-navy-900/90 border border-navy-700 flex items-start gap-3">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <FileText className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
                     <div className="flex-1">
                       <div className="flex justify-between text-[11px] text-golden-300 font-bold mb-1">
-                        <span>[Auditor & Evaluator]</span>
-                        <span className="text-emerald-400">PASSED</span>
+                        <span>[Executive Deliverables]</span>
+                        <span className="text-emerald-400">BOARD-READY</span>
                       </div>
-                      <p className="text-slate-300 text-[11px]">Hallucination score: 0.00 | Grounded citations verified.</p>
+                      <p className="text-slate-300 text-[11px]">15 Reports generated across 3 Strategic Executive Packs.</p>
                     </div>
                   </div>
                 </div>
@@ -171,10 +178,10 @@ export default function HomePage() {
                 <div className="mt-4 pt-3 border-t border-navy-800 flex items-center justify-between text-[11px] text-navy-200">
                   <span className="flex items-center gap-1.5">
                     <Lock className="w-3.5 h-3.5 text-golden-400" />
-                    Zero-Trust RBAC Enforced
+                    Proprietary Methodology
                   </span>
-                  <Link href="/services/agents" className="text-golden-400 hover:underline font-semibold flex items-center gap-1">
-                    View Agent Architecture
+                  <Link href="/discovery" className="text-golden-400 hover:underline font-semibold flex items-center gap-1">
+                    Explore Nisol Discovery
                     <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
@@ -185,39 +192,100 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. TRUST BAR */}
+      {/* SECTION 2: THE DISCOVERY SECTION (THE HEART OF THE PAGE — Concise & High Impact) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-panel rounded-2xl p-8 shadow-sm border border-slate-200/80">
-          <div className="text-center mb-6 text-xs font-bold uppercase tracking-wider text-navy-600">
-            Trusted Framework Architecture & Measurable Results
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200">
-            <div className="pt-2 md:pt-0">
-              <div className="text-3xl sm:text-4xl font-extrabold text-navy-900">84%</div>
-              <div className="text-xs text-navy-600 font-medium mt-1">Ticket Support Automation</div>
+        <div className="glass-panel-dark rounded-3xl p-8 lg:p-12 border border-golden-500/30 shadow-2xl relative overflow-hidden text-white">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-golden-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 space-y-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-navy-800">
+              <div>
+                <Badge variant="golden" className="mb-3">🔍 Flagship Differentiator</Badge>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+                  Nisol Discovery™
+                </h2>
+                <p className="text-lg text-golden-300 font-semibold mt-1">
+                  The Heart of Your AI Transformation
+                </p>
+              </div>
+              <p className="text-sm text-navy-200 max-w-lg leading-relaxed">
+                Nisol Discovery™ is our proprietary AI transformation diagnostic. It combines a structured 62-question diagnostic workshop with AI-powered analysis to deliver executive-ready clarity in weeks—not months.
+              </p>
             </div>
-            <div className="pt-4 md:pt-0">
-              <div className="text-3xl sm:text-4xl font-extrabold text-navy-900">Sub-200ms</div>
-              <div className="text-xs text-navy-600 font-medium mt-1">Model Latency Target</div>
+
+            {/* 5 Concise Pillars Preview Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                    <Search className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-white mb-1">62-Question Assessment</h3>
+                  <p className="text-xs text-navy-200 leading-relaxed">Diagnostic across 15 core business capabilities.</p>
+                </div>
+              </div>
+
+              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                    <Layers className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-white mb-1">8 Readiness Dimensions</h3>
+                  <p className="text-xs text-navy-200 leading-relaxed">Technical, data, security, & cultural maturity score.</p>
+                </div>
+              </div>
+
+              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                    <Target className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-white mb-1">Opportunity Matrix</h3>
+                  <p className="text-xs text-navy-200 leading-relaxed">Top 20 Use Cases cataloged by Quick Wins vs. Strategic Bets.</p>
+                </div>
+              </div>
+
+              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                    <BarChart3 className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-white mb-1">ROI & Business Case</h3>
+                  <p className="text-xs text-navy-200 leading-relaxed">Quantified financial payback & cost reduction metrics.</p>
+                </div>
+              </div>
+
+              <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-700/80 hover:border-golden-500/50 transition-all flex flex-col justify-between group">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-3 group-hover:scale-110 transition-transform">
+                    <Workflow className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-white mb-1">Executive Roadmap</h3>
+                  <p className="text-xs text-navy-200 leading-relaxed">Board-ready implementation blueprints & governance.</p>
+                </div>
+              </div>
             </div>
-            <div className="pt-4 md:pt-0">
-              <div className="text-3xl sm:text-4xl font-extrabold text-navy-900">58%</div>
-              <div className="text-xs text-navy-600 font-medium mt-1">API Token Cost Reduction</div>
+
+            {/* Section Footer CTA */}
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-navy-800">
+              <span className="text-xs text-navy-200 font-medium">
+                Start with clarity before investing millions in unverified AI technology.
+              </span>
+              <Button href="/discovery" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
+                Explore Nisol Discovery →
+              </Button>
             </div>
-            <div className="pt-4 md:pt-0">
-              <div className="text-3xl sm:text-4xl font-extrabold text-navy-900">99.4%</div>
-              <div className="text-xs text-navy-600 font-medium mt-1">IDP Document Accuracy</div>
-            </div>
+
           </div>
         </div>
       </section>
 
-      {/* 3. PROBLEM STATEMENT (Standard AI vs. Nisol Labs) */}
+      {/* SECTION 3: WHY ENTERPRISE AI PROJECTS FAIL */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badgeText="Strategic Difference"
           title="Why Enterprise AI Projects Fail"
-          subtitle="And How Nisol Labs Fixes It"
+          subtitle="And How Nisol AI Fixes It"
           description="Most AI initiatives get stuck in prototype purgatory—fragile prompt wrappers with high costs, unverified outputs, and security risks. We build outcome-driven AI software."
         />
 
@@ -254,14 +322,14 @@ export default function HomePage() {
             </ul>
           </div>
 
-          {/* Nisol Labs Approach (The Solution) */}
+          {/* Nisol AI Approach (The Solution) */}
           <div className="bg-navy-950 rounded-2xl p-8 border border-golden-500/30 shadow-xl relative text-white">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-golden-500/20 border border-golden-500/40 flex items-center justify-center text-golden-400">
                 <Bot className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white">The Nisol Labs Standard (Outcome-Driven)</h3>
+                <h3 className="text-lg font-bold text-white">The Nisol AI Standard (Outcome-Driven)</h3>
                 <p className="text-xs text-golden-400 font-semibold">Resilient, audited & cost-engineered</p>
               </div>
             </div>
@@ -288,141 +356,290 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. CORE SERVICES (6 Pillars) */}
+      {/* SECTION 4: WHY NISOL AI (Interactive Comparison Toggle Card & Trust Builders) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badgeText="Our Core Services"
-          title="End-to-End AI Engineering"
-          subtitle="From Discovery to Scaling"
-          description="We deliver full-stack enterprise AI capabilities across 6 specialized pillars, anchored by our flagship Autonomous AI Agents and LLMOps engineering."
+          badgeText="The Discovery Advantage"
+          title="Traditional Consulting vs. Nisol Discovery™"
+          subtitle="Why Leaders Choose Our Proprietary Platform"
+          description="See how our technology-backed discovery methodology outperforms standard manual consulting."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES.map((service) => (
-            <div
-              key={service.id}
-              className="glass-panel rounded-2xl p-7 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 flex flex-col justify-between group hover:-translate-y-1 relative"
-            >
-              {service.badge && (
-                <div className="absolute top-6 right-6">
-                  <Badge variant={service.badge === "FLAGSHIP" ? "golden" : "navy"}>
-                    {service.badge}
-                  </Badge>
+        {/* Interactive Comparison Toggle Card */}
+        <div className="glass-panel rounded-3xl p-8 border border-slate-200 shadow-xl space-y-8">
+          
+          {/* Toggle Switch Controls */}
+          <div className="flex justify-center">
+            <div className="bg-slate-200/80 p-1.5 rounded-2xl flex items-center gap-2 max-w-md w-full">
+              <button
+                onClick={() => setComparisonMode("nisol")}
+                className={`flex-1 py-3 px-4 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center justify-center gap-2 ${
+                  comparisonMode === "nisol"
+                    ? "bg-navy-950 text-white shadow-lg border border-golden-500/40"
+                    : "text-navy-700 hover:text-navy-950"
+                }`}
+              >
+                <Sparkles className="w-4 h-4 text-golden-400" />
+                <span>Nisol Discovery™ Advantage</span>
+              </button>
+              <button
+                onClick={() => setComparisonMode("traditional")}
+                className={`flex-1 py-3 px-4 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center justify-center gap-2 ${
+                  comparisonMode === "traditional"
+                    ? "bg-slate-800 text-white shadow-md"
+                    : "text-navy-700 hover:text-navy-950"
+                }`}
+              >
+                <X className="w-4 h-4 text-red-400" />
+                <span>Traditional Consulting</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Toggle Content View */}
+          {comparisonMode === "nisol" ? (
+            <div className="bg-navy-950 text-white rounded-2xl p-8 border border-golden-500/30 shadow-xl space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-navy-800">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-golden-500/20 border border-golden-500/40 flex items-center justify-center text-golden-400">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white">Nisol Discovery™ Methodology</h3>
+                    <p className="text-xs text-golden-300">Fast, data-driven, proprietary platform execution</p>
+                  </div>
                 </div>
-              )}
-
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md">
-                  {service.id === "agents" && <Bot className="w-6 h-6" />}
-                  {service.id === "engineering" && <Cpu className="w-6 h-6" />}
-                  {service.id === "strategy" && <Compass className="w-6 h-6" />}
-                  {service.id === "assistants" && <MessageSquareCode className="w-6 h-6" />}
-                  {service.id === "automation" && <Zap className="w-6 h-6" />}
-                  {service.id === "data-readiness" && <Database className="w-6 h-6" />}
-                </div>
-
-                <h3 className="text-xl font-bold text-navy-950 mb-2 group-hover:text-navy-700 transition-colors">
-                  {service.title}
-                </h3>
-
-                <p className="text-sm text-navy-700/90 mb-6 leading-relaxed">
-                  {service.description}
-                </p>
-
-                <div className="space-y-2 mb-6">
-                  <div className="text-xs font-bold uppercase tracking-wider text-navy-600">Key Capabilities</div>
-                  {service.keyBenefits.slice(0, 2).map((benefit, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs text-navy-800">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-golden-600 shrink-0" />
-                      <span className="truncate">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
+                <Badge variant="golden">Recommended</Badge>
               </div>
 
-              <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between">
-                <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
-                  {service.caseStudyHighlight.metric}
-                </span>
-                <Link
-                  href={`/services/${service.slug}`}
-                  className="text-xs font-bold text-navy-900 hover:text-golden-600 flex items-center gap-1 group/link"
-                >
-                  Explore Pillar
-                  <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
+                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Weeks to Insights</span>
+                  </div>
+                  <p className="text-xs text-navy-200">Rapid 10-14 day turnaround from initial workshop to executive roadmap presentation.</p>
+                </div>
+
+                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
+                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Data-Driven Specific Insights</span>
+                  </div>
+                  <p className="text-xs text-navy-200">Quantified metrics across 15 capability areas with objective scoring models.</p>
+                </div>
+
+                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
+                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Proprietary AI Platform</span>
+                  </div>
+                  <p className="text-xs text-navy-200">Powered by Nisol Intelligence™ engines to analyze readiness and cost benchmarks.</p>
+                </div>
+
+                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
+                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>15 Executive Deliverables</span>
+                  </div>
+                  <p className="text-xs text-navy-200">3 Strategic Packs (Intelligence, Opportunity, Transformation) ready for board approval.</p>
+                </div>
+
+                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
+                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>AI Maturity Benchmarking</span>
+                  </div>
+                  <p className="text-xs text-navy-200">Compare organizational readiness against peer industry verticals.</p>
+                </div>
+
+                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
+                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Continuous Intelligence</span>
+                  </div>
+                  <p className="text-xs text-navy-200">Living transformation platform updated as new GenAI capabilities emerge.</p>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. WHY NISOL LABS */}
-      <section className="bg-navy-950 text-white py-20 border-y border-navy-800 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            badgeText="The Nisol Difference"
-            title="Built for Enterprise Trust & Performance"
-            description="We bridge the gap between academic AI research and mission-critical production software."
-            theme="dark"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {COMPANY.values.map((val, idx) => (
-              <div key={idx} className="glass-panel-dark rounded-xl p-6 border border-navy-800 hover:border-golden-500/40 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-golden-500/10 border border-golden-500/30 flex items-center justify-center text-golden-400 mb-4 font-extrabold text-sm">
-                  0{idx + 1}
+          ) : (
+            <div className="bg-slate-900 text-slate-100 rounded-2xl p-8 border border-slate-700 shadow-xl space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-700">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-500/40 flex items-center justify-center text-red-400">
+                    <X className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white">Traditional Management Consulting</h3>
+                    <p className="text-xs text-slate-400">Slow manual process & high billable hours</p>
+                  </div>
                 </div>
-                <h4 className="text-base font-bold text-white mb-2">{val.title}</h4>
-                <p className="text-xs text-navy-200 leading-relaxed">{val.description}</p>
+                <Badge variant="navy">Legacy Model</Badge>
               </div>
-            ))}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
+                    <X className="w-4 h-4 shrink-0" />
+                    <span>Months of Interviews</span>
+                  </div>
+                  <p className="text-xs text-slate-300">Long drawn-out interview schedules pulling key staff away from operations.</p>
+                </div>
+
+                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
+                    <X className="w-4 h-4 shrink-0" />
+                    <span>Generic Recommendations</span>
+                  </div>
+                  <p className="text-xs text-slate-300">High-level buzzwords without technical feasibility or architectural detail.</p>
+                </div>
+
+                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
+                    <X className="w-4 h-4 shrink-0" />
+                    <span>Consultant-Dependent</span>
+                  </div>
+                  <p className="text-xs text-slate-300">Knowledge leaves when consultants exit, offering zero software tooling.</p>
+                </div>
+
+                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
+                    <X className="w-4 h-4 shrink-0" />
+                    <span>Static PDF Reports</span>
+                  </div>
+                  <p className="text-xs text-slate-300">Outdated slide decks that sit on shelves without actionable implementation specs.</p>
+                </div>
+
+                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
+                    <X className="w-4 h-4 shrink-0" />
+                    <span>Limited Benchmarking</span>
+                  </div>
+                  <p className="text-xs text-slate-300">Subjective opinions lacking empirical data model benchmarks.</p>
+                </div>
+
+                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
+                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
+                    <X className="w-4 h-4 shrink-0" />
+                    <span>One-Time Engagement</span>
+                  </div>
+                  <p className="text-xs text-slate-300">Requires expensive re-engagements every time AI models update.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Key Trust Signals (Leadership & Deliverables) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center shrink-0">
+                <Award className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-navy-950 mb-1">40+ Combined Leadership Years</h4>
+                <p className="text-xs text-navy-700 leading-relaxed">Enterprise transformation & GenAI architectural oversight led by industry veterans.</p>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center shrink-0">
+                <Bot className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-navy-950 mb-1">Proprietary AI Platform</h4>
+                <p className="text-xs text-navy-700 leading-relaxed">Nisol Discovery™ + Nisol Intelligence™ engines automate diagnostic analysis.</p>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center shrink-0">
+                <FileText className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-navy-950 mb-1">15 Board-Ready Deliverables</h4>
+                <p className="text-xs text-navy-700 leading-relaxed">Complete Executive, Opportunity, and Transformation Packs ready for C-suite sign-off.</p>
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 
-      {/* 6. HOW WE WORK (4-Step Methodology) */}
+      {/* SECTION 5: SOLUTIONS OVERVIEW (7 Solution Areas) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badgeText="Our Process"
-          title="4-Step Enterprise AI Implementation"
-          subtitle="Risk-Mitigated & Milestone Driven"
-          description="We take AI initiatives from audit to production deployment in weeks, not years."
+          badgeText="Post-Discovery Execution"
+          title="Solutions — AI Implementation"
+          subtitle="From Discovery Roadmap to Scaled Execution"
+          description="After Discovery, we help you build and deploy production-grade enterprise software across 7 core specialized areas."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-          <div className="glass-panel rounded-2xl p-6 border border-slate-200 space-y-3">
-            <div className="text-xs font-bold text-golden-600 uppercase tracking-wider">Step 01</div>
-            <h4 className="text-lg font-bold text-navy-950">AI Audit & Strategy</h4>
-            <p className="text-xs text-navy-700 leading-relaxed">Audit existing workflows, data readiness, security boundaries, and construct high-ROI use case matrix.</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
+            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
+              <Compass className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">AI Strategy</h4>
+            <p className="text-xs text-navy-700 font-medium">Governance & Strategic Roadmap</p>
           </div>
 
-          <div className="glass-panel rounded-2xl p-6 border border-slate-200 space-y-3">
-            <div className="text-xs font-bold text-golden-600 uppercase tracking-wider">Step 02</div>
-            <h4 className="text-lg font-bold text-navy-950">Architecture & PoC</h4>
-            <p className="text-xs text-navy-700 leading-relaxed">Design multi-agent state graph, tool API endpoints, vector indexing, and build rapid working prototype.</p>
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
+            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
+              <Cpu className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">AI Engineering</h4>
+            <p className="text-xs text-navy-700 font-medium">Custom Model & API Pipelines</p>
           </div>
 
-          <div className="glass-panel rounded-2xl p-6 border border-slate-200 space-y-3">
-            <div className="text-xs font-bold text-golden-600 uppercase tracking-wider">Step 03</div>
-            <h4 className="text-lg font-bold text-navy-950">Engineering & Tuning</h4>
-            <p className="text-xs text-navy-700 leading-relaxed">Model quantization, continuous prompt evaluation, PII guardrails, and human-in-the-loop approval UI.</p>
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
+            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
+              <Zap className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">AI Automation</h4>
+            <p className="text-xs text-navy-700 font-medium">Workflow & IDP Optimization</p>
           </div>
 
-          <div className="glass-panel rounded-2xl p-6 border border-slate-200 space-y-3">
-            <div className="text-xs font-bold text-golden-600 uppercase tracking-wider">Step 04</div>
-            <h4 className="text-lg font-bold text-navy-950">LLMOps & Scale</h4>
-            <p className="text-xs text-navy-700 leading-relaxed">CI/CD automation, semantic caching, real-time latency optimization, and ongoing drift monitoring.</p>
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
+            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
+              <Bot className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">Agentic AI</h4>
+            <p className="text-xs text-navy-700 font-medium">Autonomous Multi-Agent Graphs</p>
+          </div>
+
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
+            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
+              <Database className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">RAG Systems</h4>
+            <p className="text-xs text-navy-700 font-medium">Vector Knowledge Retrieval</p>
+          </div>
+
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group">
+            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
+              <Workflow className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">LLMOps</h4>
+            <p className="text-xs text-navy-700 font-medium">Telemetry & Guardrails</p>
+          </div>
+
+          <div className="glass-panel p-6 rounded-2xl border border-slate-200 hover:border-golden-500/40 hover:shadow-lg transition-all text-center space-y-3 group col-span-2 md:col-span-2">
+            <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-md">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-navy-950 text-base">AI Governance</h4>
+            <p className="text-xs text-navy-700 font-medium">Zero-Trust & Compliance Audits</p>
           </div>
         </div>
       </section>
 
-      {/* 7. INDUSTRIES SERVED */}
+      {/* SECTION 6: INDUSTRIES WE SERVE */}
       <section className="bg-slate-100/70 py-16 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             badgeText="Industry Verticals"
-            title="Tailored AI Solutions for Core Sectors"
+            title="Industries We Serve"
+            subtitle="Tailored AI Solutions for Core Sectors"
             description="Deep domain expertise across high-compliance and high-scale enterprise verticals."
           />
 
@@ -447,104 +664,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. TECHNOLOGY STACK (Interactive Tabs) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badgeText="Technology Ecosystem"
-          title="Battle-Tested AI Stack"
-          subtitle="Vendor-Neutral & Scale-Ready"
-          description="We leverage industry-standard open-source and enterprise frameworks to ensure zero vendor lock-in."
-        />
-
-        <div className="glass-panel rounded-2xl p-8 border border-slate-200">
-          <div className="flex justify-center gap-2 mb-8 border-b border-slate-200 pb-4">
-            <button
-              onClick={() => setActiveTechTab("agents")}
-              className={`px-5 py-2.5 rounded-lg text-xs font-bold transition-all ${
-                activeTechTab === "agents" ? "bg-navy-900 text-white shadow-md" : "text-navy-700 hover:bg-slate-200/60"
-              }`}
-            >
-              Multi-Agent & Orchestration
-            </button>
-            <button
-              onClick={() => setActiveTechTab("llmops")}
-              className={`px-5 py-2.5 rounded-lg text-xs font-bold transition-all ${
-                activeTechTab === "llmops" ? "bg-navy-900 text-white shadow-md" : "text-navy-700 hover:bg-slate-200/60"
-              }`}
-            >
-              LLMOps & Inference Serving
-            </button>
-            <button
-              onClick={() => setActiveTechTab("data")}
-              className={`px-5 py-2.5 rounded-lg text-xs font-bold transition-all ${
-                activeTechTab === "data" ? "bg-navy-900 text-white shadow-md" : "text-navy-700 hover:bg-slate-200/60"
-              }`}
-            >
-              Vector Databases & Lakehouse
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techStackData[activeTechTab].map((tech, idx) => (
-              <div key={idx} className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-golden-600 bg-golden-50 px-2 py-0.5 rounded">
-                  {tech.category}
-                </span>
-                <h4 className="text-base font-bold text-navy-950">{tech.name}</h4>
-                <p className="text-xs text-navy-700">{tech.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. TESTIMONIALS & CASE STUDY HIGHLIGHT */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badgeText="Impact Spotlights"
-          title="Proven Enterprise Outcomes"
-          description="Explore real case study benchmarks achieved for our clients."
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {CASE_STUDIES.slice(0, 3).map((cs) => (
-            <div key={cs.id} className="glass-panel rounded-2xl p-6 border border-slate-200 flex flex-col justify-between shadow-xs">
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-navy-600 bg-navy-100 px-2 py-1 rounded mb-3 inline-block">
-                  {cs.industry}
-                </span>
-                <h3 className="text-base font-bold text-navy-950 mb-3">{cs.title}</h3>
-                <p className="text-xs text-navy-700 mb-4">{cs.challenge}</p>
-
-                <div className="grid grid-cols-3 gap-2 bg-slate-50 p-3 rounded-xl mb-4 border border-slate-200">
-                  {cs.impactMetrics.map((m, idx) => (
-                    <div key={idx} className="text-center">
-                      <div className="text-sm font-extrabold text-navy-900">{m.value}</div>
-                      <div className="text-[9px] text-navy-600 font-semibold">{m.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Link href="/resources#case-studies" className="text-xs font-bold text-navy-900 hover:text-golden-600 flex items-center gap-1">
-                Read Full Blueprint Case Study
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 9.5 FEATURED AI ROI CALCULATOR SECTION (Lead Magnet) */}
+      {/* SECTION 7: FEATURED AI ROI CALCULATOR SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="glass-panel rounded-3xl p-8 lg:p-12 border border-golden-500/40 shadow-xl bg-gradient-to-br from-white via-slate-50 to-golden-50/30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-5">
             <Badge variant="golden">Featured Interactive Tool</Badge>
             <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
-              Discover Your <span className="golden-gradient-text">AI Opportunity</span>
+              Estimate Your <span className="golden-gradient-text">AI Transformation ROI</span>
             </h2>
             <p className="text-sm sm:text-base text-navy-700 leading-relaxed">
-              See how much AI could save your business in just 2 minutes with our 4-step interactive calculator.
+              Get a personalized estimate for your organization in just 2 minutes with our interactive calculator.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-navy-900 pt-2">
@@ -600,27 +729,77 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 10. FINAL CTA BANNER */}
+      {/* SECTION 8: TESTIMONIALS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          badgeText="Client Verification"
+          title="What Our Clients Say"
+          subtitle="Real Impact from Nisol Discovery™"
+          description="Hear how executive leadership teams gained clarity and unlocked high-ROI transformation opportunities."
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-sm relative flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex text-golden-500 gap-1 text-sm">
+                ★★★★★
+              </div>
+              <p className="text-navy-900 text-base font-medium leading-relaxed italic">
+                &ldquo;Nisol Discovery™ gave us clarity on our AI priorities in just 10 days. We identified 8 high-impact use cases and have a clear roadmap for implementation.&rdquo;
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between">
+              <div>
+                <div className="font-bold text-navy-950 text-sm">CTO</div>
+                <div className="text-xs text-navy-600 font-medium">Acme Corp</div>
+              </div>
+              <Badge variant="golden">Discovery Client</Badge>
+            </div>
+          </div>
+
+          <div className="glass-panel rounded-2xl p-8 border border-slate-200 shadow-sm relative flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex text-golden-500 gap-1 text-sm">
+                ★★★★★
+              </div>
+              <p className="text-navy-900 text-base font-medium leading-relaxed italic">
+                &ldquo;The ROI analysis was eye-opening. We discovered a ₹2.4 Cr annual savings opportunity we had completely missed.&rdquo;
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between">
+              <div>
+                <div className="font-bold text-navy-950 text-sm">CFO</div>
+                <div className="text-xs text-navy-600 font-medium">TechWave Inc</div>
+              </div>
+              <Badge variant="golden">Discovery Client</Badge>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 9: FINAL CTA BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-navy-950 rounded-3xl p-10 lg:p-14 border border-golden-500/30 text-white relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-96 h-96 bg-golden-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl space-y-6 text-center mx-auto">
-            <Badge variant="golden">Ready to Become an AI-First Enterprise?</Badge>
+            <Badge variant="golden">Ready to Start Your AI Transformation?</Badge>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
               Discover Your High-ROI <br />
               <span className="golden-gradient-text">AI Architecture Today</span>
             </h2>
             <p className="text-sm sm:text-base text-navy-100/90 leading-relaxed">
-              Schedule a confidential 30-minute AI Strategy & Audit call with our senior AI architects. Receive an initial feasibility audit and actionable timeline for your enterprise.
+              Discover your AI readiness, identify high-impact opportunities, and build an executive transformation roadmap in weeks—not months.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-                Book Consultation Now
+                Book AI Discovery Workshop
               </Button>
               <Button href="/resources/roi-calculator" variant="navy" size="lg" icon={<BarChart3 className="w-4 h-4" />}>
-                Try ROI Calculator
+                Try the ROI Calculator
               </Button>
             </div>
           </div>

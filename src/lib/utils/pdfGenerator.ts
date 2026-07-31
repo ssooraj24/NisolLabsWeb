@@ -164,7 +164,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
   <!-- COVER PAGE -->
   <div class="cover-page">
     <div class="cover-header">
-      <div style="font-size: 14pt; font-weight: 800; tracking-wider: 2px; color: ${secondaryColor};">NISOL LABS</div>
+      <div style="font-size: 14pt; font-weight: 800; tracking-wider: 2px; color: ${secondaryColor};">NISOL AI</div>
       <h1 class="cover-title">AI Transformation Advisory Report</h1>
       <div class="cover-subtitle">${tenantName}</div>
     </div>

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "AI Strategy & Discovery | Nisol Labs",
+  title: "AI Strategy & Discovery | Nisol AI",
   description: "Identify high-value enterprise AI use cases, evaluate technology readiness, and construct a risk-mitigated executive roadmap for AI adoption."
 };
 
@@ -31,7 +31,7 @@ export default function StrategyPage() {
         "Immediate clarity on internal operational cost saving opportunities"
       ]}
       whatIsTitle="What Is AI Strategy & Discovery?"
-      whatIsDescription="Many organizations waste months trying to integrate models without first understanding their data maturity or ROI metrics. Nisol Labs provides a structured, engineering-led discovery audit. We analyze your workflows, evaluate data readiness, isolate security risks, and produce a detailed opportunity matrix that maps complexity against financial savings, giving you a vendor-neutral path to successful AI adoption."
+      whatIsDescription="Many organizations waste months trying to integrate models without first understanding their data maturity or ROI metrics. Nisol AI provides a structured, engineering-led discovery audit. We analyze your workflows, evaluate data readiness, isolate security risks, and produce a detailed opportunity matrix that maps complexity against financial savings, giving you a vendor-neutral path to successful AI adoption."
       applications={[
         { department: "Executive Board", useCase: "AI Opportunity & ROI Matrix" },
         { department: "Security & Legal", useCase: "AI Stance & Compliance Audits" },
@@ -93,7 +93,7 @@ export default function StrategyPage() {
           answer: "A comprehensive executive-ready report featuring a prioritized Opportunity Matrix, Technical Implementation Roadmap, Data Readiness Audit, and security stance guidelines."
         },
         {
-          question: "Why should we choose Nisol Labs over standard consulting firms?",
+          question: "Why should we choose Nisol AI over standard consulting firms?",
           answer: "We are hands-on engineers, not slide writers. Our recommendations are grounded in what can actually be built, optimized, and secured at scale, preventing budget waste on unrealistic prototypes."
         }
       ]}

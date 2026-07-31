@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ServicePageTemplate } from "@/components/services/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Autonomous AI Agents | Nisol Labs",
+  title: "Autonomous AI Agents | Nisol AI",
   description: "Deploy production-grade autonomous agent clusters that plan, execute, validate, and collaborate across enterprise systems with human-in-the-loop governance."
 };
 

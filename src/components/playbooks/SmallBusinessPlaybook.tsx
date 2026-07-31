@@ -471,7 +471,7 @@ export function SmallBusinessPlaybook({ playbook }: Props) {
               Your AI Adoption Blueprint — <span className="text-golden-400">At a Glance</span>
             </h2>
             <p className="text-navy-200 text-lg mb-10 max-w-2xl">
-              This playbook shows you exactly how Nisol Labs helps small businesses adopt AI strategically — from identifying your first opportunity to achieving measurable, compounding ROI.
+              This playbook shows you exactly how Nisol AI helps small businesses adopt AI strategically — from identifying your first opportunity to achieving measurable, compounding ROI.
             </p>
 
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4 md:gap-0">
@@ -622,7 +622,7 @@ export function SmallBusinessPlaybook({ playbook }: Props) {
               <blockquote className="text-xl md:text-2xl font-medium text-navy-900 leading-relaxed italic">
                 &ldquo;{CONSULTANT_INSIGHTS[activeInsight].quote}&rdquo;
               </blockquote>
-              <p className="mt-4 text-sm text-navy-500 font-medium">— Nisol Labs Principal Consultant</p>
+              <p className="mt-4 text-sm text-navy-500 font-medium">— Nisol AI Principal Consultant</p>
             </div>
             <div className="flex border-t border-golden-200">
               {CONSULTANT_INSIGHTS.map((insight, i) => (
@@ -775,7 +775,7 @@ export function SmallBusinessPlaybook({ playbook }: Props) {
           </div>
         </section>
 
-        {/* ── 8. THE NISOL LABS METHODOLOGY (Process) ─────────────────────── */}
+        {/* ── 8. THE NISOL AI METHODOLOGY (Process) ─────────────────────── */}
         <section id="methodology">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-8 h-8 rounded-full bg-navy-100 flex items-center justify-center">
@@ -785,7 +785,7 @@ export function SmallBusinessPlaybook({ playbook }: Props) {
               Transformation Roadmap
             </Badge>
           </div>
-          <h2 className="text-3xl font-bold text-navy-950 mb-3">How Nisol Labs Guides Your AI Journey</h2>
+          <h2 className="text-3xl font-bold text-navy-950 mb-3">How Nisol AI Guides Your AI Journey</h2>
           <p className="text-navy-600 mb-10 max-w-2xl">
             Every section of this playbook maps to a step in our proven 6-stage methodology. This is the process that turns AI curiosity into measurable business results.
           </p>
@@ -865,7 +865,7 @@ export function SmallBusinessPlaybook({ playbook }: Props) {
           </div>
           <h2 className="text-3xl font-bold text-navy-950 mb-3">Measurable Business Results</h2>
           <p className="text-navy-600 mb-10 max-w-2xl">
-            These are the typical outcomes Nisol Labs clients achieve. Not projections — these are averages drawn from our SMB client base.
+            These are the typical outcomes Nisol AI clients achieve. Not projections — these are averages drawn from our SMB client base.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
@@ -897,19 +897,19 @@ export function SmallBusinessPlaybook({ playbook }: Props) {
           </div>
         </section>
 
-        {/* ── 11. WHY NISOL LABS ───────────────────────────────────────────── */}
+        {/* ── 11. WHY NISOL AI ───────────────────────────────────────────── */}
         <section id="why-nisol">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-8 h-8 rounded-full bg-golden-100 flex items-center justify-center">
               <Star className="w-4 h-4 text-golden-600" />
             </div>
             <Badge variant="golden" className="bg-golden-100 text-golden-700 border-golden-200">
-              Why Nisol Labs
+              Why Nisol AI
             </Badge>
           </div>
           <h2 className="text-3xl font-bold text-navy-950 mb-3">Our Methodology. Our Differentiators.</h2>
           <p className="text-navy-600 mb-10 max-w-2xl">
-            Any agency can sell you AI tools. Nisol Labs is the only SMB-focused AI consultancy that runs your transformation end-to-end — from strategy to live deployment.
+            Any agency can sell you AI tools. Nisol AI is the only SMB-focused AI consultancy that runs your transformation end-to-end — from strategy to live deployment.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1007,7 +1007,7 @@ export function SmallBusinessPlaybook({ playbook }: Props) {
               Book Your <span className="text-golden-400">AI Discovery Workshop</span>
             </h2>
             <p className="text-navy-200 text-lg max-w-lg mx-auto">
-              A focused 2-hour session where Nisol Labs consultants map your operations, identify your top 5 AI opportunities, and hand you a prioritised roadmap — ready to execute.
+              A focused 2-hour session where Nisol AI consultants map your operations, identify your top 5 AI opportunities, and hand you a prioritised roadmap — ready to execute.
             </p>
 
             <div className="grid grid-cols-3 gap-4 text-left mt-4 mb-6">
