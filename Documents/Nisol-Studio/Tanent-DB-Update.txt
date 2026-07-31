@@ -1,0 +1,341 @@
+# Prompt for Antigravity: Tenant Table Update
+
+Here is a comprehensive prompt for Antigravity that explains the tenant table changes, the relationship with `revenue_range_defaults`, and how to proceed with code updates.
+
+---
+
+## Prompt for Antigravity
+
+```
+**Task: Update Tenant Table Schema and Related Code**
+
+We have enhanced the `tenants` table with new columns to support richer client profiling, benchmarking, and pricing. Please update all related code accordingly.
+
+## 1. Database Changes
+
+### 1.1 New Columns Added to `tenants` Table
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `website` | TEXT | Company website URL |
+| `tenant_type` | TEXT | `client`, `prospect`, `partner`, `internal` |
+| `sub_industry` | TEXT | e.g., 'Automotive', 'Aerospace' |
+| `industry_sector` | TEXT | `Technology`, `Healthcare`, `Financial Services`, etc. |
+| `revenue_range` | TEXT | Revenue bracket for benchmarking |
+| `country` | TEXT | Country location |
+| `state` | TEXT | State/region |
+| `city` | TEXT | City |
+| `status` | TEXT | `prospect`, `active`, `inactive`, `lost`, `past` |
+| `joined_date` | DATE | When the client joined |
+| `created_by` | UUID | Reference to `profiles.id` |
+| `updated_by` | UUID | Reference to `profiles.id` |
+| `company_size` | TEXT | **Computed column** derived from `employee_count` |
+
+### 1.2 New Table: `revenue_range_defaults`
+
+**Purpose:** Lookup table for AI and pricing engine to estimate values from revenue ranges.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `range_label` | TEXT | Primary key, matches `revenue_range` values |
+| `mid_point_cr` | DECIMAL | Mid-point for ROI calculations |
+| `min_cr` | DECIMAL | Minimum of the range |
+| `max_cr` | DECIMAL | Maximum of the range |
+
+**Seed Data:**
+```
+< ₹10 Cr → mid_point: 5 Cr
+₹10 Cr - ₹50 Cr → mid_point: 30 Cr
+₹50 Cr - ₹250 Cr → mid_point: 150 Cr
+₹250 Cr - ₹1,000 Cr → mid_point: 625 Cr
+₹1,000 Cr - ₹5,000 Cr → mid_point: 3000 Cr
+> ₹5,000 Cr → mid_point: 7500 Cr
+Prefer not to say → NULL
+```
+
+### 1.3 Relationship Between Tables
+
+```
+tenants.revenue_range ────► revenue_range_defaults.range_label
+       │                               │
+       │    (lookup)                    │
+       └───────────────────────────────┘
+
+When calculating ROI or benchmarks:
+1. Read `tenants.revenue_range`
+2. Look up `revenue_range_defaults.mid_point_cr`
+3. Use mid-point for financial calculations
+```
+
+**Important:** This is a **logical relationship**, not a foreign key constraint. This allows clients to select "Prefer not to say" without breaking calculations.
+
+### 1.4 Computed Column: `company_size`
+
+Derived from `employee_count`:
+
+| Employee Count | Company Size |
+| :--- | :--- |
+| ≤ 10 | Startup |
+| ≤ 50 | Small |
+| ≤ 200 | Medium |
+| ≤ 500 | Mid-Market |
+| ≤ 5000 | Large |
+| > 5000 | Enterprise |
+
+**Important:** This is automatically calculated. Do NOT allow manual updates to this field.
+
+---
+
+## 2. Code Updates Required
+
+### 2.1 TypeScript Types
+
+Update `types/database.ts`:
+
+```typescript
+export type Tenant = {
+  id: string;
+  name: string;
+  website: string | null;
+  industry: string | null;
+  sub_industry: string | null;
+  industry_sector: 'Technology' | 'Healthcare' | 'Financial Services' | 'Manufacturing' | 
+    'Retail' | 'Energy' | 'Education' | 'Government' | 'Professional Services' | 
+    'Transportation' | 'Real Estate' | 'Media' | 'Other' | null;
+  employee_count: number | null;
+  company_size: 'Startup' | 'Small' | 'Medium' | 'Mid-Market' | 'Large' | 'Enterprise' | null;
+  revenue_range: '< ₹10 Cr' | '₹10 Cr - ₹50 Cr' | '₹50 Cr - ₹250 Cr' | 
+    '₹250 Cr - ₹1,000 Cr' | '₹1,000 Cr - ₹5,000 Cr' | '> ₹5,000 Cr' | 'Prefer not to say' | null;
+  country: string | null;
+  state: string | null;
+  city: string | null;
+  status: 'prospect' | 'active' | 'inactive' | 'lost' | 'past';
+  tenant_type: 'client' | 'prospect' | 'partner' | 'internal';
+  joined_date: string | null;
+  created_by: string | null;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type RevenueRangeDefault = {
+  range_label: string;
+  mid_point_cr: number | null;
+  min_cr: number | null;
+  max_cr: number | null;
+};
+```
+
+### 2.2 Supabase Queries
+
+Update `lib/supabase/queries/tenants.ts`:
+
+- Add `created_by` and `updated_by` to INSERT and UPDATE operations
+- Use `supabase.auth.getUser()` to get the current user ID
+- Add filters for new columns (status, tenant_type, industry_sector, country)
+
+### 2.3 Forms (Create/Edit Tenant)
+
+Update `components/tenants/CreateTenantForm.tsx` and `EditTenantForm.tsx`:
+
+**Add new fields:**
+- Website (URL input)
+- Tenant Type (Select: client, prospect, partner, internal)
+- Sub-Industry (Text input)
+- Industry Sector (Select: Technology, Healthcare, etc.)
+- Revenue Range (Select: all range options + "Prefer not to say")
+- Country (Text input or Select)
+- State (Text input)
+- City (Text input)
+- Status (Select: prospect, active, inactive, lost, past)
+- Joined Date (Date picker)
+
+### 2.4 Tenant List
+
+Update `components/tenants/TenantList.tsx`:
+
+**Add columns:**
+- Industry Sector
+- Country
+- Status (with color-coded badges)
+- Tenant Type
+
+**Add filters:**
+- By Status
+- By Industry Sector
+- By Tenant Type
+
+### 2.5 Tenant Detail View
+
+Update `components/tenants/TenantDetail.tsx`:
+
+- Display all new fields
+- Show computed `company_size`
+- Show audit trail (created_by, updated_by, created_at, updated_at)
+
+### 2.6 Pricing Engine
+
+Update `lib/pricing/pricingEngine.ts`:
+
+- Use `employee_count` for company size tier
+- Look up `revenue_range_defaults` for financial calculations
+- Return `company_size` as part of the result
+
+### 2.7 Dashboard
+
+Update `app/discovery/dashboard/page.tsx`:
+
+- Show active clients count (status = 'active')
+- Show prospect count (status = 'prospect')
+- Show clients by industry sector (for quick overview)
+
+### 2.8 Audit Creation
+
+Update `components/audits/CreateAuditDialog.tsx`:
+
+- When selecting a tenant, show `company_size` and `revenue_range` for context
+- Disable selection if tenant status is 'inactive' or 'lost'
+
+### 2.9 Benchmarks (Phase 2)
+
+Update `components/benchmarking/*`:
+
+- Filter by `industry`, `sub_industry`, `company_size`, `country`
+- Use `revenue_range` for ROI calculations
+
+---
+
+## 3. Expected Behavior
+
+### 3.1 Creating a Tenant
+
+When a consultant creates a tenant:
+1. All new fields are captured
+2. `created_by` is set to the current user's ID
+3. `updated_by` is set to the current user's ID
+4. `company_size` is automatically calculated
+5. If `status` is not provided, default to 'active'
+6. If `tenant_type` is not provided, default to 'client'
+
+### 3.2 Updating a Tenant
+
+When a consultant updates a tenant:
+1. `updated_by` is set to the current user's ID
+2. `updated_at` is automatically updated
+3. `company_size` is automatically recalculated if `employee_count` changes
+4. Audit trail is maintained
+
+### 3.3 Revenue Range Lookup
+
+When calculating ROI:
+1. Read `tenants.revenue_range`
+2. Query `revenue_range_defaults` for `mid_point_cr`
+3. If `mid_point_cr` is NULL (e.g., "Prefer not to say"), skip financial calculations
+4. Use the mid-point for estimates in the AI prompt
+
+---
+
+## 4. Migration Status
+
+The database migration has been applied. The following are now available:
+- New columns in `tenants` table
+- `revenue_range_defaults` table with seed data
+- `company_size` computed column
+- Indexes for performance
+
+Your task is to update the application code to support these changes.
+
+---
+
+## 5. Verification Checklist
+
+After making changes, verify:
+
+- [ ] A consultant can create a tenant with all new fields
+- [ ] A consultant can edit a tenant with all new fields
+- [ ] Tenant list shows new columns
+- [ ] Tenant detail shows all fields
+- [ ] `company_size` is automatically calculated
+- [ ] `created_by` and `updated_by` are set correctly
+- [ ] Revenue range lookup works for pricing
+- [ ] Filters work for status and industry sector
+- [ ] Dashboard shows correct metrics
+
+---
+
+## 6. Important Notes
+
+1. **Company Size is Read-Only:** The `company_size` field is computed. Do not allow editing.
+
+2. **Audit Trail:** Always set `created_by` and `updated_by` when creating or updating tenants.
+
+3. **Revenue Range:** "Prefer not to say" is a valid option. Handle it gracefully in calculations.
+
+4. **Status:** When a client is marked 'lost' or 'inactive', they should not appear in active client lists.
+
+5. **Tenant Type:** Only 'client' tenants should appear in Discovery workflows. 'prospect', 'partner', and 'internal' are for internal use.
+
+6. **Performance:** The indexes have been added for the new columns. Ensure queries use them.
+
+---
+
+## 7. Files to Update
+
+| File | Action |
+| :--- | :--- |
+| `types/database.ts` | Update Tenant type |
+| `lib/supabase/queries/tenants.ts` | Add new fields and filters |
+| `components/tenants/CreateTenantForm.tsx` | Add new form fields |
+| `components/tenants/EditTenantForm.tsx` | Add new form fields |
+| `components/tenants/TenantList.tsx` | Add new columns and filters |
+| `components/tenants/TenantDetail.tsx` | Display all fields |
+| `lib/pricing/pricingEngine.ts` | Use revenue_range lookup |
+| `app/discovery/dashboard/page.tsx` | Update metrics |
+| `components/audits/CreateAuditDialog.tsx` | Show context |
+| `components/benchmarking/*` | Use new filter options |
+| `lib/supabase/queries/revenueRangeDefaults.ts` | **Create new** |
+
+---
+
+## 8. Create Revenue Range Query File
+
+Create `lib/supabase/queries/revenueRangeDefaults.ts`:
+
+```typescript
+import { supabase } from '@/lib/supabaseClient';
+import { RevenueRangeDefault } from '@/types/database';
+
+export async function getRevenueRangeDefaults(): Promise<RevenueRangeDefault[]> {
+  const { data, error } = await supabase
+    .from('revenue_range_defaults')
+    .select('*')
+    .order('min_cr', { ascending: true });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function getRevenueRangeDefault(label: string): Promise<RevenueRangeDefault | null> {
+  const { data, error } = await supabase
+    .from('revenue_range_defaults')
+    .select('*')
+    .eq('range_label', label)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') return null; // Not found
+    throw error;
+  }
+  return data;
+}
+
+export async function getMidPoint(label: string): Promise<number | null> {
+  const result = await getRevenueRangeDefault(label);
+  return result?.mid_point_cr || null;
+}
+```
+
+---
+
+Proceed with updating all files listed above. The goal is to support the enhanced tenant data without breaking existing workflows.
+```

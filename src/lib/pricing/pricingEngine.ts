@@ -1,5 +1,7 @@
 // lib/pricing/pricingEngine.ts
 
+import { CompanySize } from '@/types/database';
+
 export const RATE_MATRIX: Record<string, number> = {
   "10-49": 40000,
   "50-100": 48000,
@@ -7,6 +9,19 @@ export const RATE_MATRIX: Record<string, number> = {
   "251-500": 68000,
   "500+": 85000,
 };
+
+/**
+ * Computes the read-only Company Size classification based on employee count.
+ */
+export function getCompanySizeTier(employeeCount: number | null | undefined): CompanySize | null {
+  if (employeeCount === null || employeeCount === undefined || isNaN(employeeCount)) return null;
+  if (employeeCount <= 10) return 'Startup';
+  if (employeeCount <= 50) return 'Small';
+  if (employeeCount <= 200) return 'Medium';
+  if (employeeCount <= 500) return 'Mid-Market';
+  if (employeeCount <= 5000) return 'Large';
+  return 'Enterprise';
+}
 
 export function getDailyRate(employeeCount: number): number {
   if (!employeeCount || employeeCount <= 49) return 40000;
