@@ -2,8 +2,9 @@
 
 import React from "react";
 import { useBlueprints } from "./useBlueprints";
-import { BlueprintCard, BlueprintItem } from "@/components/intelligence/BlueprintCard";
+import { BlueprintCard } from "@/components/intelligence/BlueprintCard";
 import { EditableContent } from "@/components/intelligence/EditableContent";
+import { getSolutionBlueprints, DEFAULT_SOLUTION_BLUEPRINTS } from "@/lib/ai/defaultBlueprints";
 
 interface BlueprintsTabProps {
   reportId: string;
@@ -28,27 +29,24 @@ export default function BlueprintsTab({ reportId }: BlueprintsTabProps) {
     );
   }
 
-  const items: BlueprintItem[] = blueprints?.blueprints || (Array.isArray(blueprints) ? blueprints : []);
+  const items = getSolutionBlueprints(blueprints);
+  const effectiveJSON = (!blueprints?.blueprints || blueprints.blueprints.length === 0)
+    ? { blueprints: DEFAULT_SOLUTION_BLUEPRINTS }
+    : blueprints;
 
   return (
     <div className="space-y-6">
       {/* Blueprint Cards */}
-      {items.length > 0 ? (
-        <div className="space-y-4">
-          {items.map((bp, idx) => (
-            <BlueprintCard key={idx} blueprint={bp} />
-          ))}
-        </div>
-      ) : (
-        <div className="p-6 bg-white rounded-2xl border border-slate-200 text-center text-slate-400 text-sm">
-          No generated blueprints available.
-        </div>
-      )}
+      <div className="space-y-4">
+        {items.map((bp, idx) => (
+          <BlueprintCard key={idx} blueprint={bp} />
+        ))}
+      </div>
 
       {/* Editable Raw Blueprints JSON */}
       <EditableContent
         label="7. Solution Blueprints Configuration JSON"
-        initialValue={JSON.stringify(blueprints || {}, null, 2)}
+        initialValue={JSON.stringify(effectiveJSON, null, 2)}
         onSave={(val) => {
           try {
             const parsed = JSON.parse(val);

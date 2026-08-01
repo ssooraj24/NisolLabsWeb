@@ -13,6 +13,8 @@ import { MaturityRadar } from "@/components/intelligence/MaturityRadar";
 import { OpportunityMatrix } from "@/components/intelligence/OpportunityMatrix";
 import { RoadmapTimeline } from "@/components/intelligence/RoadmapTimeline";
 import { BlueprintCard, BlueprintItem } from "@/components/intelligence/BlueprintCard";
+import { calculateROICalculations } from "@/lib/utils/roiCalculator";
+import { getSolutionBlueprints } from "@/lib/ai/defaultBlueprints";
 
 export default function ClientReportViewerPage() {
   const params = useParams();
@@ -98,7 +100,7 @@ export default function ClientReportViewerPage() {
 
   const tenantObj = Array.isArray(audit?.tenants) ? audit?.tenants[0] : audit?.tenants;
   const useCasesList: any[] = report.top_use_cases?.use_cases || (Array.isArray(report.top_use_cases) ? report.top_use_cases : []);
-  const blueprintsList: BlueprintItem[] = report.solution_blueprints?.blueprints || (Array.isArray(report.solution_blueprints) ? report.solution_blueprints : []);
+  const blueprintsList: BlueprintItem[] = getSolutionBlueprints(report.solution_blueprints);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -194,37 +196,40 @@ export default function ClientReportViewerPage() {
           </div>
         )}
 
-        {activeTab === "roi" && (
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
-            <h2 className="text-lg font-bold text-[#0A1E3C] border-b border-slate-100 pb-3">Financial ROI Projections</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <span className="text-[10px] font-bold uppercase text-slate-400 block">Est. Investment</span>
-                <span className="text-xl font-extrabold text-[#0A1E3C] mt-1 block">
-                  ${report.roi_estimates?.summary?.total_estimated_investment_usd?.toLocaleString() || "250,000"}
-                </span>
-              </div>
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <span className="text-[10px] font-bold uppercase text-slate-400 block">Annual Savings</span>
-                <span className="text-xl font-extrabold text-emerald-600 mt-1 block">
-                  ${report.roi_estimates?.summary?.annual_cost_savings_usd?.toLocaleString() || "480,000"}
-                </span>
-              </div>
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <span className="text-[10px] font-bold uppercase text-slate-400 block">Payback Period</span>
-                <span className="text-xl font-extrabold text-[#0A1E3C] mt-1 block">
-                  {report.roi_estimates?.summary?.payback_period_months || 6} Months
-                </span>
-              </div>
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <span className="text-[10px] font-bold uppercase text-slate-400 block">Program ROI</span>
-                <span className="text-xl font-extrabold text-blue-600 mt-1 block">
-                  +{report.roi_estimates?.summary?.overall_roi_percentage || 290}%
-                </span>
+        {activeTab === "roi" && (() => {
+          const roiCalc = calculateROICalculations(report?.roi_estimates);
+          return (
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+              <h2 className="text-lg font-bold text-[#0A1E3C] border-b border-slate-100 pb-3">Financial ROI Projections</h2>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                  <span className="text-[10px] font-bold uppercase text-slate-400 block">Est. Investment</span>
+                  <span className="text-xl font-extrabold text-[#0A1E3C] mt-1 block">
+                    ${roiCalc.summary?.total_estimated_investment_usd?.toLocaleString() || "0"}
+                  </span>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                  <span className="text-[10px] font-bold uppercase text-slate-400 block">Annual Savings</span>
+                  <span className="text-xl font-extrabold text-emerald-600 mt-1 block">
+                    ${roiCalc.summary?.annual_cost_savings_usd?.toLocaleString() || "0"}
+                  </span>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                  <span className="text-[10px] font-bold uppercase text-slate-400 block">Payback Period</span>
+                  <span className="text-xl font-extrabold text-[#0A1E3C] mt-1 block">
+                    {roiCalc.summary?.payback_period_months || 0} Months
+                  </span>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                  <span className="text-[10px] font-bold uppercase text-slate-400 block">Program ROI</span>
+                  <span className="text-xl font-extrabold text-blue-600 mt-1 block">
+                    +{roiCalc.summary?.overall_roi_percentage || 0}%
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {activeTab === "blueprints" && (
           <div className="space-y-4">

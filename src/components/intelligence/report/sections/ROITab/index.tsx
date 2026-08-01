@@ -3,6 +3,7 @@
 import React from "react";
 import { useROI } from "./useROI";
 import { EditableContent } from "@/components/intelligence/EditableContent";
+import { calculateROICalculations } from "@/lib/utils/roiCalculator";
 
 interface ROITabProps {
   reportId: string;
@@ -27,8 +28,9 @@ export default function ROITab({ reportId }: ROITabProps) {
     );
   }
 
-  const summary = roi?.summary || {};
-  const depts: any[] = roi?.department_breakdown || [];
+  const calculatedData = calculateROICalculations(roi);
+  const summary = calculatedData.summary || {};
+  const depts: any[] = calculatedData.department_breakdown || [];
 
   return (
     <div className="space-y-6">
@@ -37,7 +39,7 @@ export default function ROITab({ reportId }: ROITabProps) {
         <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Est. Investment</span>
           <span className="text-xl font-extrabold text-[#0A1E3C] mt-1 block">
-            ${summary.total_estimated_investment_usd?.toLocaleString() || "250,000"}
+            ${summary.total_estimated_investment_usd?.toLocaleString() || "0"}
           </span>
           <span className="text-[11px] text-slate-500 mt-1 block">One-time Implementation</span>
         </div>
@@ -45,7 +47,7 @@ export default function ROITab({ reportId }: ROITabProps) {
         <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Annual Cost Savings</span>
           <span className="text-xl font-extrabold text-emerald-600 mt-1 block">
-            ${summary.annual_cost_savings_usd?.toLocaleString() || "480,000"}
+            ${summary.annual_cost_savings_usd?.toLocaleString() || "0"}
           </span>
           <span className="text-[11px] text-slate-500 mt-1 block">Operational Savings / yr</span>
         </div>
@@ -53,7 +55,7 @@ export default function ROITab({ reportId }: ROITabProps) {
         <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Payback Period</span>
           <span className="text-xl font-extrabold text-[#0A1E3C] mt-1 block">
-            {summary.payback_period_months || 6} Months
+            {summary.payback_period_months || 0} Months
           </span>
           <span className="text-[11px] text-slate-500 mt-1 block">Break-even milestone</span>
         </div>
@@ -61,7 +63,7 @@ export default function ROITab({ reportId }: ROITabProps) {
         <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Overall Program ROI</span>
           <span className="text-xl font-extrabold text-blue-600 mt-1 block">
-            +{summary.overall_roi_percentage || 290}%
+            +{summary.overall_roi_percentage || 0}%
           </span>
           <span className="text-[11px] text-slate-500 mt-1 block">5-Year Net ROI</span>
         </div>
@@ -88,11 +90,12 @@ export default function ROITab({ reportId }: ROITabProps) {
       {/* Editable Raw ROI JSON */}
       <EditableContent
         label="6. ROI Financial Calculations JSON"
-        initialValue={JSON.stringify(roi || {}, null, 2)}
+        initialValue={JSON.stringify(calculatedData || {}, null, 2)}
         onSave={(val) => {
           try {
             const parsed = JSON.parse(val);
-            return saveROI(parsed);
+            const recalculated = calculateROICalculations(parsed);
+            return saveROI(recalculated);
           } catch {
             alert("Invalid JSON format");
           }

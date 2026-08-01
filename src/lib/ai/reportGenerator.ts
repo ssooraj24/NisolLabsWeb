@@ -3,6 +3,9 @@
 import { createClient } from "@supabase/supabase-js";
 import { aiClient } from "./client";
 import { PROMPTS } from "./prompts";
+import { DEFAULT_TOP_20_USE_CASES } from "./defaultUseCases";
+import { calculateROICalculations } from "@/lib/utils/roiCalculator";
+import { DEFAULT_SOLUTION_BLUEPRINTS } from "./defaultBlueprints";
 
 function getSupabaseClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -19,11 +22,44 @@ function getSupabaseClient() {
 }
 
 function parseAIJson<T>(text: string, fallback: T): T {
+  if (!text || typeof text !== "string") return fallback;
+
   try {
-    const cleaned = text
+    let cleaned = text
       .replace(/```json\s*/gi, "")
       .replace(/```\s*/g, "")
       .trim();
+
+    // Extract substring between first '{' or '[' and last '}' or ']'
+    const firstBrace = cleaned.indexOf("{");
+    const firstBracket = cleaned.indexOf("[");
+    let startIdx = -1;
+    if (firstBrace !== -1 && firstBracket !== -1) {
+      startIdx = Math.min(firstBrace, firstBracket);
+    } else if (firstBrace !== -1) {
+      startIdx = firstBrace;
+    } else if (firstBracket !== -1) {
+      startIdx = firstBracket;
+    }
+
+    const lastBrace = cleaned.lastIndexOf("}");
+    const lastBracket = cleaned.lastIndexOf("]");
+    let endIdx = -1;
+    if (lastBrace !== -1 && lastBracket !== -1) {
+      endIdx = Math.max(lastBrace, lastBracket);
+    } else if (lastBrace !== -1) {
+      endIdx = lastBrace;
+    } else if (lastBracket !== -1) {
+      endIdx = lastBracket;
+    }
+
+    if (startIdx !== -1 && endIdx > startIdx) {
+      cleaned = cleaned.substring(startIdx, endIdx + 1);
+    }
+
+    // Remove trailing commas before closing braces/brackets
+    cleaned = cleaned.replace(/,\s*([\}\]])/g, "$1");
+
     return JSON.parse(cleaned) as T;
   } catch (err) {
     console.warn("[ReportGenerator] Failed to parse JSON from AI response, using fallback:", err);
@@ -147,7 +183,11 @@ export async function generateFullReport(auditId: string, userId?: string) {
   // Output 4: Top 20 AI Use Cases (JSON)
   const useCasesPrompt = PROMPTS.buildTopUseCasesPrompt(companyName, industry, rawResponses);
   const useCasesRes = await aiClient.generateWithFallback("top_use_cases", useCasesPrompt);
-  const useCasesJSON = parseAIJson(useCasesRes.text, { use_cases: [] });
+  let useCasesJSON = parseAIJson(useCasesRes.text, { use_cases: DEFAULT_TOP_20_USE_CASES });
+  if (!useCasesJSON?.use_cases || !Array.isArray(useCasesJSON.use_cases) || useCasesJSON.use_cases.length === 0) {
+    console.warn("[ReportGenerator] AI returned empty use cases, utilizing default top 20 initiatives.");
+    useCasesJSON = { use_cases: DEFAULT_TOP_20_USE_CASES };
+  }
 
   // Output 5: Opportunity Matrix (JSON)
   const matrixPrompt = PROMPTS.buildOpportunityMatrixPrompt(companyName, industry, useCasesJSON);
@@ -172,12 +212,16 @@ export async function generateFullReport(auditId: string, userId?: string) {
   // Output 8: ROI Estimates (JSON)
   const roiPrompt = PROMPTS.buildROIEstimatesPrompt(companyName, industry, useCasesJSON);
   const roiRes = await aiClient.generateWithFallback("roi_estimates", roiPrompt);
-  const roiJSON = parseAIJson(roiRes.text, { summary: {}, department_breakdown: [] });
+  const roiRawJSON = parseAIJson(roiRes.text, { summary: {}, department_breakdown: [] });
+  const roiJSON = calculateROICalculations(roiRawJSON);
 
   // Output 9: Solution Blueprints (JSON)
   const blueprintsPrompt = PROMPTS.buildSolutionBlueprintsPrompt(companyName, industry, useCasesJSON);
   const blueprintsRes = await aiClient.generateWithFallback("solution_blueprints", blueprintsPrompt);
-  const blueprintsJSON = parseAIJson(blueprintsRes.text, { blueprints: [] });
+  let blueprintsJSON = parseAIJson(blueprintsRes.text, { blueprints: DEFAULT_SOLUTION_BLUEPRINTS });
+  if (!blueprintsJSON?.blueprints || !Array.isArray(blueprintsJSON.blueprints) || blueprintsJSON.blueprints.length === 0) {
+    blueprintsJSON = { blueprints: DEFAULT_SOLUTION_BLUEPRINTS };
+  }
 
   // Output 10: Proposal Draft (Text)
   const proposalPrompt = PROMPTS.buildProposalDraftPrompt(

@@ -7,6 +7,7 @@ import { ExportButtons } from "./ExportButtons";
 import { EditableContent } from "@/components/intelligence/EditableContent";
 import { replacePlaceholders } from "@/lib/pricing/pricingEngine";
 import { createBrowserClient } from "@supabase/ssr";
+import { calculateROICalculations } from "@/lib/utils/roiCalculator";
 
 interface ProposalTabProps {
   reportId: string;
@@ -52,13 +53,15 @@ export default function ProposalTab({ reportId }: ProposalTabProps) {
 
           const tenantObj = Array.isArray(auditData?.tenants) ? auditData?.tenants[0] : auditData?.tenants;
 
+          const roiCalc = calculateROICalculations(reportData?.roi_estimates);
+
           setContextData({
             companyName: tenantObj?.name || "Valued Client",
             industry: tenantObj?.industry || "Technology",
             employeeCount: tenantObj?.employee_count || 100,
             overallScore: auditData?.overall_maturity_score || reportData?.ai_readiness_assessment?.overall_score || 3.8,
-            totalROI: reportData?.roi_estimates?.summary?.overall_roi_percentage ? `+${reportData.roi_estimates.summary.overall_roi_percentage}%` : "+290%",
-            paybackPeriod: reportData?.roi_estimates?.summary?.payback_period_months ? `${reportData.roi_estimates.summary.payback_period_months} Months` : "6 Months",
+            totalROI: roiCalc.summary?.overall_roi_percentage ? `+${roiCalc.summary.overall_roi_percentage}%` : "0%",
+            paybackPeriod: roiCalc.summary?.payback_period_months ? `${roiCalc.summary.payback_period_months} Months` : "0 Months",
             totalUseCases: reportData?.top_use_cases?.use_cases?.length || 20,
             quickWinsCount: reportData?.quick_wins_strategic_bets?.quick_wins?.length || 5,
             strategicBetsCount: reportData?.quick_wins_strategic_bets?.strategic_bets?.length || 3,
