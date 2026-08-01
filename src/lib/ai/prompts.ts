@@ -192,9 +192,10 @@ Return a strictly valid JSON object matching the following structure.
 
 CRITICAL RULES FOR USE CASE GENERATION:
 1. Grounding & Authenticity: Every use case MUST address an explicit pain point, gap, or workflow operational need identified in the assessment responses. If the input assessment data is sparse or incomplete, infer high-impact, domain-specific AI initiatives suitable for ${companyName} in the ${industry} industry.
-2. Dynamic Quantity (5 to 20 Use Cases): Generate between 5 and 20 distinct, practical, domain-specific AI use cases. Do NOT force 20 items if the response data supports fewer high-quality initiatives. Quality and client alignment take absolute priority over count.
-3. Prioritize by business impact (High/Medium/Low) and technical feasibility (High/Medium/Low).
-4. Provide realistic annual savings estimates (USD) and ROI percentages appropriate for ${industry}.
+2. Strict Industry Alignment (${industry}): All use cases MUST be strictly relevant to the client's industry (${industry}). For Software & Technology Services, focus strictly on Software Engineering, QA Testing, CI/CD Security, DevOps, Knowledge Discovery, Sales Proposals, and HR/Ops. NEVER output physical factory manufacturing, camera defect inspection, or heavy IoT machinery hardware use cases for an IT/Software company.
+3. Dynamic Quantity (5 to 20 Use Cases): Generate between 5 and 20 distinct, practical, domain-specific AI use cases. Do NOT force 20 items if the response data supports fewer high-quality initiatives. Quality and client alignment take absolute priority over count.
+4. Prioritize by business impact (High/Medium/Low) and technical feasibility (High/Medium/Low).
+5. Provide realistic annual savings estimates (USD) and ROI percentages appropriate for ${industry}.
 `.trim();
   },
 
@@ -466,18 +467,18 @@ Return a strictly valid JSON object matching the following structure.
       ]
     },
     {
-      "use_case_name": "Predictive Maintenance for Manufacturing Equipment",
-      "category": "Operations & Supply Chain",
-      "business_problem": "Unplanned equipment downtime costing ₹2 Cr annually.",
-      "proposed_solution": "IoT sensor data + ML models to predict failures 48 hours in advance.",
+      "use_case_name": "AI-Driven Automated QA Test Case Generation & Execution",
+      "category": "Quality Assurance & Software Testing",
+      "business_problem": "Manual QA testing bottlenecks delaying bi-weekly software release cycles.",
+      "proposed_solution": "Auto-generate Playwright/Cypress E2E test scripts directly from PRD documentation using LLM agents.",
       "technology_stack": [
-        "IoT Gateway (Azure IoT / AWS IoT)",
-        "Time Series Database (InfluxDB)",
-        "ML Models (XGBoost / Prophet)",
-        "Dashboard (Power BI / Grafana)",
-        "Alerting (PagerDuty)"
+        "Playwright / Cypress",
+        "LLM Test Script Generator (Claude 3.5)",
+        "TypeScript",
+        "GitHub Actions CI/CD",
+        "TestRail API"
       ],
-      "architecture_summary": "IoT sensors -> Edge processing -> Time series DB -> ML inference -> Alert system -> Dashboard visualization",
+      "architecture_summary": "PRD Specs -> Vector Embedding Parser -> LLM Test Generator -> Cypress Test Suite -> CI/CD Pipeline -> Dashboard",
       "implementation_phases": [
         "Phase 1: Sensor installation & data collection (4 weeks)",
         "Phase 2: Model training & validation (4 weeks)",
