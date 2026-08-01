@@ -37,7 +37,7 @@ export class AIClient {
     const [provider, modelName] = modelSpec.split("/");
 
     if (provider === "google") {
-      return this.callGemini(modelName || "gemini-1.5-flash", prompt, maxTokens, temperature);
+      return this.callGemini(modelName || "gemini-flash-latest", prompt, maxTokens, temperature);
     } else if (provider === "openai") {
       return this.callOpenAI(modelName || "gpt-4o", prompt, maxTokens, temperature);
     } else if (provider === "anthropic") {
@@ -53,7 +53,7 @@ export class AIClient {
       throw new Error("Gemini API key is missing or not loaded in environment variables");
     }
 
-    const targetModel = modelName || "gemini-1.5-flash";
+    const targetModel = modelName || "gemini-flash-latest";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
@@ -170,8 +170,8 @@ export class AIClient {
     prompt: string
   ): Promise<{ text: string; modelUsed: string }> {
     const config = MODEL_ROUTING[outputType] || {
-      primary: "google/gemini-1.5-flash",
-      fallbacks: ["openai/gpt-4o", "anthropic/claude-3-5-sonnet-20241022"],
+      primary: "google/gemini-flash-latest",
+      fallbacks: ["google/gemini-3.5-flash", "openai/gpt-4o", "anthropic/claude-3-5-sonnet-20241022"],
       maxTokens: 4000,
       temperature: 0.7,
     };
