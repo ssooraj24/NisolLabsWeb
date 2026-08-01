@@ -426,11 +426,19 @@ Return a strictly valid JSON object matching the following structure.
 
   // Prompt 9: Solution Blueprints (JSON format)
   buildSolutionBlueprintsPrompt(companyName: string, industry: string, topUseCases: any) {
+    const useCasesArray = Array.isArray(topUseCases)
+      ? topUseCases
+      : Array.isArray(topUseCases?.use_cases)
+      ? topUseCases.use_cases
+      : Array.isArray(topUseCases?.top_use_cases)
+      ? topUseCases.top_use_cases
+      : [];
+
     return `
 For the top 5 priority AI use cases of ${companyName} (${industry}), produce comprehensive technical Solution Blueprints.
 
 Input Priority Use Cases (Top 5):
-${JSON.stringify(topUseCases.slice(0, 5), null, 2)}
+${JSON.stringify(useCasesArray.slice(0, 5), null, 2)}
 
 Return a strictly valid JSON object matching the following structure.
 **DO NOT** wrap in markdown code blocks. Return ONLY the raw JSON.
