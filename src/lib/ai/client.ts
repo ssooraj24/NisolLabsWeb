@@ -53,7 +53,11 @@ export class AIClient {
       throw new Error("Gemini API key (Gemini_NisolLabs_API_Key) is not configured");
     }
 
-    const targetModel = modelName?.includes("gemini") ? modelName : "gemini-1.5-flash";
+    let targetModel = modelName;
+    if (!targetModel || targetModel.includes("2.5")) {
+      targetModel = "gemini-1.5-flash";
+    }
+
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
@@ -84,7 +88,7 @@ export class AIClient {
   private async callOpenAI(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
     const apiKey = this.getOpenAIKey();
     if (!apiKey) {
-      throw new Error("OpenAI API key (OpenAI-NisolLabs-API-Key) is not configured");
+      throw new Error("OpenAI API key (OpenAI_NisolLabs_API_Key) is not configured");
     }
 
     const url = "https://api.openai.com/v1/chat/completions";
@@ -118,7 +122,16 @@ export class AIClient {
   private async callAnthropic(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
     const apiKey = this.getClaudeKey();
     if (!apiKey) {
-      throw new Error("Anthropic API key (Claude-NisolLab-Key) is not configured");
+      throw new Error("Anthropic API key (Claude_NisolLab_API_Key) is not configured");
+    }
+
+    let anthropicModel = modelName;
+    if (modelName === "claude-3-7-sonnet" || modelName === "claude-3.7-sonnet") {
+      anthropicModel = "claude-3-7-sonnet-20250219";
+    } else if (modelName === "claude-3-5-sonnet" || modelName === "claude-3.5-sonnet" || (modelName.includes("sonnet") && !modelName.includes("202"))) {
+      anthropicModel = "claude-3-5-sonnet-20241022";
+    } else if (modelName === "claude-3-5-haiku" || modelName === "claude-3.5-haiku" || (modelName.includes("haiku") && !modelName.includes("202"))) {
+      anthropicModel = "claude-3-5-haiku-20241022";
     }
 
     const url = "https://api.anthropic.com/v1/messages";
@@ -130,7 +143,7 @@ export class AIClient {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: modelName.includes("claude") ? modelName : "claude-3-5-haiku-20241022",
+        model: anthropicModel,
         max_tokens: maxTokens,
         temperature,
         messages: [{ role: "user", content: prompt }],
