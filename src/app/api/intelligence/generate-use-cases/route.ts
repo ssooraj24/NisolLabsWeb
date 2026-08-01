@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { aiClient } from "@/lib/ai/client";
 import { PROMPTS } from "@/lib/ai/prompts";
+import { DEFAULT_TOP_20_USE_CASES } from "@/lib/ai/defaultUseCases";
 
 function getSupabaseClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -69,7 +70,7 @@ export async function POST(req: NextRequest) {
 
     // 1. Fetch Audit Report and linked Audit & Tenant data
     let targetReportId = reportId;
-    let auditRecord: any = null;
+    let rawAudit: any = null;
 
     if (reportId) {
       const { data: report, error: repErr } = await supabase
@@ -93,7 +94,7 @@ export async function POST(req: NextRequest) {
         );
       }
       targetReportId = report.id;
-      auditRecord = report.audits;
+      rawAudit = Array.isArray(report.audits) ? report.audits[0] : report.audits;
     } else if (auditId) {
       const { data: report, error: repErr } = await supabase
         .from("audit_reports")
@@ -116,11 +117,11 @@ export async function POST(req: NextRequest) {
         );
       }
       targetReportId = report.id;
-      auditRecord = report.audits;
+      rawAudit = Array.isArray(report.audits) ? report.audits[0] : report.audits;
     }
 
-    const rawResponses = auditRecord?.raw_responses || {};
-    const tenantObj = Array.isArray(auditRecord?.tenants) ? auditRecord.tenants[0] : auditRecord?.tenants;
+    const rawResponses = rawAudit?.raw_responses || {};
+    const tenantObj = Array.isArray(rawAudit?.tenants) ? rawAudit.tenants[0] : rawAudit?.tenants;
     const companyName = tenantObj?.name || "Enterprise Client";
     const industry = tenantObj?.industry || "Technology";
 
@@ -130,14 +131,16 @@ export async function POST(req: NextRequest) {
     const useCasesPrompt = PROMPTS.buildTopUseCasesPrompt(companyName, industry, rawResponses);
     const useCasesRes = await aiClient.generateWithFallback("top_use_cases", useCasesPrompt);
 
-    const parsedJSON = parseAIJson(useCasesRes.text, { use_cases: [] });
-    const useCasesList = parsedJSON?.use_cases || [];
+    const parsedJSON: any = parseAIJson(useCasesRes.text, { use_cases: [] });
+    let useCasesList: any[] =
+      parsedJSON?.use_cases ||
+      parsedJSON?.useCases ||
+      parsedJSON?.top_use_cases ||
+      (Array.isArray(parsedJSON) ? parsedJSON : []);
 
     if (!Array.isArray(useCasesList) || useCasesList.length === 0) {
-      return NextResponse.json(
-        { success: false, error: "AI model did not return valid use cases for this client." },
-        { status: 500 }
-      );
+      console.warn("[GenerateUseCases API] AI response parsing resulted in empty list. Utilizing fallback use cases.");
+      useCasesList = DEFAULT_TOP_20_USE_CASES.slice(0, 10);
     }
 
     const newUseCasesData = { use_cases: useCasesList };

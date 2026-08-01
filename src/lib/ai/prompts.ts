@@ -191,7 +191,7 @@ Return a strictly valid JSON object matching the following structure.
 }
 
 CRITICAL RULES FOR USE CASE GENERATION:
-1. Grounding & Authenticity: Every use case MUST address an explicit pain point, gap, or workflow operational need identified in the assessment responses. Do NOT invent generic filler or unneeded tools.
+1. Grounding & Authenticity: Every use case MUST address an explicit pain point, gap, or workflow operational need identified in the assessment responses. If the input assessment data is sparse or incomplete, infer high-impact, domain-specific AI initiatives suitable for ${companyName} in the ${industry} industry.
 2. Dynamic Quantity (5 to 20 Use Cases): Generate between 5 and 20 distinct, practical, domain-specific AI use cases. Do NOT force 20 items if the response data supports fewer high-quality initiatives. Quality and client alignment take absolute priority over count.
 3. Prioritize by business impact (High/Medium/Low) and technical feasibility (High/Medium/Low).
 4. Provide realistic annual savings estimates (USD) and ROI percentages appropriate for ${industry}.
