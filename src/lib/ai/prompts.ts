@@ -161,12 +161,13 @@ Use the actual data from the responses to inform scores. Be specific and evidenc
 `.trim();
   },
 
-  // Prompt 4: Top 20 AI Use Cases (JSON format)
+  // Prompt 4: Top AI Use Cases (JSON format - Grounded 5 to 20 client-specific initiatives)
   buildTopUseCasesPrompt(companyName: string, industry: string, rawResponses: any) {
     return `
-Based on the operational friction points and data maturity of ${companyName} (${industry}), generate a prioritized list of 20 high-impact AI use cases.
+Analyze the operational friction points, tool stack, and data maturity responses provided by ${companyName} (${industry}).
+Generate a prioritized list of high-impact, domain-specific AI use cases tailored directly to this client's actual assessment answers.
 
-Input Data:
+Input Assessment Data:
 ${JSON.stringify(rawResponses, null, 2)}
 
 Return a strictly valid JSON object matching the following structure.
@@ -185,25 +186,15 @@ Return a strictly valid JSON object matching the following structure.
       "implementation_months": 3,
       "suggested_tech_stack": ["LLM (GPT-4/Claude/Gemini)", "Vector Database", "Next.js"],
       "estimated_savings_annual_usd": 120000
-    },
-    {
-      "id": "uc-02",
-      "name": "Predictive Maintenance for Manufacturing Equipment",
-      "department": "Operations & Supply Chain",
-      "description": "Deploy IoT sensor data analysis to predict equipment failures 48 hours in advance.",
-      "business_value": "High",
-      "feasibility": "Medium",
-      "estimated_roi_percentage": 180,
-      "implementation_months": 6,
-      "suggested_tech_stack": ["IoT Gateway", "Time Series Database", "ML Models"],
-      "estimated_savings_annual_usd": 250000
     }
-    // ... continue for 20 use cases
   ]
 }
 
-Generate exactly 20 distinct, practical, domain-specific AI use cases.
-Prioritize based on business impact and feasibility. Ensure diversity across departments.
+CRITICAL RULES FOR USE CASE GENERATION:
+1. Grounding & Authenticity: Every use case MUST address an explicit pain point, gap, or workflow operational need identified in the assessment responses. Do NOT invent generic filler or unneeded tools.
+2. Dynamic Quantity (5 to 20 Use Cases): Generate between 5 and 20 distinct, practical, domain-specific AI use cases. Do NOT force 20 items if the response data supports fewer high-quality initiatives. Quality and client alignment take absolute priority over count.
+3. Prioritize by business impact (High/Medium/Low) and technical feasibility (High/Medium/Low).
+4. Provide realistic annual savings estimates (USD) and ROI percentages appropriate for ${industry}.
 `.trim();
   },
 

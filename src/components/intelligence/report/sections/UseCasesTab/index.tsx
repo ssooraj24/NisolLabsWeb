@@ -35,12 +35,23 @@ export default function UseCasesTab({ reportId }: UseCasesTabProps) {
     useCases?.top_use_cases ||
     (Array.isArray(useCases) ? useCases : []);
 
-  const handlePopulateDefaults = async () => {
+  const handleGenerateUseCases = async () => {
     try {
       setIsPopulating(true);
-      await saveUseCases({ use_cases: DEFAULT_TOP_20_USE_CASES });
+      const res = await fetch("/api/intelligence/generate-use-cases", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reportId }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to generate customized use cases");
+      }
+
+      await saveUseCases(data.top_use_cases);
     } catch (err: any) {
-      alert("Failed to populate use cases: " + (err.message || err));
+      alert("Failed to generate use cases: " + (err.message || err));
     } finally {
       setIsPopulating(false);
     }
@@ -52,18 +63,18 @@ export default function UseCasesTab({ reportId }: UseCasesTabProps) {
       <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2">
           <div className="flex items-center gap-3">
-            <h3 className="text-lg font-bold text-[#0A1E3C]">Prioritized Top 20 AI Initiatives</h3>
+            <h3 className="text-lg font-bold text-[#0A1E3C]">Prioritized AI Initiatives</h3>
             <span className="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
               {items.length} Use Cases
             </span>
           </div>
 
           <button
-            onClick={handlePopulateDefaults}
+            onClick={handleGenerateUseCases}
             disabled={isPopulating}
             className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-xs font-semibold rounded-lg transition-colors shadow-sm"
           >
-            {isPopulating ? "Populating..." : "✨ Auto-Populate Top 20 Initiatives"}
+            {isPopulating ? "Generating..." : "✨ Generate Client AI Use Cases"}
           </button>
         </div>
 
@@ -99,14 +110,14 @@ export default function UseCasesTab({ reportId }: UseCasesTabProps) {
           <div className="text-center py-10 bg-slate-50 rounded-xl border border-dashed border-slate-300 space-y-3">
             <p className="text-sm text-slate-600 font-medium">No formatted use cases found for this report.</p>
             <p className="text-xs text-slate-400 max-w-md mx-auto">
-              Click below to seed and populate 20 high-impact enterprise AI initiatives for Novatech Systems.
+              Click below to analyze client assessment responses and generate tailored AI initiatives.
             </p>
             <button
-              onClick={handlePopulateDefaults}
+              onClick={handleGenerateUseCases}
               disabled={isPopulating}
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-xs font-bold rounded-lg shadow-sm transition-colors"
             >
-              {isPopulating ? "Populating Top 20..." : "✨ Populate Top 20 AI Initiatives Now"}
+              {isPopulating ? "Generating Client Use Cases..." : "✨ Generate Client AI Use Cases Now"}
             </button>
           </div>
         )}
