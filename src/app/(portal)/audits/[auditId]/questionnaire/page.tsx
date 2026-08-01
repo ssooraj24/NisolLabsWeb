@@ -226,7 +226,7 @@ export default function AuditQuestionnaireWizard() {
           .from("audits")
           .update({
             raw_responses: updatedResponses,
-            status: "in_progress",
+            status: "data_collection",
             updated_at: new Date().toISOString()
           })
           .eq("id", auditId)
@@ -324,6 +324,27 @@ export default function AuditQuestionnaireWizard() {
       scrollToTop()
     }
   }, [currentIndex, scrollToTop])
+
+  const handleComplete = useCallback(async () => {
+    if (!auditId) return
+    setSavingStatus("saving")
+    try {
+      await supabase
+        .from("audits")
+        .update({
+          raw_responses: responses,
+          status: "data_collected",
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", auditId)
+      setSavingStatus("saved")
+    } catch (e: any) {
+      console.error("Error completing audit:", e)
+      setSavingStatus("error")
+    } finally {
+      router.push(`/audits/${auditId}`)
+    }
+  }, [auditId, responses, router, supabase])
 
   // Calculate completed count
   const completedCount = useMemo(() => {
@@ -521,12 +542,13 @@ export default function AuditQuestionnaireWizard() {
                 Next Question →
               </button>
             ) : (
-              <Link
-                href={`/audits/${auditId}`}
-                className="px-8 py-3 bg-emerald-700 text-white rounded-xl text-sm font-bold hover:bg-emerald-800 shadow-md transition-all"
+              <button
+                type="button"
+                onClick={handleComplete}
+                className="px-8 py-3 bg-emerald-700 text-white rounded-xl text-sm font-bold hover:bg-emerald-800 shadow-md transition-all cursor-pointer"
               >
                 Complete Audit ✓
-              </Link>
+              </button>
             )}
           </div>
         </div>
