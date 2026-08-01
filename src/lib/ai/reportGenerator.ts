@@ -6,8 +6,16 @@ import { PROMPTS } from "./prompts";
 
 function getSupabaseClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-  return createClient(url, key);
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+  if (!serviceKey) {
+    console.warn(
+      "[ReportGenerator] SUPABASE_SERVICE_ROLE_KEY is not configured in env. Falling back to ANON key. Make sure SECURITY DEFINER RLS fixes are applied in Supabase."
+    );
+  }
+
+  return createClient(url, serviceKey || anonKey);
 }
 
 function parseAIJson<T>(text: string, fallback: T): T {

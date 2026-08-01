@@ -4,15 +4,30 @@ import { MODEL_ROUTING, ReportOutputType } from "./modelConfig";
 
 export class AIClient {
   private getGeminiKey(): string | undefined {
-    return process.env["Gemini-NisolLabs-API-Key"] || process.env.GEMINI_API_KEY;
+    return (
+      process.env["Gemini_NisolLabs_API_Key"] ||
+      process.env["Gemini-NisolLabs-API-Key"] ||
+      process.env.GEMINI_API_KEY ||
+      process.env.GOOGLE_API_KEY
+    );
   }
 
   private getOpenAIKey(): string | undefined {
-    return process.env["OpenAI-NisolLabs-API-Key"] || process.env.OPENAI_API_KEY;
+    return (
+      process.env["OpenAI_NisolLabs_API_Key"] ||
+      process.env["OpenAI-NisolLabs-API-Key"] ||
+      process.env.OPENAI_API_KEY
+    );
   }
 
   private getClaudeKey(): string | undefined {
-    return process.env["Claude-NisolLab-Key"] || process.env.ANTHROPIC_API_KEY;
+    return (
+      process.env["Claude_NisolLab_API_Key"] ||
+      process.env["Claude_NisolLab_Key"] ||
+      process.env["Claude-NisolLab-Key"] ||
+      process.env["Claude-NisolLab-API-Key"] ||
+      process.env.ANTHROPIC_API_KEY
+    );
   }
 
   /**
@@ -35,11 +50,11 @@ export class AIClient {
   private async callGemini(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
     const apiKey = this.getGeminiKey();
     if (!apiKey) {
-      throw new Error("Gemini API key (Gemini-NisolLabs-API-Key) is not configured");
+      throw new Error("Gemini API key (Gemini_NisolLabs_API_Key) is not configured");
     }
 
-    // Standard Gemini API endpoint
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const targetModel = modelName?.includes("gemini") ? modelName : "gemini-1.5-flash";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
       method: "POST",
