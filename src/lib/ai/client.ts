@@ -37,11 +37,11 @@ export class AIClient {
     const [provider, modelName] = modelSpec.split("/");
 
     if (provider === "google") {
-      return this.callGemini(modelName || "gemini-2.5-flash", prompt, maxTokens, temperature);
+      return this.callGemini(modelName || "gemini-1.5-flash", prompt, maxTokens, temperature);
     } else if (provider === "openai") {
       return this.callOpenAI(modelName || "gpt-4o", prompt, maxTokens, temperature);
     } else if (provider === "anthropic") {
-      return this.callAnthropic(modelName || "claude-3-7-sonnet", prompt, maxTokens, temperature);
+      return this.callAnthropic(modelName || "claude-3-5-sonnet-20241022", prompt, maxTokens, temperature);
     } else {
       throw new Error(`Unsupported model provider: ${provider}`);
     }
@@ -50,14 +50,10 @@ export class AIClient {
   private async callGemini(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
     const apiKey = this.getGeminiKey();
     if (!apiKey) {
-      throw new Error("Gemini API key (Gemini_NisolLabs_API_Key) is not configured");
+      throw new Error("Gemini API key is missing or not loaded in environment variables");
     }
 
-    let targetModel = modelName;
-    if (!targetModel || targetModel.includes("2.5")) {
-      targetModel = "gemini-1.5-flash";
-    }
-
+    const targetModel = modelName || "gemini-1.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
@@ -74,6 +70,7 @@ export class AIClient {
 
     if (!response.ok) {
       const errText = await response.text();
+      console.error(`[GEMINI ERROR ${response.status}]`, errText);
       throw new Error(`Gemini API error (${response.status}): ${errText}`);
     }
 
@@ -88,7 +85,7 @@ export class AIClient {
   private async callOpenAI(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
     const apiKey = this.getOpenAIKey();
     if (!apiKey) {
-      throw new Error("OpenAI API key (OpenAI_NisolLabs_API_Key) is not configured");
+      throw new Error("OpenAI API key is missing or not loaded in environment variables");
     }
 
     const url = "https://api.openai.com/v1/chat/completions";
@@ -99,7 +96,7 @@ export class AIClient {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: modelName.includes("gpt") ? modelName : "gpt-4o-mini",
+        model: modelName || "gpt-4o-mini",
         messages: [{ role: "user", content: prompt }],
         max_tokens: maxTokens,
         temperature,
@@ -108,6 +105,7 @@ export class AIClient {
 
     if (!response.ok) {
       const errText = await response.text();
+      console.error(`[OPENAI ERROR ${response.status}]`, errText);
       throw new Error(`OpenAI API error (${response.status}): ${errText}`);
     }
 
@@ -122,15 +120,15 @@ export class AIClient {
   private async callAnthropic(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
     const apiKey = this.getClaudeKey();
     if (!apiKey) {
-      throw new Error("Anthropic API key (Claude_NisolLab_API_Key) is not configured");
+      throw new Error("Anthropic API key is missing or not loaded in environment variables");
     }
 
     let anthropicModel = modelName;
     if (modelName === "claude-3-7-sonnet" || modelName === "claude-3.7-sonnet") {
       anthropicModel = "claude-3-7-sonnet-20250219";
-    } else if (modelName === "claude-3-5-sonnet" || modelName === "claude-3.5-sonnet" || (modelName.includes("sonnet") && !modelName.includes("202"))) {
+    } else if (modelName === "claude-3-5-sonnet" || modelName === "claude-3.5-sonnet") {
       anthropicModel = "claude-3-5-sonnet-20241022";
-    } else if (modelName === "claude-3-5-haiku" || modelName === "claude-3.5-haiku" || (modelName.includes("haiku") && !modelName.includes("202"))) {
+    } else if (modelName === "claude-3-5-haiku" || modelName === "claude-3.5-haiku") {
       anthropicModel = "claude-3-5-haiku-20241022";
     }
 
@@ -152,6 +150,7 @@ export class AIClient {
 
     if (!response.ok) {
       const errText = await response.text();
+      console.error(`[ANTHROPIC ERROR ${response.status}]`, errText);
       throw new Error(`Anthropic API error (${response.status}): ${errText}`);
     }
 
@@ -171,14 +170,20 @@ export class AIClient {
     prompt: string
   ): Promise<{ text: string; modelUsed: string }> {
     const config = MODEL_ROUTING[outputType] || {
-      primary: "google/gemini-2.5-flash",
-      fallbacks: ["openai/gpt-4o", "anthropic/claude-3-7-sonnet"],
+      primary: "google/gemini-1.5-flash",
+      fallbacks: ["openai/gpt-4o", "anthropic/claude-3-5-sonnet-20241022"],
       maxTokens: 4000,
       temperature: 0.7,
     };
     
     const candidateModels = [config.primary, ...config.fallbacks];
-    let lastError: Error | null = null;
+    const errors: { modelSpec: string; error: string }[] = [];
+
+    console.log("=== AI Key Verification ===");
+    console.log("Gemini Key Loaded:", !!this.getGeminiKey());
+    console.log("OpenAI Key Loaded:", !!this.getOpenAIKey());
+    console.log("Claude Key Loaded:", !!this.getClaudeKey());
+    console.log("===========================");
 
     for (const modelSpec of candidateModels) {
       try {
@@ -187,12 +192,17 @@ export class AIClient {
         console.log(`[AIClient] Successfully generated ${outputType} using model: ${modelSpec}`);
         return { text: result, modelUsed: modelSpec };
       } catch (err: any) {
-        console.warn(`[AIClient] Model ${modelSpec} failed: ${err.message}. Trying fallback...`);
-        lastError = err;
+        console.error("================================");
+        console.error("Provider Failed:", modelSpec);
+        console.error("Message:", err.message);
+        console.error("Stack:", err.stack);
+        console.error("================================");
+        errors.push({ modelSpec, error: err.message });
       }
     }
 
-    throw new Error(`All AI models failed for ${outputType}. Last error: ${lastError?.message}`);
+    const failureSummary = errors.map((e) => `${e.modelSpec}: ${e.error}`).join(" | ");
+    throw new Error(`All AI models failed for ${outputType}. Summary of all providers: ${failureSummary}`);
   }
 }
 
