@@ -9,15 +9,13 @@ interface PDFExporterProps {
 }
 
 const SECTION_OPTIONS = [
-  { id: "summary", label: "Executive Summary" },
-  { id: "readiness", label: "AI Readiness Assessment" },
-  { id: "capabilities", label: "Capability-wise Maturity Scores" },
-  { id: "matrix", label: "AI Opportunity Matrix" },
-  { id: "usecases", label: "Top 20 AI Use Cases" },
-  { id: "roadmap", label: "AI Transformation Roadmap" },
-  { id: "roi", label: "ROI Analysis" },
-  { id: "blueprints", label: "Solution Blueprints" },
-  { id: "proposal", label: "Proposal Draft" },
+  { id: "summary", label: "1. Executive Summary & Value Prop" },
+  { id: "readiness", label: "2. AI Readiness & Vulnerabilities" },
+  { id: "matrix", label: "3. Opportunity Matrix & Top 20 Use Cases" },
+  { id: "roadmap", label: "4. Transformation Roadmap & KPIs" },
+  { id: "roi", label: "5. ROI Analysis & 5-Year Financials" },
+  { id: "blueprints", label: "6. Technical Solution Blueprints" },
+  { id: "proposal", label: "7. Commercial Proposal & Terms" },
 ];
 
 export function PDFExporter({ reportId, auditTitle, onExportSuccess }: PDFExporterProps) {

@@ -194,3 +194,118 @@ export function renderExecutiveKPICardsHTML(kpiCards: ExecutiveKPICard[]): strin
   </div>
   `;
 }
+
+export function renderMaturityComparisonSVG(data?: { clientScore?: number; industryAvg?: number; topQuartile?: number }): string {
+  const client = data?.clientScore || 42;
+  const industry = data?.industryAvg || 62;
+  const gap = Math.max(0, industry - client);
+  const topQ = data?.topQuartile || 85;
+
+  const width = 560;
+  const height = 160;
+
+  const items = [
+    { label: "Client Score", val: client, color: "#0284C7" },
+    { label: "Industry Average", val: industry, color: "#3B82F6" },
+    { label: "Maturity Gap", val: gap, color: "#EF4444" },
+    { label: "Top Quartile", val: topQ, color: "#10B981" }
+  ];
+
+  const barYStart = 40;
+  const barHeight = 20;
+  const barSpacing = 28;
+  const maxW = 340;
+
+  let barsHTML = "";
+  items.forEach((item, i) => {
+    const y = barYStart + i * barSpacing;
+    const barW = Math.max(10, Math.min(maxW, (item.val / 100) * maxW));
+    barsHTML += `
+      <text x="140" y="${y + 14}" font-size="11px" font-weight="700" fill="#334155" text-anchor="end">${item.label}</text>
+      <rect x="150" y="${y}" width="${maxW}" height="${barHeight}" rx="4" fill="#F1F5F9"/>
+      <rect x="150" y="${y}" width="${barW}" height="${barHeight}" rx="4" fill="${item.color}"/>
+      <text x="${158 + barW}" y="${y + 14}" font-size="11px" font-weight="800" fill="#0F172A">${item.val}/100</text>
+    `;
+  });
+
+  return `
+  <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" style="background:#FFFFFF; border-radius:12px; font-family:Inter, sans-serif;">
+    <rect width="100%" height="100%" fill="#F8FAFC" rx="12" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="20" y="25" font-size="13px" font-weight="800" fill="#0A1E3C">AI Readiness Benchmark Comparison</text>
+    ${barsHTML}
+  </svg>
+  `;
+}
+
+export function render5YearROIBarChartSVG(projections?: Array<{ year: number; investment: number; benefit: number; net: number }>): string {
+  const width = 560;
+  const height = 220;
+
+  const defaultData = projections && projections.length > 0 ? projections : [
+    { year: 1, investment: 120000, benefit: 280000, net: 160000 },
+    { year: 2, investment: 40000, benefit: 450000, net: 410000 },
+    { year: 3, investment: 40000, benefit: 650000, net: 610000 },
+    { year: 4, investment: 30000, benefit: 820000, net: 790000 },
+    { year: 5, investment: 30000, benefit: 980000, net: 950000 },
+  ];
+
+  const paddingLeft = 50;
+  const paddingBottom = 35;
+  const chartW = width - paddingLeft - 30;
+  const chartH = height - paddingBottom - 45;
+
+  const maxVal = Math.max(...defaultData.map(d => d.benefit), 1000000);
+  const stepX = chartW / defaultData.length;
+  const barWidth = 24;
+
+  let barsSVG = "";
+  let axesSVG = "";
+
+  // Y-axis gridlines
+  const yTicks = [0, maxVal * 0.25, maxVal * 0.5, maxVal * 0.75, maxVal];
+  yTicks.forEach((val) => {
+    const y = height - paddingBottom - (val / maxVal) * chartH;
+    const label = `$${(val / 1000).toFixed(0)}k`;
+    axesSVG += `
+      <line x1="${paddingLeft}" y1="${y}" x2="${width - 30}" y2="${y}" stroke="#E2E8F0" stroke-linecap="round" stroke-dasharray="2,3"/>
+      <text x="${paddingLeft - 8}" y="${y + 4}" font-size="9px" font-weight="600" fill="#64748B" text-anchor="end">${label}</text>
+    `;
+  });
+
+  defaultData.forEach((d, i) => {
+    const groupX = paddingLeft + i * stepX + stepX / 2;
+    const invH = (d.investment / maxVal) * chartH;
+    const benH = (d.benefit / maxVal) * chartH;
+
+    const invY = height - paddingBottom - invH;
+    const benY = height - paddingBottom - benH;
+
+    barsSVG += `
+      <!-- Investment bar -->
+      <rect x="${groupX - barWidth - 2}" y="${invY}" width="${barWidth}" height="${invH}" rx="3" fill="#64748B"/>
+      <!-- Benefit bar -->
+      <rect x="${groupX + 2}" y="${benY}" width="${barWidth}" height="${benH}" rx="3" fill="#10B981"/>
+      
+      <!-- X-label -->
+      <text x="${groupX}" y="${height - paddingBottom + 16}" font-size="10px" font-weight="700" fill="#1E293B" text-anchor="middle">Year ${d.year}</text>
+    `;
+  });
+
+  return `
+  <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" style="background:#FFFFFF; border-radius:12px; font-family:Inter, sans-serif;">
+    <rect width="100%" height="100%" fill="#F8FAFC" rx="12" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="20" y="24" font-size="13px" font-weight="800" fill="#0A1E3C">5-Year Cumulative Financial Benefit vs. Investment ($ USD)</text>
+    
+    <!-- Legend -->
+    <rect x="${width - 190}" y="12" width="10" height="10" rx="2" fill="#64748B"/>
+    <text x="${width - 176}" y="21" font-size="9px" font-weight="600" fill="#475569">Investment</text>
+
+    <rect x="${width - 105}" y="12" width="10" height="10" rx="2" fill="#10B981"/>
+    <text x="${width - 91}" y="21" font-size="9px" font-weight="600" fill="#475569">Annual Benefits</text>
+
+    ${axesSVG}
+    ${barsSVG}
+  </svg>
+  `;
+}
+
