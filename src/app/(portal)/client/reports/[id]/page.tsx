@@ -128,7 +128,7 @@ export default function ClientReportViewerPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <PDFExporter reportId={report.id} auditTitle={audit?.title} />
+            <PDFExporter reportId={report.id} auditTitle={audit?.title} companyName={tenantObj?.name} />
           </div>
         </div>
       </div>

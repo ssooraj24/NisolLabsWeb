@@ -2,6 +2,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { composeFullReport } from "@/lib/report/reportComposer";
+import { resolveClientCompanyName } from "@/lib/utils/companyNameResolver";
 
 function getSupabaseClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -52,9 +53,9 @@ export async function generateFullReport(auditId: string, userId?: string) {
   }
 
   const rawResponses = (audit.raw_responses as Record<string, any>) || {};
+  const companyName = resolveClientCompanyName(null, audit);
   const tenantObj = Array.isArray(audit.tenants) ? audit.tenants[0] : audit.tenants;
-  const companyName = tenantObj?.name || "Enterprise Client";
-  const industry = tenantObj?.industry || "Technology & Operations";
+  const industry = tenantObj?.industry || rawResponses.industry || "Technology & Operations";
 
   // 3. Compose Full Modular Report Object using Report Composer Pipeline
   const reportObj = await composeFullReport(

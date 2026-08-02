@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { generateReportHTML } from "@/lib/utils/pdfGenerator";
+import { resolveClientCompanyName } from "@/lib/utils/companyNameResolver";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { reportId, sections, templateId, watermarkText, includeTOC } = body;
+    const { reportId, sections, templateId, watermarkText, includeTOC, currency, companyName: bodyCompanyName, auditTitle: bodyAuditTitle } = body;
 
     if (!reportId) {
       return NextResponse.json(
@@ -19,26 +20,64 @@ export async function POST(req: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
 
-    // Fetch report data
-    const { data: report, error: rErr } = await supabase
+    // 1. Try fetching report by reportId (id)
+    let { data: report } = await supabase
       .from("audit_reports")
       .select("*")
       .eq("id", reportId)
-      .single();
+      .maybeSingle();
 
-    if (rErr || !report) {
-      return NextResponse.json(
-        { success: false, error: `Report record not found: ${rErr?.message}` },
-        { status: 444 }
-      );
+    // 2. If not found by report id, try fetching by audit_id
+    if (!report) {
+      const { data: reportByAudit } = await supabase
+        .from("audit_reports")
+        .select("*")
+        .eq("audit_id", reportId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      report = reportByAudit;
     }
 
-    // Fetch audit metadata
+    // 3. Fetch audit metadata using report.audit_id or reportId
+    const targetAuditId = report?.audit_id || reportId;
     const { data: audit } = await supabase
       .from("audits")
-      .select("id, title, status, tenants:tenant_id (name, industry)")
-      .eq("id", report.audit_id)
-      .single();
+      .select("id, title, status, raw_responses, tenant_id, tenants:tenant_id (name, industry)")
+      .eq("id", targetAuditId)
+      .maybeSingle();
+
+    // Direct tenant query fallback if join didn't populate tenants
+    if (audit && audit.tenant_id && !audit.tenants) {
+      const { data: tenantData } = await supabase
+        .from("tenants")
+        .select("name, industry")
+        .eq("id", audit.tenant_id)
+        .maybeSingle();
+
+      if (tenantData) {
+        (audit as any).tenants = tenantData;
+      }
+    }
+
+    // 4. Resolve client company name using multi-tier resolver
+    const resolvedCompany = resolveClientCompanyName(report, audit, {
+      bodyCompanyName,
+      bodyAuditTitle,
+    });
+
+    if (!report) {
+      const tenantObj = audit?.tenants ? (Array.isArray(audit.tenants) ? audit.tenants[0] : (audit.tenants as any)) : null;
+      report = {
+        id: reportId,
+        audit_id: targetAuditId,
+        companyName: resolvedCompany,
+        industry: tenantObj?.industry || audit?.raw_responses?.industry || "Technology & Operations",
+      };
+    } else {
+      report.companyName = resolvedCompany;
+    }
 
     // Fetch template styling if templateId supplied
     let stylingOptions = {
@@ -52,7 +91,7 @@ export async function POST(req: NextRequest) {
         .from("report_templates")
         .select("styling")
         .eq("id", templateId)
-        .single();
+        .maybeSingle();
 
       if (tmpl?.styling) {
         stylingOptions = {
@@ -68,6 +107,7 @@ export async function POST(req: NextRequest) {
       ...stylingOptions,
       includeTOC: includeTOC !== false,
       watermarkText: watermarkText || "CONFIDENTIAL",
+      currency: currency || "INR",
     });
 
     return new NextResponse(htmlContent, {
@@ -84,3 +124,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+

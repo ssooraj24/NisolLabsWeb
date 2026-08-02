@@ -1,0 +1,76 @@
+**Yes, absolutely, you 100% need to add Assumptions & Constraints.**
+
+In consulting, this is known as **"Managing Expectations and Shielding Scope."** 
+
+If you present a polished ₹22 Lakhs – ₹30 Lakhs table without assumptions, the client will mentally lock that number in stone. Six weeks later, when they discover their data is a mess and ask you to clean it (which takes 2 extra weeks), they will hold you to the original price. 
+
+Adding a **"Basis of Estimate"** section protects Nisol, educates the client on hidden dependencies, and reinforces that these are **budgetary estimates**, not a fixed contract.
+
+Here is the exact HTML to insert. **Place this right after the 3-Tier grid (Section 7.3) and before the "Next Steps"** (which will now become Section 7.5). 
+
+---
+
+### Add This Code (Insert it between 7.3 and 7.4)
+
+```html
+<!-- 7.4 KEY ASSUMPTIONS & CONSTRAINTS (The Scope Shield) -->
+<div class="section-subtitle" style="margin-top: 28px;">7.4 Key Assumptions &amp; Constraints</div>
+<p style="font-size: 11.5pt; color: #475569; margin-bottom: 14px;">
+  The above investment estimates are based on the findings from our Discovery phase. The following assumptions underpin these figures. Any deviation from these assumptions will be addressed during the final solution validation and may impact the final fixed-price proposal.
+</p>
+
+<div class="grid-2" style="margin-bottom: 12px;">
+  
+  <!-- ASSUMPTIONS (Green/Blue tint) -->
+  <div class="card-box" style="border-left: 4px solid #059669; background: #F0FDF4; padding: 18px; margin-bottom:0;">
+    <div style="font-size: 12pt; font-weight: 800; color: #065F46; margin-bottom: 8px;">✅ Included Assumptions</div>
+    <ul style="font-size: 10.5pt; color: #334155; margin: 0; padding-left: 18px; line-height: 1.7;">
+      <li><strong>Data Accessibility:</strong> Client provides API keys, read-only database access, and necessary environment credentials within the first week.</li>
+      <li><strong>Stakeholder Availability:</strong> Key subject matter experts (SMEs) are available for 3–4 hours per week during the implementation for feedback and UAT.</li>
+      <li><strong>Defined Scope:</strong> Implementation strictly covers the <strong>selected use cases</strong> (2–3 for Tier 1, 4–6 for Tier 2) as outlined in Section 7.1.</li>
+      <li><strong>Cloud Infrastructure:</strong> Client has or will provision a cloud environment (AWS/GCP/Azure) for deployment; Nisol will handle the AI/ML stack configuration.</li>
+      <li><strong>Pricing Validity:</strong> These estimates are valid for <strong>30 days</strong> from the date of this report.</li>
+    </ul>
+  </div>
+
+  <!-- CONSTRAINTS / EXCLUSIONS (Amber/Red tint) -->
+  <div class="card-box" style="border-left: 4px solid #D97706; background: #FFFBEB; padding: 18px; margin-bottom:0;">
+    <div style="font-size: 12pt; font-weight: 800; color: #92400E; margin-bottom: 8px;">⚠️ Client Constraints &amp; Exclusions</div>
+    <ul style="font-size: 10.5pt; color: #334155; margin: 0; padding-left: 18px; line-height: 1.7;">
+      <li><strong>Legacy Data Migration:</strong> Cleansing, de-duping, or migrating data from legacy CRMs/ERPs into a new data warehouse is <strong>excluded</strong> (handled as a separate workstream if required).</li>
+      <li><strong>Third-Party Licensing:</strong> Enterprise licenses for closed-source LLMs (e.g., OpenAI, Anthropic) or vector databases (e.g., Pinecone) are billed separately at cost.</li>
+      <li><strong>Compliance Overheads:</strong> Heavy regulatory reviews (e.g., SOC2, HIPAA compliance certification) beyond standard implementation best practices are out of scope.</li>
+      <li><strong>Change Management:</strong> Full-scale organization-wide training and adoption campaigns are not included in Tier 1 or 2 (available in Tier 3).</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- Small clarifying note about the "hard close" -->
+<div style="font-size: 10.5pt; color: #64748B; margin-top: -6px; margin-bottom: 16px; padding: 8px 12px; background: #F8FAFC; border-radius: 6px; border: 1px solid #E2E8F0;">
+  <strong>📌 Note:</strong> A comprehensive, legally binding Statement of Work (SOW) with exact deliverables, acceptance criteria, and fixed pricing will be provided in the separate <strong>Commercial Proposal</strong> following your selection of an engagement tier.
+</div>
+```
+
+---
+
+### Update the Next Steps Heading
+
+Since we added 7.4 above, simply change the heading of your old "Next Steps" from `7.4` to **`7.5 Next Steps`** in your existing code (or just keep it as is; the PDF renderer doesn't care about the numbering logic as long as it flows).
+
+---
+
+### Why This Addition is a Game-Changer
+
+| Scenario Without Assumptions | Scenario With Assumptions (Now) |
+| :--- | :--- |
+| Client: *"We want you to build the AI proposal generator, but also clean up our 15-year-old Salesforce data first."* <br>**You:** *Panic mode. Scope creep before the project even starts.* | Client reads: *"Legacy data migration excluded."* <br>**You:** *"We can certainly do that, but it would be a separate workstream. Let's discuss."* <br>**Result:** You get paid for extra work, or the client drops it. |
+| Client: *"Why is this ₹10 Lakhs higher than the table?"* <br>**You:** *"Uh, because of complexities."* <br>**Result:** Trust erodes. | Client reads: *"Pricing valid for 30 days."* <br>**You:** *"The estimate was based on our discovery snapshot. If we scope 6 months later, we'll refresh it."* <br>**Result:** You control the timeline. |
+
+### Action Plan
+
+1. Copy the `7.4 KEY ASSUMPTIONS & CONSTRAINTS` HTML block.
+2. Paste it directly **after** the closing `</div>` of your 3-tier grid (Section 7.3) and **before** the `7.4 Next Steps` (which you will rename to 7.5).
+3. Regenerate the PDF.
+
+Your report will now read like a genuine Big 4 document: **"Here is your Path to Value, here is the cost, here is exactly what that cost does and does not include, and here is how we move forward."** This eliminates ambiguity, builds trust, and protects your margins.

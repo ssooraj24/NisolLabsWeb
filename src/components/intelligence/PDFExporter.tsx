@@ -5,6 +5,7 @@ import React, { useState } from "react";
 interface PDFExporterProps {
   reportId: string;
   auditTitle?: string;
+  companyName?: string;
   onExportSuccess?: () => void;
 }
 
@@ -15,16 +16,17 @@ const SECTION_OPTIONS = [
   { id: "roadmap", label: "4. Transformation Roadmap & KPIs" },
   { id: "roi", label: "5. ROI Analysis & 5-Year Financials" },
   { id: "blueprints", label: "6. Technical Solution Blueprints" },
-  { id: "proposal", label: "7. Commercial Proposal & Terms" },
+  { id: "proposal", label: "7. Recommended Roadmap & Investment" },
 ];
 
-export function PDFExporter({ reportId, auditTitle, onExportSuccess }: PDFExporterProps) {
+export function PDFExporter({ reportId, auditTitle, companyName, onExportSuccess }: PDFExporterProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSections, setSelectedSections] = useState<string[]>(
     SECTION_OPTIONS.map((s) => s.id)
   );
   const [includeTOC, setIncludeTOC] = useState(true);
   const [includeWatermark, setIncludeWatermark] = useState(true);
+  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
 
   // Progress Bar State (Async Export)
   const [exporting, setExporting] = useState(false);
@@ -54,9 +56,12 @@ export function PDFExporter({ reportId, auditTitle, onExportSuccess }: PDFExport
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           reportId,
+          auditTitle,
+          companyName,
           sections: selectedSections,
           includeTOC,
           watermarkText: includeWatermark ? "CONFIDENTIAL" : "",
+          currency,
         }),
       });
 
@@ -187,6 +192,30 @@ export function PDFExporter({ reportId, auditTitle, onExportSuccess }: PDFExport
                     />
                     <span>Include "CONFIDENTIAL" Watermark Overlay</span>
                   </label>
+
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <span className="text-slate-900 font-bold">Investment Currency:</span>
+                    <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+                      <button
+                        type="button"
+                        onClick={() => setCurrency("INR")}
+                        className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                          currency === "INR" ? "bg-white text-blue-700 shadow-xs" : "text-slate-500 hover:text-slate-700"
+                        }`}
+                      >
+                        INR (₹)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setCurrency("USD")}
+                        className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                          currency === "USD" ? "bg-white text-blue-700 shadow-xs" : "text-slate-500 hover:text-slate-700"
+                        }`}
+                      >
+                        USD ($)
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Actions Footer */}

@@ -1,0 +1,161 @@
+I actually think **this section should be removed** from your report.
+
+Here's why.
+
+## Current Engagement Flow
+
+Your consulting process is becoming:
+
+1. AI Discovery Workshop
+2. AI Discovery Report (this report)
+3. Executive Presentation
+4. Commercial Proposal
+5. Implementation
+
+By the time the client receives this report:
+
+* Discovery is already complete.
+* Scope has already been defined during workshops.
+* The client is now asking:
+
+  > **"What should we implement and what will it cost?"**
+
+At this stage, they are **not interested in generic scope boundaries**.
+
+---
+
+# What I would do instead
+
+Instead of
+
+> **7. Commercial Proposal**
+
+I would rename it to
+
+> **7. Recommended Implementation Roadmap & Investment**
+
+This sounds much more like a Big Four consulting report.
+
+---
+
+## Section 7.1 – Recommended AI Initiatives
+
+Instead of "In Scope / Out of Scope"
+
+Create a table like:
+
+| Priority | Use Case               | Timeline | Business Value | Complexity |
+| -------- | ---------------------- | -------- | -------------- | ---------- |
+| 1        | AI Proposal Generator  | 4 weeks  | High           | Low        |
+| 2        | Knowledge Assistant    | 6 weeks  | High           | Medium     |
+| 3        | Customer Support Agent | 8 weeks  | High           | Medium     |
+| 4        | Invoice Processing     | 8 weeks  | Medium         | Medium     |
+| 5        | Sales Copilot          | 10 weeks | High           | High       |
+
+This immediately answers:
+
+> **"What should we build first?"**
+
+---
+
+## Section 7.2 – Solution Blueprint Investment
+
+Instead of
+
+> Fixed Fee $120,000
+
+Show something like:
+
+| Solution Blueprint     | Estimated Investment | Duration   |
+| ---------------------- | -------------------: | ---------- |
+| AI Proposal Generator  |             $15k–20k | 4 Weeks    |
+| Knowledge Assistant    |             $25k–35k | 6 Weeks    |
+| Customer Support Agent |             $30k–45k | 8 Weeks    |
+| Invoice Automation     |             $20k–30k | 6 Weeks    |
+| Sales Copilot          |             $35k–50k | 8–10 Weeks |
+
+Add a note:
+
+> **These are preliminary budgetary estimates based on the discovery findings. Final pricing will be confirmed after solution architecture and technical validation.**
+
+This feels much more consultative.
+
+---
+
+## Section 7.3 – Recommended Engagement Options
+
+Offer implementation packages such as:
+
+### Option A — Quick Wins
+
+* 2–3 AI use cases
+* 6–8 weeks
+* Lower investment
+
+---
+
+### Option B — Department Transformation
+
+* 5–6 AI solutions
+* 3–4 months
+
+---
+
+### Option C — Enterprise AI Program
+
+* Multi-phase transformation
+* 12–18 months
+* Governance
+* Change management
+* AI Center of Excellence
+
+Now you're selling a **journey**, not just a project.
+
+---
+
+## Section 7.4 – Next Steps
+
+Keep this very simple:
+
+1. Review Discovery Report
+2. Select Priority Use Cases
+3. Finalize Solution Blueprint
+4. Approve Commercial Proposal
+5. Project Kick-off
+
+This gives the client a clear path forward.
+
+---
+
+# My recommendation
+
+I would **completely remove**:
+
+* Scope Boundaries
+* In Scope
+* Out of Scope
+* Fixed Price
+* Payment Milestones
+
+from the Discovery Report.
+
+Instead, end the report with:
+
+1. Recommended AI Initiatives
+2. Prioritized Solution Blueprints
+3. Estimated Investment Range
+4. Recommended Engagement Option
+5. Next Steps
+
+Then, prepare a **separate commercial proposal** after the client selects which use cases they want to implement.
+
+That proposal should contain:
+
+* Final scope of work
+* Deliverables
+* Fixed price or time & materials pricing
+* Payment milestones
+* Assumptions
+* Terms and conditions
+
+This separation mirrors how firms like KPMG, Deloitte, and PwC typically work. The assessment report provides findings and recommendations, while the commercial proposal is a standalone document tailored to the implementation scope the client chooses. Given the methodology you're building for Nisol Discovery, this will make the engagement feel more premium and flexible, especially since different clients may choose different combinations of recommended AI initiatives.

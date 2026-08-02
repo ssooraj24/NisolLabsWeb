@@ -184,7 +184,7 @@ export default function ClientReportsListPage() {
                       >
                         View Report
                       </button>
-                      <PDFExporter reportId={r.id} auditTitle={r.audits?.title} />
+                      <PDFExporter reportId={r.id} auditTitle={r.audits?.title} companyName={r.audits?.tenants?.name || tenantName} />
                     </td>
                   </tr>
                 ))}

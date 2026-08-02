@@ -217,21 +217,18 @@ export default function ReportEditorPage() {
               {generating ? "⚡ Analyzing..." : "🔄 Re-Generate with AI"}
             </button>
 
-            {report?.id && (
-              <>
-                <PDFExporter reportId={report.id} auditTitle={audit.title} />
+            <PDFExporter reportId={report?.id || auditId} auditTitle={audit.title} companyName={tenantObj?.name} />
 
-                {report.status !== "finalized" && (
-                  <button
-                    onClick={handleApproveFinalize}
-                    disabled={finalizing}
-                    className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50"
-                  >
-                    {finalizing ? "Finalizing..." : "✓ Approve & Finalize"}
-                  </button>
-                )}
-              </>
+            {report && report.status !== "finalized" && (
+              <button
+                onClick={handleApproveFinalize}
+                disabled={finalizing}
+                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50"
+              >
+                {finalizing ? "Finalizing..." : "✓ Approve & Finalize"}
+              </button>
             )}
+
           </div>
         </div>
       </div>

@@ -1,0 +1,116 @@
+<strong style="color:${primaryColor}; font-size: 11.5pt;">📊 Engineering & Delivery Acceleration</strong> --> why using inline font size. Please convert into style and apply where ever it is there.
+
+/* ===== GLOBAL ===== */
+body {
+  font-family: ${fontFamily};
+  font-size: 13pt;           /* was 11.5pt */
+  color: #0F172A;
+  line-height: 1.5;          /* slightly tighter for better fit */
+  margin: 0;
+  padding: 0;
+  background-color: #FFFFFF;
+  -webkit-print-color-adjust: exact;
+}
+
+/* ===== COVER PAGE ===== */
+.cover-brand {
+  font-size: 28pt;           /* was 24pt */
+}
+.cover-tagline {
+  font-size: 13pt;           /* was 11.5pt */
+}
+.cover-main-title {
+  font-size: 40pt;           /* was 34pt */
+}
+.cover-meta-grid {
+  font-size: 13pt;           /* was 11pt */
+}
+.cover-meta-item span {
+  font-size: 15pt;           /* was 12.5pt */
+}
+
+/* ===== TOC ===== */
+.toc-header {
+  font-size: 26pt;           /* was 22pt */
+}
+.toc-item {
+  font-size: 13.5pt;         /* was 12pt */
+}
+.toc-sub {
+  font-size: 11.5pt;         /* was 10.5pt */
+}
+.toc-page-num {
+  font-size: 13.5pt;         /* was 12pt */
+}
+
+/* ===== SECTIONS ===== */
+.section-title {
+  font-size: 22pt;           /* was 18pt */
+}
+.section-subtitle {
+  font-size: 16pt;           /* was 14pt */
+}
+
+/* ===== CARDS & BOXES ===== */
+.card-box {
+  font-size: 12.5pt;         /* was 11pt */
+  padding: 24px;             /* was 20px */
+}
+.sidebar-card {
+  font-size: 12.5pt;         /* was 11pt */
+}
+
+/* ===== TABLES ===== */
+table {
+  font-size: 11.5pt;         /* was 10.5pt */
+}
+th {
+  font-size: 10.5pt;         /* was 9.5pt */
+}
+td {
+  font-size: 11.5pt;         /* was 10.5pt */
+}
+
+/* ===== BADGES ===== */
+.badge {
+  font-size: 10.5pt;         /* was 9.5pt */
+}
+
+/* ===== WATERMARK ===== */
+.watermark {
+  font-size: 72pt;           /* was 64pt */
+}
+
+/* ===== KPI CARDS (rendered via component) ===== */
+/* If you have inline styles in renderExecutiveKPICardsHTML, increase those too */
+
+Cover page meta grid – already covered.
+
+Section 1.2 Key Value Drivers – increase .card-box strong sizes.
+
+Executive Sidebar – increase the sidebar font sizes (currently 11pt).
+
+Blueprint cards – increase .card-box inner text sizes (currently 10.5pt).
+
+ROI tables – already covered by global table styles.
+
+
+Tweak Margins and Padding to Prevent Overflow
+Larger fonts may cause content to spill. Adjust the following:
+
+css
+@page {
+  size: A4;
+  margin: 14mm 16mm;        /* was 12mm 14mm – give more breathing room */
+}
+
+Also increase padding on the cover page and sidebar cards:
+
+css
+.cover-page {
+  padding: 52px;            /* was 48px */
+}
+.sidebar-card {
+  padding: 28px;            /* was 22px */
+}
+

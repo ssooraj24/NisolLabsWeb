@@ -1,0 +1,154 @@
+Here is a **consolidated, copy-paste-ready instruction** for Antygravity. It bundles all the specifications, the exact code for the primary chart, and a strict checklist to overhaul every visualization in the report.
+
+---
+
+### INSTRUCTION FOR ANTYGRAVITY: EXECUTIVE CHART REDESIGN (KPMG/McKinsey Style)
+
+**Context:** We are overhauling all SVG charts inside `lib/report/pdfComponentEngine.ts` and their wrappers in `lib/utils/pdfGenerator.ts`. The goal is to elevate the visual quality to match Big 4 consulting standards (KPMG, Deloitte, McKinsey) with larger dimensions, premium typography, soft depth, and pristine A4/300DPI output.
+
+---
+
+#### PART 1: THE UNIFIED SPECIFICATION (Apply to ALL charts)
+
+Please enforce these rules globally across `renderMaturityComparisonSVG`, `renderRadarChartSVG`, `renderHeatmapSVG`, `renderOpportunityMatrixSVG`, and `render5YearROIBarChartSVG`:
+
+1.  **Canvas & Padding**:
+    - Base width: `820px`.
+    - Height: **Dynamic** (do not hardcode 280px). Calculate with `const height = (padding * 2) + (items.length * 36) + ((items.length - 1) * 56)`.
+    - Padding: Strict `40px` on all sides (top, left, right, bottom).
+2.  **Bar/Element Sizing**:
+    - Bar height: **36px**.
+    - Row spacing: **56px** (measured from the start of one bar to the start of the next).
+    - Corner radius: **10px** (`rx="10"`) on all bars and container cards.
+3.  **Typography (Inter font, strict sizes)**:
+    - Chart Title (e.g., "Overall Score"): `18px`, `font-weight="600"` (Semibold).
+    - Axis/Line Labels (e.g., "Client Score"): `15px`, `font-weight="500"` (Medium).
+    - Numeric Values inside bars (e.g., "$2.4M"): `17px`, `font-weight="700"` (Bold).
+    - Score Badges (e.g., "4.2 / 5"): `17px`, `font-weight="800"` (ExtraBold), color `#FFFFFF`.
+4.  **Visual Depth (Gradients & Shadows)**:
+    - Add a universal `<filter id="shadow">` with `feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.08"`.
+    - Apply `<linearGradient>` to all primary data bars (e.g., from dark base color to a lighter variant of the same hue). *Do not use flat, solid colors for primary elements.*
+5.  **Executive Color Palette**:
+    - Deep Blue (Primary): `#0A2647` → `#1E3A8A`
+    - Emerald (Positive/High): `#059669` → `#10B981`
+    - Amber (Warning/Medium): `#D97706` → `#F59E0B`
+    - Muted Red (Critical/Low): `#DC2626` → `#EF4444`
+    - Background gridlines: `#F1F5F9` with `stroke-dasharray="4 4"`.
+6.  **Legends & Headers**:
+    - Every chart must include a clear **Legend** in the top-right corner using `<rect>` color keys + `12px` text labels.
+    - Include an **"Overall Score"** or specific section header directly above the chart area (inside the SVG).
+7.  **Data Formatting**:
+    - Convert all raw 0-100 scores to **"X.X / 5"** format (divide by 20). Display this prominently at the end of each bar.
+
+---
+
+#### PART 2: EXACT CODE REPLACEMENT (Horizontal Bar Chart)
+
+**Action:** Replace the entire `renderMaturityComparisonSVG` function in `pdfComponentEngine.ts` with the code block below. This handles dynamic height and implements *all* of the above specs perfectly.
+
+```typescript
+export function renderMaturityComparisonSVG(data: { clientScore: number; industryAvg: number; topQuartile: number }) {
+  const items = [
+    { label: "Client Score", value: data.clientScore, max: 100, gradient: "gradClient" },
+    { label: "Industry Average", value: data.industryAvg, max: 100, gradient: "gradIndustry" },
+    { label: "Top Quartile", value: data.topQuartile, max: 100, gradient: "gradTop" },
+  ];
+
+  // Dynamic Height Calculation (36px bar + 56px spacing + 40px padding)
+  const barHeight = 36;
+  const rowSpacing = 56;
+  const padding = 40;
+  const chartWidth = 820;
+  const totalHeight = padding * 2 + (items.length * barHeight) + ((items.length - 1) * rowSpacing);
+  
+  const labelX = padding;
+  const barStartX = 200;
+  const maxBarWidth = chartWidth - barStartX - padding;
+
+  const gradients = `
+    <defs>
+      <filter id="shadow" x="-5%" y="-5%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+      </filter>
+      <linearGradient id="gradClient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#0A2647" /><stop offset="100%" stop-color="#1E3A8A" />
+      </linearGradient>
+      <linearGradient id="gradIndustry" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#D97706" /><stop offset="100%" stop-color="#F59E0B" />
+      </linearGradient>
+      <linearGradient id="gradTop" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#059669" /><stop offset="100%" stop-color="#10B981" />
+      </linearGradient>
+    </defs>
+  `;
+
+  let barsHtml = '';
+  items.forEach((item, index) => {
+    const yPos = padding + (index * (barHeight + rowSpacing));
+    const barWidth = (item.value / item.max) * maxBarWidth;
+    const textY = yPos + (barHeight / 2) + 6;
+    const formattedScore = (item.value / 20).toFixed(1);
+
+    barsHtml += `
+      <text x="${labelX}" y="${textY}" font-size="15" font-weight="500" fill="#334155" font-family="Inter, sans-serif">${item.label}</text>
+      <line x1="${barStartX}" y1="${yPos + barHeight + 8}" x2="${chartWidth - padding}" y2="${yPos + barHeight + 8}" stroke="#F1F5F9" stroke-width="1" stroke-dasharray="4 4" />
+      <rect x="${barStartX}" y="${yPos}" width="${barWidth}" height="${barHeight}" rx="10" fill="url(${item.gradient})" filter="url(#shadow)" opacity="0.95" />
+      <text x="${barStartX + barWidth - 12}" y="${textY}" font-size="17" font-weight="800" fill="#FFFFFF" text-anchor="end" font-family="Inter, sans-serif">
+        ${formattedScore} / 5
+      </text>
+    `;
+  });
+
+  return `
+    <svg viewBox="0 0 ${chartWidth} ${totalHeight}" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      ${gradients}
+      <text x="${padding}" y="${padding - 10}" font-size="18" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Overall AI Maturity Score</text>
+      <g transform="translate(${chartWidth - 260}, ${padding - 10})">
+        <rect x="0" y="0" width="12" height="12" rx="3" fill="#0A2647" /><text x="18" y="11" font-size="12" fill="#64748B" font-weight="500">Client</text>
+        <rect x="85" y="0" width="12" height="12" rx="3" fill="#D97706" /><text x="103" y="11" font-size="12" fill="#64748B" font-weight="500">Industry</text>
+        <rect x="175" y="0" width="12" height="12" rx="3" fill="#059669" /><text x="193" y="11" font-size="12" fill="#64748B" font-weight="500">Top Quartile</text>
+      </g>
+      ${barsHtml}
+    </svg>
+  `;
+}
+```
+
+---
+
+#### PART 3: HTML WRAPPER UPDATE (For pdfGenerator.ts)
+
+**Action:** Locate the `<div>` wrappers around these SVG functions in the main HTML template and replace them with this container to guarantee 300DPI crispness and prevent clipping on A4:
+
+```html
+<!-- Use this exact div structure for ALL chart placements -->
+<div style="width: 100%; max-width: 820px; margin: 12px auto; page-break-inside: avoid; background: #FFFFFF; padding: 4px 0;">
+  ${comparisonSVG}
+</div>
+```
+
+---
+
+#### PART 4: MAPPING SPECS TO OTHER CHARTS
+
+Apply the same *logic* from Part 1 to the remaining functions. Do not use the horizontal bar code for these, but enforce the styling:
+
+- **Radar Chart (`renderRadarChartSVG`)**: Set `viewBox="0 0 820 560"`. Increase radius scale. Change all axis labels to `14px Semibold`. Set the data polygon `stroke-width="3"` with `fill-opacity="0.15"`.
+- **Heatmap (`renderHeatmapSVG`)**: Set `viewBox="0 0 820 480"`. Increase cell sizes to `90x36px`. Place the numerical score (`4.2`) in `16px Bold` inside each cell. Use the Executive Palette for cell fills (Green for high, Amber for mid, Red for low).
+- **Opportunity Matrix (`renderOpportunityMatrixSVG`)**: Set `viewBox="0 0 820 560"`. Increase bubble sizes. Add `stroke="#FFFFFF" stroke-width="2"` around every bubble. Apply the drop-shadow filter to the bubbles.
+- **ROI Bar Chart (`render5YearROIBarChartSVG`)**: Reuse the `renderMaturityComparisonSVG` horizontal bar structure exactly, but swap the labels for `Year 1` through `Year 5` and change the value formatting to display as `$2.9M` instead of `X.X / 5`.
+
+---
+
+#### PART 5: FINAL QUALITY CHECKLIST
+
+Before marking this as complete, please verify:
+
+1.  All text elements are rendering in `Inter` (ensure the font is imported in the main HTML `<style>`).
+2.  No hardcoded `height="280"` remains anywhere – all heights must be dynamic to accommodate the `56px` spacing.
+3.  The drop shadow isn't clipped by the edge of the SVG (the `<filter>` has `x="-5%" width="120%"`).
+4.  The PDF output at 300 DPI shows perfectly crisp edges (vector SVGs guarantee this, provided the `viewBox` matches the internal coordinate system).
+
+---
+
+**End of Instruction.** Deploy these changes, regenerate the PDF, and the report will instantly reflect a premium, boardroom-ready consulting aesthetic.
