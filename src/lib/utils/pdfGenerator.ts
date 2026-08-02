@@ -131,6 +131,12 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       -webkit-print-color-adjust: exact;
     }
 
+    /* SUB-SECTION PAGE BREAK RULE */
+    .sub-section-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
     /* COVER PAGE */
     .cover-page {
       height: 94vh;
@@ -272,7 +278,6 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
 
     /* SECTIONS */
     .section {
-      page-break-inside: avoid;
       margin-bottom: 36px;
     }
 
@@ -321,6 +326,8 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       padding: 28px;
       box-shadow: 0 4px 12px rgba(10, 30, 60, 0.1);
       font-size: 12.5pt;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .grid-2 {
@@ -555,50 +562,62 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
   <div class="section section-break">
     <div class="section-title">1. Executive Summary & Value Proposition</div>
     
-    <div class="card-box">
-      <div style="font-size: 14pt; font-weight: 800; color: ${primaryColor}; margin-bottom: 8px;">1.1 Engagement Overview</div>
-      <p style="margin: 0; font-size: 12.5pt; color: #334155; line-height: 1.6;">
-        <strong>${tenantName}</strong> is a leading <strong>${industry}</strong> enterprise poised for its next acceleration cycle. However, current operations rely heavily on manual verification, legacy code maintenance, and fragmented data silos. Nisol AI proposes a multi-phase Enterprise AI Transformation designed to modernize core operations, automate developer QA, elevate customer support, and compress sales cycles.
-      </p>
-    </div>
-
-    <div class="section-subtitle">1.2 Key Value Drivers</div>
-    <div class="grid-2" style="margin-bottom: 20px;">
-      <div class="card-box" style="margin-bottom: 0;">
-        <strong>📊 Engineering & Delivery Acceleration</strong>
-        <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Accelerate SDLC with automated QA test generation and AI code reviews, eliminating manual regression bottlenecks.</p>
-      </div>
-      <div class="card-box" style="margin-bottom: 0;">
-        <strong>📈 Operational & Financial Optimization</strong>
-        <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Eliminate data re-entry across CRM and ERP systems, compressing monthly financial close cycles from 10 days to 4 days.</p>
-      </div>
-      <div class="card-box" style="margin-bottom: 0;">
-        <strong>🤝 CX & Support Modernization</strong>
-        <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Deploy RAG-powered omnichannel support assistants to automate up to 40% of Tier-1 support tickets instantly.</p>
-      </div>
-      <div class="card-box" style="margin-bottom: 0;">
-        <strong>⚡ Sales Cycle Compression</strong>
-        <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Shrink proposal turnaround times from days to minutes using RAG generators while boosting lead win rates by 22%.</p>
+    <!-- 1.1 ENGAGEMENT OVERVIEW -->
+    <div>
+      <div style="font-size: 16pt; font-weight: 800; color: ${primaryColor}; margin-bottom: 12px;">1.1 Engagement Overview</div>
+      <div class="card-box">
+        <p style="margin: 0; font-size: 12.5pt; color: #334155; line-height: 1.6;">
+          <strong>${tenantName}</strong> is a leading <strong>${industry}</strong> enterprise poised for its next acceleration cycle. However, current operations rely heavily on manual verification, legacy code maintenance, and fragmented data silos. Nisol AI proposes a multi-phase Enterprise AI Transformation designed to modernize core operations, automate developer QA, elevate customer support, and compress sales cycles.
+        </p>
       </div>
     </div>
 
-    <div class="grid-2">
-      <div>
-        <div class="section-subtitle">1.3 Expected Business Impact</div>
-        ${kpiCardsHTML}
+    <!-- 1.2 KEY VALUE DRIVERS (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">1.2 Key Value Drivers</div>
+      <div class="grid-2" style="margin-bottom: 20px;">
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong>📊 Engineering & Delivery Acceleration</strong>
+          <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Accelerate SDLC with automated QA test generation and AI code reviews, eliminating manual regression bottlenecks.</p>
+        </div>
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong>📈 Operational & Financial Optimization</strong>
+          <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Eliminate data re-entry across CRM and ERP systems, compressing monthly financial close cycles from 10 days to 4 days.</p>
+        </div>
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong>🤝 CX & Support Modernization</strong>
+          <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Deploy RAG-powered omnichannel support assistants to automate up to 40% of Tier-1 support tickets instantly.</p>
+        </div>
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong>⚡ Sales Cycle Compression</strong>
+          <p style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; line-height: 1.5;">Shrink proposal turnaround times from days to minutes using RAG generators while boosting lead win rates by 22%.</p>
+        </div>
       </div>
+    </div>
 
+    <!-- 1.3 EXPECTED BUSINESS IMPACT (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px; margin-bottom: 24px;">
+      <div class="section-subtitle">1.3 Expected Business Impact</div>
+      ${kpiCardsHTML}
+    </div>
+
+    <!-- 1.4 EXECUTIVE SUMMARY SIDEBAR — FULL WIDTH (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
       <div class="sidebar-card">
-        <div style="font-size: 13.5pt; font-weight: 800; color: ${secondaryColor}; margin-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;">
+        <div style="font-size: 14pt; font-weight: 800; color: ${secondaryColor}; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 8px;">
           1.4 EXECUTIVE SUMMARY SIDEBAR — AT A GLANCE
         </div>
-        <div style="font-size: 12.5pt;">
-          <p style="margin: 6px 0;"><strong>📊 AI Maturity Score:</strong> 42/100 (Benchmark: 62/100, Gap: 20 pts)</p>
-          <p style="margin: 6px 0;"><strong>🚨 Critical Vulnerabilities:</strong> AI Governance, Data Silos, Tribal Knowledge</p>
-          <p style="margin: 6px 0;"><strong>🔥 Top Priority:</strong> Automated QA & Code Review AI</p>
-          <p style="margin: 6px 0;"><strong>💰 Est. Investment:</strong> $120,000</p>
-          <p style="margin: 6px 0;"><strong>📈 5-Year Net Benefit:</strong> $2,450,000</p>
-          <p style="margin: 6px 0;"><strong>🚀 Projected ROI:</strong> 285% (Payback: 7.2 months)</p>
+        <div class="grid-2" style="font-size: 12.5pt;">
+          <div>
+            <p style="margin: 8px 0;"><strong>📊 AI Maturity Score:</strong> 42/100 (Benchmark: 62/100, Gap: 20 pts)</p>
+            <p style="margin: 8px 0;"><strong>🚨 Critical Vulnerabilities:</strong> AI Governance, Data Silos, Tribal Knowledge</p>
+            <p style="margin: 8px 0;"><strong>🔥 Top Priority:</strong> Automated QA & Code Review AI</p>
+          </div>
+          <div>
+            <p style="margin: 8px 0;"><strong>💰 Est. Investment:</strong> $120,000</p>
+            <p style="margin: 8px 0;"><strong>📈 5-Year Net Benefit:</strong> $2,450,000</p>
+            <p style="margin: 8px 0;"><strong>🚀 Projected ROI:</strong> 285% (Payback: 7.2 months)</p>
+          </div>
         </div>
       </div>
     </div>
@@ -621,22 +640,23 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
     </div>
 
-    <div style="margin-bottom: 24px; page-break-inside: avoid;">
+    <div class="sub-section-break" style="margin-bottom: 24px; padding-top: 10px;">
       <div class="section-subtitle">2.2 AI Readiness Radar</div>
       <div style="width: 100%; max-width: 820px; margin: 12px auto; page-break-inside: avoid; background: #FFFFFF; padding: 4px 0;">
         ${radarSVG}
       </div>
     </div>
 
-    <div style="margin-bottom: 24px; page-break-inside: avoid;">
+    <div class="sub-section-break" style="margin-bottom: 24px; padding-top: 10px;">
       <div class="section-subtitle">2.3 Capability Heatmap Summary</div>
       <div style="width: 100%; max-width: 820px; margin: 12px auto; page-break-inside: avoid; background: #FFFFFF; padding: 4px 0;">
         ${heatmapSVG}
       </div>
     </div>
 
-    <div class="section-subtitle">2.4 Critical Vulnerabilities Matrix</div>
-    <table>
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">2.4 Critical Vulnerabilities Matrix</div>
+      <table>
       <thead>
         <tr>
           <th>#</th>
@@ -696,40 +716,43 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
     </div>
 
-    <div class="section-subtitle">3.2 Prioritized Top AI Use Cases Catalog</div>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Use Case Initiative</th>
-          <th>Department</th>
-          <th>Category</th>
-          <th>Est. ROI</th>
-          <th>Timeline</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${useCases
-          .map(
-            (uc: any, idx: number) => `
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">3.2 Prioritized Top AI Use Cases Catalog</div>
+      <table>
+        <thead>
           <tr>
-            <td><strong>${idx + 1}</strong></td>
-            <td>
-              <strong style="font-size: 12pt;">${uc.name}</strong><br/>
-              <small style="color:#64748B; font-size: 10.5pt;">${uc.businessProblem || ""}</small>
-            </td>
-            <td><span class="badge">${uc.department || "Enterprise"}</span></td>
-            <td><span class="badge ${uc.category === 'Quick Win' ? 'badge-quickwin' : 'badge-strategic'}">${uc.category || "Quick Win"}</span></td>
-            <td><strong style="color:#10B981; font-size: 12pt;">+${uc.estimatedRoiPercentage || 180}%</strong></td>
-            <td>${uc.estimatedTimelineWeeks || 6} Weeks</td>
+            <th>#</th>
+            <th>Use Case Initiative</th>
+            <th>Department</th>
+            <th>Category</th>
+            <th>Est. ROI</th>
+            <th>Timeline</th>
           </tr>
-        `
-          )
-          .join("")}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          ${useCases
+            .map(
+              (uc: any, idx: number) => `
+            <tr>
+              <td><strong>${idx + 1}</strong></td>
+              <td>
+                <strong style="font-size: 12pt;">${uc.name}</strong><br/>
+                <small style="color:#64748B; font-size: 10.5pt;">${uc.businessProblem || ""}</small>
+              </td>
+              <td><span class="badge">${uc.department || "Enterprise"}</span></td>
+              <td><span class="badge ${uc.category === 'Quick Win' ? 'badge-quickwin' : 'badge-strategic'}">${uc.category || "Quick Win"}</span></td>
+              <td><strong style="color:#10B981; font-size: 12pt;">+${uc.estimatedRoiPercentage || 180}%</strong></td>
+              <td>${uc.estimatedTimelineWeeks || 6} Weeks</td>
+            </tr>
+          `
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>
 
-    <div class="section-subtitle">3.3 Quick Wins vs. Strategic Bets Rationale</div>
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">3.3 Quick Wins vs. Strategic Bets Rationale</div>
     <div class="grid-2">
       <div class="card-box" style="border-left: 4px solid #10B981;">
         <strong style="color:#047857;">⚡ QUICK WINS — Deploy in 0-3 Months</strong>
@@ -806,74 +829,76 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <div style="margin-top: 10px; font-size: 11pt; font-weight: 700; color: #047857;">🎯 Target: 85%+ delivery predictability & 4-day financial close cycle</div>
     </div>
 
-    <div class="section-subtitle">4.2 Success Metrics & Key Dependencies</div>
-    <div class="grid-2">
-      <div>
-        <table style="margin:0;">
-          <thead>
-            <tr>
-              <th>Phase</th>
-              <th>Key Performance Indicator</th>
-              <th>Target</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>30 Days</td>
-              <td>AI Policy Sign-off</td>
-              <td>100%</td>
-            </tr>
-            <tr>
-              <td>90 Days</td>
-              <td>Manual QA Hours Saved</td>
-              <td>30%</td>
-            </tr>
-            <tr>
-              <td>180 Days</td>
-              <td>Proposal Lead Time</td>
-              <td>-50%</td>
-            </tr>
-            <tr>
-              <td>365 Days</td>
-              <td>Financial Close Cycle</td>
-              <td>4 Days</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">4.2 Success Metrics & Key Dependencies</div>
+      <div class="grid-2">
+        <div>
+          <table style="margin:0;">
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Key Performance Indicator</th>
+                <th>Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>30 Days</td>
+                <td>AI Policy Sign-off</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td>90 Days</td>
+                <td>Manual QA Hours Saved</td>
+                <td>30%</td>
+              </tr>
+              <tr>
+                <td>180 Days</td>
+                <td>Proposal Lead Time</td>
+                <td>-50%</td>
+              </tr>
+              <tr>
+                <td>365 Days</td>
+                <td>Financial Close Cycle</td>
+                <td>4 Days</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div>
-        <table style="margin:0;">
-          <thead>
-            <tr>
-              <th>Phase</th>
-              <th>Dependency</th>
-              <th>Owner</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>30 Days</td>
-              <td>Executive Sponsorship</td>
-              <td>CEO / CTO</td>
-            </tr>
-            <tr>
-              <td>90 Days</td>
-              <td>CI/CD Pipeline Access</td>
-              <td>VP Eng</td>
-            </tr>
-            <tr>
-              <td>180 Days</td>
-              <td>CRM Data Integration</td>
-              <td>VP Sales</td>
-            </tr>
-            <tr>
-              <td>365 Days</td>
-              <td>Change Mgmt Training</td>
-              <td>HR Lead</td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <table style="margin:0;">
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Dependency</th>
+                <th>Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>30 Days</td>
+                <td>Executive Sponsorship</td>
+                <td>CEO / CTO</td>
+              </tr>
+              <tr>
+                <td>90 Days</td>
+                <td>CI/CD Pipeline Access</td>
+                <td>VP Eng</td>
+              </tr>
+              <tr>
+                <td>180 Days</td>
+                <td>CRM Data Integration</td>
+                <td>VP Sales</td>
+              </tr>
+              <tr>
+                <td>365 Days</td>
+                <td>Change Mgmt Training</td>
+                <td>HR Lead</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -895,113 +920,119 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
     </div>
 
-    <div class="section-subtitle">5.2 Department Breakdown Table</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Department</th>
-          <th>Estimated Investment</th>
-          <th>Annual Cost Savings</th>
-          <th>ROI %</th>
-          <th>Key Value Driver</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Customer Support</strong></td>
-          <td>$25,000</td>
-          <td>$110,000</td>
-          <td><strong style="color:#10B981;">340%</strong></td>
-          <td>40% ticket containment via RAG chatbot</td>
-        </tr>
-        <tr>
-          <td><strong>Engineering</strong></td>
-          <td>$45,000</td>
-          <td>$180,000</td>
-          <td><strong style="color:#10B981;">300%</strong></td>
-          <td>15-20 hrs/week saved per dev via AI QA</td>
-        </tr>
-        <tr>
-          <td><strong>Sales & Pipeline</strong></td>
-          <td>$20,000</td>
-          <td>$95,000</td>
-          <td><strong style="color:#10B981;">375%</strong></td>
-          <td>50% proposal time reduction & lead scoring</td>
-        </tr>
-        <tr>
-          <td><strong>Finance</strong></td>
-          <td>$15,000</td>
-          <td>$65,000</td>
-          <td><strong style="color:#10B981;">333%</strong></td>
-          <td>Automated invoice reconciliation & close</td>
-        </tr>
-        <tr>
-          <td><strong>IT Operations</strong></td>
-          <td>$15,000</td>
-          <td>$50,000</td>
-          <td><strong style="color:#10B981;">233%</strong></td>
-          <td>Self-healing infrastructure monitoring</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">5.2 Department Breakdown Table</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th>Estimated Investment</th>
+            <th>Annual Cost Savings</th>
+            <th>ROI %</th>
+            <th>Key Value Driver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Customer Support</strong></td>
+            <td>$25,000</td>
+            <td>$110,000</td>
+            <td><strong style="color:#10B981;">340%</strong></td>
+            <td>40% ticket containment via RAG chatbot</td>
+          </tr>
+          <tr>
+            <td><strong>Engineering</strong></td>
+            <td>$45,000</td>
+            <td>$180,000</td>
+            <td><strong style="color:#10B981;">300%</strong></td>
+            <td>15-20 hrs/week saved per dev via AI QA</td>
+          </tr>
+          <tr>
+            <td><strong>Sales & Pipeline</strong></td>
+            <td>$20,000</td>
+            <td>$95,000</td>
+            <td><strong style="color:#10B981;">375%</strong></td>
+            <td>50% proposal time reduction & lead scoring</td>
+          </tr>
+          <tr>
+            <td><strong>Finance</strong></td>
+            <td>$15,000</td>
+            <td>$65,000</td>
+            <td><strong style="color:#10B981;">333%</strong></td>
+            <td>Automated invoice reconciliation & close</td>
+          </tr>
+          <tr>
+            <td><strong>IT Operations</strong></td>
+            <td>$15,000</td>
+            <td>$50,000</td>
+            <td><strong style="color:#10B981;">233%</strong></td>
+            <td>Self-healing infrastructure monitoring</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <div class="section-subtitle">5.3 5-Year Projection Summary</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Estimated Investment</th>
-          <th>Annual Benefits</th>
-          <th>Net Financial Benefit</th>
-          <th>Cumulative Net Benefit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Year 1</strong></td>
-          <td>$120,000</td>
-          <td>$280,000</td>
-          <td>$160,000</td>
-          <td><strong>$160,000</strong></td>
-        </tr>
-        <tr>
-          <td><strong>Year 2</strong></td>
-          <td>$40,000</td>
-          <td>$450,000</td>
-          <td>$410,000</td>
-          <td><strong>$570,000</strong></td>
-        </tr>
-        <tr>
-          <td><strong>Year 3</strong></td>
-          <td>$40,000</td>
-          <td>$650,000</td>
-          <td>$610,000</td>
-          <td><strong>$1,180,000</strong></td>
-        </tr>
-        <tr>
-          <td><strong>Year 4</strong></td>
-          <td>$30,000</td>
-          <td>$820,000</td>
-          <td>$790,000</td>
-          <td><strong>$1,970,000</strong></td>
-        </tr>
-        <tr>
-          <td><strong>Year 5</strong></td>
-          <td>$30,000</td>
-          <td>$980,000</td>
-          <td>$950,000</td>
-          <td><strong>$2,920,000</strong></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">5.3 5-Year Projection Summary</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Estimated Investment</th>
+            <th>Annual Benefits</th>
+            <th>Net Financial Benefit</th>
+            <th>Cumulative Net Benefit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Year 1</strong></td>
+            <td>$120,000</td>
+            <td>$280,000</td>
+            <td>$160,000</td>
+            <td><strong>$160,000</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Year 2</strong></td>
+            <td>$40,000</td>
+            <td>$450,000</td>
+            <td>$410,000</td>
+            <td><strong>$570,000</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Year 3</strong></td>
+            <td>$40,000</td>
+            <td>$650,000</td>
+            <td>$610,000</td>
+            <td><strong>$1,180,000</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Year 4</strong></td>
+            <td>$30,000</td>
+            <td>$820,000</td>
+            <td>$790,000</td>
+            <td><strong>$1,970,000</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Year 5</strong></td>
+            <td>$30,000</td>
+            <td>$980,000</td>
+            <td>$950,000</td>
+            <td><strong>$2,920,000</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <div class="card-box" style="margin-top: 14px;">
-      <strong style="color:${primaryColor};">5.4 Assumptions & Methodology</strong>
-      <ul style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; padding-left: 20px; line-height: 1.6;">
-        <li>Average developer hourly rate calculated at $75/hr; average support agent cost calculated at $35/hr.</li>
-        <li>Conservative revenue uplift assumes +15% increase in lead win rates from automated proposal turnaround.</li>
-        <li>All implementation fees, LLM API costs, and vector database hosting fees are included in investment estimates.</li>
-      </ul>
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="card-box">
+        <strong style="color:${primaryColor};">5.4 Assumptions & Methodology</strong>
+        <ul style="font-size: 11.5pt; color: #475569; margin: 6px 0 0 0; padding-left: 20px; line-height: 1.6;">
+          <li>Average developer hourly rate calculated at $75/hr; average support agent cost calculated at $35/hr.</li>
+          <li>Conservative revenue uplift assumes +15% increase in lead win rates from automated proposal turnaround.</li>
+          <li>All implementation fees, LLM API costs, and vector database hosting fees are included in investment estimates.</li>
+        </ul>
+      </div>
     </div>
   </div>
   `
@@ -1033,32 +1064,36 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
     </div>
 
-    <!-- BLUEPRINT 2 -->
-    <div class="card-box">
-      <div style="font-size: 14pt; font-weight: 800; color: ${primaryColor}; margin-bottom: 8px;">
-        6.2 Blueprint 2: Centralized Enterprise RAG Knowledge Engine
-      </div>
-      <div style="font-size: 11.5pt; color: #334155; line-height: 1.6;">
-        <p style="margin: 4px 0;"><strong>Category:</strong> Strategic Bet | <strong>Department:</strong> IT / Operations | <strong>Timeline:</strong> 8 Weeks</p>
-        <p style="margin: 4px 0;"><strong>Business Problem:</strong> Documentation scattered across Slack, Google Drive, Notion, and local PDF drives, causing high search latency.</p>
-        <p style="margin: 4px 0;"><strong>Proposed Solution:</strong> Unified vector embedding pipeline indexing company knowledge into a secure, permission-aware RAG search API and Slack Bot.</p>
-        <p style="margin: 4px 0;"><strong>Tech Stack:</strong> Supabase pgvector, LangChain / LlamaIndex, OpenAI Text-Embedding-3-Large, Next.js</p>
-        <p style="margin: 4px 0;"><strong>Implementation Phases:</strong> Phase 1: Connectors & Ingestion (2 wks) ➔ Phase 2: Chunking & Indexing (2 wks) ➔ Phase 3: Slack Bot & API Integration (2 wks) ➔ Phase 4: Security & Rollout (2 wks)</p>
-        <p style="margin: 4px 0;"><strong>Risks & Mitigation:</strong> Risk: Data leak across departments ➔ Mitigation: Strict Row Level Security (RLS) and user role token validation.</p>
+    <!-- BLUEPRINT 2 (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="card-box">
+        <div style="font-size: 14pt; font-weight: 800; color: ${primaryColor}; margin-bottom: 8px;">
+          6.2 Blueprint 2: Centralized Enterprise RAG Knowledge Engine
+        </div>
+        <div style="font-size: 11.5pt; color: #334155; line-height: 1.6;">
+          <p style="margin: 4px 0;"><strong>Category:</strong> Strategic Bet | <strong>Department:</strong> IT / Operations | <strong>Timeline:</strong> 8 Weeks</p>
+          <p style="margin: 4px 0;"><strong>Business Problem:</strong> Documentation scattered across Slack, Google Drive, Notion, and local PDF drives, causing high search latency.</p>
+          <p style="margin: 4px 0;"><strong>Proposed Solution:</strong> Unified vector embedding pipeline indexing company knowledge into a secure, permission-aware RAG search API and Slack Bot.</p>
+          <p style="margin: 4px 0;"><strong>Tech Stack:</strong> Supabase pgvector, LangChain / LlamaIndex, OpenAI Text-Embedding-3-Large, Next.js</p>
+          <p style="margin: 4px 0;"><strong>Implementation Phases:</strong> Phase 1: Connectors & Ingestion (2 wks) ➔ Phase 2: Chunking & Indexing (2 wks) ➔ Phase 3: Slack Bot & API Integration (2 wks) ➔ Phase 4: Security & Rollout (2 wks)</p>
+          <p style="margin: 4px 0;"><strong>Risks & Mitigation:</strong> Risk: Data leak across departments ➔ Mitigation: Strict Row Level Security (RLS) and user role token validation.</p>
+        </div>
       </div>
     </div>
 
-    <!-- BLUEPRINT 3 -->
-    <div class="card-box">
-      <div style="font-size: 14pt; font-weight: 800; color: ${primaryColor}; margin-bottom: 8px;">
-        6.3 Blueprint 3: Automated Proposal Generator for Sales
-      </div>
-      <div style="font-size: 11.5pt; color: #334155; line-height: 1.6;">
-        <p style="margin: 4px 0;"><strong>Category:</strong> Quick Win | <strong>Department:</strong> Sales | <strong>Timeline:</strong> 6 Weeks</p>
-        <p style="margin: 4px 0;"><strong>Business Problem:</strong> Sales reps take 3-5 days to assemble custom client proposals and SOWs.</p>
-        <p style="margin: 4px 0;"><strong>Proposed Solution:</strong> RAG tool pulling historical winning proposals and pricing calculators to output tailored draft proposals in under 10 minutes.</p>
-        <p style="margin: 4px 0;"><strong>Tech Stack:</strong> GPT-4o, Supabase Vector, Hubspot CRM API, PDF Generation Engine</p>
-        <p style="margin: 4px 0;"><strong>Implementation Phases:</strong> Phase 1: Template Library Ingestion (1 wk) ➔ Phase 2: CRM Connector (2 wks) ➔ Phase 3: UI Generator (2 wks) ➔ Phase 4: User Adoption (1 wk)</p>
+    <!-- BLUEPRINT 3 (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="card-box">
+        <div style="font-size: 14pt; font-weight: 800; color: ${primaryColor}; margin-bottom: 8px;">
+          6.3 Blueprint 3: Automated Proposal Generator for Sales
+        </div>
+        <div style="font-size: 11.5pt; color: #334155; line-height: 1.6;">
+          <p style="margin: 4px 0;"><strong>Category:</strong> Quick Win | <strong>Department:</strong> Sales | <strong>Timeline:</strong> 6 Weeks</p>
+          <p style="margin: 4px 0;"><strong>Business Problem:</strong> Sales reps take 3-5 days to assemble custom client proposals and SOWs.</p>
+          <p style="margin: 4px 0;"><strong>Proposed Solution:</strong> RAG tool pulling historical winning proposals and pricing calculators to output tailored draft proposals in under 10 minutes.</p>
+          <p style="margin: 4px 0;"><strong>Tech Stack:</strong> GPT-4o, Supabase Vector, Hubspot CRM API, PDF Generation Engine</p>
+          <p style="margin: 4px 0;"><strong>Implementation Phases:</strong> Phase 1: Template Library Ingestion (1 wk) ➔ Phase 2: CRM Connector (2 wks) ➔ Phase 3: UI Generator (2 wks) ➔ Phase 4: User Adoption (1 wk)</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1116,133 +1151,141 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </tbody>
     </table>
 
-    <!-- 7.2 SOLUTION BLUEPRINT INVESTMENT ESTIMATES -->
-    <div class="section-subtitle" style="margin-top: 28px;">7.2 Solution Blueprint Investment Estimates</div>
-    <div style="font-size: 10.5pt; color: #64748B; margin-bottom: 12px; font-style: italic;">
-      * Preliminary budgetary estimates derived from discovery findings (${currency === "USD" ? "USD" : "INR"} rate: ${currency === "USD" ? "$900" : "₹85,000"} / day). Final pricing confirmed during technical architecture validation.
-    </div>
-    
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 38%;">Solution Blueprint</th>
-          <th style="width: 22%;">Department</th>
-          <th style="width: 18%;">Duration</th>
-          <th style="width: 22%;">Est. Investment Range</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${useCases
-          .slice(0, 6)
-          .map((uc: any) => {
-            const weeks = uc.estimatedTimelineWeeks || 6;
-            let costRange = currency === "USD" ? "$25k – $35k" : "₹22L – ₹30L";
-            if (weeks <= 4) costRange = currency === "USD" ? "$18k – $25k" : "₹17L – ₹22L";
-            else if (weeks > 8 || uc.category === "Strategic Bet") costRange = currency === "USD" ? "$35k – $55k" : "₹32L – ₹48L";
-            
-            return `
-            <tr>
-              <td><strong style="font-size: 11pt;">${uc.name}</strong></td>
-              <td><span class="badge">${uc.department || "Enterprise"}</span></td>
-              <td>${weeks} Weeks</td>
-              <td><strong style="color:${primaryColor};">${costRange}</strong></td>
-            </tr>
-          `})
-          .join("")}
-      </tbody>
-    </table>
-
-    <!-- 7.3 RECOMMENDED ENGAGEMENT OPTIONS (3 Tiers) -->
-    <div class="section-subtitle" style="margin-top: 28px;">7.3 Recommended Engagement Options</div>
-    <p style="font-size: 11.5pt; color: #475569; margin-bottom: 14px;">
-      To maximize flexibility, we offer three implementation paths structured around strategic priority and budget appetite.
-    </p>
-
-    <div class="grid-3" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+    <!-- 7.2 SOLUTION BLUEPRINT INVESTMENT ESTIMATES (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">7.2 Solution Blueprint Investment Estimates</div>
+      <div style="font-size: 10.5pt; color: #64748B; margin-bottom: 12px; font-style: italic;">
+        * Preliminary budgetary estimates derived from discovery findings (${currency === "USD" ? "USD" : "INR"} rate: ${currency === "USD" ? "$900" : "₹85,000"} / day). Final pricing confirmed during technical architecture validation.
+      </div>
       
-      <!-- Option A: Quick Wins -->
-      <div class="card-box" style="border-top: 4px solid #10B981; padding: 18px; display: flex; flex-direction: column; height: 100%; margin-bottom:0;">
-        <div style="font-size: 13.5pt; font-weight: 800; color: #047857; margin-bottom: 6px;">⚡ Quick Wins</div>
-        <div style="font-size: 10.5pt; color: #475569; flex-grow: 1;">
-          <p style="margin: 6px 0;"><strong>Scope:</strong> 2–3 high-impact, low-effort use cases.</p>
-          <p style="margin: 6px 0;"><strong>Timeline:</strong> 4–6 Weeks.</p>
-          <p style="margin: 6px 0;"><strong>Investment:</strong> <span style="font-weight:800; color:${primaryColor};">${currency === "USD" ? "$25,000 – $35,000" : "₹22 Lakhs – ₹30 Lakhs"}</span></p>
-          <p style="margin: 6px 0; font-size: 9.5pt; color: #64748B;">Ideal for rapid ROI, immediate productivity gains, and building AI momentum.</p>
-        </div>
-      </div>
-
-      <!-- Option B: Department Transformation -->
-      <div class="card-box" style="border-top: 4px solid #D97706; padding: 18px; display: flex; flex-direction: column; height: 100%; margin-bottom:0;">
-        <div style="font-size: 13.5pt; font-weight: 800; color: #92400E; margin-bottom: 6px;">🏢 Department Transformation</div>
-        <div style="font-size: 10.5pt; color: #475569; flex-grow: 1;">
-          <p style="margin: 6px 0;"><strong>Scope:</strong> 4–6 solutions across 1 core department (e.g. Engineering, Sales).</p>
-          <p style="margin: 6px 0;"><strong>Timeline:</strong> 10–14 Weeks.</p>
-          <p style="margin: 6px 0;"><strong>Investment:</strong> <span style="font-weight:800; color:${primaryColor};">${currency === "USD" ? "$60,000 – $80,000" : "₹50 Lakhs – ₹70 Lakhs"}</span></p>
-          <p style="margin: 6px 0; font-size: 9.5pt; color: #64748B;">Comprehensive operational overhaul with departmental ROI ownership.</p>
-        </div>
-      </div>
-
-      <!-- Option C: Enterprise AI Program -->
-      <div class="card-box" style="border-top: 4px solid #6366F1; padding: 18px; display: flex; flex-direction: column; height: 100%; margin-bottom:0;">
-        <div style="font-size: 13.5pt; font-weight: 800; color: #4338CA; margin-bottom: 6px;">🌐 Enterprise AI Program</div>
-        <div style="font-size: 10.5pt; color: #475569; flex-grow: 1;">
-          <p style="margin: 6px 0;"><strong>Scope:</strong> Multi-phase enterprise transformation (8–10 use cases).</p>
-          <p style="margin: 6px 0;"><strong>Timeline:</strong> 6–12 Months.</p>
-          <p style="margin: 6px 0;"><strong>Investment:</strong> <span style="font-weight:800; color:${primaryColor};">${currency === "USD" ? "$150,000 – $210,000+" : "₹1.25 Cr – ₹1.80 Cr+"}</span></p>
-          <p style="margin: 6px 0; font-size: 9.5pt; color: #64748B;">Includes governance framework, change management, and internal AI Center of Excellence (CoE).</p>
-        </div>
-      </div>
-
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 38%;">Solution Blueprint</th>
+            <th style="width: 22%;">Department</th>
+            <th style="width: 18%;">Duration</th>
+            <th style="width: 22%;">Est. Investment Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${useCases
+            .slice(0, 6)
+            .map((uc: any) => {
+              const weeks = uc.estimatedTimelineWeeks || 6;
+              let costRange = currency === "USD" ? "$25k – $35k" : "₹22L – ₹30L";
+              if (weeks <= 4) costRange = currency === "USD" ? "$18k – $25k" : "₹17L – ₹22L";
+              else if (weeks > 8 || uc.category === "Strategic Bet") costRange = currency === "USD" ? "$35k – $55k" : "₹32L – ₹48L";
+              
+              return `
+              <tr>
+                <td><strong style="font-size: 11pt;">${uc.name}</strong></td>
+                <td><span class="badge">${uc.department || "Enterprise"}</span></td>
+                <td>${weeks} Weeks</td>
+                <td><strong style="color:${primaryColor};">${costRange}</strong></td>
+              </tr>
+            `})
+            .join("")}
+        </tbody>
+      </table>
     </div>
 
-    <!-- 7.4 KEY ASSUMPTIONS & CONSTRAINTS (The Scope Shield) -->
-    <div class="section-subtitle" style="margin-top: 24px;">7.4 Key Assumptions &amp; Constraints</div>
-    <p style="font-size: 11pt; color: #475569; margin-bottom: 14px;">
-      These investment estimates are based on discovery findings. The following assumptions underpin these figures; any deviation will be addressed during final validation.
-    </p>
+    <!-- 7.3 RECOMMENDED ENGAGEMENT OPTIONS (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">7.3 Recommended Engagement Options</div>
+      <p style="font-size: 11.5pt; color: #475569; margin-bottom: 14px;">
+        To maximize flexibility, we offer three implementation paths structured around strategic priority and budget appetite.
+      </p>
 
-    <div class="grid-2" style="margin-bottom: 12px;">
-      
-      <!-- ASSUMPTIONS (Green tint) -->
-      <div class="card-box" style="border-left: 4px solid #059669; background: #F0FDF4; padding: 16px; margin-bottom:0;">
-        <div style="font-size: 11.5pt; font-weight: 800; color: #065F46; margin-bottom: 8px;">✅ Included Assumptions</div>
-        <ul style="font-size: 10pt; color: #334155; margin: 0; padding-left: 18px; line-height: 1.6;">
-          <li><strong>Data Accessibility:</strong> Client provides API keys, read-only DB access, & credentials in Week 1.</li>
-          <li><strong>Stakeholder Availability:</strong> Key SMEs available 3–4 hrs/week for feedback & UAT.</li>
-          <li><strong>Defined Scope:</strong> Implementation strictly covers selected use cases as defined in Section 7.1.</li>
-          <li><strong>Cloud Environment:</strong> Client provisions cloud infrastructure (AWS/GCP/Azure); Nisol configures AI/ML stack.</li>
-          <li><strong>Pricing Validity:</strong> Estimates valid for 30 days from report issuance.</li>
-        </ul>
+      <div class="grid-3" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+        
+        <!-- Option A: Quick Wins -->
+        <div class="card-box" style="border-top: 4px solid #10B981; padding: 18px; display: flex; flex-direction: column; height: 100%; margin-bottom:0;">
+          <div style="font-size: 13.5pt; font-weight: 800; color: #047857; margin-bottom: 6px;">⚡ Quick Wins</div>
+          <div style="font-size: 10.5pt; color: #475569; flex-grow: 1;">
+            <p style="margin: 6px 0;"><strong>Scope:</strong> 2–3 high-impact, low-effort use cases.</p>
+            <p style="margin: 6px 0;"><strong>Timeline:</strong> 4–6 Weeks.</p>
+            <p style="margin: 6px 0;"><strong>Investment:</strong> <span style="font-weight:800; color:${primaryColor};">${currency === "USD" ? "$25,000 – $35,000" : "₹22 Lakhs – ₹30 Lakhs"}</span></p>
+            <p style="margin: 6px 0; font-size: 9.5pt; color: #64748B;">Ideal for rapid ROI, immediate productivity gains, and building AI momentum.</p>
+          </div>
+        </div>
+
+        <!-- Option B: Department Transformation -->
+        <div class="card-box" style="border-top: 4px solid #D97706; padding: 18px; display: flex; flex-direction: column; height: 100%; margin-bottom:0;">
+          <div style="font-size: 13.5pt; font-weight: 800; color: #92400E; margin-bottom: 6px;">🏢 Department Transformation</div>
+          <div style="font-size: 10.5pt; color: #475569; flex-grow: 1;">
+            <p style="margin: 6px 0;"><strong>Scope:</strong> 4–6 solutions across 1 core department (e.g. Engineering, Sales).</p>
+            <p style="margin: 6px 0;"><strong>Timeline:</strong> 10–14 Weeks.</p>
+            <p style="margin: 6px 0;"><strong>Investment:</strong> <span style="font-weight:800; color:${primaryColor};">${currency === "USD" ? "$60,000 – $80,000" : "₹50 Lakhs – ₹70 Lakhs"}</span></p>
+            <p style="margin: 6px 0; font-size: 9.5pt; color: #64748B;">Comprehensive operational overhaul with departmental ROI ownership.</p>
+          </div>
+        </div>
+
+        <!-- Option C: Enterprise AI Program -->
+        <div class="card-box" style="border-top: 4px solid #6366F1; padding: 18px; display: flex; flex-direction: column; height: 100%; margin-bottom:0;">
+          <div style="font-size: 13.5pt; font-weight: 800; color: #4338CA; margin-bottom: 6px;">🌐 Enterprise AI Program</div>
+          <div style="font-size: 10.5pt; color: #475569; flex-grow: 1;">
+            <p style="margin: 6px 0;"><strong>Scope:</strong> Multi-phase enterprise transformation (8–10 use cases).</p>
+            <p style="margin: 6px 0;"><strong>Timeline:</strong> 6–12 Months.</p>
+            <p style="margin: 6px 0;"><strong>Investment:</strong> <span style="font-weight:800; color:${primaryColor};">${currency === "USD" ? "$150,000 – $210,000+" : "₹1.25 Cr – ₹1.80 Cr+"}</span></p>
+            <p style="margin: 6px 0; font-size: 9.5pt; color: #64748B;">Includes governance framework, change management, and internal AI Center of Excellence (CoE).</p>
+          </div>
+        </div>
+
       </div>
-
-      <!-- EXCLUSIONS (Amber tint) -->
-      <div class="card-box" style="border-left: 4px solid #D97706; background: #FFFBEB; padding: 16px; margin-bottom:0;">
-        <div style="font-size: 11.5pt; font-weight: 800; color: #92400E; margin-bottom: 8px;">⚠️ Client Constraints &amp; Exclusions</div>
-        <ul style="font-size: 10pt; color: #334155; margin: 0; padding-left: 18px; line-height: 1.6;">
-          <li><strong>Legacy Data Migration:</strong> Cleansing, de-duping, or migrating legacy CRM/ERP data is excluded (handled separately).</li>
-          <li><strong>Third-Party Licensing:</strong> Closed-source LLM API usage (OpenAI, Anthropic) or vector DB hosting billed separately at cost.</li>
-          <li><strong>Compliance Audits:</strong> Heavy regulatory reviews (SOC2/HIPAA compliance certification) outside standard practices are out of scope.</li>
-          <li><strong>Change Management:</strong> Full org-wide adoption campaigns excluded in Tiers 1 & 2 (available in Tier 3).</li>
-        </ul>
-      </div>
-
     </div>
 
-    <div style="font-size: 10pt; color: #64748B; margin-top: 8px; margin-bottom: 18px; padding: 8px 12px; background: #F8FAFC; border-radius: 6px; border: 1px solid #E2E8F0;">
-      📌 <strong>Note:</strong> A comprehensive Statement of Work (SOW) with exact deliverables, acceptance criteria, and fixed pricing will be issued in a separate commercial agreement following tier selection.
+    <!-- 7.4 KEY ASSUMPTIONS & CONSTRAINTS (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">7.4 Key Assumptions &amp; Constraints</div>
+      <p style="font-size: 11pt; color: #475569; margin-bottom: 14px;">
+        These investment estimates are based on discovery findings. The following assumptions underpin these figures; any deviation will be addressed during final validation.
+      </p>
+
+      <div class="grid-2" style="margin-bottom: 12px;">
+        
+        <!-- ASSUMPTIONS (Green tint) -->
+        <div class="card-box" style="border-left: 4px solid #059669; background: #F0FDF4; padding: 16px; margin-bottom:0;">
+          <div style="font-size: 11.5pt; font-weight: 800; color: #065F46; margin-bottom: 8px;">✅ Included Assumptions</div>
+          <ul style="font-size: 10pt; color: #334155; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li><strong>Data Accessibility:</strong> Client provides API keys, read-only DB access, & credentials in Week 1.</li>
+            <li><strong>Stakeholder Availability:</strong> Key SMEs available 3–4 hrs/week for feedback & UAT.</li>
+            <li><strong>Defined Scope:</strong> Implementation strictly covers selected use cases as defined in Section 7.1.</li>
+            <li><strong>Cloud Environment:</strong> Client provisions cloud infrastructure (AWS/GCP/Azure); Nisol configures AI/ML stack.</li>
+            <li><strong>Pricing Validity:</strong> Estimates valid for 30 days from report issuance.</li>
+          </ul>
+        </div>
+
+        <!-- EXCLUSIONS (Amber tint) -->
+        <div class="card-box" style="border-left: 4px solid #D97706; background: #FFFBEB; padding: 16px; margin-bottom:0;">
+          <div style="font-size: 11.5pt; font-weight: 800; color: #92400E; margin-bottom: 8px;">⚠️ Client Constraints &amp; Exclusions</div>
+          <ul style="font-size: 10pt; color: #334155; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li><strong>Legacy Data Migration:</strong> Cleansing, de-duping, or migrating legacy CRM/ERP data is excluded (handled separately).</li>
+            <li><strong>Third-Party Licensing:</strong> Closed-source LLM API usage (OpenAI, Anthropic) or vector DB hosting billed separately at cost.</li>
+            <li><strong>Compliance Audits:</strong> Heavy regulatory reviews (SOC2/HIPAA compliance certification) outside standard practices are out of scope.</li>
+            <li><strong>Change Management:</strong> Full org-wide adoption campaigns excluded in Tiers 1 & 2 (available in Tier 3).</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="font-size: 10pt; color: #64748B; margin-top: 8px; margin-bottom: 18px; padding: 8px 12px; background: #F8FAFC; border-radius: 6px; border: 1px solid #E2E8F0;">
+        📌 <strong>Note:</strong> A comprehensive Statement of Work (SOW) with exact deliverables, acceptance criteria, and fixed pricing will be issued in a separate commercial agreement following tier selection.
+      </div>
     </div>
 
-    <!-- 7.5 NEXT STEPS & ACTION PLAN -->
-    <div class="section-subtitle" style="margin-top: 20px;">7.5 Next Steps &amp; Action Plan</div>
-    <div class="card-box" style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px;">
-      <ol style="font-size: 11pt; color: #334155; margin: 0; padding-left: 22px; line-height: 1.8;">
-        <li><strong>Review Discovery Report:</strong> Share report with key executive stakeholders & board members.</li>
-        <li><strong>Select Preferred Engagement Tier:</strong> Choose Quick Wins, Department Transformation, or Enterprise AI Program.</li>
-        <li><strong>Schedule 60-Minute Solution Validation Call:</strong> Finalize architecture details & scope boundaries with Nisol lead engineers.</li>
-        <li><strong>Execute Tailored Commercial SOW:</strong> Receive and sign fixed-price Statement of Work with milestone delivery dates.</li>
-      </ol>
-      <div style="margin-top: 14px; padding: 12px 16px; background: #EFF6FF; border-radius: 8px; font-size: 10.5pt; color: #1E40AF; border-left: 4px solid #3B82F6;">
-        💡 <strong>Pro Tip:</strong> Most enterprises initiate with a <strong>Quick Wins</strong> engagement (4–6 weeks) to de-risk implementation before expanding to a department-wide rollout.
+    <!-- 7.5 NEXT STEPS & ACTION PLAN (New Page) -->
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-subtitle">7.5 Next Steps &amp; Action Plan</div>
+      <div class="card-box" style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px;">
+        <ol style="font-size: 11pt; color: #334155; margin: 0; padding-left: 22px; line-height: 1.8;">
+          <li><strong>Review Discovery Report:</strong> Share report with key executive stakeholders & board members.</li>
+          <li><strong>Select Preferred Engagement Tier:</strong> Choose Quick Wins, Department Transformation, or Enterprise AI Program.</li>
+          <li><strong>Schedule 60-Minute Solution Validation Call:</strong> Finalize architecture details & scope boundaries with Nisol lead engineers.</li>
+          <li><strong>Execute Tailored Commercial SOW:</strong> Receive and sign fixed-price Statement of Work with milestone delivery dates.</li>
+        </ol>
+        <div style="margin-top: 14px; padding: 12px 16px; background: #EFF6FF; border-radius: 8px; font-size: 10.5pt; color: #1E40AF; border-left: 4px solid #3B82F6;">
+          💡 <strong>Pro Tip:</strong> Most enterprises initiate with a <strong>Quick Wins</strong> engagement (4–6 weeks) to de-risk implementation before expanding to a department-wide rollout.
+        </div>
       </div>
     </div>
 
@@ -1263,31 +1306,33 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <p style="margin: 4px 0;"><strong>Termination:</strong> Either party may terminate with 15 days' written notice, with invoicing for work completed to date.</p>
     </div>
 
-    <div class="section-title" style="margin-top: 24px;">9. Executive Acceptance & Authorization</div>
-    <p style="font-size: 12.5pt; color: #475569;">
-      By signing below, the authorized representatives accept the scope, commercial model, and terms outlined in this proposal.
-    </p>
+    <div class="sub-section-break" style="padding-top: 10px;">
+      <div class="section-title">9. Executive Acceptance & Authorization</div>
+      <p style="font-size: 12.5pt; color: #475569;">
+        By signing below, the authorized representatives accept the scope, commercial model, and terms outlined in this proposal.
+      </p>
 
-    <div class="grid-2" style="margin-top: 16px;">
-      <div class="sig-box">
-        <strong style="color:${primaryColor};">For & On Behalf Of ${tenantName}</strong>
-        <div class="sig-line"></div>
-        <div style="font-size: 11pt; color: #64748B; margin-top: 8px; line-height: 1.6;">
-          Authorized Signature<br/>
-          Name: ______________________<br/>
-          Title: ______________________<br/>
-          Date: ______________________
+      <div class="grid-2" style="margin-top: 16px;">
+        <div class="sig-box">
+          <strong style="color:${primaryColor};">For & On Behalf Of ${tenantName}</strong>
+          <div class="sig-line"></div>
+          <div style="font-size: 11pt; color: #64748B; margin-top: 8px; line-height: 1.6;">
+            Authorized Signature<br/>
+            Name: ______________________<br/>
+            Title: ______________________<br/>
+            Date: ______________________
+          </div>
         </div>
-      </div>
 
-      <div class="sig-box">
-        <strong style="color:${primaryColor};">For & On Behalf Of Nisol AI Advisory</strong>
-        <div class="sig-line"></div>
-        <div style="font-size: 11pt; color: #64748B; margin-top: 8px; line-height: 1.6;">
-          Authorized Signature<br/>
-          Name: Nisol AI Executive Lead<br/>
-          Title: Principal AI Transformation Advisory<br/>
-          Date: ${reportDate}
+        <div class="sig-box">
+          <strong style="color:${primaryColor};">For & On Behalf Of Nisol AI Advisory</strong>
+          <div class="sig-line"></div>
+          <div style="font-size: 11pt; color: #64748B; margin-top: 8px; line-height: 1.6;">
+            Authorized Signature<br/>
+            Name: Nisol AI Executive Lead<br/>
+            Title: Principal AI Transformation Advisory<br/>
+            Date: ${reportDate}
+          </div>
         </div>
       </div>
     </div>
@@ -1297,7 +1342,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
   }
 
   <!-- APPENDIX: DATA SOURCES -->
-  <div class="section">
+  <div class="section sub-section-break" style="padding-top: 10px;">
     <div class="section-title">Appendix: Data Sources & Audit Methodology</div>
     <div class="card-box">
       <ul style="font-size: 11.5pt; color: #475569; margin: 0; padding-left: 20px; line-height: 1.6;">

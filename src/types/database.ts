@@ -53,6 +53,9 @@ export type Tenant = {
   updated_by: string | null;
   created_at: string;
   updated_at: string;
+  tenant_secure?: string | null;
+  company_hash?: string | null;
+  website_hash?: string | null;
 };
 
 export type RevenueRangeDefault = {
@@ -61,3 +64,15 @@ export type RevenueRangeDefault = {
   min_cr: number | null;
   max_cr: number | null;
 };
+
+export type AuditLogEntry = {
+  id: string;
+  user_id: string | null;
+  tenant_id: string | null;
+  action: string;
+  resource_type: string;
+  ip_address: string | null;
+  metadata: Record<string, any>;
+  created_at: string;
+};
+

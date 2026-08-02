@@ -3,6 +3,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { composeFullReport } from "@/lib/report/reportComposer";
 import { resolveClientCompanyName } from "@/lib/utils/companyNameResolver";
+import { encryptPayload } from "@/lib/security/encryption";
+import { logAuditEvent } from "@/lib/security/auditLogger";
 
 function getSupabaseClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -28,6 +30,7 @@ export async function generateFullReport(auditId: string, userId?: string) {
       id,
       title,
       status,
+      tenant_id,
       raw_responses,
       tenants:tenant_id (name, industry),
       profiles:conducted_by (full_name)
@@ -66,13 +69,17 @@ export async function generateFullReport(auditId: string, userId?: string) {
     rawResponses
   );
 
-  // 4. Store in audit_reports table (storing both backward-compatible fields and unified JSON)
+  // 4. Encrypt full report object as report_payload
+  const encryptedReportPayload = encryptPayload(reportObj);
+
+  // 5. Store in audit_reports table (storing both backward-compatible fields and encrypted JSON payload)
   const { data: reportData, error: reportErr } = await supabase
     .from("audit_reports")
     .insert({
       audit_id: auditId,
       version: 1,
       status: "draft",
+      report_payload: encryptedReportPayload,
       executive_summary: reportObj.executiveSummary,
       ai_readiness_assessment: reportObj.aiReadinessAssessment,
       capability_scores: reportObj.capabilityScores,
@@ -104,6 +111,15 @@ export async function generateFullReport(auditId: string, userId?: string) {
       overall_maturity_score: reportObj.overallMaturityScore,
     })
     .eq("id", auditId);
+
+  // 6. Log Audit Event
+  await logAuditEvent({
+    userId,
+    tenantId: audit.tenant_id,
+    action: "GENERATE_AI_REPORT",
+    resourceType: "audit_reports",
+    metadata: { auditId, reportId: reportData.id, maturityScore: reportObj.overallMaturityScore },
+  });
 
   console.log(`[ReportGenerator] Successfully generated strategy report ${reportData.id} for audit ${auditId}`);
 

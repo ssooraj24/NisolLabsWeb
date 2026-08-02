@@ -1,0 +1,100 @@
+Yes. Since Antigravity is generating your reports, it's better to improve the prompt once so every proposal becomes more client-specific.
+
+Use the following prompt.
+
+---
+
+## Prompt for Antigravity
+
+```text
+### Improve Section 1.1 – Engagement Overview
+
+The current "Engagement Overview" is too generic and reads like marketing copy. This section should feel like it was written specifically for the client based on the AI Discovery Workshop findings.
+
+### Objective
+
+Rewrite the "Engagement Overview" so that it:
+
+- Is generated dynamically from the discovery questionnaire responses.
+- References only findings that were actually identified during the assessment.
+- Does NOT make assumptions about problems that were not discovered.
+- Uses a professional consulting tone rather than marketing language.
+- Provides a concise executive summary of why the engagement was undertaken and what the proposed transformation will achieve.
+
+### Remove generic phrases such as
+
+- "leading Technology & Operations enterprise"
+- "poised for its next acceleration cycle"
+- "legacy code maintenance"
+- "fragmented data silos"
+- "compress sales cycles"
+
+unless these are explicitly supported by the questionnaire responses.
+
+### Generate the section using this structure
+
+1. Briefly explain why the AI Discovery engagement was conducted.
+2. Summarize the client's current business and technology environment using only assessment findings.
+3. Highlight the key business challenges or opportunities identified during the assessment.
+4. Introduce the proposed AI Transformation Programme.
+5. Explain the expected business outcomes.
+
+### Example Structure
+
+[Company Name] engaged Nisol AI to assess its current AI readiness, evaluate existing business processes, and identify practical opportunities for AI-driven transformation.
+
+The assessment identified opportunities to improve operational efficiency, automate repetitive business activities, strengthen knowledge management, improve software engineering productivity, and establish a scalable AI foundation. (Only include findings that actually exist.)
+
+Based on these findings, Nisol AI recommends a phased Enterprise AI Transformation Programme focused on delivering measurable business value through prioritized AI initiatives, structured implementation, and governance while minimizing implementation risk.
+
+### Dynamic Rules
+
+Generate this section from structured data including:
+
+- Company profile
+- Industry
+- Business objectives
+- Executive priorities
+- Current challenges
+- AI Readiness Assessment
+- Department findings
+- Prioritized AI Opportunities
+- Recommended Use Cases
+
+Never invent challenges.
+
+Never mention departments that were not assessed.
+
+Never mention use cases that were not recommended.
+
+Never include unsupported assumptions.
+
+### Tone
+
+- Executive
+- Consulting
+- Evidence-based
+- Client-specific
+- Professional
+- Concise (150–220 words)
+
+The final output should read like it was written by a senior management consulting firm (McKinsey, BCG, Deloitte, Accenture, etc.) rather than using generic AI marketing language.
+```
+
+---
+
+### One additional recommendation
+
+I would also ask Antigravity to **generate this section after the report analysis is complete**, not at the beginning.
+
+The generation order should be:
+
+1. Analyze questionnaire responses
+2. Calculate AI Readiness
+3. Generate department findings
+4. Prioritize AI opportunities
+5. Generate roadmap
+6. Generate recommendations
+7. **Finally generate the Engagement Overview** using all of the above
+
+This ensures the overview accurately summarizes the completed analysis rather than relying only on the initial company profile, making it much more personalized and executive-ready.
