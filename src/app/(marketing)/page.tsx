@@ -51,7 +51,6 @@ import { ZeroLockInGuarantee } from "@/components/shared/ZeroLockInGuarantee";
 import { WhyFasterInclusions } from "@/components/discovery/WhyFasterInclusions";
 
 export default function HomePage() {
-  const [comparisonMode, setComparisonMode] = useState<"nisol" | "traditional">("nisol");
   const [activeProcessStep, setActiveProcessStep] = useState<number>(1);
 
   const processSteps = [
@@ -381,78 +380,17 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Why Nisol Discovery™ Metrics Summary & Scope Hint */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-4">
-              
-              {/* Summary Metrics Box */}
-              <div className="lg:col-span-7 bg-navy-900/80 p-6 rounded-2xl border border-navy-700/90 space-y-4">
-                <div className="flex items-center justify-between text-xs font-bold text-golden-400 uppercase tracking-wider">
-                  <span>Why Nisol Discovery™ Summary</span>
-                  <Sparkles className="w-4 h-4" />
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-1">
-                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
-                    <div className="text-xl font-black text-golden-400">62</div>
-                    <div className="text-[11px] text-navy-200 font-medium">Business Questions</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
-                    <div className="text-xl font-black text-golden-400">15</div>
-                    <div className="text-[11px] text-navy-200 font-medium">Capability Areas</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
-                    <div className="text-xl font-black text-golden-400">8</div>
-                    <div className="text-[11px] text-navy-200 font-medium">Readiness Dimensions</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
-                    <div className="text-xl font-black text-emerald-400">20</div>
-                    <div className="text-[11px] text-navy-200 font-medium">AI Opportunities</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
-                    <div className="text-xl font-black text-emerald-400">15</div>
-                    <div className="text-[11px] text-navy-200 font-medium">Executive Reports</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-navy-950/80 border border-navy-800">
-                    <div className="text-xl font-black text-white">10–14 Days</div>
-                    <div className="text-[11px] text-navy-200 font-medium">Full Assessment</div>
-                  </div>
-                </div>
+            {/* Sleek Action Bar */}
+            <div className="p-6 rounded-2xl bg-navy-900/80 border border-golden-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-5 h-5 text-golden-400 shrink-0" />
+                <p className="text-xs sm:text-sm text-white font-medium">
+                  Nisol Discovery™ delivers 15 board-ready deliverables in 7–11 business days.
+                </p>
               </div>
-
-              {/* Engagement Scope Hint Box */}
-              <div className="lg:col-span-5 bg-gradient-to-br from-navy-900 to-navy-950 p-6 rounded-2xl border border-golden-500/30 flex flex-col justify-between space-y-4">
-                <div>
-                  <div className="text-xs font-bold text-golden-400 uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-golden-400" />
-                    <span>Typical Discovery Engagement</span>
-                  </div>
-                  <p className="text-xs text-navy-200 leading-relaxed mb-4">
-                    Clear scope, rapid execution, and executive-ready deliverables designed for enterprise leadership teams.
-                  </p>
-
-                  <ul className="space-y-2 text-xs font-semibold text-white">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>2-Week Discovery Workshop & Audit</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Fixed Scope & Guaranteed Milestones</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>3 Strategic Packs (15 Executive Deliverables)</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="pt-3 border-t border-navy-800">
-                  <Button href="/discovery" variant="primary" size="md" className="w-full justify-center" icon={<ArrowRight className="w-4 h-4" />}>
-                    Explore Nisol Discovery™
-                  </Button>
-                </div>
-              </div>
-
+              <Button href="/discovery" variant="primary" size="md" className="shrink-0" icon={<ArrowRight className="w-4 h-4" />}>
+                Explore Full Discovery Framework
+              </Button>
             </div>
 
           </div>
@@ -615,179 +553,6 @@ export default function HomePage() {
               </li>
             </ul>
           </div>
-        </div>
-      </section>
-
-      {/* SECTION 4: THE DISCOVERY ADVANTAGE (Interactive Comparison Toggle Card) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badgeText="The Discovery Advantage"
-          title="Traditional Consulting vs. Nisol Discovery™"
-          subtitle="Why Leaders Choose Our Proprietary Platform"
-          description="See how our technology-backed discovery methodology outperforms standard manual consulting."
-        />
-
-        <div className="glass-panel rounded-3xl p-8 border border-slate-200 shadow-xl space-y-8">
-          
-          <div className="flex justify-center">
-            <div className="bg-slate-200/80 p-1.5 rounded-2xl flex items-center gap-2 max-w-md w-full">
-              <button
-                onClick={() => setComparisonMode("nisol")}
-                className={`flex-1 py-3 px-4 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center justify-center gap-2 ${
-                  comparisonMode === "nisol"
-                    ? "bg-navy-950 text-white shadow-lg border border-golden-500/40"
-                    : "text-navy-700 hover:text-navy-950"
-                }`}
-              >
-                <Sparkles className="w-4 h-4 text-golden-400" />
-                <span>Nisol Discovery™ Advantage</span>
-              </button>
-              <button
-                onClick={() => setComparisonMode("traditional")}
-                className={`flex-1 py-3 px-4 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center justify-center gap-2 ${
-                  comparisonMode === "traditional"
-                    ? "bg-slate-800 text-white shadow-md"
-                    : "text-navy-700 hover:text-navy-950"
-                }`}
-              >
-                <X className="w-4 h-4 text-red-400" />
-                <span>Traditional Consulting</span>
-              </button>
-            </div>
-          </div>
-
-          {comparisonMode === "nisol" ? (
-            <div className="bg-navy-950 text-white rounded-2xl p-8 border border-golden-500/30 shadow-xl space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-navy-800">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-golden-500/20 border border-golden-500/40 flex items-center justify-center text-golden-400">
-                    <Sparkles className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Nisol Discovery™ Methodology</h3>
-                    <p className="text-xs text-golden-300">Fast, data-driven, proprietary platform execution</p>
-                  </div>
-                </div>
-                <Badge variant="golden">Recommended</Badge>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
-                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Weeks to Insights</span>
-                  </div>
-                  <p className="text-xs text-navy-200">Rapid 10-14 day turnaround from initial workshop to executive roadmap presentation.</p>
-                </div>
-
-                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
-                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Data-Driven Specific Insights</span>
-                  </div>
-                  <p className="text-xs text-navy-200">Quantified metrics across 15 capability areas with objective scoring models.</p>
-                </div>
-
-                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
-                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Proprietary AI Platform</span>
-                  </div>
-                  <p className="text-xs text-navy-200">Powered by Nisol Intelligence™ engines to analyze readiness and cost benchmarks.</p>
-                </div>
-
-                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
-                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>15 Executive Deliverables</span>
-                  </div>
-                  <p className="text-xs text-navy-200">3 Strategic Packs (Intelligence, Opportunity, Transformation) ready for board approval.</p>
-                </div>
-
-                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
-                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>AI Maturity Benchmarking</span>
-                  </div>
-                  <p className="text-xs text-navy-200">Compare organizational readiness against peer industry verticals.</p>
-                </div>
-
-                <div className="bg-navy-900/90 p-5 rounded-xl border border-navy-700/80">
-                  <div className="flex items-center gap-2 text-golden-400 font-bold text-sm mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Continuous Intelligence</span>
-                  </div>
-                  <p className="text-xs text-navy-200">Living transformation platform updated as new GenAI capabilities emerge.</p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="bg-slate-900 text-slate-100 rounded-2xl p-8 border border-slate-700 shadow-xl space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-700">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-500/40 flex items-center justify-center text-red-400">
-                    <X className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Traditional Management Consulting</h3>
-                    <p className="text-xs text-slate-400">Slow manual process & high billable hours</p>
-                  </div>
-                </div>
-                <Badge variant="navy">Legacy Model</Badge>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
-                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
-                    <X className="w-4 h-4 shrink-0" />
-                    <span>Months of Interviews</span>
-                  </div>
-                  <p className="text-xs text-slate-300">Long drawn-out interview schedules pulling key staff away from operations.</p>
-                </div>
-
-                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
-                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
-                    <X className="w-4 h-4 shrink-0" />
-                    <span>Generic Recommendations</span>
-                  </div>
-                  <p className="text-xs text-slate-300">High-level buzzwords without technical feasibility or architectural detail.</p>
-                </div>
-
-                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
-                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
-                    <X className="w-4 h-4 shrink-0" />
-                    <span>Consultant-Dependent</span>
-                  </div>
-                  <p className="text-xs text-slate-300">Knowledge leaves when consultants exit, offering zero software tooling.</p>
-                </div>
-
-                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
-                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
-                    <X className="w-4 h-4 shrink-0" />
-                    <span>Static PDF Reports</span>
-                  </div>
-                  <p className="text-xs text-slate-300">Outdated slide decks that sit on shelves without actionable implementation specs.</p>
-                </div>
-
-                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
-                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
-                    <X className="w-4 h-4 shrink-0" />
-                    <span>Limited Benchmarking</span>
-                  </div>
-                  <p className="text-xs text-slate-300">Subjective opinions lacking empirical data model benchmarks.</p>
-                </div>
-
-                <div className="bg-slate-800/80 p-5 rounded-xl border border-slate-700">
-                  <div className="flex items-center gap-2 text-red-400 font-bold text-sm mb-1">
-                    <X className="w-4 h-4 shrink-0" />
-                    <span>One-Time Engagement</span>
-                  </div>
-                  <p className="text-xs text-slate-300">Requires expensive re-engagements every time AI models update.</p>
-                </div>
-              </div>
-            </div>
-          )}
-
         </div>
       </section>
 
