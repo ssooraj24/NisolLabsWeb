@@ -47,8 +47,21 @@ export const DISCOVERY_MENU: NavSection = {
       name: "AI Transformation Discovery", 
       href: "/discovery", 
       badge: "FLAGSHIP",
-      description: "Our 6-stage engineering audit to uncover high-ROI AI opportunities.",
+      description: "Our 62-question, 15-capability engineering audit in 7-11 days.",
       icon: Compass 
+    },
+    { 
+      name: "3 Flexible Delivery Models", 
+      href: "/services#delivery-models", 
+      badge: "CLIENT CHOICE",
+      description: "Full freedom to Build, Manage, or Monitor post-discovery.",
+      icon: Layers 
+    },
+    { 
+      name: "15 Board-Ready Deliverables", 
+      href: "/discovery#deliverables", 
+      description: "Executive summaries, architecture maps, and 5-yr ROI models.",
+      icon: FileText 
     },
     { 
       name: "Discovery Methodology", 
@@ -63,13 +76,7 @@ export const DISCOVERY_MENU: NavSection = {
       icon: CheckCircle2 
     },
     { 
-      name: "Sample Deliverables", 
-      href: "/discovery/deliverables", 
-      description: "Explore sample executive reports, architecture maps, and ROI models.",
-      icon: FileText 
-    },
-    { 
-      name: "ROI Calculator", 
+      name: "Interactive ROI Calculator", 
       href: "/resources/roi-calculator", 
       badge: "INTERACTIVE",
       description: "Calculate expected token cost savings and operational efficiency.",
@@ -98,6 +105,13 @@ export const SOLUTIONS_MENU: NavSection = {
       href: "/services/strategy", 
       description: "Executive roadmap, ROI estimation, and data stance evaluation.",
       icon: Compass 
+    },
+    { 
+      name: "Delivery Models (Build / Manage / Monitor)", 
+      href: "/services#delivery-models", 
+      badge: "NEW",
+      description: "Choose how to execute—full build, team oversight, or QA advisory.",
+      icon: Layers 
     },
     { 
       name: "AI Engineering & DevOps", 

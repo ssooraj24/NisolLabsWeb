@@ -23,9 +23,11 @@ export function Footer() {
             </Link>
 
             <p className="text-sm text-navy-200/80 leading-relaxed max-w-sm">
-              {COMPANY.vision} Enterprise-grade AI Strategy, Autonomous Multi-Agent Orchestration, LLMOps, and Intelligent Document Processing.
+              Nisol AI — From Discovery to Delivery. Your AI Transformation, Your Way. Build, Manage, or Monitor with zero vendor lock-in.
             </p>
-            
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-golden-500/10 border border-golden-500/30 text-golden-300 text-[11px] font-bold uppercase tracking-wider">
+              <span>Guaranteed Zero Vendor Lock-in</span>
+            </div>
           </div>
 
           {/* Quick Links: Services */}
@@ -35,9 +37,20 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs font-medium text-slate-300">
               <li>
+                <Link href="/services#delivery-models" className="hover:text-golden-300 transition-colors flex items-center gap-1">
+                  <span>3 Delivery Models (Build/Manage/Monitor)</span>
+                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">CHOICE</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/services/agents" className="hover:text-golden-300 transition-colors flex items-center gap-1">
                   <span>Autonomous AI Agents</span>
                   <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">FLAGSHIP</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/discovery#deliverables" className="hover:text-golden-300 transition-colors">
+                  15 Board-Ready Deliverables
                 </Link>
               </li>
               <li>
@@ -58,11 +71,6 @@ export function Footer() {
               <li>
                 <Link href="/services/automation" className="hover:text-golden-300 transition-colors">
                   AI-Powered Automation
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/data-readiness" className="hover:text-golden-300 transition-colors">
-                  Data Readiness for AI
                 </Link>
               </li>
             </ul>

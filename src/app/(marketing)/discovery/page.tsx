@@ -31,6 +31,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { InvestmentEstimator } from "@/components/discovery/InvestmentEstimator";
+import { BoardDeliverablesGrid } from "@/components/discovery/BoardDeliverablesGrid";
+import { PricingJustificationSection } from "@/components/shared/PricingJustificationSection";
+import { ZeroLockInGuarantee } from "@/components/shared/ZeroLockInGuarantee";
+import { WhyFasterInclusions } from "@/components/discovery/WhyFasterInclusions";
 
 export const metadata: Metadata = {
   title: "AI Transformation Engagements & Discovery | Nisol AI",
@@ -265,6 +269,9 @@ export default function DiscoveryPage() {
         </div>
       </div>
 
+      {/* ── 1.5. WHY FASTER & EVERY ENGAGEMENT INCLUDES ───────────────────── */}
+      <WhyFasterInclusions />
+
       {/* ── 2. DIFFERENTIATOR MATRIX ─────────────────────────────────────── */}
       <section className="space-y-10">
         <SectionHeader
@@ -300,6 +307,15 @@ export default function DiscoveryPage() {
           </div>
         </div>
       </section>
+
+      {/* ── 3. 15 BOARD-READY DELIVERABLES GRID ───────────────────────────── */}
+      <BoardDeliverablesGrid />
+
+      {/* ── 4. WHY ₹75,000/DAY JUSTIFICATION FRAMEWORK ───────────────────── */}
+      <PricingJustificationSection />
+
+      {/* ── 5. ZERO VENDOR LOCK-IN GUARANTEE ─────────────────────────────── */}
+      <ZeroLockInGuarantee />
 
       {/* ── 3. ENGAGEMENT PACKAGES (3-TIER CARDS) ───────────────────────── */}
       <section className="space-y-12">

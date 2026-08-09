@@ -1,13 +1,13 @@
 export const COMPANY = {
   name: "Nisol AI",
-  tagline: "The Core of Intelligence",
-  vision: "Help businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions.",
-  mission: "Enable organizations to discover, implement, and scale AI through Strategy, Assistants, Agents, Automation, and Engineering.",
+  tagline: "AI Transformation, Delivered. Your Way.",
+  vision: "Enable enterprise AI transformation with full client choice—Build, Manage, or Monitor. Zero vendor lock-in.",
+  mission: "Empower organizations to discover, prioritize, and execute AI initiatives through Nisol Discovery™, Autonomous Multi-Agent Systems, and flexible delivery frameworks.",
   personality: ["Professional", "Premium", "Enterprise", "Modern", "Minimal", "Trustworthy", "Intelligent", "Outcome-driven"],
   stats: [
     { label: "AI Implementations", value: "45+" },
     { label: "Average Token Spend Reduction", value: "52%" },
-    { label: "Average Production Deployment Time", value: "4 Weeks" },
+    { label: "Executive Discovery Timeline", value: "7-11 Days" },
     { label: "Enterprise Security SLA", value: "99.9%" }
   ],
   founders: [
@@ -41,20 +41,20 @@ export const COMPANY = {
   ],
   values: [
     {
+      title: "Flexible Delivery Models (Build, Manage, Monitor)",
+      description: "We don't lock you into one delivery method. You choose whether we build the solution, manage your internal/vendor team, or act as an independent advisor."
+    },
+    {
+      title: "Guaranteed Zero Vendor Lock-in",
+      description: "Your strategy, code, and data belong to you. We empower your team with full independence and clear documentation."
+    },
+    {
       title: "Engineering Excellence Over Hype",
-      description: "We don't sell wrapper scripts. We architect production-grade, resilient AI systems engineered for enterprise scale and security."
+      description: "We don't sell wrapper scripts. We architect production-grade, resilient AI systems engineered for enterprise scale, sub-200ms latency, and security."
     },
     {
-      title: "Measurable Business Outcomes",
-      description: "Every engagement is anchored to explicit ROI metrics—whether that is cycle time reduction, token cost savings, or error reduction."
-    },
-    {
-      title: "Zero-Trust Enterprise Security",
-      description: "We embed role-based access control, PII masking, and strict document-level permissions into every RAG and agent workflow."
-    },
-    {
-      title: "Human-in-the-Loop Governance",
-      description: "Autonomous agents must empower human teams, not run amok. We design intuitive verification interfaces for transparent control."
+      title: "7-11 Day Executive Speed",
+      description: "We deliver 15 board-ready deliverables in 7-11 business days—saving 3 to 6 months of traditional management consulting overhead."
     }
   ]
 };

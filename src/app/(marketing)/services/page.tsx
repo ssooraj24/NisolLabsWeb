@@ -6,6 +6,8 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { SERVICES } from "@/data/services";
+import { DeliveryModelsSection } from "@/components/home/DeliveryModelsSection";
+import { ZeroLockInGuarantee } from "@/components/shared/ZeroLockInGuarantee";
 
 export const metadata: Metadata = {
   title: "AI Services & Core Pillars | Autonomous Agents, LLMOps & Strategy",
@@ -25,6 +27,11 @@ export default function ServicesPage() {
         <p className="text-base sm:text-lg text-navy-700/90 leading-relaxed">
           From executive strategic roadmaps to autonomous multi-agent state graphs and LLMOps infrastructure, we deliver end-to-end AI capabilities that drive measurable ROI.
         </p>
+      </div>
+
+      {/* 3 FLEXIBLE DELIVERY MODELS SECTION */}
+      <div id="delivery-models">
+        <DeliveryModelsSection />
       </div>
 
       {/* Services Grid */}

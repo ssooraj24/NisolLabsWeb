@@ -43,6 +43,12 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SERVICES } from "@/data/services";
 import { INDUSTRIES } from "@/data/industries";
 import { COMPANY } from "@/data/company";
+import { DeliveryModelsSection } from "@/components/home/DeliveryModelsSection";
+import { BoardDeliverablesGrid } from "@/components/discovery/BoardDeliverablesGrid";
+import { ComparisonMatrix } from "@/components/shared/ComparisonMatrix";
+import { CostOfNotKnowing } from "@/components/shared/CostOfNotKnowing";
+import { ZeroLockInGuarantee } from "@/components/shared/ZeroLockInGuarantee";
+import { WhyFasterInclusions } from "@/components/discovery/WhyFasterInclusions";
 
 export default function HomePage() {
   const [comparisonMode, setComparisonMode] = useState<"nisol" | "traditional">("nisol");
@@ -120,17 +126,16 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/90 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
                 <Sparkles className="w-4 h-4 text-golden-400" />
-                <span>Proprietary AI Transformation Methodology</span>
+                <span>Nisol AI — From Discovery to Delivery</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-                Transform Your Business <br className="hidden sm:block" />
-                with Confidence. <br className="hidden sm:block" />
-                <span className="golden-gradient-text">Start with Nisol Discovery™</span>
+                AI Transformation, Delivered. <br className="hidden sm:block" />
+                <span className="golden-gradient-text">Your Way.</span>
               </h1>
 
               <p className="text-lg sm:text-xl text-navy-100/90 max-w-2xl leading-relaxed font-normal">
-                Discover exactly where AI creates highest business value, prioritize opportunities, quantify ROI, and build an executive roadmap <strong className="text-golden-300 font-semibold">before investing in technology</strong>.
+                Discover high-value AI opportunities in 7–11 business days, then execute with total freedom—<strong className="text-golden-300 font-semibold">Build, Manage, or Monitor</strong> with guaranteed zero vendor lock-in.
               </p>
 
               {/* Action Buttons */}
@@ -292,6 +297,15 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* SECTION 1.8: 3 FLEXIBLE DELIVERY MODELS */}
+      <DeliveryModelsSection />
+
+      {/* SECTION 1.85: WHY FASTER & EVERY ENGAGEMENT INCLUDES */}
+      <WhyFasterInclusions />
+
+      {/* SECTION 1.95: 15 BOARD-READY EXECUTIVE DELIVERABLES */}
+      <BoardDeliverablesGrid />
 
       {/* SECTION 2: THE DISCOVERY SECTION (The Heart of Nisol AI) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1179,7 +1193,16 @@ export default function HomePage() {
           </div>
         </div>
         
-      </section>      
+      </section>
+
+      {/* COMPETITIVE MATRIX SECTION */}
+      <ComparisonMatrix />
+
+      {/* COST OF NOT KNOWING RISK PREVENTION */}
+      <CostOfNotKnowing />
+
+      {/* ZERO VENDOR LOCK-IN GUARANTEE */}
+      <ZeroLockInGuarantee />
 
       {/* SECTION 9: FINAL CTA BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
