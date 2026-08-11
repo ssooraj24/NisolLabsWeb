@@ -1,0 +1,175 @@
+Yes, I remember the discussion around this section.
+
+The conclusion was:
+
+### What we wanted to keep
+
+✅ The **"Why Nisol Discovery"** section
+
+✅ The **comparison with traditional consulting**
+
+✅ The concepts:
+
+* Executive Speed
+* Proprietary Methodology
+* Board-Ready Outcomes
+* Enterprise Expertise
+
+✅ The message that:
+
+> Nisol AI helps organizations move from AI uncertainty to an implementation roadmap in days instead of months.
+
+---
+
+### What we wanted to remove
+
+❌ ₹75,000 / Day pricing
+
+❌ Any explicit day-rate pricing
+
+❌ Any consulting-style billing language
+
+❌ Anything that makes Nisol AI look like a consulting company charging for workshop hours
+
+Because we agreed:
+
+> Nisol AI is not a consulting company.
+>
+> Nisol AI is an end-to-end AI Transformation Partner that discovers, designs, implements, integrates, governs, monitors and optimizes AI solutions.
+
+---
+
+### Bigger issue with current headline
+
+Current headline:
+
+> Why Executive Discovery is ₹75,000 / Day
+
+This immediately creates objections:
+
+* Too expensive?
+* Why ₹75,000?
+* Comparing price before value
+* Looks like a consultant selling workshop days
+
+Instead, we wanted to sell **business outcomes**, not workshop fees.
+
+---
+
+## Recommended Headline
+
+### Option 1 (My preferred)
+
+**Why Nisol Discovery Accelerates AI Transformation**
+
+Subheading:
+
+> Identify high-impact AI opportunities, quantify ROI, and build an implementation roadmap in days—not months.
+
+---
+
+### Option 2
+
+**From AI Ideas to an Executable Roadmap**
+
+Subheading:
+
+> Nisol Discovery helps leadership teams identify, prioritize, and plan AI initiatives with measurable business outcomes.
+
+---
+
+### Option 3
+
+**The Foundation of Successful AI Transformation**
+
+Subheading:
+
+> Most AI projects fail due to poor prioritization and unclear business value. Nisol Discovery eliminates that risk.
+
+---
+
+## Replace the comparison card
+
+Current:
+
+```
+Traditional Consulting
+3–6 Months
+
+Nisol Discovery
+7–11 Days
+```
+
+Use:
+
+```
+Traditional Approach
+Months of interviews,
+reports and ambiguity
+
+Nisol Discovery
+Structured assessment,
+prioritized use cases,
+ROI-backed roadmap
+```
+
+Or
+
+```
+Traditional Consulting
+Long assessments
+Generic recommendations
+
+Nisol Discovery
+AI readiness assessment
+Opportunity mapping
+Transformation roadmap
+```
+
+---
+
+## Replace the 4 cards
+
+Current cards are still workshop-focused.
+
+I would change them to:
+
+### 1. AI Readiness Assessment
+
+Evaluate leadership, data, technology, security, governance, culture, processes, and skills across 8 dimensions. 
+
+---
+
+### 2. AI Opportunity Mapping
+
+Identify and prioritize AI use cases using our Opportunity Matrix to focus on initiatives with the highest business impact. 
+
+---
+
+### 3. ROI & Business Case
+
+Build a board-ready financial justification with estimated savings, investment requirements, ROI, and payback period. 
+
+---
+
+### 4. Transformation Roadmap
+
+Receive a phased implementation plan covering quick wins, pilot projects, scaling, and enterprise adoption. 
+
+---
+
+## What this section should communicate
+
+Not:
+
+> "Pay us ₹75,000/day."
+
+Instead:
+
+> "Nisol Discovery is the first step in your AI Transformation Journey. It identifies where AI will create business value, what should be implemented first, expected ROI, and how to execute successfully."
+
+That positioning aligns with your overall journey:
+
+**Discover → Assess → Prioritize → Implement → Integrate → Govern → Monitor → Optimize → Scale**
+
+and reinforces Nisol AI as an **AI Transformation Company**, not an AI consulting firm.

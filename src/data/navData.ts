@@ -51,6 +51,13 @@ export const DISCOVERY_MENU: NavSection = {
       icon: Compass 
     },
     { 
+      name: "9-Stage Transformation Lifecycle", 
+      href: "/transformation-framework", 
+      badge: "FRAMEWORK",
+      description: "From Opportunity Discovery & Implementation to Governance & Scale.",
+      icon: Sparkles 
+    },
+    { 
       name: "3 Flexible Delivery Models", 
       href: "/services#delivery-models", 
       badge: "CLIENT CHOICE",

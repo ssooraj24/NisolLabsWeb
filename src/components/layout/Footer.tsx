@@ -23,7 +23,7 @@ export function Footer() {
             </Link>
 
             <p className="text-sm text-navy-200/80 leading-relaxed max-w-sm">
-              Nisol AI — From Discovery to Delivery. Your AI Transformation, Your Way. Build, Manage, or Monitor with zero vendor lock-in.
+              Nisol AI — End-to-End Enterprise AI Transformation & Implementation Partner. Discover, Implement, Govern, and Scale AI with zero vendor lock-in.
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-golden-500/10 border border-golden-500/30 text-golden-300 text-[11px] font-bold uppercase tracking-wider">
               <span>Guaranteed Zero Vendor Lock-in</span>
@@ -36,6 +36,12 @@ export function Footer() {
               Core Services
             </h4>
             <ul className="space-y-2.5 text-xs font-medium text-slate-300">
+              <li>
+                <Link href="/transformation-framework" className="hover:text-golden-300 transition-colors flex items-center gap-1">
+                  <span>9-Stage Transformation Lifecycle</span>
+                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">FRAMEWORK</span>
+                </Link>
+              </li>
               <li>
                 <Link href="/services#delivery-models" className="hover:text-golden-300 transition-colors flex items-center gap-1">
                   <span>3 Delivery Models (Build/Manage/Monitor)</span>
@@ -55,7 +61,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services/engineering" className="hover:text-golden-300 transition-colors">
-                  AI Engineering & DevOps
+                  AI Engineering & LLMOps
                 </Link>
               </li>
               <li>

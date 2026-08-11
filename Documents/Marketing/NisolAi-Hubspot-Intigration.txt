@@ -1,0 +1,260 @@
+For **Nisol AI**, I would not use HubSpot only as a contact database. I would use it as the **central operating system for sales and client delivery**.
+
+### Recommended CRM Structure
+
+#### 1. Prospects
+
+Companies that have not yet engaged.
+
+**Stages**
+
+* Lead Captured
+* Discovery Call Scheduled
+* Discovery Call Completed
+* AI Discovery Workshop Proposed
+* Proposal Sent
+* Negotiation
+* Won
+* Lost
+
+#### 2. Clients
+
+Once a deal is won.
+
+**Stages**
+
+* Discovery Workshop
+* Assessment Report
+* Solution Blueprint
+* Implementation
+* Support / Managed Services
+* Upsell Opportunities
+
+This aligns well with your Nisol Discovery methodology and AI Transformation framework.
+
+---
+
+# HubSpot Integration Architecture
+
+## Option 1 (Recommended MVP)
+
+### Website → HubSpot
+
+Your website forms:
+
+* Contact Us
+* Book Discovery Workshop
+* Download AI Readiness Assessment
+* Download AI Playbook
+
+send data directly to HubSpot.
+
+Workflow:
+
+```text
+Visitor
+   ↓
+Website Form
+   ↓
+HubSpot Contact
+   ↓
+Lead Created
+   ↓
+Task Assigned
+```
+
+---
+
+## Option 2 (Best for Nisol Discovery)
+
+### HubSpot + Nisol Discovery Portal
+
+```text
+Lead
+  ↓
+HubSpot
+
+Deal Won
+  ↓
+
+Nisol Discovery Portal
+  ↓
+
+Questionnaire
+  ↓
+
+AI Assessment
+  ↓
+
+AI Opportunity Matrix
+  ↓
+
+Report
+  ↓
+
+Proposal
+```
+
+The CRM manages:
+
+* Company
+* Contacts
+* Meetings
+* Emails
+* Deals
+
+The Nisol Discovery Portal manages:
+
+* Questionnaire
+* Readiness Assessment
+* Opportunity Mapping
+* ROI Calculation
+* Report Generation
+
+This separation is cleaner and more scalable. The Discovery platform is already envisioned as a dedicated client portal and assessment engine.
+
+---
+
+# HubSpot Objects
+
+### Companies
+
+Example:
+
+| Company           | Industry      | Size |
+| ----------------- | ------------- | ---- |
+| ABC Manufacturing | Manufacturing | 500  |
+| XYZ Pharma        | Pharma        | 1200 |
+
+---
+
+### Contacts
+
+| Name       | Role |
+| ---------- | ---- |
+| John Doe   | CEO  |
+| Jane Smith | CTO  |
+
+---
+
+### Deals
+
+Example:
+
+| Deal                          |
+| ----------------------------- |
+| AI Discovery Workshop         |
+| AI Assistant Implementation   |
+| AI Agent Project              |
+| AI Engineering Transformation |
+
+These match the service lines defined for Nisol AI.
+
+---
+
+# Automations
+
+### Lead Nurturing
+
+When a new lead is created:
+
+```text
+Lead Created
+    ↓
+Email #1
+AI Readiness Guide
+
+3 Days
+    ↓
+Email #2
+Case Study
+
+5 Days
+    ↓
+Book Discovery Workshop
+```
+
+---
+
+### Proposal Follow-Up
+
+```text
+Proposal Sent
+   ↓
+3 Days
+Reminder
+
+7 Days
+Reminder
+
+14 Days
+Call Task
+```
+
+---
+
+# HubSpot + Fundoodata
+
+Since you plan to use Fundoodata for prospecting:
+
+```text
+Fundoodata
+    ↓
+CSV Export
+    ↓
+HubSpot Import
+    ↓
+Sequences
+    ↓
+Email Outreach
+    ↓
+Discovery Call
+```
+
+This is much more efficient than relying solely on LinkedIn posting.
+
+---
+
+# My Recommendation
+
+For the first 90 days:
+
+### Use HubSpot for
+
+* Lead database
+* Companies
+* Contacts
+* Deals
+* Email tracking
+* Meeting scheduling
+* Tasks
+* Pipeline management
+
+### Build Nisol Discovery separately for
+
+* AI Readiness Assessment
+* Discovery Questionnaire
+* Opportunity Matrix
+* ROI Calculator
+* AI Discovery Report
+* Proposal Generator
+
+This gives you a professional consulting workflow:
+
+```text
+Fundoodata
+    ↓
+HubSpot CRM
+    ↓
+Discovery Call
+    ↓
+Nisol Discovery
+    ↓
+Assessment Report
+    ↓
+Proposal
+    ↓
+Project Delivery
+```
+
+For a solo founder, HubSpot Free + your Nisol Discovery Portal is probably the strongest setup you can build without spending money on Salesforce or Zoho Enterprise.

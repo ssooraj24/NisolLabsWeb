@@ -8,32 +8,32 @@ export interface JustificationPillar {
 
 export const JUSTIFICATION_PILLARS: JustificationPillar[] = [
   {
-    title: "1. Enterprise Expertise",
-    subtitle: "Senior Leadership, No Juniors",
-    message: "You're not paying for hours—you're paying for 25+ years of enterprise architecture, cloud-native scale, and LLMOps leadership.",
-    evidence: "25+ years global system architecture experience across Ssooraj Rauth & Amol.",
-    iconName: "Award"
-  },
-  {
-    title: "2. Proprietary Methodology",
-    subtitle: "Nisol Discovery™ Audit",
-    message: "62 questions across 15 capability pillars evaluated by our Nisol Intelligence™ audit system—not ad-hoc templates.",
-    evidence: "15 capabilities audited across Data, Security, Agentic Workflows & Model Runtimes.",
+    title: "1. AI Readiness Assessment",
+    subtitle: "8 Organizational Dimensions",
+    message: "Evaluate leadership, data, technology, security, governance, culture, processes, and skills across 8 dimensions.",
+    evidence: "Comprehensive audit evaluating 8 critical organizational readiness dimensions.",
     iconName: "Brain"
   },
   {
-    title: "3. Executive Speed",
-    subtitle: "7-11 Business Days Execution",
-    message: "We deliver full board-ready clarity in 7 to 11 days—eliminating 3 to 6 months of traditional consulting overhead.",
-    evidence: "Guaranteed 7-11 business day audit turnaround.",
+    title: "2. AI Opportunity Mapping",
+    subtitle: "Prioritized Use Cases",
+    message: "Identify and prioritize AI use cases using our Opportunity Matrix to focus on initiatives with the highest business impact.",
+    evidence: "Impact vs. feasibility matrix categorizing quick wins & strategic bets.",
     iconName: "Zap"
   },
   {
-    title: "4. Board-Ready Outcomes",
-    subtitle: "15 Deliverables + Quantified ROI",
-    message: "You receive 15 executive reports, solution blueprints, and a 5-year financial payback model with clear NPV projections.",
-    evidence: "15 board-ready deliverables across Executive, Opportunity, and Transformation Packs.",
+    title: "3. ROI & Business Case",
+    subtitle: "Board-Ready Financial Model",
+    message: "Build a board-ready financial justification with estimated savings, investment requirements, ROI, and payback period.",
+    evidence: "Quantified 5-year financial payback model with clear NPV projections.",
     iconName: "FileCheck"
+  },
+  {
+    title: "4. Transformation Roadmap",
+    subtitle: "Phased Execution Plan",
+    message: "Receive a phased implementation plan covering quick wins, pilot projects, scaling, and enterprise adoption.",
+    evidence: "Structured 30/90/180/365-day execution plan for enterprise adoption.",
+    iconName: "Award"
   }
 ];
 

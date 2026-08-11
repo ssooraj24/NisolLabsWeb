@@ -1,0 +1,85 @@
+I agree. This is an important positioning distinction.
+
+**Consulting companies** typically:
+
+* Assess
+* Recommend
+* Deliver a PowerPoint
+* Leave execution to someone else
+
+**Nisol AI should be positioned as an AI Transformation & Implementation Partner**, not an AI consulting company.
+
+Based on the assets you've built (Discovery Workshop, AI Readiness Assessment, Opportunity Mapping, Transformation Roadmap, AI Assistants, AI Agents, Automation, AI Engineering, Governance, Monitoring), your value proposition is much broader than consulting.
+
+### Positioning Statement
+
+**Nisol AI is an end-to-end AI Transformation company that helps organizations discover, implement, govern, and scale AI across the enterprise.**
+
+or
+
+**Nisol AI partners with organizations throughout their entire AI transformation journey—from opportunity discovery and implementation to adoption, governance, and continuous optimization.**
+
+### Messaging We Should Avoid
+
+❌ AI Consulting Company
+❌ AI Advisory Firm
+❌ AI Strategy Consultancy
+❌ AI Assessment Company
+
+These make prospects think:
+
+> "They will give us recommendations and leave."
+
+### Messaging We Should Use
+
+✅ AI Transformation Partner
+✅ AI Implementation Partner
+✅ Enterprise AI Transformation Company
+✅ AI Solutions & Implementation Company
+✅ End-to-End AI Transformation Partner
+✅ AI Modernization Partner
+
+### Updated Elevator Pitch
+
+> Most organizations know AI is important but struggle to move from experimentation to measurable business outcomes.
+>
+> Nisol AI is an end-to-end AI Transformation company that helps businesses identify AI opportunities, build implementation roadmaps, deploy AI solutions, automate workflows, govern AI responsibly, and continuously optimize results.
+>
+> We don't just recommend AI. We implement it, operationalize it, and help organizations scale it across the enterprise.
+
+### Website Hero (Recommended)
+
+**Transform Your Business with AI**
+
+From AI Discovery to Enterprise-Wide Implementation.
+
+Nisol AI helps organizations identify opportunities, deploy AI solutions, automate workflows, and scale AI adoption across the enterprise.
+
+**[Book AI Discovery Workshop]**
+**[Talk to an AI Transformation Expert]**
+
+### LinkedIn Headline
+
+Instead of:
+
+❌ AI Consulting | AI Strategy | Digital Transformation
+
+Use:
+
+✅ AI Transformation | AI Implementation | AI Agents | Workflow Automation | Enterprise AI Adoption
+
+### Internal Rule for All Future Nisol AI Content
+
+Whenever we describe Nisol AI:
+
+> **"Nisol AI is an AI Transformation and Implementation company."**
+
+Never:
+
+> **"Nisol AI is an AI consulting company."**
+
+The transformation lifecycle we should consistently communicate is:
+
+**Discover → Assess → Prioritize → Implement → Integrate → Govern → Monitor → Optimize → Scale**
+
+That is what differentiates Nisol AI from traditional consulting firms and AI agencies.

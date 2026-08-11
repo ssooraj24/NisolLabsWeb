@@ -93,8 +93,8 @@ export default function StrategyPage() {
           answer: "A comprehensive executive-ready report featuring a prioritized Opportunity Matrix, Technical Implementation Roadmap, Data Readiness Audit, and security stance guidelines."
         },
         {
-          question: "Why should we choose Nisol AI over standard consulting firms?",
-          answer: "We are hands-on engineers, not slide writers. Our recommendations are grounded in what can actually be built, optimized, and secured at scale, preventing budget waste on unrealistic prototypes."
+          question: "Why should we choose Nisol AI over traditional advisory firms?",
+          answer: "Nisol AI is an end-to-end AI Transformation & Implementation Partner, not a traditional consulting firm. We don't just recommend strategy—we engineer, deploy, integrate, govern, and scale the AI systems directly across your enterprise."
         }
       ]}
     />

@@ -38,7 +38,7 @@ import { WhyFasterInclusions } from "@/components/discovery/WhyFasterInclusions"
 
 export const metadata: Metadata = {
   title: "AI Transformation Engagements & Discovery | Nisol AI",
-  description: "Fixed-price AI transformation engagements combining Nisol Intelligence™ automated synthesis with senior consultant expertise. Delivered in 1–4 weeks.",
+  description: "Fixed-price AI transformation engagements combining Nisol Intelligence™ automated synthesis with senior AI architect expertise. Delivered in 1–4 weeks.",
 };
 
 const DIFFERENTIATOR_MATRIX = [
@@ -222,11 +222,9 @@ export default function DiscoveryPage() {
     <div className="space-y-24 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* ── 1. HERO SECTION ───────────────────────────────────────────── */}
       <div className="text-center max-w-4xl mx-auto space-y-6 pt-6">
-        <div className="inline-flex items-center gap-2 bg-golden-500/10 border border-golden-500/30 px-3.5 py-1.5 rounded-full">
-          <Sparkles className="w-4 h-4 text-golden-400" />
-          <span className="text-xs font-bold uppercase tracking-wider text-golden-300">
-            AI Transformation Engagements
-          </span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-golden-500/10 border border-golden-500/30 text-golden-800 text-xs font-bold uppercase tracking-wider mb-2">
+          <Sparkles className="w-4 h-4 text-golden-600" />
+          <span>Stage 01 & 02 of the 9-Stage AI Transformation Lifecycle</span>
         </div>
 
         <h1 className="text-4xl sm:text-6xl font-black text-navy-950 tracking-tight leading-tight">
@@ -235,8 +233,18 @@ export default function DiscoveryPage() {
         </h1>
 
         <p className="text-base sm:text-xl text-navy-700 max-w-3xl mx-auto leading-relaxed font-medium">
-          Fixed-price engagements combining proprietary session intelligence, automated AI synthesis, and senior consultant expertise to accelerate your transformation.
+          Fixed-price engagements combining proprietary session intelligence, automated AI synthesis, and senior AI architect expertise to accelerate your transformation.
         </p>
+
+        {/* Lifecycle Stepper Banner */}
+        <div className="mt-4 p-3 bg-navy-950 text-white rounded-xl max-w-3xl mx-auto text-xs flex items-center justify-between gap-2 border border-golden-500/30">
+          <span className="text-slate-300">
+            <strong className="text-golden-400">9-Stage Transformation Journey:</strong> <span className="text-golden-300 font-bold underline">Discover & Assess</span> → Prioritize → Implement → Integrate → Govern → Monitor → Optimize → Scale
+          </span>
+          <Link href="/transformation-framework" className="text-golden-400 hover:text-golden-300 font-bold shrink-0 flex items-center gap-1">
+            View Full Lifecycle →
+          </Link>
+        </div>
 
         {/* Value Highlights */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-semibold text-navy-900 pt-4">
@@ -277,8 +285,8 @@ export default function DiscoveryPage() {
         <SectionHeader
           badgeText="Why Partner with Nisol AI?"
           title="Rethinking AI Advisory"
-          subtitle="Modern AI Engineering vs. Traditional Consulting Overhead"
-          description="Traditional consulting engagements take months of manual interviews, heavy overhead, and static slide decks. Nisol AI accelerates this process through our proprietary Nisol Intelligence™ engine combined with human-in-the-loop strategy experts."
+          subtitle="Modern AI Transformation vs. Traditional Advisory Overhead"
+          description="Traditional advisory engagements take months of manual interviews, heavy overhead, and static slide decks. Nisol AI accelerates this process through our proprietary Nisol Intelligence™ engine combined with human-in-the-loop strategy experts."
         />
 
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
@@ -311,7 +319,7 @@ export default function DiscoveryPage() {
       {/* ── 3. 15 BOARD-READY DELIVERABLES GRID ───────────────────────────── */}
       <BoardDeliverablesGrid />
 
-      {/* ── 4. WHY ₹75,000/DAY JUSTIFICATION FRAMEWORK ───────────────────── */}
+      {/* ── 4. NISOL DISCOVERY VALUE FRAMEWORK ───────────────────── */}
       <PricingJustificationSection />
 
       {/* ── 5. ZERO VENDOR LOCK-IN GUARANTEE ─────────────────────────────── */}

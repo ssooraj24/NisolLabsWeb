@@ -22,33 +22,35 @@ export function PricingJustificationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-golden-500/10 border border-golden-500/30 text-golden-300 text-xs font-bold uppercase tracking-wider mb-4">
-              <span>Transparent Value Framing</span>
+              <span>AI Transformation Partner</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
-              Why Executive Discovery is <span className="gradient-text-gold">₹75,000 / Day</span>
+              Why Nisol Discovery <span className="gradient-text-gold">Accelerates AI Transformation</span>
             </h2>
             <p className="text-navy-200 text-base sm:text-lg leading-relaxed">
-              You are not paying for hours. You are paying for 25+ years of enterprise engineering experience, a proprietary methodology, and guaranteed board-ready outcomes in days—not months.
+              Identify high-impact AI opportunities, quantify ROI, and build an implementation roadmap in days—not months. Nisol AI helps organizations move from AI uncertainty to business outcomes.
             </p>
           </div>
 
-          {/* Speed Indicator Badge */}
+          {/* Comparison Panel */}
           <div className="lg:col-span-5">
             <div className="glass-panel-dark rounded-2xl p-6 border border-golden-500/30 space-y-4">
-              <div className="flex items-center justify-between border-b border-navy-800 pb-4">
-                <div>
-                  <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">Traditional Consulting</span>
-                  <span className="text-lg font-bold text-red-400">3 – 6 Months</span>
+              <div className="space-y-3 border-b border-navy-800 pb-4">
+                {/* Traditional Box */}
+                <div className="p-3 rounded-xl bg-navy-950/80 border border-red-500/30">
+                  <span className="text-[10px] font-bold text-red-400 uppercase tracking-wider block mb-1">Traditional Approach</span>
+                  <p className="text-xs text-slate-300 font-medium">Months of interviews, reports, and ambiguity</p>
                 </div>
-                <div className="text-right">
-                  <span className="text-xs text-golden-300 font-bold uppercase tracking-wider block">Nisol Discovery™</span>
-                  <span className="text-xl font-extrabold text-golden-400">7 – 11 Days</span>
+                {/* Nisol Box */}
+                <div className="p-3 rounded-xl bg-navy-950 border border-golden-400/80">
+                  <span className="text-[10px] font-bold text-golden-300 uppercase tracking-wider block mb-1">Nisol Discovery™</span>
+                  <p className="text-xs text-golden-200 font-bold">Structured assessment, prioritized use cases, ROI-backed roadmap</p>
                 </div>
               </div>
               
               <div className="flex items-center gap-3 text-xs text-slate-300">
                 <Clock className="w-4 h-4 text-golden-400 shrink-0" />
-                <span>Executive speed saving up to 5 months of unaligned engineering drift.</span>
+                <span>Accelerate transformation in 7–11 business days without consulting overhead.</span>
               </div>
             </div>
           </div>
@@ -73,7 +75,7 @@ export function PricingJustificationSection() {
                 </div>
 
                 <div className="pt-3 border-t border-navy-800/80">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Empirical Proof:</span>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Key Deliverable:</span>
                   <p className="text-[11px] text-golden-200 font-medium leading-snug">{pillar.evidence}</p>
                 </div>
               </div>
@@ -84,13 +86,13 @@ export function PricingJustificationSection() {
         {/* Bottom Callout */}
         <div className="text-center bg-navy-950 p-8 rounded-2xl border border-navy-800 max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-left">
-            <h4 className="text-lg font-bold text-white mb-1">Ready for Executive Alignment?</h4>
+            <h4 className="text-lg font-bold text-white mb-1">Ready to Accelerate Your AI Transformation?</h4>
             <p className="text-xs text-navy-200">
-              Get a costed architecture and ROI matrix for your enterprise in 7–11 business days.
+              Move from AI uncertainty to a board-ready implementation roadmap in 7–11 business days.
             </p>
           </div>
           <Button href="/contact?type=discovery-call" variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-            Book Executive Discovery
+            Book Nisol Discovery
           </Button>
         </div>
 

@@ -162,7 +162,7 @@ const PHASES = [
     phase: "Phase 3",
     name: "Review",
     focus: "Human Context Audit & Roadmap Draft",
-    description: "Our elite consultants perform a detailed quality audit on all AI-generated reports, infusing deep industry nuance and strategic positioning.",
+    description: "Our elite AI transformation architects perform a detailed quality audit on all AI-generated reports, infusing deep industry nuance and strategic positioning.",
     deliverable: "Refined, client-ready reports and a preliminary roadmap."
   },
   {
@@ -222,14 +222,14 @@ export default function DiscoveryMethodologyPage() {
           A proprietary, AI-powered framework to identify, prioritize, and plan your enterprise AI transformation.
         </p>
         <p className="text-sm sm:text-base text-navy-600 max-w-2xl mx-auto">
-          Unlike generic consulting assessments, Nisol Discovery™ is a structured, data-driven methodology designed to deliver absolute executive clarity and measurable business outcomes.
+          Unlike generic advisory assessments, Nisol Discovery™ is a structured, data-driven methodology designed to deliver absolute executive clarity and measurable business outcomes.
         </p>
         <div className="flex flex-wrap justify-center gap-4 pt-4">
           <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
             Book a Discovery Call
           </Button>
-          <Button href="#phases" variant="secondary" size="lg">
-            See the 4 Phases
+          <Button href="/transformation-framework" variant="secondary" size="lg">
+            Explore 9-Stage Transformation Lifecycle →
           </Button>
         </div>
       </div>
@@ -347,16 +347,16 @@ export default function DiscoveryMethodologyPage() {
       {/* 5. Why It's Different (Your Differentiator) */}
       <div className="space-y-12 max-w-5xl mx-auto">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-950">A New Paradigm in Consulting</h2>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-950">A New Paradigm in AI Transformation</h2>
           <p className="text-sm sm:text-base text-navy-700">
-            How Nisol Discovery™ compares to traditional consulting firms.
+            How Nisol Discovery™ compares to traditional advisory firms.
           </p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
           <div className="grid grid-cols-2 bg-navy-950 text-white p-5 font-bold text-sm sm:text-base">
-            <div>Traditional Consulting</div>
-            <div className="text-golden-400">Nisol Discovery™</div>
+            <div>Traditional Advisory Firms</div>
+            <div className="text-golden-400">Nisol AI Transformation Partner</div>
           </div>
           <div className="divide-y divide-slate-100">
             <div className="grid grid-cols-2 p-5 text-xs sm:text-sm text-navy-800 gap-4">
@@ -377,7 +377,7 @@ export default function DiscoveryMethodologyPage() {
               <div>Highly dependent on a single consultant&apos;s isolated background and bias.</div>
               <div className="font-semibold flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-golden-600 shrink-0 mt-0.5" />
-                <span>A repeatable, proprietary software platform backed by seasoned executive consultants.</span>
+                <span>A repeatable, proprietary software platform backed by seasoned enterprise AI architects.</span>
               </div>
             </div>
           </div>

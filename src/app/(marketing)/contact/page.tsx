@@ -57,7 +57,7 @@ export default function ContactPage() {
     <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4 pt-6">
-        <Badge variant="golden">Executive Consultation</Badge>
+        <Badge variant="golden">AI Transformation Session</Badge>
         <h1 className="text-4xl sm:text-5xl font-black text-navy-950 tracking-tight">
           Book an Enterprise <br />
           <span className="golden-gradient-text">AI Discovery Session</span>

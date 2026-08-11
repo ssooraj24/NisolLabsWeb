@@ -1,432 +1,358 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   Search,
-  PenTool,
-  Code2,
-  Rocket,
-  BarChart3,
-  ArrowRight,
   CheckCircle2,
+  BarChart3,
+  Code2,
+  Layers,
+  ShieldCheck,
+  Activity,
   Zap,
+  TrendingUp,
+  ArrowRight,
+  Sparkles,
   FileText,
   LayoutTemplate,
   Users,
-  TrendingUp,
+  ChevronRight
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
-// Stage Data
+// 9-Stage Transformation Lifecycle Data
 const stages = [
   {
     id: "discover",
+    step: "01",
     icon: Search,
     title: "Discover",
-    subtitle: "Identify High-Impact AI Opportunities",
+    subtitle: "Opportunity Discovery & Bottlenecks",
     description:
-      "Understand your business, processes, and challenges before selecting AI solutions.",
+      "Identify high-impact AI opportunities, process bottlenecks, and ROI hypotheses before writing code.",
     activities: [
       "AI Discovery Workshop",
-      "Business Process Assessment",
-      "AI Readiness Assessment",
-      "Stakeholder Interviews",
-      "Data Readiness Review",
+      "Process & Bottleneck Analysis",
+      "Nisol Intelligence™ Synthesis",
+      "Stakeholder Impact Mapping"
     ],
     deliverables: [
-      "AI Opportunity Report",
-      "AI Maturity Score",
-      "Business Priorities",
-      "ROI Estimates",
+      "AI Opportunity Matrix",
+      "Executive Pain Point Report",
+      "Initial ROI Hypothesis"
     ],
-    link: "/services/strategy",
+    link: "/transformation-framework#discover",
   },
   {
-    id: "design",
-    icon: PenTool,
-    title: "Design",
-    subtitle: "Build an AI Transformation Roadmap",
+    id: "assess",
+    step: "02",
+    icon: CheckCircle2,
+    title: "Assess",
+    subtitle: "Data Readiness & Tech SLA Audit",
     description:
-      "Design practical AI solutions aligned with business goals.",
+      "Rigorously evaluate data hygiene, API readiness, infrastructure SLA compliance, and security posture.",
     activities: [
-      "Solution Architecture",
-      "AI Agent Design",
-      "RAG Architecture",
-      "Security Review",
-      "Technology Selection",
+      "62-Question AI Readiness Audit",
+      "Data Quality & Hygiene Audit",
+      "Legacy Tech Stack Review",
+      "Security & SLA Compliance Map"
     ],
     deliverables: [
-      "Solution Blueprint",
-      "Architecture Diagram",
-      "Project Roadmap",
-      "Cost Estimation",
+      "Data Readiness Index Scorecard",
+      "Infrastructure Gap Analysis",
+      "Security SLA Audit Log"
     ],
-    link: "/resources/blueprints",
+    link: "/transformation-framework#assess",
   },
   {
-    id: "develop",
+    id: "prioritize",
+    step: "03",
+    icon: BarChart3,
+    title: "Prioritize",
+    subtitle: "Strategic ROI Roadmap",
+    description:
+      "Map opportunities onto an Impact vs. Feasibility matrix to construct a board-ready implementation blueprint.",
+    activities: [
+      "Impact vs. Feasibility Quadrant",
+      "Phase-1 Quick Win Selection",
+      "5-Year Token & Financial Modeling",
+      "Executive Stakeholder Alignment"
+    ],
+    deliverables: [
+      "5-Year Board-Ready AI Roadmap",
+      "Phase-1 Pilot Scope & Budget",
+      "Financial ROI & Payback Model"
+    ],
+    link: "/transformation-framework#prioritize",
+  },
+  {
+    id: "implement",
+    step: "04",
     icon: Code2,
-    title: "Develop",
-    subtitle: "Build Production-Ready AI Solutions",
+    title: "Implement",
+    tagline: "Custom AI Engineering",
+    subtitle: "Custom AI Agent Engineering",
     description:
-      "Develop enterprise-grade AI systems with governance, monitoring, and security built in.",
+      "Develop production-grade AI solutions: Autonomous AI Agents, RAG retrieval pipelines, and workflow automation.",
     activities: [
-      "AI Assistants",
-      "AI Agents",
-      "Enterprise RAG",
-      "Workflow Automation",
-      "AI Engineering",
-      "MCP Integrations",
-      "Custom Dashboards",
+      "Multi-Agent Orchestration",
+      "Enterprise RAG Architecture",
+      "Custom MCP Tool Protocols",
+      "Production-Grade AI Codebase"
     ],
     deliverables: [
-      "Working AI Solution",
-      "Documentation",
-      "Test Reports",
-      "Deployment Package",
+      "Working Autonomous AI Agents",
+      "RAG Vector Pipeline Code",
+      "Automated Test Coverage Suite"
     ],
-    link: "/services",
+    link: "/transformation-framework#implement",
   },
   {
-    id: "deploy",
-    icon: Rocket,
-    title: "Deploy",
-    subtitle: "Launch Securely Into Production",
+    id: "integrate",
+    step: "05",
+    icon: Layers,
+    title: "Integrate",
+    subtitle: "Enterprise System Connection",
     description:
-      "Deploy AI solutions with security, monitoring, and governance from day one.",
+      "Connect AI engines smoothly into existing enterprise software—SAP, Salesforce, databases, and custom REST APIs.",
     activities: [
-      "Production Deployment",
-      "User Training",
-      "Security Validation",
-      "Monitoring Setup",
-      "LLMOps Configuration",
+      "Enterprise Webhook & Middleware",
+      "Bi-directional Database Connection",
+      "Identity & SSO Authentication",
+      "Zero Vendor Lock-in Architecture"
     ],
     deliverables: [
-      "Live AI System",
-      "Monitoring Dashboards",
-      "User Guides",
-      "Governance Documentation",
+      "Enterprise Integration Connectors",
+      "API & Architecture Docs",
+      "Data Pipeline Flow Diagram"
     ],
-    link: "/services/engineering",
+    link: "/transformation-framework#integrate",
+  },
+  {
+    id: "govern",
+    step: "06",
+    icon: ShieldCheck,
+    title: "Govern",
+    subtitle: "Responsible AI & Guardrails",
+    description:
+      "Establish strict guardrails against hallucination/bias, DLP redaction, RBAC, and human-in-the-loop oversight.",
+    activities: [
+      "Anti-Hallucination Guardrails",
+      "RBAC & Data Loss Prevention",
+      "Human-in-the-Loop Workflows",
+      "Regulatory Audit Logging"
+    ],
+    deliverables: [
+      "AI Governance Policy Blueprint",
+      "Compliance Audit Log System",
+      "Human-in-the-Loop Protocol"
+    ],
+    link: "/transformation-framework#govern",
+  },
+  {
+    id: "monitor",
+    step: "07",
+    icon: Activity,
+    title: "Monitor",
+    subtitle: "LLMOps Telemetry & Alerts",
+    description:
+      "Track agent execution metrics, token cost, accuracy, and fallback rates in real-time via centralized dashboards.",
+    activities: [
+      "Real-Time LLMOps Dashboard",
+      "Token Expenditure Tracking",
+      "Accuracy & Latency Alerting",
+      "Automated Fallback Handling"
+    ],
+    deliverables: [
+      "Live Telemetry Portal Access",
+      "Monthly LLMOps Health Reports",
+      "Automated System Alert Suite"
+    ],
+    link: "/transformation-framework#monitor",
   },
   {
     id: "optimize",
-    icon: BarChart3,
+    step: "08",
+    icon: Zap,
     title: "Optimize",
-    subtitle: "Continuously Improve AI Performance",
+    subtitle: "Continuous Prompt & Cost Tuning",
     description:
-      "AI isn't a one-time project. It evolves. We continuously improve performance.",
+      "Iteratively tune prompts, model routing, and vector retrieval to cut token expenditure and boost response accuracy.",
     activities: [
-      "Model Evaluation",
-      "Prompt Optimization",
-      "Cost Optimization",
-      "AI Observability",
-      "User Feedback",
-      "Continuous Improvement",
+      "Prompt Optimization Sprints",
+      "Vector Retrieval Tuning",
+      "Cost-per-Task Reduction",
+      "Reinforcement Feedback Loops"
     ],
     deliverables: [
-      "Better Accuracy",
-      "Lower Token Costs",
-      "Higher User Adoption",
-      "Continuous ROI",
+      "Optimized System Prompts",
+      "Model Evaluation Metrics",
+      "Cost-Efficiency Optimization Log"
     ],
-    link: "/resources/roi-calculator",
+    link: "/transformation-framework#optimize",
   },
-];
-
-// Engagement Deliverables
-const deliverables = [
-  { icon: FileText, label: "AI Discovery Report" },
-  { icon: LayoutTemplate, label: "Solution Blueprint" },
-  { icon: CheckCircle2, label: "Production-Ready Implementation" },
-  { icon: FileText, label: "Documentation" },
-  { icon: Users, label: "Knowledge Transfer" },
-  { icon: TrendingUp, label: "Ongoing Optimization" },
+  {
+    id: "scale",
+    step: "09",
+    icon: TrendingUp,
+    title: "Scale",
+    subtitle: "Enterprise-Wide AI Adoption",
+    description:
+      "Roll out AI capabilities cross-functionally, train internal teams, and institutionalize AI across the enterprise.",
+    activities: [
+      "Multi-Department Rollout",
+      "Team Training & Enablement",
+      "Institutional Knowledge Expansion",
+      "Continuous SLA Cadence"
+    ],
+    deliverables: [
+      "Enterprise AI Scaling Playbook",
+      "Organization AI Adoption Matrix",
+      "Long-term SLA SLA Blueprint"
+    ],
+    link: "/transformation-framework#scale",
+  },
 ];
 
 export function AITransformationFramework() {
   const [activeStage, setActiveStage] = useState(stages[0].id);
-
-  // Find the current stage object
   const currentStage = stages.find((s) => s.id === activeStage) || stages[0];
   const currentIndex = stages.findIndex((s) => s.id === activeStage);
 
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="py-20 bg-slate-900 text-slate-100 overflow-hidden relative">
+      {/* Glow background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-golden-500/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
           <Badge variant="golden" className="mx-auto">
-            Our Signature Framework
+            End-to-End Execution Methodology
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy-950 mt-4 leading-tight">
-            The Nisol AI Transformation Framework™
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+            The 9-Stage AI Transformation Lifecycle™
           </h2>
-          <p className="text-navy-700/80 text-lg mt-4">
-            From AI Strategy to Measurable Business Outcomes
-          </p>
-          <p className="text-sm text-navy-600/70 mt-2 max-w-xl mx-auto">
-            Every successful AI initiative follows a structured journey. We help
-            organizations move from identifying opportunities to deploying
-            secure, scalable, production-ready AI solutions.
+          <p className="text-slate-300 text-base sm:text-lg">
+            Nisol AI is an end-to-end AI Transformation & Implementation company. We partner with you across every stage of the enterprise AI journey.
           </p>
         </div>
 
-        {/* Visual Tagline */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-full shadow-sm border border-slate-200">
-            <span className="text-sm font-semibold text-navy-700">Think.</span>
-            <span className="w-1 h-1 rounded-full bg-golden-500" />
-            <span className="text-sm font-semibold text-navy-700">Build.</span>
-            <span className="w-1 h-1 rounded-full bg-golden-500" />
-            <span className="text-sm font-semibold text-navy-700">Scale.</span>
-            <span className="w-1 h-1 rounded-full bg-golden-500" />
-            <span className="text-sm font-semibold bg-gradient-to-r from-golden-500 to-golden-600 bg-clip-text text-transparent">
-              Differentiate.
-            </span>
-          </div>
-        </div>
-
-        {/* Horizontal Stepper - Desktop */}
-        <div className="hidden lg:block relative mb-16">
-          {/* Connecting Line */}
-          <div className="absolute top-10 left-[10%] right-[10%] h-0.5 bg-slate-200">
-            <div
-              className="h-full bg-gradient-to-r from-golden-500 via-golden-400 to-golden-500 transition-all duration-500"
-              style={{
-                width: `${((currentIndex + 1) / stages.length) * 100}%`,
-              }}
-            />
-          </div>
-
-          <div className="flex justify-between relative">
-            {stages.map((stage, idx) => {
-              const isActive = activeStage === stage.id;
-              const isCompleted = idx <= currentIndex;
-
-              return (
-                <button
-                  key={stage.id}
-                  onClick={() => setActiveStage(stage.id)}
-                  className="flex flex-col items-center group relative z-10 cursor-pointer"
-                  style={{ width: `${100 / stages.length}%` }}
-                >
-                  {/* Circle */}
-                  <div
-                    className={`
-                      w-20 h-20 rounded-full flex items-center justify-center
-                      transition-all duration-300
-                      ${
-                        isActive || isCompleted
-                          ? "bg-golden-500 shadow-lg shadow-golden-500/30"
-                          : "bg-slate-200 group-hover:bg-slate-300"
-                      }
-                    `}
-                  >
-                    <stage.icon
-                      className={`
-                        w-8 h-8 transition-all duration-300
-                        ${
-                          isActive || isCompleted
-                            ? "text-white"
-                            : "text-slate-500 group-hover:text-slate-700"
-                        }
-                      `}
-                    />
-                  </div>
-
-                  {/* Label */}
-                  <div className="mt-3 text-center">
-                    <p
-                      className={`
-                        text-sm font-bold transition-colors duration-300
-                        ${isActive ? "text-golden-600" : "text-navy-700"}
-                      `}
-                    >
-                      {stage.title}
-                    </p>
-                    <p className="text-xs text-navy-500 hidden xl:block">
-                      {stage.subtitle.split(" ").slice(0, 3).join(" ")}...
-                    </p>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Mobile Stepper - Cards */}
-        <div className="lg:hidden grid grid-cols-1 gap-4 mb-12">
-          {stages.map((stage) => (
-            <button
-              key={stage.id}
-              onClick={() => setActiveStage(stage.id)}
-              className={`
-                flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left
-                ${
-                  activeStage === stage.id
-                    ? "border-golden-500 bg-white shadow-md"
-                    : "border-transparent bg-white/80 hover:bg-white"
-                }
-              `}
-            >
-              <div
-                className={`
-                  w-12 h-12 rounded-full flex items-center justify-center shrink-0
-                  ${
-                    activeStage === stage.id
-                      ? "bg-golden-500"
-                      : "bg-slate-100"
-                  }
-                `}
+        {/* Lifecycle Stage Nav Pills (Horizontal Scrollable) */}
+        <div className="flex items-center justify-start lg:justify-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
+          {stages.map((stage) => {
+            const isActive = activeStage === stage.id;
+            return (
+              <button
+                key={stage.id}
+                onClick={() => setActiveStage(stage.id)}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 border ${
+                  isActive
+                    ? "bg-golden-500 text-navy-950 border-golden-400 shadow-lg shadow-golden-500/20 scale-105"
+                    : "bg-navy-950/80 text-slate-300 border-navy-700 hover:border-slate-500 hover:text-white"
+                }`}
               >
-                <stage.icon
-                  className={`
-                    w-6 h-6
-                    ${
-                      activeStage === stage.id
-                        ? "text-white"
-                        : "text-slate-500"
-                    }
-                  `}
-                />
+                <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded ${isActive ? "bg-navy-950 text-golden-400" : "bg-navy-800 text-golden-400"}`}>
+                  {stage.step}
+                </span>
+                <span>{stage.title}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Stage Details Card */}
+        <div className="bg-navy-950/90 rounded-2xl shadow-2xl border border-navy-700 p-6 md:p-8 lg:p-10 max-w-5xl mx-auto backdrop-blur-md">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-navy-800">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-golden-500/10 border border-golden-500/30 flex items-center justify-center shrink-0">
+                <currentStage.icon className="w-7 h-7 text-golden-400" />
               </div>
               <div>
-                <p
-                  className={`
-                    font-bold text-sm
-                    ${
-                      activeStage === stage.id
-                        ? "text-golden-600"
-                        : "text-navy-700"
-                    }
-                  `}
-                >
-                  {stage.title}
-                </p>
-                <p className="text-xs text-navy-500">
-                  {stage.subtitle}
-                </p>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {/* Active Stage Details — NO ANIMATION, just simple conditional render */}
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 lg:p-10">
-          {/* Header */}
-          <div className="flex items-start gap-4 mb-6">
-            <div className="w-14 h-14 rounded-full bg-golden-500/10 flex items-center justify-center shrink-0">
-              <currentStage.icon className="w-7 h-7 text-golden-600" />
-            </div>
-            <div>
-              <div className="flex items-center gap-3 flex-wrap">
-                <h3 className="text-2xl font-bold text-navy-950">
-                  Stage {currentIndex + 1}: {currentStage.title}
+                <div className="text-xs font-extrabold uppercase tracking-widest text-golden-400">
+                  Stage {currentStage.step} of 09
+                </div>
+                <h3 className="text-2xl font-extrabold text-white">
+                  {currentStage.title} — <span className="text-golden-300 font-normal">{currentStage.subtitle}</span>
                 </h3>
-                <Badge variant="golden" className="text-xs">
-                  {currentStage.subtitle}
-                </Badge>
               </div>
-              <p className="text-navy-600 mt-1">
-                {currentStage.description}
-              </p>
             </div>
+            <Button
+              href="/transformation-framework"
+              variant="outline"
+              size="sm"
+              className="border-golden-500/40 text-golden-300 hover:bg-golden-500 hover:text-navy-950 self-start md:self-auto"
+            >
+              Explore Full 9-Stage Framework →
+            </Button>
           </div>
+
+          <p className="text-slate-300 text-base mb-8 leading-relaxed">
+            {currentStage.description}
+          </p>
 
           {/* Two-Column Grid */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Activities */}
-            <div className="bg-navy-50 rounded-xl p-6">
-              <h4 className="text-sm font-bold text-navy-700 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Zap className="w-4 h-4 text-golden-500" />
-                Activities
+            <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-800">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-golden-400 mb-3 flex items-center gap-2">
+                <Zap className="w-4 h-4" />
+                Key Activities & Execution
               </h4>
               <ul className="space-y-2">
-                {currentStage.activities.map((activity, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center gap-3 text-sm text-navy-700"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-golden-500" />
-                    {activity}
+                {currentStage.activities.map((act, idx) => (
+                  <li key={idx} className="flex items-center gap-2.5 text-xs text-slate-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-golden-400" />
+                    <span>{act}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Deliverables */}
-            <div className="bg-emerald-50 rounded-xl p-6">
-              <h4 className="text-sm font-bold text-emerald-700 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                Deliverables
+            <div className="bg-navy-900/90 rounded-xl p-5 border border-navy-800">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4" />
+                Tangible Outputs
               </h4>
               <ul className="space-y-2">
-                {currentStage.deliverables.map((deliverable, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center gap-3 text-sm text-navy-700"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    {deliverable}
+                {currentStage.deliverables.map((del, idx) => (
+                  <li key={idx} className="flex items-center gap-2.5 text-xs text-slate-300">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span>{del}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="mt-6 pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-            <span className="text-sm text-navy-500">
-              <span className="font-semibold text-navy-700">Learn more:</span>{" "}
-              Explore how we deliver value at this stage
+          {/* Footer CTA inside card */}
+          <div className="mt-8 pt-6 border-t border-navy-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <span className="text-slate-400">
+              <strong className="text-slate-200">Continuous Transformation:</strong> Discover → Assess → Prioritize → Implement → Integrate → Govern → Monitor → Optimize → Scale
             </span>
-            <Button
-              href={currentStage.link}
-              variant="primary"
-              size="sm"
-              icon={<ArrowRight className="w-4 h-4" />}
+            <Link
+              href={`/transformation-framework#${currentStage.id}`}
+              className="text-golden-400 font-bold hover:text-golden-300 flex items-center gap-1 shrink-0"
             >
-              Explore {currentStage.title}
-            </Button>
+              <span>Learn about Stage {currentStage.step} details</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
 
-        {/* Bottom: Every Engagement Delivers */}
-        <div className="mt-16 bg-navy-950 rounded-2xl p-8 md:p-10 border border-golden-500/20">
-          <div className="text-center mb-8">
-            <Badge className="bg-golden-500/10 text-golden-400 border-golden-500/20 mx-auto">
-              Every Engagement Delivers
-            </Badge>
-            <h3 className="text-2xl font-bold text-white mt-3">
-              Comprehensive AI Transformation
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {deliverables.map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-navy-800/50 rounded-xl p-4 text-center border border-navy-700 hover:border-golden-500/30 transition-all hover:bg-navy-800"
-              >
-                <item.icon className="w-6 h-6 text-golden-400 mx-auto mb-2" />
-                <span className="text-xs text-white font-medium">
-                  {item.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Framework Link */}
-        <div className="text-center mt-8">
-          <p className="text-sm text-navy-500">
-            The Nisol AI Transformation Framework™ —{" "}
-            <span className="text-navy-700 font-medium">
-              Think. Build. Scale. Differentiate.
-            </span>
-          </p>
+        {/* Bottom Banner Button */}
+        <div className="text-center mt-12">
+          <Button
+            href="/transformation-framework"
+            size="lg"
+            className="bg-golden-500 text-navy-950 hover:bg-golden-400 font-extrabold shadow-xl"
+          >
+            Explore Complete 9-Stage Transformation Page
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </Button>
         </div>
       </div>
     </section>
