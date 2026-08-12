@@ -24,6 +24,7 @@ import {
   Users,
   Info,
   Award,
+  Tag,
   Mail
 } from "lucide-react";
 
@@ -49,6 +50,13 @@ export const DISCOVERY_MENU: NavSection = {
       badge: "FLAGSHIP",
       description: "Our 62-question, 15-capability engineering audit in 7-11 days.",
       icon: Compass 
+    },
+    { 
+      name: "Engagement Pricing", 
+      href: "/discovery#pricing", 
+      badge: "FIXED-PRICE",
+      description: "Transparent, scope-based fixed pricing for Foundation, Growth, & Enterprise.",
+      icon: Tag 
     },
     { 
       name: "9-Stage Transformation Lifecycle", 

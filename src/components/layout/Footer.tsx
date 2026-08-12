@@ -55,6 +55,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/discovery#pricing" className="hover:text-golden-300 transition-colors flex items-center gap-1">
+                  <span>Engagement Pricing</span>
+                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">FIXED-PRICE</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/discovery#deliverables" className="hover:text-golden-300 transition-colors">
                   15 Board-Ready Deliverables
                 </Link>

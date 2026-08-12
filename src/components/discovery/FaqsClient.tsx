@@ -108,7 +108,7 @@ const FAQ_CATEGORIES: Category[] = [
     questions: [
       {
         q: "How much does a Nisol Discovery™ engagement cost?",
-        a: "Nisol Discovery™ is a fixed-price engagement starting at ₹3.5 Lakhs. The final investment depends on the scope of your organization, the number of functions involved, and the depth of analysis required. We provide a custom proposal after our initial consultation."
+        a: "Nisol Discovery™ is a scope-based, fixed-price engagement starting at ₹4.5 Lakhs for Foundation (small enterprises) and ₹7.5 Lakhs for Growth (mid-market). All tiers evaluate 100% of your organization across all 15 business functions and 62 diagnostic questions. Final investment depends on your company size, stakeholder headcount, and operational complexity."
       },
       {
         q: "Why is it a fixed-price engagement?",

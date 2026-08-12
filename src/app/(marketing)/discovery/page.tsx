@@ -84,16 +84,16 @@ const PACKAGES = [
   {
     name: "Foundation Engagement",
     badge: "STARTER",
-    price: "₹3,50,000",
-    priceSub: "Starting Investment (Fixed-Price)",
+    price: "Starting from ₹4,50,000",
+    priceSub: "Fixed-Price SOW (Scope-Based)",
     duration: "1–2 Weeks (7–11 Business Days)",
-    ideal: "Ideal for small organizations or single business units embarking on AI transformation.",
+    ideal: "Ideal for small enterprises (10–50 employees) seeking 360° evaluation across all 15 business functions.",
     ctaText: "Book Foundation Call",
     ctaLink: "/contact?type=discovery-call&package=Foundation",
     popular: false,
     features: [
-      "Up to 4 Workshop Days covering 15 capabilities",
-      "1 Core Business Unit or SME scope (10–50 employees)",
+      "Full 360° Diagnostic across ALL 15 Business Functions (62 Questions)",
+      "Designed for 10–50 employees & 3–5 core leaders",
       "AI Readiness Assessment & Maturity Scorecard",
       "Executive Intelligence Pack (Deliverables 1–4)",
       "AI Opportunity Matrix & Top 20 Use Cases",
@@ -103,16 +103,17 @@ const PACKAGES = [
   {
     name: "Growth Engagement",
     badge: "MOST POPULAR",
-    price: "₹7,50,000",
-    priceSub: "Starting Investment (Fixed-Price)",
+    price: "Starting from ₹7,50,000",
+    priceSub: "Fixed-Price SOW (Scope-Based)",
     duration: "2–4 Weeks (10–15 Business Days)",
-    ideal: "Ideal for mid-market enterprises building a comprehensive, multi-department AI roadmap.",
+    ideal: "Ideal for mid-market enterprises (51–250 employees) with 10–15 department heads and complex workflows.",
     ctaText: "Talk to an AI Strategist",
     ctaLink: "/contact?type=discovery-call&package=Growth",
     popular: true,
     features: [
       "Everything in Foundation, plus:",
-      "Multi-department scope (51–250 employees)",
+      "Full 360° Diagnostic across ALL 15 Business Functions (62 Questions)",
+      "Designed for 51–250 employees & 10–15 department heads",
       "AI Session Contextual Capture & Transcription Processing",
       "Solution Blueprints for Top 5 AI Use Cases",
       "Granular Financial ROI & Productivity Modeling",
@@ -123,16 +124,17 @@ const PACKAGES = [
   {
     name: "Enterprise Engagement",
     badge: "CUSTOM SCOPE",
-    price: "Custom Pricing",
-    priceSub: "Based on Organizational Scope",
+    price: "Custom Quote",
+    priceSub: "Based on Enterprise Scope",
     duration: "4–8 Weeks (Phased Transformation)",
-    ideal: "Designed for large, multi-entity enterprises and complex operational environments.",
+    ideal: "Designed for large, multi-entity enterprises (250+ employees) and complex operational environments.",
     ctaText: "Request Enterprise Proposal",
     ctaLink: "/contact?type=proposal&package=Enterprise",
     popular: false,
     features: [
       "Everything in Growth, plus:",
-      "Enterprise-wide scope (251–1000+ employees, multi-location)",
+      "Full 360° Diagnostic across ALL 15 Business Functions (62 Questions)",
+      "Multi-entity / group scope (250+ employees, multi-location)",
       "Executive Steering Committee Facilitation",
       "Peer & Global Industry Maturity Benchmarking",
       "AI Transformation Office (TO) Setup & Governance",
@@ -326,12 +328,12 @@ export default function DiscoveryPage() {
       <ZeroLockInGuarantee />
 
       {/* ── 3. ENGAGEMENT PACKAGES (3-TIER CARDS) ───────────────────────── */}
-      <section className="space-y-12">
+      <section className="space-y-12" id="pricing">
         <SectionHeader
           badgeText="Engagement Tiers"
           title="Fixed-Price Engagement Packages"
           subtitle="Transparent Baseline Investments Tailored to Your Operational Scale"
-          description="Choose from fixed-price baseline tiers or contact our strategy architects for custom enterprise multi-entity transformations."
+          description="All 3 tiers evaluate 100% of your organization across all 15 business functions with our full 62-question diagnostic. Tier pricing scales strictly by company size, stakeholder headcount, and operational complexity."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
@@ -458,7 +460,7 @@ export default function DiscoveryPage() {
               <thead>
                 <tr className="bg-navy-950 text-white border-b border-navy-800">
                   <th className="py-4 px-6 font-bold uppercase tracking-wider">Deliverable / Feature</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Foundation (₹3.5L+)</th>
+                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Foundation (₹4.5L+)</th>
                   <th className="py-4 px-6 font-bold uppercase tracking-wider text-golden-400 bg-navy-900/80">Growth (₹7.5L+)</th>
                   <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Enterprise (Custom)</th>
                 </tr>
