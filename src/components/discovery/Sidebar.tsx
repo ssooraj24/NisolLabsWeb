@@ -60,6 +60,7 @@ export const Sidebar = () => {
       items: [
         { label: "Dashboard", href: "/dashboard" },
         { label: "Tenants / Clients", href: "/clients" },
+        { label: "Users & Team", href: "/users" },
         { label: "Audits", href: "/audits" },
         { label: "Questionnaire Library", href: "/questionnaire" },
         { label: "Profile", href: "/profile" },
