@@ -571,7 +571,7 @@ export default function DiscoveryPage() {
         </div>
 
         <div className="pt-6 border-t border-navy-800 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-6">
-          <span>📧 Email: <strong>nisollabs@gmail.com</strong></span>
+          <span>📧 Email: <strong>contact@nisolai.com</strong></span>
           <span>🌐 Client Portal: <strong>Nisol Discovery Portal</strong></span>
         </div>
       </div>

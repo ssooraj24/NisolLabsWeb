@@ -8,9 +8,12 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { fullName, workEmail, companyName, interestPillar, budgetRange, message } = body;
 
+    const recipientEmail = process.env.TO_EMAIL || "contact@nisolai.com";
+    const senderEmail = process.env.EMAIL_FROM || "Nisol AI <contact@nisolai.com>";
+
     const { data, error } = await resend.emails.send({
-      from: "AI Audit <onboarding@resend.dev>",
-      to: ["nisollabs@gmail.com"],
+      from: senderEmail,
+      to: [recipientEmail],
       replyTo: workEmail,
       subject: `New AI Audit Request from ${companyName}`,
       html: `

@@ -237,7 +237,7 @@ export default function ContactPage() {
                 <Mail className="w-4 h-4 text-golden-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-white font-bold block">Direct Email</strong>
-                  <span>nisollabs@gmail.com</span>
+                  <span>contact@nisolai.com</span>
                 </div>
               </div>
             </div>
