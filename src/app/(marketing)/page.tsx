@@ -123,18 +123,20 @@ export default function HomePage() {
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/90 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
-                <Sparkles className="w-4 h-4 text-golden-400" />
-                <span>Nisol AI — From Discovery to Delivery</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/90 border border-emerald-500/30 text-emerald-300 text-xs font-semibold shadow-lg">
+                <Sparkles className="w-4 h-4 text-emerald-400" />
+                <span>Nisol AI — End-to-End Enterprise Transformation</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-                AI Transformation, Delivered. <br className="hidden sm:block" />
-                <span className="golden-gradient-text">Your Way.</span>
+                Transform Enterprise Operations with{" "}
+                <span className="bg-gradient-to-r from-golden-400 via-emerald-400 to-teal-300 bg-clip-text text-transparent">
+                  End-to-End AI.
+                </span>
               </h1>
 
               <p className="text-lg sm:text-xl text-navy-100/90 max-w-2xl leading-relaxed font-normal">
-                Discover high-value AI opportunities in 7–11 business days, then execute with total freedom—<strong className="text-golden-300 font-semibold">Build, Manage, or Monitor</strong> with guaranteed zero vendor lock-in.
+                From 7–11 day executive discovery workshops and AWS multi-agent implementation to continuous LLMOps telemetry and governance. Powered by proprietary AI engines like <strong className="text-emerald-400 font-semibold">RoSense AI</strong>.
               </p>
 
               {/* Action Buttons */}
@@ -142,26 +144,26 @@ export default function HomePage() {
                 <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
                   Book AI Discovery Workshop
                 </Button>
-                <Button href="/discovery" variant="navy" size="lg" icon={<Search className="w-4 h-4" />}>
-                  Explore Nisol Discovery™
+                <Button href="/products/rosense-ai" variant="navy" size="lg" icon={<Cpu className="w-4 h-4 text-emerald-400" />}>
+                  Explore RoSense AI
                 </Button>
               </div>
 
               {/* Key Trust Signals */}
               <div className="pt-6 border-t border-navy-800/80 grid grid-cols-3 gap-4 text-left">
                 <div>
-                  <div className="text-2xl font-extrabold text-golden-400">62</div>
-                  <div className="text-xs text-navy-200">Business Diagnostics</div>
+                  <div className="text-2xl font-extrabold text-golden-400">Phase 1</div>
+                  <div className="text-xs text-navy-200">Discovery & Strategy</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-extrabold text-golden-400">15</div>
-                  <div className="text-xs text-navy-200">Capabilities Assessed</div>
+                  <div className="text-2xl font-extrabold text-emerald-400">Phase 2</div>
+                  <div className="text-xs text-navy-200">AWS Build & Deploy</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-extrabold text-golden-400">100%</div>
-                  <div className="text-xs text-navy-200">Executive Clarity</div>
+                  <div className="text-2xl font-extrabold text-teal-300">Phase 3</div>
+                  <div className="text-xs text-navy-200">Monitoring & Scale</div>
                 </div>
-              </div>
+                </div>
             </div>
 
             {/* Right Interactive Discovery Preview Card */}
@@ -227,6 +229,148 @@ export default function HomePage() {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 1.2: THE 3-PHASE TRANSFORMATION LIFECYCLE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-8 lg:p-10 rounded-3xl bg-navy-950 border border-navy-800 shadow-2xl relative overflow-hidden text-white">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 bg-golden-500/10 text-golden-400 border border-golden-500/30 px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Full Transformation Lifecycle</span>
+            </div>
+            <h2 className="text-3xl font-extrabold text-white tracking-tight">
+              The 3-Phase Enterprise AI Journey
+            </h2>
+            <p className="text-sm text-slate-300 mt-2">
+              We partner with enterprise clients from initial strategy discovery to engineered production and continuous telemetry.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+            {/* Phase 1 */}
+            <div className="p-6 rounded-2xl bg-navy-900/90 border border-golden-500/30 hover:border-golden-500/60 transition-all space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-golden-500 text-navy-950">PHASE 01</span>
+                <Search className="w-5 h-5 text-golden-400" />
+              </div>
+              <h3 className="text-xl font-bold text-white">Discovery & Strategy</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                7–11 Day Nisol Discovery™ workshops, 62-question capability diagnostics, and opportunity prioritization.
+              </p>
+              <div className="pt-2 border-t border-navy-800 text-[11px] text-golden-300 font-mono flex items-center gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Powered by RoSense AI Audio Engine</span>
+              </div>
+            </div>
+
+            {/* Phase 2 */}
+            <div className="p-6 rounded-2xl bg-navy-900/90 border border-emerald-500/30 hover:border-emerald-500/60 transition-all space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-emerald-500 text-navy-950">PHASE 02</span>
+                <Bot className="w-5 h-5 text-emerald-400" />
+              </div>
+              <h3 className="text-xl font-bold text-white">Build & Implementation</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Engineering autonomous agent clusters, RAG knowledge copilots, and cloud/on-prem appliances with zero vendor lock-in.
+              </p>
+              <div className="pt-2 border-t border-navy-800 text-[11px] text-emerald-400 font-mono">
+                <span>AWS Bedrock • Textract • EC2/ECS</span>
+              </div>
+            </div>
+
+            {/* Phase 3 */}
+            <div className="p-6 rounded-2xl bg-navy-900/90 border border-teal-500/30 hover:border-teal-500/60 transition-all space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-teal-400 text-navy-950">PHASE 03</span>
+                <ShieldCheck className="w-5 h-5 text-teal-300" />
+              </div>
+              <h3 className="text-xl font-bold text-white">Monitoring & Scaling</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Real-time LLMOps telemetry, token cost optimization, hallucination monitoring, and enterprise governance.
+              </p>
+              <div className="pt-2 border-t border-navy-800 text-[11px] text-teal-300 font-mono">
+                <span>Sub-200ms Latency • SOC-2 Guardrails</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 1.3: PROPRIETARY FEATURED PRODUCT — ROSENSE AI */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-navy-950 via-[#030d1d] to-navy-950 border border-emerald-500/40 shadow-2xl relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 space-y-5 text-white">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
+                <Cpu className="w-4 h-4" />
+                <span>FLAGSHIP PROPRIETARY PRODUCT</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                RoSense AI — <span className="text-emerald-400">Enterprise Conversation Intelligence</span>
+              </h2>
+
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                Turn 18 hours of strategy offsites and boardroom discussions into structured execution. RoSense AI transcribes, diarizes, and extracts decisions, commitments, and risks with 100% data sovereignty.
+              </p>
+
+              <div className="grid grid-cols-2 gap-3 font-mono text-xs text-slate-300">
+                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>WhisperX + Pyannote 3.1</span>
+                </div>
+                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Mamba-3 SSM Engine</span>
+                </div>
+                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Supabase pgvector Search</span>
+                </div>
+                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>AWS Cloud & Air-Gapped Box</span>
+                </div>
+              </div>
+
+              <div className="pt-2 flex items-center gap-4">
+                <Button 
+                  href="/products/rosense-ai" 
+                  variant="primary" 
+                  size="md"
+                  className="bg-emerald-500 hover:bg-emerald-600 text-navy-950 font-bold border-emerald-400"
+                  icon={<ArrowRight className="w-4 h-4" />}
+                >
+                  Explore RoSense AI Product
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Feature Card */}
+            <div className="lg:col-span-5 bg-navy-900/90 rounded-2xl p-6 border border-emerald-500/30 font-mono text-xs text-white space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-navy-700 text-[11px]">
+                <span className="text-emerald-400 font-bold">Listen ➔ Structure ➔ Deliver</span>
+                <span className="text-slate-400">v2.1 Supabase Native</span>
+              </div>
+              <div className="space-y-2 text-[11px] text-slate-300">
+                <div className="p-2.5 rounded bg-navy-950 border border-navy-800">
+                  <span className="text-golden-400 font-semibold">[Listen]</span> Transcribes 18+ hour recordings without context loss
+                </div>
+                <div className="p-2.5 rounded bg-navy-950 border border-navy-800">
+                  <span className="text-emerald-400 font-semibold">[Structure]</span> Zero-shot decision & action item extraction
+                </div>
+                <div className="p-2.5 rounded bg-navy-950 border border-navy-800">
+                  <span className="text-teal-300 font-semibold">[Deliver]</span> Sub-10ms vector memory search over 1M+ embeddings
+                </div>
+              </div>
+              <div className="pt-2 border-t border-navy-700 text-[10px] text-slate-400 flex items-center justify-between">
+                <span>AES-256 Encrypted</span>
+                <span className="text-emerald-400">Zero Model Training</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

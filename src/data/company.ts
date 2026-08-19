@@ -1,14 +1,14 @@
 export const COMPANY = {
   name: "Nisol AI",
-  tagline: "AI Transformation, Delivered. Your Way.",
-  vision: "Enable enterprise AI transformation with full client choice—Build, Manage, or Monitor. Zero vendor lock-in.",
-  mission: "Empower organizations to discover, prioritize, and execute AI initiatives through Nisol Discovery™, Autonomous Multi-Agent Systems, and flexible delivery frameworks.",
-  personality: ["Professional", "Premium", "Enterprise", "Modern", "Minimal", "Trustworthy", "Intelligent", "Outcome-driven"],
+  tagline: "End-to-End Enterprise AI Transformation & Proprietary AI Engines.",
+  vision: "Empower enterprises with complete AI transformation—from discovery and engineering to continuous monitoring, governance, and proprietary AI products like RoSense AI.",
+  mission: "Partner with organizations throughout their full AI transformation journey: identifying opportunities via Nisol Discovery™, deploying autonomous agent workflows & AWS cloud infrastructure, and operationalizing continuous model telemetry.",
+  personality: ["Enterprise-Grade", "Engineered", "Proprietary IP", "AWS Cloud Native", "Minimal", "Trustworthy", "Intelligent", "Outcome-Driven"],
   stats: [
     { label: "AI Implementations", value: "45+" },
-    { label: "Average Token Spend Reduction", value: "52%" },
+    { label: "Average Token Cost Reduction", value: "52%" },
     { label: "Executive Discovery Timeline", value: "7-11 Days" },
-    { label: "Enterprise Security SLA", value: "99.9%" }
+    { label: "Proprietary AI Engines", value: "RoSense AI" }
   ],
   founders: [
     {

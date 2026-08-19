@@ -112,6 +112,75 @@ export const DISCOVERY_MENU: NavSection = {
   ]
 };
 
+export const PLATFORM_SOLUTIONS_MENU = {
+  title: "Platform & Solutions",
+  productsTitle: "Proprietary Products",
+  products: [
+    { 
+      name: "RoSense AI", 
+      href: "/products/rosense-ai", 
+      badge: "FLAGSHIP ENGINE",
+      description: "Enterprise Conversation Intelligence — Listen ➔ Structure ➔ Deliver.",
+      icon: Cpu 
+    }
+  ],
+  solutionsTitle: "Implementation Capabilities",
+  solutions: [
+    { 
+      name: "Agentic AI & Multi-Agents", 
+      href: "/services/agents", 
+      badge: "POPULAR",
+      description: "Multi-agent orchestration clusters with human-in-the-loop controls.",
+      icon: Bot 
+    },
+    { 
+      name: "AI Engineering & DevOps", 
+      href: "/services/engineering", 
+      badge: "AWS NATIVE",
+      description: "Custom fine-tuning, latency optimization, and CI/CD LLMEval.",
+      icon: Cpu 
+    },
+    { 
+      name: "Enterprise RAG Systems", 
+      href: "/services/assistants", 
+      description: "Enterprise copilots with RBAC and hybrid dense-sparse retrieval.",
+      icon: MessageSquareCode 
+    },
+    { 
+      name: "AI-Powered Automation", 
+      href: "/services/automation", 
+      description: "Intelligent document processing and vision LLM pipelines.",
+      icon: Zap 
+    },
+    { 
+      name: "Data Readiness & Engineering", 
+      href: "/services/data-readiness", 
+      description: "ETL pipelines, PII masking, and vector database indexing.",
+      icon: Layers 
+    }
+  ],
+  industriesTitle: "Vertical Solutions",
+  industries: [
+    { name: "Manufacturing & Supply Chain", href: "/industries", icon: Factory },
+    { name: "BFSI & Financial Services", href: "/industries", icon: Building2 },
+    { name: "Healthcare & Life Sciences", href: "/industries", icon: Activity },
+    { name: "Professional Services & IT", href: "/industries", icon: Briefcase }
+  ]
+};
+
+export const PRODUCTS_MENU: NavSection = {
+  title: "Proprietary Products",
+  items: [
+    { 
+      name: "RoSense AI", 
+      href: "/products/rosense-ai", 
+      badge: "FLAGSHIP ENGINE",
+      description: "Enterprise Conversation Intelligence — Listen ➔ Structure ➔ Deliver.",
+      icon: Cpu 
+    }
+  ]
+};
+
 export const SOLUTIONS_MENU: NavSection = {
   title: "Implementation Solutions",
   items: [
