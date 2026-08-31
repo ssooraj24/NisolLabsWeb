@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
     const {
       reportId,
       deliverableType,
+      deliverableTypes,
       sections,
       templateId,
       watermarkText,
@@ -100,17 +101,23 @@ export async function POST(req: NextRequest) {
         : (audit.tenants as any)
       : null;
     const planTier = tenantObj?.pricing_plan || report?.plan_tier || "foundation";
-    const reqDeliverable: DeliverableType = deliverableType || "ai_readiness_transformation";
+    const rawDeliverables: DeliverableType[] =
+      Array.isArray(deliverableTypes) && deliverableTypes.length > 0
+        ? (deliverableTypes as DeliverableType[])
+        : [deliverableType || "ai_readiness_transformation"];
 
-    if (!isDeliverableAllowedForPlan(reqDeliverable, planTier)) {
-      const planInfo = PLAN_CONFIG[normalizePricingPlan(planTier)];
-      return NextResponse.json(
-        {
-          success: false,
-          error: `The requested deliverable ('${reqDeliverable}') is not included in the client's ${planInfo.name} subscription plan. Please upgrade your subscription tier to access this report.`,
-        },
-        { status: 403 }
-      );
+    // GATING CHECK: Verify all requested deliverables against subscribed plan
+    for (const dt of rawDeliverables) {
+      if (!isDeliverableAllowedForPlan(dt, planTier)) {
+        const planInfo = PLAN_CONFIG[normalizePricingPlan(planTier)];
+        return NextResponse.json(
+          {
+            success: false,
+            error: `The requested deliverable ('${dt}') is not included in the client's ${planInfo.name} subscription plan. Please upgrade your subscription tier to access this report.`,
+          },
+          { status: 403 }
+        );
+      }
     }
 
     // 4. Resolve client company name using multi-tier resolver
@@ -162,23 +169,38 @@ export async function POST(req: NextRequest) {
       currency: currency || "INR",
     };
 
-    let htmlContent = "";
+    const getDeliverableDoc = (dt: DeliverableType) => {
+      switch (dt) {
+        case "board_investment_memo":
+          return {
+            title: `${resolvedCompany} - CFO & Board Investment Memo`,
+            html: generateBoardMemoHTML(report, audit, exportOptions),
+          };
+        case "data_strategy_blueprint":
+          return {
+            title: `${resolvedCompany} - Data Strategy & Vector Lakehouse Blueprint`,
+            html: generateDataStrategyHTML(report, audit, exportOptions),
+          };
+        case "poc_evaluation_report":
+          return {
+            title: `${resolvedCompany} - PoC Evaluation & Scalability Dossier`,
+            html: generatePocEvaluationHTML(report, audit, exportOptions),
+          };
+        case "ai_readiness_transformation":
+        default:
+          return {
+            title: `${resolvedCompany} - Enterprise AI Transformation Strategy`,
+            html: generateReportHTML(report, audit, exportOptions),
+          };
+      }
+    };
 
-    // Route to specialized generator based on deliverableType
-    switch (deliverableType) {
-      case "board_investment_memo":
-        htmlContent = generateBoardMemoHTML(report, audit, exportOptions);
-        break;
-      case "data_strategy_blueprint":
-        htmlContent = generateDataStrategyHTML(report, audit, exportOptions);
-        break;
-      case "poc_evaluation_report":
-        htmlContent = generatePocEvaluationHTML(report, audit, exportOptions);
-        break;
-      case "ai_readiness_transformation":
-      default:
-        htmlContent = generateReportHTML(report, audit, exportOptions);
-        break;
+    let htmlContent = "";
+    if (rawDeliverables.length === 1) {
+      htmlContent = getDeliverableDoc(rawDeliverables[0]).html;
+    } else {
+      const docs = rawDeliverables.map((dt) => getDeliverableDoc(dt));
+      htmlContent = combineDeliverableHTMLs(docs, `${resolvedCompany} - Enterprise Deliverables Portfolio`);
     }
 
     return new NextResponse(htmlContent, {
@@ -194,4 +216,55 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+function combineDeliverableHTMLs(
+  docs: { title: string; html: string }[],
+  overallTitle: string
+): string {
+  const styleBlocks: string[] = [];
+  const bodySections: string[] = [];
+
+  for (const doc of docs) {
+    // Collect all <style> blocks
+    const styleMatches = doc.html.match(/<style[^>]*>([\s\S]*?)<\/style>/gi);
+    if (styleMatches) {
+      styleMatches.forEach((s) => styleBlocks.push(s));
+    }
+    // Extract <body> contents
+    const bodyMatch = doc.html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    if (bodyMatch && bodyMatch[1]) {
+      bodySections.push(
+        `<section class="deliverable-bundle-item" style="page-break-after: always; break-after: page;">\n${bodyMatch[1]}\n</section>`
+      );
+    }
+  }
+
+  const uniqueStyles = Array.from(new Set(styleBlocks)).join("\n");
+  const combinedBody = bodySections.join("\n");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${overallTitle}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+  ${uniqueStyles}
+  <style>
+    @media print {
+      .deliverable-bundle-item {
+        page-break-after: always;
+        break-after: page;
+      }
+      .deliverable-bundle-item:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  ${combinedBody}
+</body>
+</html>`;
 }

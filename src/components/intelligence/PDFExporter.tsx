@@ -9,7 +9,7 @@ import {
   normalizePricingPlan,
   PLAN_CONFIG,
 } from "@/lib/report/reportPortfolioTypes";
-import { FileText, CheckCircle2, Shield, Layers, DollarSign, FlaskConical, Lock } from "lucide-react";
+import { FileText, CheckCircle2, Shield, Layers, DollarSign, FlaskConical, Lock, CheckSquare, Square } from "lucide-react";
 
 interface PDFExporterProps {
   reportId: string;
@@ -34,13 +34,23 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
   const planInfo = PLAN_CONFIG[normPlan];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeDeliverable, setActiveDeliverable] = useState<DeliverableType>("ai_readiness_transformation");
+  const [selectedDeliverables, setSelectedDeliverables] = useState<DeliverableType[]>(() => {
+    return planInfo.allowedDeliverables.length > 0
+      ? [...planInfo.allowedDeliverables]
+      : ["ai_readiness_transformation"];
+  });
 
+  // Ensure only valid allowed deliverables remain selected when plan changes
   useEffect(() => {
-    if (!isDeliverableAllowedForPlan(activeDeliverable, normPlan)) {
-      setActiveDeliverable("ai_readiness_transformation");
-    }
-  }, [activeDeliverable, normPlan]);
+    setSelectedDeliverables((prev) => {
+      const valid = prev.filter((d) => isDeliverableAllowedForPlan(d, normPlan));
+      if (valid.length === 0) {
+        return [...planInfo.allowedDeliverables];
+      }
+      return valid;
+    });
+  }, [normPlan, planInfo.allowedDeliverables]);
+
   const [selectedSections, setSelectedSections] = useState<string[]>(
     SECTION_OPTIONS.map((s) => s.id)
   );
@@ -53,6 +63,31 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
   const [progress, setProgress] = useState(0);
   const [progressLabel, setProgressLabel] = useState("");
 
+  const toggleDeliverable = (id: DeliverableType) => {
+    if (selectedDeliverables.includes(id)) {
+      if (selectedDeliverables.length > 1) {
+        setSelectedDeliverables(selectedDeliverables.filter((d) => d !== id));
+      }
+    } else {
+      setSelectedDeliverables([...selectedDeliverables, id]);
+    }
+  };
+
+  const handleToggleAllDeliverables = () => {
+    const allowed = DELIVERABLE_PORTFOLIO.filter((d) => isDeliverableAllowedForPlan(d.id, normPlan)).map((d) => d.id);
+    if (selectedDeliverables.length === allowed.length) {
+      setSelectedDeliverables(["ai_readiness_transformation"]);
+    } else {
+      setSelectedDeliverables(allowed);
+    }
+  };
+
+  const openModal = () => {
+    // Select all authorized deliverables by default on opening
+    setSelectedDeliverables([...planInfo.allowedDeliverables]);
+    setIsModalOpen(true);
+  };
+
   const toggleSection = (id: string) => {
     if (selectedSections.includes(id)) {
       setSelectedSections(selectedSections.filter((s) => s !== id));
@@ -62,9 +97,10 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
   };
 
   const handleStartExport = async () => {
+    if (selectedDeliverables.length === 0) return;
     setExporting(true);
     setProgress(15);
-    setProgressLabel("Compiling specialized report data & models...");
+    setProgressLabel(`Compiling ${selectedDeliverables.length} specialized report${selectedDeliverables.length > 1 ? "s" : ""} & models...`);
 
     try {
       await new Promise((r) => setTimeout(r, 400));
@@ -78,7 +114,8 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
           reportId,
           auditTitle,
           companyName,
-          deliverableType: activeDeliverable,
+          deliverableTypes: selectedDeliverables,
+          deliverableType: selectedDeliverables[0] || "ai_readiness_transformation",
           sections: selectedSections,
           includeTOC,
           watermarkText: includeWatermark ? "CONFIDENTIAL" : "",
@@ -87,7 +124,7 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
       });
 
       setProgress(85);
-      setProgressLabel("Assembling branded document pages...");
+      setProgressLabel("Assembling branded document bundle...");
 
       if (!res.ok) {
         throw new Error("Failed to generate PDF export");
@@ -119,8 +156,8 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
   return (
     <>
       <button
-        onClick={() => setIsModalOpen(true)}
-        className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1.5"
+        onClick={openModal}
+        className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
       >
         <FileText className="w-3.5 h-3.5" />
         <span>Export Deliverable PDF</span>
@@ -166,15 +203,24 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                 {/* 1. Deliverable Type Selector */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-slate-900 font-bold">1. Select Deliverable Type:</label>
-                    <span className="text-[11px] text-slate-500 font-normal">
-                      {planInfo.allowedDeliverables.length} of {DELIVERABLE_PORTFOLIO.length} reports unlocked
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <label className="text-slate-900 font-bold">1. Select Deliverable Type:</label>
+                      <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+                        {selectedDeliverables.length} of {planInfo.allowedDeliverables.length} selected
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleToggleAllDeliverables}
+                      className="text-[11px] text-blue-600 hover:text-blue-800 font-bold cursor-pointer"
+                    >
+                      {selectedDeliverables.length === planInfo.allowedDeliverables.length ? "Deselect All" : "Select All"}
+                    </button>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {DELIVERABLE_PORTFOLIO.map((del) => {
                       const isAllowed = isDeliverableAllowedForPlan(del.id, normPlan);
-                      const isSelected = activeDeliverable === del.id && isAllowed;
+                      const isSelected = selectedDeliverables.includes(del.id) && isAllowed;
                       const requiredTierLabel =
                         del.id === "poc_evaluation_report" ? "Enterprise Plan Required" : "Growth Plan Required";
 
@@ -208,30 +254,35 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                         <button
                           key={del.id}
                           type="button"
-                          onClick={() => setActiveDeliverable(del.id)}
-                          className={`p-3 rounded-xl border text-left transition-all ${
+                          onClick={() => toggleDeliverable(del.id)}
+                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                             isSelected
                               ? "border-blue-600 bg-blue-50/70 shadow-xs ring-1 ring-blue-600"
-                              : "border-slate-200 bg-slate-50 hover:bg-slate-100"
+                              : "border-slate-200 bg-slate-50 hover:bg-slate-100 opacity-75"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-1 mb-1">
                             <span className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
+                              {isSelected ? (
+                                <CheckSquare className="w-4 h-4 text-blue-600 shrink-0" />
+                              ) : (
+                                <Square className="w-4 h-4 text-slate-400 shrink-0" />
+                              )}
                               <span>{del.icon}</span>
-                              <span>{del.title}</span>
+                              <span className="line-clamp-1">{del.title}</span>
                             </span>
                             <span
-                              className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
+                              className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ${
                                 isSelected ? "bg-blue-600 text-white" : "bg-slate-200 text-slate-700"
                               }`}
                             >
                               {del.badge}
                             </span>
                           </div>
-                          <p className="text-[10.5px] text-slate-500 font-normal line-clamp-2 leading-tight">
+                          <p className="text-[10.5px] text-slate-500 font-normal line-clamp-2 leading-tight ml-5.5">
                             {del.description}
                           </p>
-                          <div className="text-[10px] text-slate-400 font-medium mt-1.5">
+                          <div className="text-[10px] text-slate-400 font-medium mt-1.5 ml-5.5">
                             Audience: {del.targetAudience.split(",")[0]} • {del.estimatedPages}
                           </div>
                         </button>
@@ -240,11 +291,11 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                   </div>
                 </div>
 
-                {/* 2. Flagship Section Selection (Only for flagship report) */}
-                {activeDeliverable === "ai_readiness_transformation" && (
+                {/* 2. Flagship Section Selection (When flagship report is among selected) */}
+                {selectedDeliverables.includes("ai_readiness_transformation") && (
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label className="text-slate-900 font-bold">2. Sections to Include:</label>
+                      <label className="text-slate-900 font-bold">2. Sections to Include (Strategy):</label>
                       <button
                         type="button"
                         onClick={() =>
@@ -254,7 +305,7 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                               : SECTION_OPTIONS.map((s) => s.id)
                           )
                         }
-                        className="text-[11px] text-blue-600 hover:underline"
+                        className="text-[11px] text-blue-600 hover:underline cursor-pointer"
                       >
                         {selectedSections.length === SECTION_OPTIONS.length ? "Deselect All" : "Select All"}
                       </button>
@@ -295,7 +346,7 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                         <button
                           type="button"
                           onClick={() => setCurrency("INR")}
-                          className={`px-2.5 py-0.5 text-xs font-bold rounded ${
+                          className={`px-2.5 py-0.5 text-xs font-bold rounded cursor-pointer ${
                             currency === "INR" ? "bg-white text-blue-700 shadow-xs" : "text-slate-500"
                           }`}
                         >
@@ -304,7 +355,7 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                         <button
                           type="button"
                           onClick={() => setCurrency("USD")}
-                          className={`px-2.5 py-0.5 text-xs font-bold rounded ${
+                          className={`px-2.5 py-0.5 text-xs font-bold rounded cursor-pointer ${
                             currency === "USD" ? "bg-white text-blue-700 shadow-xs" : "text-slate-500"
                           }`}
                         >
@@ -320,17 +371,22 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl"
+                    className="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="button"
                     onClick={handleStartExport}
-                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center gap-1.5 shadow-sm"
+                    disabled={selectedDeliverables.length === 0}
+                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold rounded-xl flex items-center gap-1.5 shadow-sm cursor-pointer"
                   >
                     <span>🚀</span>
-                    <span>Generate Branded Deliverable</span>
+                    <span>
+                      {selectedDeliverables.length > 1
+                        ? `Generate ${selectedDeliverables.length} Deliverables Bundle`
+                        : "Generate Branded Deliverable"}
+                    </span>
                   </button>
                 </div>
               </div>
