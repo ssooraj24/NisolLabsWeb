@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
       reportId,
       deliverableType,
       deliverableTypes,
+      planTier: bodyPlanTier,
       sections,
       templateId,
       watermarkText,
@@ -100,7 +101,9 @@ export async function POST(req: NextRequest) {
         ? audit.tenants[0]
         : (audit.tenants as any)
       : null;
-    const planTier = tenantObj?.pricing_plan || report?.plan_tier || "foundation";
+    const resolvedPlanTier = normalizePricingPlan(
+      bodyPlanTier || tenantObj?.pricing_plan || report?.plan_tier || "enterprise"
+    );
     const rawDeliverables: DeliverableType[] =
       Array.isArray(deliverableTypes) && deliverableTypes.length > 0
         ? (deliverableTypes as DeliverableType[])
@@ -108,8 +111,8 @@ export async function POST(req: NextRequest) {
 
     // GATING CHECK: Verify all requested deliverables against subscribed plan
     for (const dt of rawDeliverables) {
-      if (!isDeliverableAllowedForPlan(dt, planTier)) {
-        const planInfo = PLAN_CONFIG[normalizePricingPlan(planTier)];
+      if (!isDeliverableAllowedForPlan(dt, resolvedPlanTier)) {
+        const planInfo = PLAN_CONFIG[resolvedPlanTier];
         return NextResponse.json(
           {
             success: false,

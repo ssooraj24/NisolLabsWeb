@@ -60,6 +60,7 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
           companyName,
           deliverableTypes,
           deliverableType: deliverableTypes[0] || "ai_readiness_transformation",
+          planTier: normPlan,
           includeTOC: true,
           watermarkText: includeWatermark ? "CONFIDENTIAL" : "",
           currency,
@@ -70,7 +71,17 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
       setProgressLabel("Assembling branded document bundle...");
 
       if (!res.ok) {
-        throw new Error("Failed to generate PDF export");
+        let errMessage = "Failed to generate PDF export";
+        try {
+          const errData = await res.json();
+          if (errData.error) errMessage = errData.error;
+        } catch (_) {
+          try {
+            const errText = await res.text();
+            if (errText) errMessage = errText;
+          } catch (_) {}
+        }
+        throw new Error(errMessage);
       }
 
       const html = await res.text();
@@ -85,6 +96,17 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
         printWindow.document.open();
         printWindow.document.write(html);
         printWindow.document.close();
+      } else {
+        // Fallback if browser blocked popups: create downloadable HTML
+        const blob = new Blob([html], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${companyName || "Client"}-Deliverables.html`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       }
 
       if (onExportSuccess) {
