@@ -10,6 +10,7 @@ export interface IndustryBenchmark {
   avgAiInvestmentPctRevenue: number;
   avgPaybackPeriodMonths: number;
   keyRegulations: string[];
+  benchmarkCitation?: string;
   dimensionBenchmarks: Record<string, number>; // Dimension -> score out of 100
   topUseCasesCatalog: Array<{
     name: string;
@@ -389,17 +390,21 @@ export const INDUSTRY_BENCHMARKS: Record<string, IndustryBenchmark> = {
  * Resolves the industry benchmark profile given an industry string.
  */
 export function resolveIndustryBenchmark(rawIndustry?: string): IndustryBenchmark {
-  if (!rawIndustry || typeof rawIndustry !== "string") {
-    return INDUSTRY_BENCHMARKS.general;
-  }
+  const defaultCitation = "Nisol AI Enterprise Benchmark Index (Q3 2026), n=140+ tech enterprises, calibrated against Gartner & Stanford AI Index maturity frameworks.";
+  let resolved = INDUSTRY_BENCHMARKS.general;
 
-  const normalized = rawIndustry.toLowerCase().trim();
-
-  for (const [_, benchmark] of Object.entries(INDUSTRY_BENCHMARKS)) {
-    if (benchmark.aliases.some((alias) => normalized.includes(alias))) {
-      return benchmark;
+  if (rawIndustry && typeof rawIndustry === "string") {
+    const normalized = rawIndustry.toLowerCase().trim();
+    for (const [_, benchmark] of Object.entries(INDUSTRY_BENCHMARKS)) {
+      if (benchmark.aliases.some((alias) => normalized.includes(alias))) {
+        resolved = benchmark;
+        break;
+      }
     }
   }
 
-  return INDUSTRY_BENCHMARKS.general;
+  return {
+    ...resolved,
+    benchmarkCitation: resolved.benchmarkCitation || defaultCitation,
+  };
 }

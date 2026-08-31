@@ -60,22 +60,39 @@ Return ONLY a JSON object formatted as:
     const parsed = JSON.parse(cleanedText);
 
     if (parsed?.use_cases && Array.isArray(parsed.use_cases) && parsed.use_cases.length > 0) {
-      return parsed.use_cases.map((uc: any, idx: number) => ({
-        id: uc.id || `uc-${idx + 1}`,
-        name: uc.name || seedCases[idx % seedCases.length].name,
-        department: uc.department || seedCases[idx % seedCases.length].department,
-        businessProblem: uc.businessProblem || seedCases[idx % seedCases.length].businessProblem,
-        proposedSolution: uc.proposedSolution || seedCases[idx % seedCases.length].proposedSolution,
-        businessValueScore: typeof uc.businessValueScore === "number" ? uc.businessValueScore : 80,
-        implementationEffortScore: typeof uc.implementationEffortScore === "number" ? uc.implementationEffortScore : 40,
-        category: uc.category || (uc.businessValueScore >= 65 && uc.implementationEffortScore <= 50 ? "Quick Win" : "Strategic Bet"),
-        estimatedRoiPercentage: typeof uc.estimatedRoiPercentage === "number" ? uc.estimatedRoiPercentage : 250,
-        estimatedTimelineWeeks: typeof uc.estimatedTimelineWeeks === "number" ? uc.estimatedTimelineWeeks : 6,
-        techStack: Array.isArray(uc.techStack) ? uc.techStack : ["LLM API", "Vector DB"],
-        expectedSavings: uc.expectedSavings || "₹25 Lakhs/year",
-        complexity: uc.complexity || "Medium",
-        priority: idx + 1,
-      }));
+      const customizedList: UseCaseItem[] = parsed.use_cases.map((uc: any, idx: number) => {
+        const seed = seedCases[idx % seedCases.length];
+        return {
+          id: uc.id || `uc-${idx + 1}`,
+          name: uc.name || seed.name,
+          department: uc.department || seed.department,
+          businessProblem: uc.businessProblem || seed.businessProblem,
+          proposedSolution: uc.proposedSolution || seed.proposedSolution,
+          businessValueScore: typeof uc.businessValueScore === "number" ? uc.businessValueScore : seed.businessValueScore || 80,
+          implementationEffortScore: typeof uc.implementationEffortScore === "number" ? uc.implementationEffortScore : seed.implementationEffortScore || 40,
+          category: uc.category || seed.category || (uc.businessValueScore >= 65 && uc.implementationEffortScore <= 50 ? "Quick Win" : "Strategic Bet"),
+          estimatedRoiPercentage: typeof uc.estimatedRoiPercentage === "number" ? uc.estimatedRoiPercentage : seed.estimatedRoiPercentage || 280,
+          estimatedTimelineWeeks: typeof uc.estimatedTimelineWeeks === "number" ? uc.estimatedTimelineWeeks : seed.estimatedTimelineWeeks || 6,
+          techStack: Array.isArray(uc.techStack) ? uc.techStack : seed.techStack || ["LLM API", "Vector DB"],
+          expectedSavings: uc.expectedSavings || seed.expectedSavings || "₹25 Lakhs/year",
+          complexity: uc.complexity || seed.complexity || "Medium",
+          priority: idx + 1,
+          horizonWindow: uc.horizonWindow || seed.horizonWindow,
+          podRequirement: uc.podRequirement || seed.podRequirement,
+        };
+      });
+
+      // If AI customized a subset (e.g. 6-8), append the remaining high-impact seed cases to provide a full 20-use-case portfolio
+      if (customizedList.length < seedCases.length) {
+        const remainingSeeds = seedCases.slice(customizedList.length).map((s, extraIdx) => ({
+          ...s,
+          id: `uc-${customizedList.length + extraIdx + 1}`,
+          priority: customizedList.length + extraIdx + 1,
+        }));
+        return [...customizedList, ...remainingSeeds];
+      }
+
+      return customizedList;
     }
   } catch (err) {
     console.warn("[UseCaseEngine] AI customization failed, utilizing curated seeds fallback:", err);

@@ -52,6 +52,11 @@ export interface DepartmentScorecard {
   estimatedTimeline: string;
   painPoints: string[];
   topRecommendations: string[];
+  targetStakeholder?: string;
+  operationalFriction?: string;
+  targetOutcomes?: string;
+  hubAndSpokeModel?: string;
+  smeAsk?: string;
 }
 
 export interface UseCaseItem {
@@ -69,6 +74,8 @@ export interface UseCaseItem {
   expectedSavings: string;
   complexity: "Low" | "Medium" | "High";
   priority: number;
+  horizonWindow?: string;
+  podRequirement?: string;
   // Multi-criteria prioritization extensions
   strategicFitScore?: number; // 1-5
   easeOfImplementationScore?: number; // 1-5

@@ -257,70 +257,71 @@ export function buildTransformationRoadmap(
   strategicBets: UseCaseItem[],
   fillIns: UseCaseItem[]
 ): RoadmapPhase[] {
-  const phase1Projects = quickWins.slice(0, 3).map((u) => u.name);
-  const phase2Projects = [...quickWins.slice(3, 5), ...strategicBets.slice(0, 2)].map((u) => u.name);
-  const phase3Projects = [...strategicBets.slice(2, 4), ...fillIns.slice(0, 2)].map((u) => u.name);
-  const phase4Projects = [...strategicBets.slice(4), ...fillIns.slice(2, 4)].map((u) => u.name);
+  // Single-Pod Capacity Benchmark: Exactly 1 primary initiative active per pod per wave
+  const p1 = quickWins[0]?.name || "AI-Driven Automated QA Test Case Generation";
+  const p2 = quickWins[1]?.name || strategicBets[0]?.name || "Automated AI Code Review & SAST Pipeline";
+  const p3 = quickWins[2]?.name || strategicBets[1]?.name || "Intelligent Invoice OCR & Financial Reconciliation";
+  const p4 = strategicBets[2]?.name || "Enterprise Knowledge Graph & Cross-Repo Semantic Search";
 
   return [
     {
       phaseNumber: 1,
-      phaseName: "Phase 1: Foundation & Quick Wins",
+      phaseName: "Wave 1 (M 0-3): Foundation & Anchor Quick Win",
       durationMonths: 3,
-      focus: "Deploy immediate high-ROI automation and establish centralized AI proxy gateway & data hygiene.",
-      keyProjects: phase1Projects.length > 0 ? phase1Projects : ["Enterprise AI Knowledge Hub (RAG)", "Automated Document Extraction"],
+      focus: "Deploy single anchor high-ROI automation (1 Pod) and establish enterprise AI policy, zero-retention VPC gateway, and baseline data hygiene.",
+      keyProjects: [p1, "Enterprise AI Security Proxy & Acceptable Use Policy Setup"],
       expectedMilestones: [
-        "Complete enterprise data governance and PII redaction proxy setup",
-        "Deploy first 2 Quick Win use cases to production",
-        "Train core department champions (30 staff members)",
+        "Complete enterprise data governance and inline PII redaction proxy setup",
+        "Deploy single anchor Quick Win to production with verified golden dataset (>95% citation accuracy)",
+        "Conduct Track 1 Workforce Enablement: AI Foundations & The Future of Work (all-hands)",
       ],
-      estimatedCost: "₹25 - ₹35 Lakhs",
-      ownerRole: "Head of AI Engineering & Dept Sponsor",
+      estimatedCost: "₹18 - ₹25 Lakhs (Professional Services)",
+      ownerRole: "Head of AI Engineering & Primary Dept Sponsor",
       status: "In Progress",
     },
     {
       phaseNumber: 2,
-      phaseName: "Phase 2: Department Expansion",
+      phaseName: "Wave 2 (M 3-6): Dev Acceleration & Department Scaling",
       durationMonths: 3,
-      focus: "Scale AI agents across Customer Support, Sales, and Finance workflows with live ERP/CRM connectors.",
-      keyProjects: phase2Projects.length > 0 ? phase2Projects : ["Customer Support Agent Concierge", "Automated Invoice Reconciliation"],
+      focus: "Stabilize Wave 1 in production and execute second prioritized initiative (1 Pod). Concurrency requires independent parallel pod.",
+      keyProjects: [p2, "Wave 1 Canary Production Handover"],
       expectedMilestones: [
-        "Integrate real-time vector search with production CRM & ERP databases",
-        "Achieve 40% deflection in routine customer & internal support tickets",
-        "Implement automated LLMOps telemetry and hallucination monitoring",
+        "Achieve full production cutover for Wave 1 and measure 30-day baseline time-savings",
+        "Deploy Wave 2 initiative to staging sandbox and complete business user UAT",
+        "Execute Track 2 Workforce Enablement: Department Champions Sandbox Labs",
       ],
-      estimatedCost: "₹30 - ₹45 Lakhs",
+      estimatedCost: "₹22 - ₹32 Lakhs (Professional Services)",
       ownerRole: "VP of Product / Business Unit Leads",
       status: "Not Started",
     },
     {
       phaseNumber: 3,
-      phaseName: "Phase 3: Strategic Automation & Analytics",
-      durationMonths: 6,
-      focus: "Roll out multi-modal predictive pipelines, automated underwriting/forecasting, and cross-department agents.",
-      keyProjects: phase3Projects.length > 0 ? phase3Projects : ["Predictive Churn & Anomaly Engine", "Automated QA & Code Review Pipeline"],
+      phaseName: "Wave 3 (M 6-9): Operational Scale & Financial Automation",
+      durationMonths: 3,
+      focus: "Scale AI workflow into business operations (Finance/Operations) with live ERP/CRM read-only connectors.",
+      keyProjects: [p3, "Data Lakehouse ETL Ingestion Pipeline"],
       expectedMilestones: [
-        "Deploy fine-tuned domain models within private VPC infrastructure",
-        "Complete annual benefits realization audit against baseline metrics",
-        "Achieve full breakeven on initial transformation investment",
+        "Deploy real-time Change Data Capture (CDC) pipelines for core transaction tables",
+        "Complete UAT for operational automation with <60-second exception handling",
+        "Execute Track 3 Workforce Enablement: Leading AI-Augmented Teams (Management Seminar)",
       ],
-      estimatedCost: "₹35 - ₹50 Lakhs",
-      ownerRole: "CTO / Chief Transformation Officer",
+      estimatedCost: "₹28 - ₹38 Lakhs (Professional Services)",
+      ownerRole: "Chief Financial Officer / Corporate Controller",
       status: "Not Started",
     },
     {
       phaseNumber: 4,
-      phaseName: "Phase 4: Autonomous Operations & Center of Excellence (CoE)",
-      durationMonths: 12,
-      focus: "Self-sustaining AI Center of Excellence with automated continuous learning and enterprise-wide orchestration.",
-      keyProjects: phase4Projects.length > 0 ? phase4Projects : ["Autonomous Agent Orchestration Mesh", "Continuous Reinforcement Pipeline"],
+      phaseName: "Wave 4 (M 9-18): Strategic Bets & Autonomous Enterprise CoE",
+      durationMonths: 9,
+      focus: "Deploy complex multi-system knowledge graphs and establish client's self-sustaining AI Center of Excellence.",
+      keyProjects: [p4, "Self-Sustaining AI Center of Excellence (CoE) Operationalization"],
       expectedMilestones: [
-        "Internal AI CoE operating independently with self-serve model deployment",
-        "5-Year Cumulative ROI exceeding 250%+",
-        "Continuous compliance monitoring against DPDP Act and global AI standards",
+        "Deploy unified enterprise knowledge graph across all corporate repositories and wikis",
+        "Formalize internal AI CoE charter with departmental intake committee and weekly telemetry reviews",
+        "5-Year Cumulative ROI exceeding 280%+ across all active deployments",
       ],
-      estimatedCost: "₹40 - ₹60 Lakhs",
-      ownerRole: "Enterprise AI Steering Committee",
+      estimatedCost: "₹45 - ₹65 Lakhs (Professional Services)",
+      ownerRole: "Enterprise AI Steering Committee & CTO",
       status: "Not Started",
     },
   ];
