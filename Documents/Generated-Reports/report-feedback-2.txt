@@ -1,0 +1,104 @@
+Ah, you mean **"Pilot"** – understood. That changes the context entirely, and it actually makes my previous feedback **even more critical**.
+
+If the pilot **has not yet happened**, then Pages 32–34 are not a *post-execution* evaluation report; they are a **pre-execution governance contract**. This document is the "Rules of Engagement" that you and Novatech sign *before* a single line of code is written or a single invoice is processed.
+
+In this pre-pilot context, my verdict shifts from *"Great, but missing scalability"* to **"This is your single most important de-risking instrument – but it is currently too optimistic and missing the 'client-side obligations' that will make or break this pilot."**
+
+Here is my revised, pre-pilot-specific assessment and what you **must** add.
+
+---
+
+## The Core Issue with a Pre-Pilot Document
+
+Your current Pages 32–34 assume the pilot runs in a vacuum. They list *success thresholds* (≥95% accuracy) and *decision gates* (Gate 1–4). 
+
+But in reality, **80% of pilot failures are caused by the client, not the consultant.** 
+Novatech will:
+- Fail to provide the 100 historical invoices on time (IT says "security review takes 3 weeks").
+- Assign a junior SME instead of the Senior Sales Rep you requested.
+- Refuse to give read-only API access to GitHub PRs because "compliance hasn't approved it."
+
+**Your current document does not protect you from these delays.** It assumes the pilot starts immediately upon signing. That is a commercial trap.
+
+---
+
+## What You MUST Add (Pre-Pilot Edition)
+
+### Addition 1: "Client-Side Dependency & Data Readiness Checklist" (MANDATORY)
+
+Insert this **immediately before Gate 0 (Page 34)**. Make it a table that both parties sign.
+
+> *"The 4-6 week Pilot Sprint clock shall commence only upon Nisol AI's formal written confirmation that the following client-side dependencies have been fully satisfied:"*
+
+| Dependency | Deliverable | Responsible Party | Deadline (from Signing) |
+| :--- | :--- | :--- | :--- |
+| **Invoice Data** | 100 historical vendor invoices (PDF/JPEG) + corresponding ERP PO numbers in CSV | Finance Controller | 5 Business Days |
+| **RAG Golden Test Set** | 200 question-answer pairs verified by SMEs (e.g., "What is our VPN policy?" → "Link to page 42 of SOP.pdf") | Ops / Legal SMEs | 7 Business Days |
+| **API Access** | Read-only tokens for GitHub PR diffs (Engineering) + Jira read access (PMO) | CTO / IT Ops | 10 Business Days |
+| **SME Availability** | Confirmed calendar holds for the nominated SMEs (Page 7-8) for 2 hours/week | Department Heads | At Signing |
+| **Cloud Environment** | Novatech-provisioned VPC / Sandbox with GPU quota approved | CTO / Cloud Ops | 10 Business Days |
+
+**Why this is non-negotiable:** If Novatech delivers the invoices on Day 15 instead of Day 5, your pilot runs until Day 50. Your delivery pod is idle, burning cost, waiting for them. This clause **stops the clock** and protects your margin.
+
+---
+
+### Addition 2: "Pilot Scope Freeze" Clause
+
+Your current document doesn't explicitly say: *"We are testing exactly these 3 use cases, and nothing else."* 
+
+Department heads will inevitably say during Week 2: *"Oh, can you also make it summarize Slack threads?"* – Scope creep kills pilots.
+
+**Add this one-sentence paragraph:**
+
+> *"The Pilot Sprint shall evaluate strictly the Candidate Workstreams enumerated in the table on Page 33. Any additional capability requests, feature enhancements, or new departmental use cases proposed during the Pilot Sprint shall be formally logged for consideration in Wave 2+ scoping and shall not be executed within the current Pilot timeline without a mutually agreed Change Order."*
+
+---
+
+### Addition 3: "No-Blame Early Termination" Clause
+
+This is the **ultimate trust-builder** with the CFO.
+
+> *"At any point during the Pilot Sprint, if Novatech Systems Ltd. determines (in its sole discretion) that the AI capability is unlikely to meet the acceptance thresholds, Novatech may terminate the Pilot with 5 business days' written notice. Nisol AI shall invoice only for the Professional Services actually rendered up to the termination date, at the agreed daily rate. Novatech shall retain all intellectual property generated during the Pilot (including prompts, evaluation harnesses, and test scripts) at no additional cost."*
+
+**Why this is genius:** 
+- It removes the CFO's fear of a "runaway train."
+- It forces Nisol to deliver outstanding quality from Day 1.
+- It positions you as a partner, not a vendor.
+
+---
+
+## What to KEEP (But Re-label)
+
+- **The Gate Protocol (Page 34):** Keep it exactly as-is. But re-label it as **"Post-Pilot Production Go-Live Gates."** Make it clear: These gates are evaluated *after* the 4-6 week sprint, not during it.
+- **The Candidate Workstreams Table (Page 33):** Keep it. But add a column called *"Data Source Dependency"* (e.g., "Requires Finance SharePoint access").
+
+---
+
+## What to REMOVE or RE-PHRASE
+
+| Current Text | Issue | Recommended Fix |
+| :--- | :--- | :--- |
+| *"Standard Pilot Sprint: 4- to 6-Week Controlled Sandbox"* | Implies the clock starts when you sign. | Change to: *"Standard Pilot Sprint Duration: 4-6 weeks of active engineering effort, commencing upon fulfillment of all Client-Side Dependencies (see checklist below)."* |
+| *"Single-Pod / Single-Initiative Governance"* (Page 33) | Redundant with Page 16 & 23. | Delete it from this section entirely. It clutters the pilot focus. |
+
+---
+
+## The Final Pre-Pilot Section Structure (Revised)
+
+Here is how the updated Pages 32–34 should flow:
+
+1.  **Page 32:** Title & Executive Context (Keep as-is).
+2.  **Page 33:** Candidate Pilot Workstreams & Success Thresholds (Keep as-is, but add the "Data Dependency" column).
+3.  **NEW PAGE 33.5:** **Client-Side Dependency & Data Readiness Checklist** (The table I proposed above).
+4.  **Page 34:** Production Rollout Gate Protocol & Authorization (Keep as-is, but ensure it clearly states these gates are evaluated *post-pilot*).
+5.  **NEW PAGE 34.5:** **No-Blame Early Termination & Scope Freeze** (The two clauses I proposed above).
+
+---
+
+## The One-Liner for the Steering Committee (Pre-Pilot Context)
+
+When presenting this, look the COO and CTO directly in the eye and say:
+
+> *"We are fully confident in our ability to deliver. The only variable we cannot control is your internal data access and SME availability. This checklist is not a trap—it is a shared calendar. If we both deliver our side on time, we guarantee a conclusive pass/fail decision in exactly 6 weeks. If either of us slips, the clock pauses. No surprises. No blame."*
+
+That is how a tier-1 consulting firm protects its delivery reputation while holding the client accountable. Add these three additions, and this becomes the **most defensible, client-friendly pilot governance document** I have seen. Go finalize it.
