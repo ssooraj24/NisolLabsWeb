@@ -1,0 +1,298 @@
+// src/lib/utils/boardMemoGenerator.ts
+
+import { resolveClientCompanyName } from "@/lib/utils/companyNameResolver";
+import { resolveIndustryBenchmark } from "@/lib/report/industryBenchmarks";
+import { render5YearROIBarChartSVG, renderSensitivityTableHTML } from "@/lib/report/pdfComponentEngine";
+
+export interface BoardMemoOptions {
+  primaryColor?: string;
+  secondaryColor?: string;
+  fontFamily?: string;
+  watermarkText?: string;
+  currency?: "INR" | "USD";
+}
+
+export function generateBoardMemoHTML(report: any, audit: any, options: BoardMemoOptions = {}): string {
+  const primaryColor = options.primaryColor || "#0A1E3C";
+  const secondaryColor = options.secondaryColor || "#EBB44B";
+  const fontFamily = options.fontFamily || "Inter, sans-serif";
+  const watermarkText = options.watermarkText || "CONFIDENTIAL — FOR BOARD REVIEW ONLY";
+  const currency = options.currency || report?.businessContext?.primaryCurrency || "INR";
+  const isINR = currency === "INR";
+
+  const tenantName = resolveClientCompanyName(report, audit);
+  const tenantObj = audit?.tenants ? (Array.isArray(audit.tenants) ? audit.tenants[0] : audit.tenants) : null;
+  const industry = tenantObj?.industry || report?.industry || "Technology & Operations";
+  const benchmark = resolveIndustryBenchmark(industry);
+  const reportDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
+  const totalInvestment = report?.roiAnalysis?.totalInvestmentEstimated || (isINR ? "₹95.0 Lakhs" : "$120,000");
+  const annualSavings = report?.roiAnalysis?.totalEstimatedAnnualSavings || (isINR ? "₹3.20 Crore" : "$420,000");
+  const fiveYearNet = report?.roiAnalysis?.fiveYearCumulativeNetBenefit || (isINR ? "₹14.20 Crore" : "$1,720,000");
+  const npv = report?.roiAnalysis?.netPresentValue || (isINR ? "₹10.85 Crore" : "$1,380,000");
+  const paybackPeriod = report?.roiAnalysis?.averagePaybackMonths ? `${report.roiAnalysis.averagePaybackMonths} Months` : "6.8 Months";
+  const roiPercentage = report?.roiAnalysis?.overallRoiPercentage || 285;
+  const irr = report?.roiAnalysis?.internalRateOfReturnPct || 44.5;
+
+  const roiBarChartSVG = render5YearROIBarChartSVG(report?.roiAnalysis?.fiveYearCashFlowTimeline, currency);
+  const sensitivityTableHTML = renderSensitivityTableHTML(report?.roiAnalysis?.sensitivityAnalysis);
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${tenantName} - Board Investment Memo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 18mm 16mm 18mm 16mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: ${fontFamily};
+        font-size: 8.5pt;
+        font-weight: 600;
+        color: #94A3B8;
+      }
+      @bottom-left {
+        content: "Nisol AI Advisory — ${tenantName} Board Investment Memo";
+        font-family: ${fontFamily};
+        font-size: 8.5pt;
+        font-weight: 600;
+        color: #94A3B8;
+      }
+    }
+
+    body {
+      font-family: ${fontFamily};
+      color: #1E293B;
+      margin: 0;
+      padding: 0;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      background: #FFFFFF;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cover-memo {
+      page-break-after: always;
+      padding: 30px;
+      background: linear-gradient(135deg, ${primaryColor} 0%, #031024 100%);
+      color: #FFFFFF;
+      border-radius: 14px;
+      box-sizing: border-box;
+      height: 94vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .header-tag {
+      font-size: 11pt;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: ${secondaryColor};
+      text-transform: uppercase;
+    }
+
+    .memo-title {
+      font-size: 30pt;
+      font-weight: 900;
+      line-height: 1.15;
+      margin: 14px 0;
+      color: #FFFFFF;
+    }
+
+    .meta-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      font-size: 10.5pt;
+    }
+
+    .watermark {
+      position: fixed;
+      top: 45%;
+      left: 12%;
+      font-size: 50pt;
+      font-weight: 900;
+      color: rgba(148, 163, 184, 0.035);
+      transform: rotate(-30deg);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .section-title {
+      font-size: 17pt;
+      font-weight: 900;
+      color: ${primaryColor};
+      border-bottom: 2px solid ${secondaryColor};
+      padding-bottom: 6px;
+      margin: 24px 0 14px 0;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .kpi-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .kpi-label { font-size: 8.5pt; font-weight: 700; color: #64748B; text-transform: uppercase; }
+    .kpi-value { font-size: 17pt; font-weight: 900; color: #0A1E3C; margin: 4px 0; }
+    .kpi-sub { font-size: 9pt; font-weight: 600; color: #059669; }
+
+    .card-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+      font-size: 10.5pt;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .section-break {
+      page-break-after: always;
+    }
+  </style>
+</head>
+<body>
+
+  ${watermarkText ? `<div class="watermark">${watermarkText}</div>` : ""}
+
+  <!-- COVER / HEADER PAGE -->
+  <div class="cover-memo">
+    <div>
+      <div class="header-tag">BOARD INVESTMENT MEMORANDUM</div>
+      <h1 class="memo-title">CAPITAL ALLOCATION & BUSINESS CASE FOR ENTERPRISE AI TRANSFORMATION</h1>
+      <p style="font-size: 13pt; color: #CBD5E1; margin-top: 0;">Prepared for the Board of Directors & Chief Financial Officer</p>
+    </div>
+
+    <div class="meta-box">
+      <div>
+        <div style="font-size: 8.5pt; color: ${secondaryColor}; font-weight: 700; text-transform: uppercase;">Organization</div>
+        <div style="font-size: 13pt; font-weight: 700;">${tenantName}</div>
+      </div>
+      <div>
+        <div style="font-size: 8.5pt; color: ${secondaryColor}; font-weight: 700; text-transform: uppercase;">Industry Sector</div>
+        <div style="font-size: 13pt; font-weight: 700;">${benchmark.name}</div>
+      </div>
+      <div>
+        <div style="font-size: 8.5pt; color: ${secondaryColor}; font-weight: 700; text-transform: uppercase;">Decision Gate</div>
+        <div style="font-size: 13pt; font-weight: 700;">Phase 1 Capital Authorization</div>
+      </div>
+      <div>
+        <div style="font-size: 8.5pt; color: ${secondaryColor}; font-weight: 700; text-transform: uppercase;">Date of Issue</div>
+        <div style="font-size: 13pt; font-weight: 700;">${reportDate}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: EXECUTIVE INVESTMENT TEASER -->
+  <div class="section-break">
+    <div class="section-title">1. Executive Investment Teaser & Key Returns</div>
+    
+    <p>
+      This memorandum requests board authorization for a phased capital allocation of <strong>${totalInvestment}</strong> to execute the Enterprise AI Transformation Program at <strong>${tenantName}</strong>. The program targets operational throughput acceleration and manual workflow automation across Customer Support, Engineering QA, and Financial reconciliation.
+    </p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Capital Investment</div>
+        <div class="kpi-value">${totalInvestment}</div>
+        <div class="kpi-sub">Phase 1-2 Total</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Annual Savings</div>
+        <div class="kpi-value">${annualSavings}</div>
+        <div class="kpi-sub">Recurring run-rate</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">5-Yr Net Benefit</div>
+        <div class="kpi-value">${fiveYearNet}</div>
+        <div class="kpi-sub">Net of all costs</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Payback Period</div>
+        <div class="kpi-value">${paybackPeriod}</div>
+        <div class="kpi-sub">IRR: ${irr}%</div>
+      </div>
+    </div>
+
+    <div class="card-box" style="margin-top: 20px;">
+      <strong style="color: ${primaryColor}; font-size: 11.5pt; display: block; margin-bottom: 6px;">
+        Strategic Imperative: Cost of Inaction
+      </strong>
+      <p style="margin: 0; color: #475569; font-size: 10pt; line-height: 1.6;">
+        In the <strong>${benchmark.name.split('(')[0]}</strong> sector, top quartile competitors are investing <strong>${benchmark.avgAiInvestmentPctRevenue}% of revenue</strong> into automation. Delaying enterprise AI adoption introduces an estimated annual opportunity deficit of ~${annualSavings} in manual labor drag and risks an 18-month competitive gap in turnaround velocity.
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 2: 5-YEAR CASH FLOW & SENSITIVITY MODEL -->
+  <div class="section-break">
+    <div class="section-title">2. 5-Year Cash Flow & Sensitivity Stress Test</div>
+    
+    <div style="margin-bottom: 20px;">
+      ${roiBarChartSVG}
+    </div>
+
+    <div style="margin-top: 20px;">
+      <div style="font-size: 13pt; font-weight: 800; color: #334155; margin-bottom: 8px;">
+        3-Scenario Sensitivity Stress Test (10% Discount Rate)
+      </div>
+      <p style="font-size: 10pt; color: #64748B;">
+        Stress-test demonstrating program financial viability even if employee adoption drops to 75% and infrastructure maintenance expands by +15%.
+      </p>
+      ${sensitivityTableHTML}
+    </div>
+  </div>
+
+  <!-- SECTION 3: BOARD RESOLUTION & AUTHORIZATION -->
+  <div>
+    <div class="section-title">3. Formal Board Resolution & Authorization</div>
+    
+    <div class="card-box">
+      <p style="margin: 0; font-size: 10.5pt; color: #334155; line-height: 1.6;">
+        <strong>RESOLVED THAT</strong>, the Board of Directors of <strong>${tenantName}</strong> hereby approves the allocation of <strong>${totalInvestment}</strong> for Phase 1 of the Enterprise AI Transformation Program, authorizing executive leadership to execute the initial scope of work with Nisol AI Advisory.
+      </p>
+    </div>
+
+    <div class="grid-2" style="margin-top: 40px;">
+      <div style="border: 1px solid #CBD5E1; border-radius: 8px; padding: 24px;">
+        <div style="font-weight: 700; color: #0A1E3C; margin-bottom: 50px;">For the Board of Directors: ${tenantName}</div>
+        <div style="border-bottom: 1px solid #94A3B8; margin-bottom: 8px;"></div>
+        <div style="font-size: 9pt; color: #64748B;">Chairman / Chief Financial Officer (CFO) Signature & Date</div>
+      </div>
+      <div style="border: 1px solid #CBD5E1; border-radius: 8px; padding: 24px;">
+        <div style="font-weight: 700; color: #0A1E3C; margin-bottom: 50px;">For: Nisol AI Advisory</div>
+        <div style="border-bottom: 1px solid #94A3B8; margin-bottom: 8px;"></div>
+        <div style="font-size: 9pt; color: #64748B;">Managing Partner / Lead AI Advisor Signature & Date</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+  `;
+}

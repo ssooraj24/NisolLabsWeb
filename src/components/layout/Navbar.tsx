@@ -17,7 +17,8 @@ import {
   Factory,
   Building2,
   Activity,
-  Briefcase
+  Briefcase,
+  LogIn
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -347,8 +348,15 @@ export function Navbar() {
 
           </nav>
 
-          {/* Action CTA: Single Primary CTA Button */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Action CTAs: Log In (Secondary) & Book Discovery Call (Primary CTA) */}
+          <div className="hidden sm:flex items-center gap-2.5">
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-navy-900/80 hover:bg-navy-800 border border-navy-700/80 hover:border-golden-500/50 rounded-lg transition-all shadow-sm active:scale-[0.98]"
+            >
+              <LogIn className="w-3.5 h-3.5 text-golden-400" />
+              <span>Log In</span>
+            </Link>
             <Button href="/contact?type=discovery-call" variant="primary" size="sm" icon={<ArrowRight className="w-3.5 h-3.5" />}>
               Book Discovery Call
             </Button>
@@ -505,7 +513,15 @@ export function Navbar() {
               )}
             </div>
 
-            <div className="pt-4 border-t border-navy-800">
+            <div className="pt-4 border-t border-navy-800 flex flex-col gap-2.5">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 px-4 rounded-lg bg-navy-900 border border-navy-700/80 text-center text-sm font-semibold text-slate-200 hover:text-white flex items-center justify-center gap-2 transition-colors"
+              >
+                <LogIn className="w-4 h-4 text-golden-400" />
+                <span>Log In</span>
+              </Link>
               <Button href="/contact?type=discovery-call" variant="primary" size="md" className="w-full justify-center">
                 Book Discovery Call
               </Button>

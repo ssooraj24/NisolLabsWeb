@@ -32,6 +32,7 @@ export type RevenueRangeOption =
 
 export type TenantStatus = 'prospect' | 'active' | 'inactive' | 'lost' | 'past';
 export type TenantType = 'client' | 'prospect' | 'partner' | 'internal';
+export type PricingPlan = 'foundation' | 'growth' | 'enterprise' | 'custom';
 
 export type Tenant = {
   id: string;
@@ -43,6 +44,7 @@ export type Tenant = {
   employee_count: number | null;
   company_size: CompanySize | null;
   revenue_range: RevenueRangeOption | string | null;
+  pricing_plan?: PricingPlan | null;
   country: string | null;
   state: string | null;
   city: string | null;

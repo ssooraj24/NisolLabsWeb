@@ -56,45 +56,45 @@ export default function HomePage() {
   const processSteps = [
     {
       step: 1,
-      title: "Discovery Workshop",
-      subtitle: "Executive Diagnostic",
-      description: "A structured 62-question diagnostic workshop evaluating 15 business capabilities and 8 readiness dimensions.",
-      deliverable: "Capability Stance & Gap Audit"
+      title: "Discovery Diagnostic",
+      subtitle: "Benchmark & Capability Audit",
+      description: "A structured 62-question diagnostic benchmarking your organization against 8 industry sectors and 15 business capabilities.",
+      deliverable: "Industry Benchmark & Capability Audit"
     },
     {
       step: 2,
-      title: "Capability Assessment",
-      subtitle: "Infrastructure & Data Stance",
-      description: "In-depth audit of data availability, security requirements (PII/RBAC), and technical architecture maturity.",
-      deliverable: "Data Readiness & Security Scorecard"
+      title: "Data Strategy & Readiness",
+      subtitle: "5-Dimension Hygiene & Vector Blueprint",
+      description: "In-depth audit of data quality (Completeness, Accuracy, Timeliness), pgvector/Qdrant lakehouses, and CDC pipeline readiness.",
+      deliverable: "Data Strategy & Vector Lakehouse Blueprint"
     },
     {
       step: 3,
-      title: "Opportunity Mapping",
-      subtitle: "Use Case Cataloging",
-      description: "Cataloging and prioritizing top 20 GenAI use cases into Quick Wins vs. Strategic Long-Term Bets.",
-      deliverable: "Prioritized Opportunity Matrix"
+      title: "Opportunity Prioritization",
+      subtitle: "2D Interactive Bubble Matrix",
+      description: "Cataloging and prioritizing top 20 use cases by Value vs. Feasibility, scaled by projected ROI % in an interactive 2D Bubble Matrix.",
+      deliverable: "2D Opportunity Bubble Matrix & Scorecard"
     },
     {
       step: 4,
-      title: "ROI & Payback Analysis",
-      subtitle: "Financial Case",
-      description: "Rigorous modeling of expected labor efficiency, token cost optimization, and net payback timelines.",
-      deliverable: "Executive Financial Business Case"
+      title: "Financial Modeling & Sensitivity",
+      subtitle: "CFO & Board Investment Memo",
+      description: "Deterministic financial modeling with NPV, IRR (44.5%), and 3-scenario sensitivity stress-tests (75%–125% adoption).",
+      deliverable: "CFO & Board Investment Memorandum"
     },
     {
       step: 5,
-      title: "Transformation Roadmap",
-      subtitle: "Board Blueprint",
-      description: "Creating a board-ready execution blueprint, vendor-neutral architecture specs, and governance policy.",
-      deliverable: "15 Executive Deliverable Reports"
+      title: "Governance, OCM & PoC Evaluation",
+      subtitle: "Risk Register & Change Framework",
+      description: "5x5 Risk Register (DPDP Act 2023/EU AI Act), stakeholder RACI change management, and empirical pilot Go/No-Go decision gates.",
+      deliverable: "Risk Dossier & PoC Evaluation Gate"
     },
     {
       step: 6,
       title: "Scaled Implementation",
-      subtitle: "Production Build",
-      description: "Transitioning from roadmap to rapid production build with continuous LLMOps telemetry and safety guardrails.",
-      deliverable: "Production-Grade AI Systems"
+      subtitle: "Production Agent Architecture",
+      description: "Deploying multi-agent clusters, PII redaction API proxies, and continuous LLMOps evaluation telemetry.",
+      deliverable: "Production-Grade Multi-Agent Systems"
     }
   ];
 

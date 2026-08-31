@@ -53,8 +53,8 @@ export const DISCOVERY_MENU: NavSection = {
     },
     { 
       name: "Engagement Pricing", 
-      href: "/discovery#pricing", 
-      badge: "FIXED-PRICE",
+      href: "/pricing", 
+      badge: "FIXED-PRICE", 
       description: "Transparent, scope-based fixed pricing for Foundation, Growth, & Enterprise.",
       icon: Tag 
     },

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { IndustrySector, Tenant, TenantStatus, TenantType } from "@/types/database";
+import { IndustrySector, Tenant, TenantStatus, TenantType, PricingPlan } from "@/types/database";
+import { normalizePricingPlan } from "@/lib/report/reportPortfolioTypes";
 
 const STATUS_BADGES: Record<TenantStatus, { bg: string; text: string }> = {
   active: { bg: "bg-emerald-100", text: "text-emerald-800" },
@@ -16,6 +17,13 @@ const TYPE_BADGES: Record<TenantType, { bg: string; text: string }> = {
   prospect: { bg: "bg-sky-100", text: "text-sky-800" },
   partner: { bg: "bg-indigo-100", text: "text-indigo-800" },
   internal: { bg: "bg-slate-100", text: "text-slate-700" },
+};
+
+const PLAN_BADGES: Record<PricingPlan, { bg: string; text: string; label: string }> = {
+  foundation: { bg: "bg-slate-100 border border-slate-200", text: "text-slate-700", label: "Foundation" },
+  growth: { bg: "bg-amber-50 border border-amber-300", text: "text-amber-800", label: "Growth" },
+  enterprise: { bg: "bg-purple-50 border border-purple-300", text: "text-purple-800", label: "Enterprise" },
+  custom: { bg: "bg-blue-50 border border-blue-300", text: "text-blue-800", label: "Custom" },
 };
 
 const INDUSTRY_SECTORS: IndustrySector[] = [
@@ -53,11 +61,13 @@ export default function TenantList({
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sectorFilter, setSectorFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
+  const [planFilter, setPlanFilter] = useState<string>("all");
 
   const filteredTenants = tenants.filter((t) => {
     if (statusFilter !== "all" && t.status !== statusFilter) return false;
     if (sectorFilter !== "all" && t.industry_sector !== sectorFilter) return false;
     if (typeFilter !== "all" && t.tenant_type !== typeFilter) return false;
+    if (planFilter !== "all" && normalizePricingPlan(t.pricing_plan) !== planFilter) return false;
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
@@ -136,6 +146,19 @@ export default function TenantList({
             <option value="partner">Partner</option>
             <option value="internal">Internal</option>
           </select>
+
+          {/* Subscribed Plan Filter */}
+          <select
+            value={planFilter}
+            onChange={(e) => setPlanFilter(e.target.value)}
+            className="border rounded-xl px-3 py-2 bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-[#0A1E3C]"
+          >
+            <option value="all">All Plans</option>
+            <option value="foundation">Foundation</option>
+            <option value="growth">Growth</option>
+            <option value="enterprise">Enterprise</option>
+            <option value="custom">Custom</option>
+          </select>
         </div>
 
         <div className="text-xs text-slate-500 font-medium shrink-0">
@@ -166,6 +189,8 @@ export default function TenantList({
           {filteredTenants.map((tenant) => {
             const statusBadge = STATUS_BADGES[tenant.status] || STATUS_BADGES.active;
             const typeBadge = TYPE_BADGES[tenant.tenant_type] || TYPE_BADGES.client;
+            const normPlan = normalizePricingPlan(tenant.pricing_plan);
+            const planBadge = PLAN_BADGES[normPlan];
 
             return (
               <div
@@ -187,17 +212,26 @@ export default function TenantList({
                         </a>
                       )}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${statusBadge.bg} ${statusBadge.text}`}>
-                        {tenant.status || "active"}
-                      </span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${typeBadge.bg} ${typeBadge.text}`}>
-                        {tenant.tenant_type || "client"}
+                    <div className="flex flex-col items-end gap-1">
+                      <div className="flex items-center gap-1">
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${statusBadge.bg} ${statusBadge.text}`}>
+                          {tenant.status || "active"}
+                        </span>
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${typeBadge.bg} ${typeBadge.text}`}>
+                          {tenant.tenant_type || "client"}
+                        </span>
+                      </div>
+                      <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold uppercase ${planBadge.bg} ${planBadge.text}`}>
+                        ★ {planBadge.label}
                       </span>
                     </div>
                   </div>
 
                   <div className="space-y-1.5 mb-4 border-t pt-3 text-xs">
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span className="text-slate-400 font-medium">Subscribed Plan:</span>
+                      <span className="font-bold text-slate-900 capitalize">{normPlan}</span>
+                    </div>
                     <div className="flex items-center justify-between text-slate-600">
                       <span className="text-slate-400 font-medium">Sector:</span>
                       <span className="font-semibold text-slate-800">{tenant.industry_sector || tenant.industry || "N/A"}</span>

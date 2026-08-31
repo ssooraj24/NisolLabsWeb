@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { IndustrySector, RevenueRangeOption, TenantStatus, TenantType } from "@/types/database";
+import { IndustrySector, RevenueRangeOption, TenantStatus, TenantType, PricingPlan } from "@/types/database";
 import { createTenant } from "@/lib/supabase/queries/tenants";
 
 const INDUSTRY_SECTORS: IndustrySector[] = [
@@ -45,6 +45,13 @@ const TENANT_TYPE_OPTIONS: { label: string; value: TenantType }[] = [
   { label: "Internal", value: "internal" },
 ];
 
+export const PRICING_PLAN_OPTIONS: { label: string; value: PricingPlan; badge: string; desc: string }[] = [
+  { label: "Foundation Diagnostic (₹4.5L)", value: "foundation", badge: "Starter", desc: "Core 360° AI diagnostic strategy" },
+  { label: "Growth Transformation (₹7.5L)", value: "growth", badge: "Most Popular", desc: "Board memo, data blueprint & financial ROI" },
+  { label: "Enterprise Scale (Custom)", value: "enterprise", badge: "Enterprise", desc: "Full multi-entity portfolio with PoC evaluation" },
+  { label: "Custom Scope", value: "custom", badge: "Custom", desc: "Custom tailored enterprise engagement" },
+];
+
 interface CreateTenantFormProps {
   isOpen: boolean;
   onClose: () => void;
@@ -65,6 +72,7 @@ export default function CreateTenantForm({
     name: "",
     website: "",
     tenant_type: "client" as TenantType,
+    pricing_plan: "foundation" as PricingPlan,
     industry_sector: "" as IndustrySector | "",
     sub_industry: "",
     industry: "",
@@ -95,6 +103,7 @@ export default function CreateTenantForm({
           name: formData.name.trim(),
           website: formData.website.trim() || null,
           tenant_type: formData.tenant_type,
+          pricing_plan: formData.pricing_plan,
           industry_sector: (formData.industry_sector as IndustrySector) || null,
           sub_industry: formData.sub_industry.trim() || null,
           industry: formData.industry.trim() || formData.industry_sector || null,
@@ -188,6 +197,25 @@ export default function CreateTenantForm({
                 {TENANT_TYPE_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Subscribed Plan */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>Subscribed Plan *</span>
+                <span className="text-[10px] font-bold text-blue-600 lowercase font-mono">determines reports</span>
+              </label>
+              <select
+                value={formData.pricing_plan}
+                onChange={(e) => setFormData({ ...formData, pricing_plan: e.target.value as PricingPlan })}
+                className="w-full text-sm border rounded-xl p-2.5 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#0A1E3C]"
+              >
+                {PRICING_PLAN_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label} — {opt.desc}
                   </option>
                 ))}
               </select>

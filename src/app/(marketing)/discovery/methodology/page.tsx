@@ -176,35 +176,33 @@ const PHASES = [
 
 const DELIVERABLES = [
   {
-    title: "Executive Intelligence Pack",
-    desc: "High-level diagnostic reports designed to give corporate boards and executive leadership ultimate clarity.",
+    title: "Executive & Board Strategy Pack",
+    desc: "CFO and Boardroom-ready investment memoranda and executive roadmaps designed for capital release and steering committee alignment.",
     items: [
-      "Executive Summary",
-      "AI Readiness Assessment",
-      "Executive Dashboard",
-      "AI Scorecard"
+      "CFO & Board Investment Memorandum (10 Pages, NPV & IRR)",
+      "Flagship AI Readiness & Benchmark Assessment (30+ Pages)",
+      "2D Opportunity Bubble Matrix & Scorecard",
+      "Executive Minto Pyramid Presentation Briefing"
     ]
   },
   {
-    title: "AI Opportunity Pack",
-    desc: "Actionable prioritization mapping to filter noise and target high-yield automation avenues.",
+    title: "Data Strategy & Architecture Blueprint Pack",
+    desc: "Deep-dive technical blueprints, vector lakehouse topologies, and data hygiene scorecards for CTOs and engineering teams.",
     items: [
-      "Opportunity Matrix",
-      "Top 20 AI Use Cases",
-      "Quick Wins vs. Strategic Bets",
-      "Implementation Prioritization"
+      "Data Strategy & Vector Lakehouse Blueprint (12 Pages)",
+      "5-Dimension Data Quality Scorecard (Completeness, Accuracy, etc.)",
+      "Real-Time Change Data Capture (CDC) Streaming Spec",
+      "Zero-Trust PII Redaction Proxy Architecture"
     ]
   },
   {
-    title: "Transformation Pack",
-    desc: "Rigorous technical blueprints, change management strategy, and cost projections for direct execution.",
+    title: "Governance, OCM & Pilot Evaluation Pack",
+    desc: "Organizational change management frameworks, empirical pilot evaluations, and regulatory compliance registers.",
     items: [
-      "AI Transformation Roadmap",
-      "ROI Analysis & Business Case",
-      "Solution Blueprints",
-      "Change Management Plan",
-      "Risk Assessment Matrix",
-      "Success Metrics Framework"
+      "PoC Evaluation & Scalability Decision Dossier (8 Pages)",
+      "5x5 Likelihood x Impact Risk Register (DPDP Act / EU AI Act)",
+      "Organizational Change Management (OCM) & RACI Matrix",
+      "Role-Based AI Upskilling Curricula (Staff, Champions, Engineers)"
     ]
   }
 ];

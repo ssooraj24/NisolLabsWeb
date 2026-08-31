@@ -32,7 +32,7 @@ export async function generateFullReport(auditId: string, userId?: string) {
       status,
       tenant_id,
       raw_responses,
-      tenants:tenant_id (name, industry),
+      tenants:tenant_id (name, industry, pricing_plan),
       profiles:conducted_by (full_name)
     `)
     .eq("id", auditId)
@@ -59,14 +59,16 @@ export async function generateFullReport(auditId: string, userId?: string) {
   const companyName = resolveClientCompanyName(null, audit);
   const tenantObj = Array.isArray(audit.tenants) ? audit.tenants[0] : audit.tenants;
   const industry = tenantObj?.industry || rawResponses.industry || "Technology & Operations";
+  const planTier = tenantObj?.pricing_plan || "foundation";
 
-  // 3. Compose Full Modular Report Object using Report Composer Pipeline
+  // 3. Compose Full Modular Report Object using Report Composer Pipeline as per Plan Tier
   const reportObj = await composeFullReport(
     auditId,
     companyName,
     industry,
     questions,
-    rawResponses
+    rawResponses,
+    planTier
   );
 
   // 4. Encrypt full report object as report_payload
@@ -79,6 +81,7 @@ export async function generateFullReport(auditId: string, userId?: string) {
       audit_id: auditId,
       version: 1,
       status: "draft",
+      plan_tier: planTier,
       report_payload: encryptedReportPayload,
       executive_summary: reportObj.executiveSummary,
       ai_readiness_assessment: reportObj.aiReadinessAssessment,

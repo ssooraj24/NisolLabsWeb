@@ -1,12 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { generateReportHTML } from "@/lib/utils/pdfGenerator";
+import { generateBoardMemoHTML } from "@/lib/utils/boardMemoGenerator";
+import { generateDataStrategyHTML } from "@/lib/utils/dataStrategyGenerator";
+import { generatePocEvaluationHTML } from "@/lib/utils/pocEvaluationGenerator";
 import { resolveClientCompanyName } from "@/lib/utils/companyNameResolver";
+import { decryptPayload } from "@/lib/security/encryption";
+import {
+  isDeliverableAllowedForPlan,
+  normalizePricingPlan,
+  PLAN_CONFIG,
+  DeliverableType,
+} from "@/lib/report/reportPortfolioTypes";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { reportId, sections, templateId, watermarkText, includeTOC, currency, companyName: bodyCompanyName, auditTitle: bodyAuditTitle } = body;
+    const {
+      reportId,
+      deliverableType,
+      sections,
+      templateId,
+      watermarkText,
+      includeTOC,
+      currency,
+      companyName: bodyCompanyName,
+      auditTitle: bodyAuditTitle,
+    } = body;
 
     if (!reportId) {
       return NextResponse.json(
@@ -40,11 +60,23 @@ export async function POST(req: NextRequest) {
       report = reportByAudit;
     }
 
+    // Decrypt full report payload if present and merge
+    if (report?.report_payload) {
+      try {
+        const decrypted = decryptPayload(report.report_payload);
+        if (decrypted && typeof decrypted === "object") {
+          report = { ...decrypted, ...report, report_payload: decrypted };
+        }
+      } catch (e) {
+        console.warn("[API /export-pdf] Could not decrypt report payload:", e);
+      }
+    }
+
     // 3. Fetch audit metadata using report.audit_id or reportId
     const targetAuditId = report?.audit_id || reportId;
     const { data: audit } = await supabase
       .from("audits")
-      .select("id, title, status, raw_responses, tenant_id, tenants:tenant_id (name, industry)")
+      .select("id, title, status, raw_responses, tenant_id, tenants:tenant_id (name, industry, pricing_plan)")
       .eq("id", targetAuditId)
       .maybeSingle();
 
@@ -52,13 +84,33 @@ export async function POST(req: NextRequest) {
     if (audit && audit.tenant_id && !audit.tenants) {
       const { data: tenantData } = await supabase
         .from("tenants")
-        .select("name, industry")
+        .select("name, industry, pricing_plan")
         .eq("id", audit.tenant_id)
         .maybeSingle();
 
       if (tenantData) {
         (audit as any).tenants = tenantData;
       }
+    }
+
+    // GATING CHECK: Verify requested deliverable against subscribed plan
+    const tenantObj = audit?.tenants
+      ? Array.isArray(audit.tenants)
+        ? audit.tenants[0]
+        : (audit.tenants as any)
+      : null;
+    const planTier = report?.plan_tier || tenantObj?.pricing_plan || "foundation";
+    const reqDeliverable: DeliverableType = deliverableType || "ai_readiness_transformation";
+
+    if (!isDeliverableAllowedForPlan(reqDeliverable, planTier)) {
+      const planInfo = PLAN_CONFIG[normalizePricingPlan(planTier)];
+      return NextResponse.json(
+        {
+          success: false,
+          error: `The requested deliverable ('${reqDeliverable}') is not included in the client's ${planInfo.name} subscription plan. Please upgrade your subscription tier to access this report.`,
+        },
+        { status: 403 }
+      );
     }
 
     // 4. Resolve client company name using multi-tier resolver
@@ -102,13 +154,32 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const htmlContent = generateReportHTML(report, audit, {
+    const exportOptions = {
       sections,
       ...stylingOptions,
       includeTOC: includeTOC !== false,
       watermarkText: watermarkText || "CONFIDENTIAL",
       currency: currency || "INR",
-    });
+    };
+
+    let htmlContent = "";
+
+    // Route to specialized generator based on deliverableType
+    switch (deliverableType) {
+      case "board_investment_memo":
+        htmlContent = generateBoardMemoHTML(report, audit, exportOptions);
+        break;
+      case "data_strategy_blueprint":
+        htmlContent = generateDataStrategyHTML(report, audit, exportOptions);
+        break;
+      case "poc_evaluation_report":
+        htmlContent = generatePocEvaluationHTML(report, audit, exportOptions);
+        break;
+      case "ai_readiness_transformation":
+      default:
+        htmlContent = generateReportHTML(report, audit, exportOptions);
+        break;
+    }
 
     return new NextResponse(htmlContent, {
       status: 200,
@@ -124,4 +195,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

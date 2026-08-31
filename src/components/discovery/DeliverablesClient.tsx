@@ -117,9 +117,13 @@ const BEFORE_AFTER = [
 
 // Interactive previews
 const PREVIEWS = [
-  { id: "exec-summary", label: "Executive Summary Page" },
-  { id: "radar-chart", label: "Maturity Radar" },
-  { id: "roadmap", label: "Roadmap Phases" }
+  { id: "board-memo", label: "CFO Board Investment Memo" },
+  { id: "bubble-matrix", label: "2D Opportunity Bubble Matrix" },
+  { id: "exec-summary", label: "Minto Executive Briefing" },
+  { id: "radar-chart", label: "Maturity & Benchmark Radar" },
+  { id: "data-blueprint", label: "Data & Vector Lakehouse Blueprint" },
+  { id: "risk-register", label: "5x5 Risk & Regulatory Register" },
+  { id: "roadmap", label: "Roadmap & OCM Phases" }
 ];
 
 export default function DeliverablesClient() {
@@ -345,6 +349,183 @@ export default function DeliverablesClient() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-golden-500/5 rounded-full blur-3xl pointer-events-none" />
 
             <AnimatePresence mode="wait">
+              {activePreview === "board-memo" && (
+                <motion.div
+                  key="board-memo"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.25 }}
+                  className="space-y-6 text-left"
+                >
+                  <div className="flex items-center justify-between border-b border-navy-800 pb-4">
+                    <div>
+                      <h4 className="text-sm font-mono font-bold text-golden-400">CFO & BOARD MEMO</h4>
+                      <h3 className="text-lg font-black text-white">Financial Business Case & Capital Phasing</h3>
+                    </div>
+                    <Badge variant="outline" className="border-golden-500/40 text-golden-300">Board Authorization</Badge>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="p-3 bg-navy-950 rounded-xl border border-navy-800">
+                      <span className="text-[10px] text-navy-400 font-bold uppercase block">Capital Outlay</span>
+                      <span className="text-base font-black text-golden-400">₹95.0 Lakhs</span>
+                      <span className="text-[9px] text-slate-400 block mt-0.5">Phase 1-2 Total</span>
+                    </div>
+                    <div className="p-3 bg-navy-950 rounded-xl border border-navy-800">
+                      <span className="text-[10px] text-navy-400 font-bold uppercase block">Annual Savings</span>
+                      <span className="text-base font-black text-emerald-400">₹3.20 Cr</span>
+                      <span className="text-[9px] text-slate-400 block mt-0.5">Recurring run-rate</span>
+                    </div>
+                    <div className="p-3 bg-navy-950 rounded-xl border border-navy-800">
+                      <span className="text-[10px] text-navy-400 font-bold uppercase block">5-Yr Net Benefit</span>
+                      <span className="text-base font-black text-blue-400">₹14.20 Cr</span>
+                      <span className="text-[9px] text-slate-400 block mt-0.5">NPV @ 10% rate</span>
+                    </div>
+                    <div className="p-3 bg-navy-950 rounded-xl border border-navy-800">
+                      <span className="text-[10px] text-navy-400 font-bold uppercase block">Payback Period</span>
+                      <span className="text-base font-black text-golden-300">6.8 Months</span>
+                      <span className="text-[9px] text-emerald-400 block mt-0.5">IRR: 44.5%</span>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 bg-navy-950/80 rounded-xl border border-navy-800 text-xs text-navy-200 space-y-2">
+                    <div className="font-bold text-white flex items-center justify-between">
+                      <span>3-Scenario Sensitivity Stress Test:</span>
+                      <span className="text-[10px] text-golden-400 font-mono">10% Discount Rate</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-[11px] font-mono">
+                      <div className="p-2 bg-navy-900 rounded border border-navy-800">
+                        <div className="text-slate-400">Conservative (-25%)</div>
+                        <div className="text-emerald-400 font-bold">NPV: ₹7.80 Cr</div>
+                      </div>
+                      <div className="p-2 bg-navy-900 rounded border border-golden-500/30">
+                        <div className="text-golden-400 font-bold">Base Case (100%)</div>
+                        <div className="text-emerald-400 font-bold">NPV: ₹10.85 Cr</div>
+                      </div>
+                      <div className="p-2 bg-navy-900 rounded border border-navy-800">
+                        <div className="text-slate-400">Optimistic (+25%)</div>
+                        <div className="text-emerald-400 font-bold">NPV: ₹13.90 Cr</div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activePreview === "bubble-matrix" && (
+                <motion.div
+                  key="bubble-matrix"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.25 }}
+                  className="space-y-6 text-left"
+                >
+                  <div className="flex items-center justify-between border-b border-navy-800 pb-4">
+                    <div>
+                      <h4 className="text-sm font-mono font-bold text-golden-400">PORTFOLIO OPTIMIZATION</h4>
+                      <h3 className="text-lg font-black text-white">2D Value vs. Feasibility Bubble Matrix</h3>
+                    </div>
+                    <Badge variant="outline" className="border-emerald-500/40 text-emerald-300">ROI-Scaled</Badge>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div className="p-3 bg-emerald-950/40 border border-emerald-800/60 rounded-xl space-y-1.5">
+                      <div className="font-bold text-emerald-300 text-xs flex justify-between">
+                        <span>⚡ QUICK WINS</span>
+                        <span>4 Initiatives</span>
+                      </div>
+                      <p className="text-[11px] text-emerald-100/70">High Value, Low Effort (QA Automation, SOP RAG, Invoice OCR). Value in 4-6 wks.</p>
+                    </div>
+                    <div className="p-3 bg-indigo-950/40 border border-indigo-800/60 rounded-xl space-y-1.5">
+                      <div className="font-bold text-indigo-300 text-xs flex justify-between">
+                        <span>🚀 STRATEGIC BETS</span>
+                        <span>2 Initiatives</span>
+                      </div>
+                      <p className="text-[11px] text-indigo-100/70">High Value, Complex Build (Autonomous Underwriting, Predictive Maintenance).</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activePreview === "data-blueprint" && (
+                <motion.div
+                  key="data-blueprint"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.25 }}
+                  className="space-y-6 text-left"
+                >
+                  <div className="flex items-center justify-between border-b border-navy-800 pb-4">
+                    <div>
+                      <h4 className="text-sm font-mono font-bold text-golden-400">DATA ARCHITECTURE</h4>
+                      <h3 className="text-lg font-black text-white">5-Dimension Quality & Vector Lakehouse</h3>
+                    </div>
+                    <Badge variant="outline" className="border-blue-500/40 text-blue-300">CTO Blueprint</Badge>
+                  </div>
+
+                  <div className="grid grid-cols-5 gap-2 text-center text-xs">
+                    <div className="p-2 bg-navy-950 rounded-lg border border-navy-800">
+                      <div className="text-[10px] text-slate-400">Completeness</div>
+                      <div className="font-bold text-emerald-400 mt-1">78%</div>
+                    </div>
+                    <div className="p-2 bg-navy-950 rounded-lg border border-navy-800">
+                      <div className="text-[10px] text-slate-400">Accuracy</div>
+                      <div className="font-bold text-emerald-400 mt-1">84%</div>
+                    </div>
+                    <div className="p-2 bg-navy-950 rounded-lg border border-navy-800">
+                      <div className="text-[10px] text-slate-400">Timeliness</div>
+                      <div className="font-bold text-amber-400 mt-1">62%</div>
+                    </div>
+                    <div className="p-2 bg-navy-950 rounded-lg border border-navy-800">
+                      <div className="text-[10px] text-slate-400">Consistency</div>
+                      <div className="font-bold text-amber-400 mt-1">65%</div>
+                    </div>
+                    <div className="p-2 bg-navy-950 rounded-lg border border-navy-800">
+                      <div className="text-[10px] text-slate-400">Accessibility</div>
+                      <div className="font-bold text-blue-400 mt-1">70%</div>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-navy-300 bg-navy-950 p-3 rounded-xl border border-navy-800">
+                    Includes vector DB schema, real-time Debezium CDC ingestion topology, and itemized data prep allocation (~42% of Phase 1 budget).
+                  </p>
+                </motion.div>
+              )}
+
+              {activePreview === "risk-register" && (
+                <motion.div
+                  key="risk-register"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.25 }}
+                  className="space-y-6 text-left"
+                >
+                  <div className="flex items-center justify-between border-b border-navy-800 pb-4">
+                    <div>
+                      <h4 className="text-sm font-mono font-bold text-golden-400">GOVERNANCE & COMPLIANCE</h4>
+                      <h3 className="text-lg font-black text-white">5x5 Risk Register & Regulatory Matrix</h3>
+                    </div>
+                    <Badge variant="outline" className="border-red-500/40 text-red-300">DPDP Act Ready</Badge>
+                  </div>
+
+                  <div className="space-y-2 text-xs">
+                    <div className="p-2.5 bg-navy-950 rounded-lg border border-red-900/60 flex items-center justify-between">
+                      <span className="font-bold text-red-400">RSK-01: PII Leakage in LLM Prompts</span>
+                      <span className="text-[10px] bg-red-950 text-red-300 px-2 py-0.5 rounded border border-red-800">High / Severity 16</span>
+                    </div>
+                    <div className="p-2.5 bg-navy-950 rounded-lg border border-amber-900/60 flex items-center justify-between">
+                      <span className="font-bold text-amber-400">RSK-02: LLM Hallucination in Client Advisories</span>
+                      <span className="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-800">Med / Severity 12</span>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Full compliance guardrails mapped to DPDP Act 2023, EU AI Act, and RBI AI Guidelines with automated Presidio redaction proxies.
+                  </p>
+                </motion.div>
+              )}
               {activePreview === "exec-summary" && (
                 <motion.div
                   key="exec-summary"

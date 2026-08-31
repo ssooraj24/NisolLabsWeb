@@ -93,11 +93,11 @@ const PACKAGES = [
     popular: false,
     features: [
       "Full 360° Diagnostic across ALL 15 Business Functions (62 Questions)",
-      "Designed for 10–50 employees & 3–5 core leaders",
-      "AI Readiness Assessment & Maturity Scorecard",
-      "Executive Intelligence Pack (Deliverables 1–4)",
-      "AI Opportunity Matrix & Top 20 Use Cases",
-      "30/90/180/365-Day Transformation Roadmap"
+      "Sector Benchmarking against 8 Industry Vertical Profiles",
+      "Executive AI Readiness Assessment & Maturity Scorecard",
+      "2D Opportunity Bubble Matrix & Top 20 Prioritized Use Cases",
+      "30/90/180/365-Day Transformation Roadmap & Capital Budget",
+      "Interactive Intelligence Portal (Read-Only Access)"
     ]
   },
   {
@@ -106,19 +106,20 @@ const PACKAGES = [
     price: "Starting from ₹7,50,000",
     priceSub: "Fixed-Price SOW (Scope-Based)",
     duration: "2–4 Weeks (10–15 Business Days)",
-    ideal: "Ideal for mid-market enterprises (51–250 employees) with 10–15 department heads and complex workflows.",
+    ideal: "Ideal for mid-market enterprises (51–250 employees) needing board-ready financial models and architecture blueprints.",
+    popular: true,
     ctaText: "Talk to an AI Strategist",
     ctaLink: "/contact?type=discovery-call&package=Growth",
-    popular: true,
     features: [
       "Everything in Foundation, plus:",
-      "Full 360° Diagnostic across ALL 15 Business Functions (62 Questions)",
-      "Designed for 51–250 employees & 10–15 department heads",
-      "AI Session Contextual Capture & Transcription Processing",
-      "Solution Blueprints for Top 5 AI Use Cases",
-      "Granular Financial ROI & Productivity Modeling",
-      "AI Governance & Change Management Frameworks",
-      "Executive Steering Readout Session"
+      "CFO & Board Investment Memorandum (10 Pages, NPV & IRR)",
+      "3-Scenario Sensitivity Stress Test (75%–125% adoption)",
+      "Data Strategy & Hybrid Vector Lakehouse Blueprint (12 Pages)",
+      "5-Dimension Data Quality Scorecard & Real-Time CDC Spec",
+      "5×5 Risk & Regulatory Register (DPDP Act 2023 / EU AI Act)",
+      "Organizational Change Management (OCM) & RACI Governance",
+      "Solution Blueprints for Top 5 Priority AI Use Cases",
+      "Executive Steering Group Readout Session"
     ]
   },
   {
@@ -133,13 +134,12 @@ const PACKAGES = [
     popular: false,
     features: [
       "Everything in Growth, plus:",
-      "Full 360° Diagnostic across ALL 15 Business Functions (62 Questions)",
-      "Multi-entity / group scope (250+ employees, multi-location)",
-      "Executive Steering Committee Facilitation",
-      "Peer & Global Industry Maturity Benchmarking",
-      "AI Transformation Office (TO) Setup & Governance",
-      "Custom Solution Architecture & System Blueprints",
-      "Ongoing Quarterly Re-benchmarking & Advisory Options"
+      "Empirical PoC Evaluation & Scalability Dossier (8 Pages)",
+      "Live Pilot Benchmarking & Go/No-Go Decision Gate Matrix",
+      "Multi-Entity Financial Modeling & Capital Allocation",
+      "Custom Multi-Agent Cluster & PII Tokenization Gateway Specs",
+      "AI Center of Excellence (CoE) Charter & Setup",
+      "Dedicated Enterprise Tenant Portal & Quarterly Re-benchmarking"
     ]
   }
 ];

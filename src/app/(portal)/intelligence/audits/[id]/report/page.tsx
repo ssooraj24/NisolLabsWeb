@@ -8,6 +8,7 @@ import { createBrowserClient } from "@supabase/ssr";
 import { ReportTabs, ReportTabId } from "@/components/intelligence/ReportTabs";
 import { StatusBadge } from "@/components/intelligence/StatusBadge";
 import { PDFExporter } from "@/components/intelligence/PDFExporter";
+import { normalizePricingPlan, PLAN_CONFIG, isTabAllowedForPlan } from "@/lib/report/reportPortfolioTypes";
 
 // Lazy loaded section components
 const SummaryTab = dynamic(() => import("@/components/intelligence/report/sections/SummaryTab"), {
@@ -16,6 +17,14 @@ const SummaryTab = dynamic(() => import("@/components/intelligence/report/sectio
 
 const MaturityTab = dynamic(() => import("@/components/intelligence/report/sections/MaturityTab"), {
   loading: () => <div className="p-8 bg-white rounded-2xl border text-center text-slate-400 text-sm animate-pulse">Loading Readiness Assessment...</div>,
+});
+
+const RiskTab = dynamic(() => import("@/components/intelligence/report/sections/RiskTab"), {
+  loading: () => <div className="p-8 bg-white rounded-2xl border text-center text-slate-400 text-sm animate-pulse">Loading Risk & Governance Register...</div>,
+});
+
+const DataReadinessTab = dynamic(() => import("@/components/intelligence/report/sections/DataReadinessTab"), {
+  loading: () => <div className="p-8 bg-white rounded-2xl border text-center text-slate-400 text-sm animate-pulse">Loading Data Strategy Assessment...</div>,
 });
 
 const MatrixTab = dynamic(() => import("@/components/intelligence/report/sections/MatrixTab"), {
@@ -28,6 +37,10 @@ const UseCasesTab = dynamic(() => import("@/components/intelligence/report/secti
 
 const RoadmapTab = dynamic(() => import("@/components/intelligence/report/sections/RoadmapTab"), {
   loading: () => <div className="p-8 bg-white rounded-2xl border text-center text-slate-400 text-sm animate-pulse">Loading Transformation Roadmap...</div>,
+});
+
+const OCMTab = dynamic(() => import("@/components/intelligence/report/sections/OCMTab"), {
+  loading: () => <div className="p-8 bg-white rounded-2xl border text-center text-slate-400 text-sm animate-pulse">Loading Change Management (OCM)...</div>,
 });
 
 const ROITab = dynamic(() => import("@/components/intelligence/report/sections/ROITab"), {
@@ -75,7 +88,7 @@ export default function ReportEditorPage() {
           title,
           status,
           raw_responses,
-          tenants:tenant_id (name, industry),
+          tenants:tenant_id (name, industry, pricing_plan),
           profiles:conducted_by (full_name)
         `)
         .eq("id", auditId)
@@ -87,7 +100,7 @@ export default function ReportEditorPage() {
       // Fetch Latest Report
       const { data: reportData, error: rErr } = await supabase
         .from("audit_reports")
-        .select("id, status, version, generated_at, finalized_at")
+        .select("id, status, version, plan_tier, generated_at, finalized_at")
         .eq("audit_id", auditId)
         .order("created_at", { ascending: false })
         .limit(1)
@@ -178,6 +191,16 @@ export default function ReportEditorPage() {
   }
 
   const tenantObj = Array.isArray(audit.tenants) ? audit.tenants[0] : audit.tenants;
+  const rawPlan = report?.plan_tier || tenantObj?.pricing_plan || "foundation";
+  const activePlan = normalizePricingPlan(rawPlan);
+  const planConfig = PLAN_CONFIG[activePlan];
+
+  // If currently on an unauthorized tab, auto-switch to summary
+  useEffect(() => {
+    if (report && !isTabAllowedForPlan(activeTab, activePlan)) {
+      setActiveTab("summary");
+    }
+  }, [activePlan, activeTab, report]);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -195,6 +218,9 @@ export default function ReportEditorPage() {
             <div className="flex items-center gap-3 flex-wrap">
               <h1 className="text-2xl font-bold text-[#0A1E3C]">{audit.title}</h1>
               <StatusBadge status={report?.status || audit.status} />
+              <span className="text-xs px-2.5 py-0.5 rounded-full font-bold uppercase bg-amber-50 text-amber-900 border border-amber-300 flex items-center gap-1">
+                ★ Plan: {planConfig.name}
+              </span>
               {report?.version && (
                 <span className="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold border">
                   v{report.version}.0
@@ -202,7 +228,8 @@ export default function ReportEditorPage() {
               )}
             </div>
             <p className="text-xs text-slate-500 mt-1">
-              Client: <span className="font-semibold text-slate-800">{tenantObj?.name || "N/A"}</span> • Consultant:{" "}
+              Client: <span className="font-semibold text-slate-800">{tenantObj?.name || "N/A"}</span> • Industry:{" "}
+              <span className="font-semibold text-slate-800">{tenantObj?.industry || "Technology"}</span> • Consultant:{" "}
               <span className="font-semibold text-slate-800">{audit.profiles?.full_name || "Unassigned"}</span>
             </p>
           </div>
@@ -217,7 +244,12 @@ export default function ReportEditorPage() {
               {generating ? "⚡ Analyzing..." : "🔄 Re-Generate with AI"}
             </button>
 
-            <PDFExporter reportId={report?.id || auditId} auditTitle={audit.title} companyName={tenantObj?.name} />
+            <PDFExporter
+              reportId={report?.id || auditId}
+              auditTitle={audit.title}
+              companyName={tenantObj?.name}
+              planTier={activePlan}
+            />
 
             {report && report.status !== "finalized" && (
               <button
@@ -228,7 +260,6 @@ export default function ReportEditorPage() {
                 {finalizing ? "Finalizing..." : "✓ Approve & Finalize"}
               </button>
             )}
-
           </div>
         </div>
       </div>
@@ -241,28 +272,35 @@ export default function ReportEditorPage() {
           </div>
           <h3 className="text-xl font-bold text-[#0A1E3C]">No Report Generated Yet</h3>
           <p className="text-sm text-slate-500 max-w-md mx-auto">
-            Click below to trigger the multi-model AI pipeline to analyze the 62 assessment answers and generate all 10 advisory outputs.
+            Click below to trigger the enterprise AI advisory pipeline and build the tailored Board-Ready Report for the <strong>{planConfig.name}</strong> subscription tier.
           </p>
           <button
             onClick={handleGenerateReport}
             disabled={generating}
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2 disabled:opacity-50"
           >
-            {generating ? "⚡ Running AI Generation Pipeline..." : "🚀 Generate Full AI Advisory Report"}
+            {generating ? "⚡ Running AI Generation Pipeline..." : `🚀 Generate ${planConfig.name} Report`}
           </button>
         </div>
       ) : (
         <div className="space-y-6">
           {/* Tab Bar */}
-          <ReportTabs activeTab={activeTab} onTabChange={(tab) => setActiveTab(tab)} />
+          <ReportTabs
+            activeTab={activeTab}
+            onTabChange={(tab) => setActiveTab(tab)}
+            planTier={activePlan}
+          />
 
           {/* Lazy-Loaded Section Component rendering active tab only */}
           <div className="transition-all duration-300">
             {activeTab === "summary" && <SummaryTab reportId={report.id} />}
             {activeTab === "maturity" && <MaturityTab reportId={report.id} />}
+            {activeTab === "risk" && <RiskTab reportId={report.id} />}
+            {activeTab === "data" && <DataReadinessTab reportId={report.id} />}
             {activeTab === "matrix" && <MatrixTab reportId={report.id} />}
             {activeTab === "usecases" && <UseCasesTab reportId={report.id} />}
             {activeTab === "roadmap" && <RoadmapTab reportId={report.id} />}
+            {activeTab === "ocm" && <OCMTab reportId={report.id} />}
             {activeTab === "roi" && <ROITab reportId={report.id} />}
             {activeTab === "blueprints" && <BlueprintsTab reportId={report.id} />}
             {activeTab === "proposal" && <ProposalTab reportId={report.id} />}

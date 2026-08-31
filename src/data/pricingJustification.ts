@@ -10,29 +10,29 @@ export const JUSTIFICATION_PILLARS: JustificationPillar[] = [
   {
     title: "1. AI Readiness Assessment",
     subtitle: "8 Organizational Dimensions",
-    message: "Evaluate leadership, data, technology, security, governance, culture, processes, and skills across 8 dimensions.",
-    evidence: "Comprehensive audit evaluating 8 critical organizational readiness dimensions.",
+    message: "Evaluate leadership, data hygiene, technology, security, governance, culture, processes, and skills against sector benchmarks.",
+    evidence: "Comprehensive audit benchmarking against 8 industry sectors (BFSI, Healthcare, Tech, etc.).",
     iconName: "Brain"
   },
   {
     title: "2. AI Opportunity Mapping",
-    subtitle: "Prioritized Use Cases",
-    message: "Identify and prioritize AI use cases using our Opportunity Matrix to focus on initiatives with the highest business impact.",
-    evidence: "Impact vs. feasibility matrix categorizing quick wins & strategic bets.",
+    subtitle: "2D Interactive Bubble Matrix",
+    message: "Identify and prioritize AI use cases across Value vs. Feasibility, scaled by projected ROI magnitude.",
+    evidence: "2D Opportunity Bubble Matrix categorizing Quick Wins vs. Strategic Bets.",
     iconName: "Zap"
   },
   {
-    title: "3. ROI & Business Case",
-    subtitle: "Board-Ready Financial Model",
-    message: "Build a board-ready financial justification with estimated savings, investment requirements, ROI, and payback period.",
-    evidence: "Quantified 5-year financial payback model with clear NPV projections.",
+    title: "3. ROI & Board Business Case",
+    subtitle: "3-Scenario Sensitivity Stress Test",
+    message: "Build a board-ready financial business case featuring NPV, IRR (44.5%), 5-year cashflows, and sensitivity models.",
+    evidence: "Quantified 5-year payback model with deterministic sensitivity analysis (75%–125% adoption).",
     iconName: "FileCheck"
   },
   {
-    title: "4. Transformation Roadmap",
-    subtitle: "Phased Execution Plan",
-    message: "Receive a phased implementation plan covering quick wins, pilot projects, scaling, and enterprise adoption.",
-    evidence: "Structured 30/90/180/365-day execution plan for enterprise adoption.",
+    title: "4. Transformation Roadmap & OCM",
+    subtitle: "Phased Execution & Change Plan",
+    message: "Receive an implementation plan with stakeholder resistance matrices, RACI tables, and technical blueprints.",
+    evidence: "Structured 30/90/180/365-day execution plan paired with enterprise OCM.",
     iconName: "Award"
   }
 ];
@@ -46,39 +46,39 @@ export interface BoardDeliverablePack {
 
 export const BOARD_DELIVERABLE_PACKS: BoardDeliverablePack[] = [
   {
-    title: "EXECUTIVE STRATEGY PACK",
-    badge: "BOARD ALIGNMENT",
-    description: "C-suite strategic summaries designed for immediate leadership alignment and board approval.",
+    title: "EXECUTIVE & BOARD STRATEGY PACK",
+    badge: "C-SUITE & BOARD",
+    description: "CFO and Boardroom-ready investment memoranda and executive roadmaps designed for capital release and steering committee alignment.",
     deliverables: [
-      { name: "Executive AI Readiness Audit Report", description: "Comprehensive 20-slide executive evaluation of organizational AI maturity." },
-      { name: "Prioritized AI Opportunity & Value Matrix", description: "Matrix mapping high-ROI AI initiatives against technical feasibility." },
-      { name: "AI Transformation Strategy & 12-24 Mo Roadmap", description: "Phased implementation timeline with milestone KPIs and resource allocation." },
-      { name: "Executive C-Suite Presentation Deck", description: "Boardroom-ready presentation deck formatted for executive stakeholders." },
-      { name: "Vendor-Neutral Technology & Model Selection Report", description: "Unbiased assessment of proprietary vs. open-weight models and vector DBs." }
+      { name: "CFO & Board Investment Memorandum (10 Pages)", description: "Rigorous financial business case featuring NPV, IRR, 3-scenario sensitivity stress tests, and formal Board Resolution." },
+      { name: "Executive AI Readiness & Benchmark Report (30+ Pages)", description: "30-page comprehensive audit evaluating 8 capability dimensions vs. industry peer median and leader benchmarks." },
+      { name: "2D AI Opportunity & Value Matrix", description: "Interactive bubble matrix mapping high-impact initiatives against implementation feasibility and ROI magnitude." },
+      { name: "AI Transformation Strategy & 12-24 Mo Roadmap", description: "Phased implementation timeline with milestone KPIs, budget allocations, and RACI ownership." },
+      { name: "Minto Pyramid Executive Presentation Briefing", description: "Structured Situation-Complication-Resolution briefing formatted for executive presentation." }
     ]
   },
   {
-    title: "TECHNICAL ARCHITECTURE & BLUEPRINT PACK",
-    badge: "ENGINEERING SPECIFICATION",
-    description: "Deep-dive technical blueprints and security frameworks for internal teams or implementation partners.",
+    title: "DATA STRATEGY & ARCHITECTURE BLUEPRINT PACK",
+    badge: "CTO & DATA ENGINEERING",
+    description: "Deep-dive technical blueprints, data quality scorecards, and security frameworks for engineering teams and architects.",
     deliverables: [
-      { name: "Enterprise AI Target Architecture Blueprint", description: "Complete system topology for multi-agent clusters, RAG pipelines, and LLM routers." },
-      { name: "Zero-Trust Security & PII Governance Framework", description: "RBAC permissions, PII masking rules, and SOC-2/HIPAA compliance controls." },
-      { name: "Data Readiness & Vector Lakehouse Specification", description: "ETL pipeline specs, chunking strategy, and vector database schema definition." },
-      { name: "Proof of Concept (PoC) Engineering Specification", description: "Step-by-step build blueprint for rapid 4-week prototype deployment." },
-      { name: "LLMOps & Telemetry Monitoring Framework", description: "Latency optimization, prompt versioning, and automated evaluation metrics." }
+      { name: "Data Strategy & Hybrid Vector Lakehouse Blueprint (12 Pages)", description: "Technical topology combining pgvector/Qdrant dense embeddings with BM25 hybrid keyword retrieval." },
+      { name: "5-Dimension Enterprise Data Quality Scorecard", description: "Evaluation of Completeness, Accuracy, Timeliness, Consistency, and Accessibility across CRM & ERP." },
+      { name: "Zero-Trust Security & PII Redaction Proxy Framework", description: "API proxy gateway specs with automated Presidio PII tokenization and audit logging." },
+      { name: "Real-Time Change Data Capture (CDC) Pipeline Spec", description: "Debezium/Kafka streaming architecture replicating operational data into analytical vector stores." },
+      { name: "Data Preparation & Pre-requisites Budget Plan", description: "Itemized allocation (~42% of Phase 1 budget) for document OCR, ETL cleansing, and vector indexing." }
     ]
   },
   {
-    title: "FINANCIAL ROI & GOVERNANCE PACK",
-    badge: "BUSINESS CASE",
-    description: "Rigorous financial calculations and risk mitigation matrices justifying enterprise AI investment.",
+    title: "GOVERNANCE, OCM & PILOT EVALUATION PACK",
+    badge: "RISK & OPERATIONS",
+    description: "Organizational change management frameworks, empirical pilot evaluations, and regulatory compliance registers.",
     deliverables: [
-      { name: "Quantified 5-Year AI Payback & NPV Financial Model", description: "Detailed financial model projecting cost savings, cycle time reduction, and ROI." },
-      { name: "Cost of Not Knowing & Risk Mitigation Report", description: "Financial analysis of risks prevented (e.g. ₹50L-₹2Cr in failed implementations)." },
-      { name: "Token Cost & LLM Router Optimization Strategy", description: "Cost reduction strategy leveraging model routing (e.g. GPT-4o to Llama 3)." },
-      { name: "Human-in-the-Loop Governance & Verification Protocol", description: "Approval workflows and verification controls for autonomous agent actions." },
-      { name: "Delivery Model Evaluation & Partner Selection Guide", description: "Decision matrix for selecting Build, Manage, or Monitor execution paths." }
+      { name: "Proof of Concept (PoC) Evaluation & Scalability Dossier (8 Pages)", description: "Empirical validation of pilot prototypes (accuracy, latency SLAs, task reduction) with formal Go/No-Go decision matrix." },
+      { name: "Enterprise AI Risk & Regulatory Register (5x5 Matrix)", description: "Risk register mapped to India DPDP Act 2023, EU AI Act, and RBI AI guidelines with concrete mitigation roadmaps." },
+      { name: "Organizational Change Management (OCM) Plan", description: "Stakeholder resistance analysis, governance RACI matrix, and 90-day/1-year adoption KPIs." },
+      { name: "Role-Based AI Upskilling Curriculum", description: "Tailored training modules for General Staff (4 hrs), Champions (12 hrs), and Engineering (24 hrs)." },
+      { name: "LLMOps & Continuous Evaluation Protocol", description: "Automated telemetry, hallucination monitoring, and cost optimization routing." }
     ]
   }
 ];
@@ -87,5 +87,5 @@ export const COST_OF_NOT_KNOWING_RISKS = [
   { risk: "Investing in the wrong AI use cases", costRange: "₹50 Lakhs – ₹2 Crores", impact: "Wasted capital on low-ROI wrapper projects" },
   { risk: "Failed implementation & scope drift", costRange: "₹1 Crore – ₹5 Crores", impact: "Project abandonment after 6-12 months" },
   { risk: "Delayed AI transformation timeline", costRange: "12-24 Months Lost", impact: "Competitors capture market share with automated workflows" },
-  { risk: "Data leaks & governance regulatory fines", costRange: "Severe Compliance Penalties", impact: "PII leakage or un-sanitized LLM data exposure" }
+  { risk: "Data leaks & governance regulatory fines", costRange: "Severe Compliance Penalties", impact: "PII leakage or un-sanitized LLM data exposure under DPDP Act" }
 ];

@@ -55,13 +55,15 @@ const DELIVERABLES = [
 ];
 
 const REPORT_PAGES = [
-  { page: "Page 1", content: "Executive Summary" },
-  { page: "Page 2", content: "AI Readiness Score & Radar Chart" },
-  { page: "Pages 3–4", content: "Capability-wise Breakdown (15 scores)" },
-  { page: "Pages 5–6", content: "Gap Analysis & Key Findings" },
-  { page: "Page 7", content: "Benchmarking Data" },
-  { page: "Pages 8–10", content: "Actionable Recommendations" },
-  { page: "Pages 11–15", content: "Appendix — Detailed Question Responses" }
+  { page: "Pages 1–3", content: "Minto Pyramid Executive Summary & Key Metrics" },
+  { page: "Pages 4–6", content: "AI Readiness Stance & 8-Sector Industry Benchmarking" },
+  { page: "Pages 7–10", content: "Capability Dimension Breakdowns (15 Scores & Radar)" },
+  { page: "Pages 11–14", content: "2D Opportunity Bubble Matrix & Multi-Criteria Use Cases" },
+  { page: "Pages 15–18", content: "5x5 Enterprise Risk & Regulatory Register (DPDP/EU AI Act)" },
+  { page: "Pages 19–22", content: "Data Strategy & Vector Lakehouse Architecture Blueprint" },
+  { page: "Pages 23–25", content: "Organizational Change Management (OCM) & RACI Framework" },
+  { page: "Pages 26–28", content: "CFO Sensitivity Stress-Test & 5-Year Cash Flow Timeline" },
+  { page: "Pages 29–32", content: "Phased 30/90/180/365 Roadmap & Board Resolution" }
 ];
 
 const RISKS = [

@@ -1,5 +1,5 @@
 import { createBrowserClient } from '@supabase/ssr';
-import { Tenant, TenantStatus, TenantType, IndustrySector } from '@/types/database';
+import { Tenant, TenantStatus, TenantType, IndustrySector, PricingPlan } from '@/types/database';
 import { encryptPayload, decryptPayload } from '@/lib/security/encryption';
 import { generateBlindIndex } from '@/lib/security/hash';
 import { logAuditEvent } from '@/lib/security/auditLogger';
@@ -8,6 +8,7 @@ export interface TenantFilters {
   status?: TenantStatus | string;
   tenant_type?: TenantType | string;
   industry_sector?: IndustrySector | string;
+  pricing_plan?: PricingPlan | string;
   country?: string;
   search?: string;
 }
@@ -52,6 +53,9 @@ export async function getTenants(filters?: TenantFilters, client?: any): Promise
   }
   if (filters?.industry_sector) {
     query = query.eq('industry_sector', filters.industry_sector);
+  }
+  if (filters?.pricing_plan) {
+    query = query.eq('pricing_plan', filters.pricing_plan);
   }
   if (filters?.country) {
     query = query.ilike('country', `%${filters.country}%`);

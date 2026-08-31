@@ -1,6 +1,7 @@
 "use client";
 
 import { Tenant } from "@/types/database";
+import { PLAN_CONFIG, DELIVERABLE_PORTFOLIO, normalizePricingPlan } from "@/lib/report/reportPortfolioTypes";
 
 interface TenantDetailProps {
   tenant: Tenant | null;
@@ -17,6 +18,9 @@ export default function TenantDetail({
 }: TenantDetailProps) {
   if (!isOpen || !tenant) return null;
 
+  const normPlan = normalizePricingPlan(tenant.pricing_plan);
+  const planInfo = PLAN_CONFIG[normPlan];
+
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto">
       <div className="bg-white rounded-2xl p-6 md:p-8 max-w-2xl w-full shadow-2xl border my-8">
@@ -26,6 +30,9 @@ export default function TenantDetail({
               <h2 className="text-2xl font-bold text-[#0A1E3C]">{tenant.name}</h2>
               <span className="text-xs px-2.5 py-0.5 rounded-full font-bold uppercase bg-slate-100 text-slate-700">
                 {tenant.status || "active"}
+              </span>
+              <span className="text-xs px-2.5 py-0.5 rounded-full font-bold uppercase bg-amber-50 border border-amber-300 text-amber-900">
+                ★ {planInfo.name}
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-1">Tenant ID: {tenant.id}</p>
@@ -42,6 +49,42 @@ export default function TenantDetail({
         <div className="space-y-6">
           {/* Main Info Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            {/* Subscribed Plan & Entitlements */}
+            <div className="bg-gradient-to-br from-slate-50 to-blue-50/40 p-3.5 rounded-xl border border-blue-100 md:col-span-2">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-blue-900 font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                  <span>📜 Subscribed Plan & Report Entitlements</span>
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white uppercase">
+                  {planInfo.badge} • {planInfo.priceLabel}
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 mb-2">{planInfo.description}</p>
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                  Authorized Consulting Deliverables:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {DELIVERABLE_PORTFOLIO.map((del) => {
+                    const isIncluded = planInfo.allowedDeliverables.includes(del.id);
+                    return (
+                      <span
+                        key={del.id}
+                        className={`text-[10px] px-2 py-0.5 rounded-md font-semibold flex items-center gap-1 ${
+                          isIncluded
+                            ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                            : "bg-slate-100 text-slate-400 line-through border border-slate-200"
+                        }`}
+                      >
+                        <span>{isIncluded ? "✓" : "✕"}</span>
+                        <span>{del.title.split(" - ")[0]}</span>
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
             <div className="bg-slate-50 p-3.5 rounded-xl border">
               <span className="text-slate-400 font-bold uppercase tracking-wider block mb-1">
                 Classification
