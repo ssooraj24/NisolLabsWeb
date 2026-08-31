@@ -62,9 +62,12 @@ export interface PlanConfig {
   name: string;
   badge: string;
   priceLabel: string;
+  priceUSD: string;
   description: string;
   allowedDeliverables: DeliverableType[];
   allowedTabs: string[];
+  trainingTracksCount: number;
+  trainingHighlights: string[];
 }
 
 export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
@@ -73,16 +76,20 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
     name: "Foundation Diagnostic",
     badge: "STARTER",
     priceLabel: "₹4,50,000",
+    priceUSD: "$5,500",
     description: "Core 360° AI diagnostic for small to mid organizations (10–50 employees).",
     allowedDeliverables: ["ai_readiness_transformation"],
     allowedTabs: ["summary", "maturity", "matrix", "usecases", "roadmap", "proposal"],
+    trainingTracksCount: 0,
+    trainingHighlights: ["Training tracks available as dedicated add-on"],
   },
   growth: {
     id: "growth",
     name: "Growth Transformation",
     badge: "MOST POPULAR",
-    priceLabel: "₹7,50,000",
-    description: "Full enterprise transformation package with CFO board memo & vector data blueprint.",
+    priceLabel: "₹8,50,000",
+    priceUSD: "$10,500",
+    description: "Full enterprise transformation package with CFO board memo, vector architecture blueprint, and 2 training tracks.",
     allowedDeliverables: [
       "ai_readiness_transformation",
       "board_investment_memo",
@@ -101,13 +108,19 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
       "blueprints",
       "proposal",
     ],
+    trainingTracksCount: 2,
+    trainingHighlights: [
+      "Track 1: AI Readiness & Demystification (All-Hands, 2x 90-min sessions)",
+      "Track 2: The New Way of Working with AI (Dept Champions, 4x 2-hr sandbox labs)",
+    ],
   },
   enterprise: {
     id: "enterprise",
     name: "Enterprise Scale",
     badge: "ENTERPRISE",
-    priceLabel: "Custom Quote",
-    description: "Complete multi-entity portfolio including PoC evaluation dossier & scalability governance.",
+    priceLabel: "₹18,50,000",
+    priceUSD: "$22,500",
+    description: "Complete multi-entity portfolio including PoC decision gate protocol, Shadow AI remediation, and full 3-track training suite.",
     allowedDeliverables: [
       "ai_readiness_transformation",
       "board_investment_memo",
@@ -126,6 +139,12 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
       "roi",
       "blueprints",
       "proposal",
+    ],
+    trainingTracksCount: 3,
+    trainingHighlights: [
+      "Track 1: AI Readiness & Demystification (All-Hands, 2x 90-min sessions)",
+      "Track 2: The New Way of Working with AI (Dept Champions, 4x 2-hr sandbox labs)",
+      "Track 3: Leading AI-Augmented Teams (Executive & Management Seminar, Half-Day)",
     ],
   },
   custom: {
@@ -133,7 +152,8 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
     name: "Custom Scope",
     badge: "CUSTOM",
     priceLabel: "Tailored Scope",
-    description: "Custom tailored enterprise engagement with full unlocked access.",
+    priceUSD: "Custom Quote",
+    description: "Custom tailored enterprise engagement with full unlocked access and custom training allocation.",
     allowedDeliverables: [
       "ai_readiness_transformation",
       "board_investment_memo",
@@ -152,6 +172,12 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
       "roi",
       "blueprints",
       "proposal",
+    ],
+    trainingTracksCount: 3,
+    trainingHighlights: [
+      "Track 1: AI Readiness & Demystification",
+      "Track 2: The New Way of Working with AI",
+      "Track 3: Leading AI-Augmented Teams",
     ],
   },
 };

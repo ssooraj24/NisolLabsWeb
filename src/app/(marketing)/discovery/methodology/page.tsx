@@ -179,8 +179,8 @@ const DELIVERABLES = [
     title: "Executive & Board Strategy Pack",
     desc: "CFO and Boardroom-ready investment memoranda and executive roadmaps designed for capital release and steering committee alignment.",
     items: [
-      "CFO & Board Investment Memorandum (10 Pages, NPV & IRR)",
-      "Flagship AI Readiness & Benchmark Assessment (30+ Pages)",
+      "CFO & Board Investment Memorandum (DCF, NPV & IRR)",
+      "Flagship AI Transformation Strategy (9 Comprehensive Chapters)",
       "2D Opportunity Bubble Matrix & Scorecard",
       "Executive Minto Pyramid Presentation Briefing"
     ]
@@ -189,7 +189,7 @@ const DELIVERABLES = [
     title: "Data Strategy & Architecture Blueprint Pack",
     desc: "Deep-dive technical blueprints, vector lakehouse topologies, and data hygiene scorecards for CTOs and engineering teams.",
     items: [
-      "Data Strategy & Vector Lakehouse Blueprint (12 Pages)",
+      "Data Strategy & Vector Architecture Blueprint (5-Dimension Hygiene)",
       "5-Dimension Data Quality Scorecard (Completeness, Accuracy, etc.)",
       "Real-Time Change Data Capture (CDC) Streaming Spec",
       "Zero-Trust PII Redaction Proxy Architecture"
@@ -199,10 +199,10 @@ const DELIVERABLES = [
     title: "Governance, OCM & Pilot Evaluation Pack",
     desc: "Organizational change management frameworks, empirical pilot evaluations, and regulatory compliance registers.",
     items: [
-      "PoC Evaluation & Scalability Decision Dossier (8 Pages)",
+      "PoC Decision Gate & Acceptance Protocol (Prospective Pilot Gates)",
       "5x5 Likelihood x Impact Risk Register (DPDP Act / EU AI Act)",
       "Organizational Change Management (OCM) & RACI Matrix",
-      "Role-Based AI Upskilling Curricula (Staff, Champions, Engineers)"
+      "Role-Based 3-Track AI Upskilling Curricula (Staff, Champions, Leadership)"
     ]
   }
 ];

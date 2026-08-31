@@ -57,9 +57,10 @@ const PRICING_TIERS = [
       "Full 360° Diagnostic across 15 capabilities (62 questions)",
       "Sector Benchmarking against 8 industry verticals",
       "Executive AI Readiness Assessment & Maturity Scorecard",
-      "2D Opportunity Bubble Matrix & Top 20 Use Cases",
-      "Phased 30/90/180/365-Day Transformation Roadmap",
-      "Interactive Intelligence Portal (Read-Only Access)",
+      "2D Opportunity Bubble Matrix & Top 5 Prioritized Quick Wins",
+      "Wave 1 (M 0–3) Transformation Roadmap & Lumpsum Budget",
+      "Basic Regulatory Checklist & Risk Stance",
+      "0 Training Tracks (Self-Serve Diagnostic; Training available as add-on)",
       "Executive Readout & Findings Session"
     ]
   },
@@ -67,49 +68,50 @@ const PRICING_TIERS = [
     id: "growth",
     name: "Growth Transformation",
     badge: "MOST POPULAR",
-    price: "₹7,50,000",
-    priceUSD: "$9,500",
+    price: "₹8,50,000",
+    priceUSD: "$10,500",
     priceSub: "Fixed-Price SOW (Scope-Based)",
     duration: "2–4 Weeks (10–15 Business Days)",
-    ideal: "For mid-market enterprises (51–250 employees) needing board-level financial justification and engineering architecture.",
+    ideal: "For mid-market enterprises (51–250 employees) needing board-level financial justification, engineering architecture, and staff upskilling.",
     popular: true,
     ctaText: "Talk to an AI Strategist",
     ctaLink: "/contact?type=discovery-call&package=Growth",
     highlights: [
       "Everything in Foundation, plus:",
-      "CFO & Board Investment Memorandum (10 Pages, NPV & IRR)",
+      "CFO & Board Investment Memorandum (DCF, NPV & IRR)",
       "3-Scenario Sensitivity Stress Test (75%–125% adoption)",
-      "Data Strategy & Vector Lakehouse Blueprint (12 Pages)",
-      "5-Dimension Data Quality Scorecard (Completeness, Accuracy, etc.)",
+      "Data Strategy & Vector Architecture Blueprint (5-Dimension Hygiene)",
+      "15 Departmental Action Briefs (Operational Friction & Target Outcomes)",
       "5×5 Risk & Regulatory Register (DPDP Act 2023 / EU AI Act)",
       "Organizational Change Management (OCM) Plan & RACI Matrix",
-      "Role-Based Upskilling Curricula (Staff, Champions, Engineers)",
+      "2 Workforce Training Tracks Included (All-Hands Demystification + Champions Labs)",
       "Solution Blueprints for Top 5 Priority Use Cases",
-      "Executive Steering Group Readout Session"
+      "Single-Pod Capacity Delivery Benchmark Guarantee"
     ]
   },
   {
     id: "enterprise",
     name: "Enterprise Scale",
-    badge: "CUSTOM SCOPE",
-    price: "Custom Quote",
-    priceUSD: "Custom",
-    priceSub: "Tailored to Multi-Entity Scope",
+    badge: "STRATEGIC ARSENAL",
+    price: "₹18,50,000",
+    priceUSD: "$22,500",
+    priceSub: "Starting from ₹18,50,000 (Multi-Entity Scope)",
     duration: "4–8 Weeks (Phased Rollout)",
-    ideal: "For large enterprises (250+ employees) requiring multi-entity governance, custom architectures, and pilot evaluation.",
+    ideal: "For large enterprises (250+ employees) requiring multi-entity governance, custom architectures, competitive defense, and pilot evaluation.",
     popular: false,
     ctaText: "Request Enterprise Proposal",
     ctaLink: "/contact?type=proposal&package=Enterprise",
     highlights: [
       "Everything in Growth, plus:",
-      "Multi-entity & multi-location operational scoping",
-      "Empirical PoC Evaluation & Scalability Dossier (8 Pages)",
-      "Live Pilot Telemetry & Go/No-Go Decision Gate Matrix",
-      "Custom Multi-Agent Cluster & PII Proxy Topology",
-      "AI Center of Excellence (CoE) Charter & Governance",
-      "Real-Time Change Data Capture (CDC) Pipeline Architecture",
-      "Dedicated Enterprise Tenant Intelligence Portal",
-      "Quarterly Re-benchmarking & Steering Advisory"
+      "PoC Decision Gate & Acceptance Protocol (SLA Benchmarks & Gate 0–4 Sign-off)",
+      "Shadow AI Exposure, Penetration Audit & Zero-Trust PII Gateway Spec",
+      "Vendor Dependency, Multi-LLM Lock-In & Switch-Cost Teardown",
+      "36-Month 3-Horizon Strategic Warfare Roadmap",
+      "Valuation Multiple Expansion Modeling (15%–25% multiple premium)",
+      "Full 3-Track Enablement Suite Included (All-Hands + Champions + Leadership Seminar)",
+      "Real-Time Change Data Capture (CDC) Pipeline Specification",
+      "AI Center of Excellence (CoE) Charter & Multi-Entity Governance",
+      "Quarterly Re-benchmarking & Executive Steering Advisory"
     ]
   }
 ];
@@ -117,40 +119,43 @@ const PRICING_TIERS = [
 const DELIVERABLES_SUMMARY = [
   {
     title: "1. Flagship AI Transformation Strategy",
-    pages: "~30 Pages",
+    pages: "9 Comprehensive Chapters",
     badge: "CEO & Steering Comm.",
-    desc: "Comprehensive diagnostic covering 15 capabilities, 8 industry benchmarks, 2D opportunity bubble chart, and 4-phase transformation roadmap."
+    desc: "Comprehensive diagnostic covering 15 capabilities, 8 industry benchmarks, 2D opportunity bubble chart, 20 use cases, and 6-horizon roadmap."
   },
   {
     title: "2. CFO & Board Investment Memo",
-    pages: "~10 Pages",
+    pages: "Executive Decision Memo",
     badge: "Board & CFO",
-    desc: "Structured financial business case featuring Net Present Value (NPV), IRR (44.5%), 3-scenario sensitivity stress tests, and formal Board Resolution."
+    desc: "Audit-ready financial business case featuring Net Present Value (NPV), IRR, Hard vs. Soft savings decomposition, 3-scenario stress tests, and formal Board Resolution."
   },
   {
-    title: "3. Data Strategy & Vector Blueprint",
-    pages: "~12 Pages",
+    title: "3. Data Strategy & Vector Architecture",
+    pages: "Technical Architecture Spec",
     badge: "CTO & Data Leads",
-    desc: "Technical blueprint detailing 5 data quality dimensions, pgvector/Qdrant BM25 hybrid search topology, and data prep cost allocations."
+    desc: "Technical blueprint detailing 5 data quality dimensions, hybrid vector topology (pgvector/Qdrant + BM25), real-time CDC specs, and cloud PII gateway."
   },
   {
-    title: "4. PoC Evaluation & Scalability Dossier",
-    pages: "~8 Pages",
+    title: "4. PoC Decision Gate & Acceptance Dossier",
+    pages: "Decision Gate Protocol",
     badge: "Product & BU Heads",
-    desc: "Empirical validation of pilot prototypes (accuracy, latency SLAs, task reduction) with a rigorous Go/No-Go decision matrix for production scale."
+    desc: "Prospective pilot governance protocol defining quantitative SLA thresholds (latency, citation precision, task reduction) and Gate 0–4 Go/No-Go criteria."
   }
 ];
 
 const COMPARISON_ROWS = [
   { feature: "Diagnostic Depth", foundation: "15 Capabilities / 62 Questions", growth: "15 Capabilities / 62 Questions", enterprise: "Extended Multi-Entity Scope" },
   { feature: "Industry Peer Benchmarking", foundation: "8 Sectors (Median)", growth: "8 Sectors (Median + Top Quartile)", enterprise: "Global Competitor Deep-Dive" },
-  { feature: "Opportunity Prioritization", foundation: "2D Bubble Matrix (20 Cases)", growth: "2D Bubble Matrix (20 Cases)", enterprise: "Custom Priority Scorecards" },
-  { feature: "Financial Modeling", foundation: "Standard ROI & Payback", growth: "CFO Board Memo + Sensitivity Table", enterprise: "Multi-Entity Financial P&L Model" },
-  { feature: "Risk & Regulatory Register", foundation: "Basic Risk Stance", growth: "5x5 Matrix (DPDP Act / EU AI Act)", enterprise: "Enterprise Zero-Trust SLA Map" },
-  { feature: "Data Readiness & Lakehouse Spec", foundation: "Readiness Score", growth: "5-Dimension Scorecard + CDC Spec", enterprise: "Full Vector DB Schema & Topology" },
-  { feature: "Change Management & RACI", foundation: "General Guidance", growth: "Full OCM Plan + Upskilling Curricula", enterprise: "Custom Org Design & CoE Setup" },
-  { feature: "PoC Pilot Evaluation", foundation: "—", growth: "Optional Add-on", enterprise: "Included (Empirical Gate Dossier)" },
-  { feature: "Technical Solution Blueprints", foundation: "—", growth: "Top 5 Priority Use Cases", enterprise: "All Priority Implementations" },
+  { feature: "Opportunity Prioritization", foundation: "Top 5 Quick Wins", growth: "2D Bubble Matrix (20 Cases)", enterprise: "Build-vs-Buy & Money-Pit Teardown" },
+  { feature: "Financial Modeling", foundation: "Lumpsum ROI & Payback", growth: "CFO Board Memo + Phased Budget", enterprise: "Full DCF Model + Valuation Premium" },
+  { feature: "Workforce Enablement & Training", foundation: "0 Tracks (Add-on available)", growth: "2 Tracks (All-Hands + Champions Labs)", enterprise: "All 3 Tracks (+ Leadership Seminar)" },
+  { feature: "Risk & Regulatory Register", foundation: "Basic Regulatory Checklist", growth: "5x5 Matrix (DPDP Act / EU AI Act)", enterprise: "Continuous Audit Architecture" },
+  { feature: "Data Strategy & Architecture", foundation: "Readiness Score", growth: "5-Dimension Scorecard + CDC Spec", enterprise: "Full Vector Lakehouse & PII Gateway" },
+  { feature: "Shadow AI & Vendor Dependency", foundation: "—", growth: "—", enterprise: "Included (DLP & Switch-Cost Audit)" },
+  { feature: "Change Management & RACI", foundation: "General Guidance", growth: "Full OCM Plan + RACI Matrix", enterprise: "Custom Org Design & CoE Setup" },
+  { feature: "PoC Decision Gate Protocol", foundation: "—", growth: "Optional Add-on", enterprise: "Included (Prospective Gate Dossier)" },
+  { feature: "Cloud & LLM Infrastructure", foundation: "Direct Client Pass-Through", growth: "Direct Client Pass-Through", enterprise: "Direct Client Pass-Through" },
+  { feature: "Pod Delivery Capacity", foundation: "Diagnostic Squad", growth: "1 Pod (1 Initiative / 12–14 wks)", enterprise: "1 Pod per Initiative (Multi-Pod Supported)" },
   { feature: "Delivery Timeline", foundation: "7–11 Business Days", growth: "10–15 Business Days", enterprise: "Phased (4–8 Weeks)" },
   { feature: "IP Ownership", foundation: "100% Client Owned", growth: "100% Client Owned", enterprise: "100% Client Owned" }
 ];
@@ -158,19 +163,27 @@ const COMPARISON_ROWS = [
 const FAQS = [
   {
     q: "Why does Nisol AI offer fixed-price engagements instead of hourly billing?",
-    a: "Traditional consulting firms charge open-ended time and materials, which misaligns incentives—the longer they take, the more they bill. Nisol Discovery™ operates on fixed-scope, fixed-price SOWs backed by our Nisol Intelligence™ automation platform, delivering board-ready outcomes in 7–11 days with zero budget surprises."
+    a: "Traditional consulting firms charge open-ended time and materials, which misaligns incentives—the longer they take, the more they bill. Nisol Discovery™ operates on fixed-scope, fixed-price SOWs backed by our Nisol Intelligence™ automation platform, delivering board-ready outcomes in weeks with zero budget surprises."
+  },
+  {
+    q: "How does the Workforce Enablement & Training program work?",
+    a: "We ensure your employees do not start from zero. Our Growth plan includes 2 core tracks: Track 1 (All-Hands AI Foundations & Future of Work, 2x 90-min sessions to demystify AI and address fear of displacement) and Track 2 (Department Champions Sandbox Labs, 4x 2-hr sessions on practical workflow shortcuts). Enterprise plans add Track 3: a half-day leadership seminar for C-suite and managers on workload re-allocation and productivity tracking."
+  },
+  {
+    q: "Why is Cloud compute and LLM token infrastructure a pass-through cost?",
+    a: "Nisol AI's professional fees cover solution architecture, prompt engineering, data pipelines, and evaluation harnesses exclusively. All third-party cloud compute (AWS/Azure/GCP VPCs), foundation model token API consumption (OpenAI, Anthropic, Google), and vector database hosting are provisioned inside your enterprise tenant and paid directly by you. This guarantees 100% data residency and eliminates marked-up infrastructure costs."
+  },
+  {
+    q: "What is the Single-Pod Delivery Capacity Benchmark?",
+    a: "To protect internal engineering quality and avoid over-taxing your staff, one dedicated Nisol delivery pod delivers exactly one primary strategic initiative per 12-to-14 week cycle. If an enterprise wishes to accelerate velocity with concurrent initiatives, we deploy independent parallel pods."
   },
   {
     q: "How are the financial ROI numbers calculated?",
     a: "We do not use generic AI hype numbers. Our analytics engine calibrates projections using your company's actual headcount, revenue tier, payroll pools, and manual task exposure percentages across departments. We also include a 3-scenario CFO sensitivity stress test (Conservative, Base, Optimistic) using a 10% discount rate."
   },
   {
-    q: "What happens after the Discovery engagement?",
-    a: "You have complete freedom with Zero Lock-In. You own all 15 deliverables, architecture blueprints, and code specs. You can choose to: (1) Build internally with your own engineering team using our specs, (2) Partner with Nisol AI to build and deploy production multi-agent systems, or (3) Have Nisol AI monitor and govern your existing vendors."
-  },
-  {
     q: "How does Nisol Discovery compare to Big-4 consulting assessments?",
-    a: "Big-4 firms (KPMG, McKinsey, Deloitte) typically charge ₹25L–₹75L ($50k–$150k+) and take 3–6 months to deliver subjective PowerPoint decks. Nisol AI delivers superior technical rigour, code-level blueprints, vector database topologies, and deterministic financial models in 7–11 days at a fraction of the cost."
+    a: "Big-4 firms (KPMG, McKinsey, Deloitte) typically charge ₹25L–₹75L ($50k–$150k+) and take 3–6 months to deliver subjective PowerPoint decks. Nisol AI delivers superior technical rigour, code-level blueprints, vector database topologies, and deterministic financial models in weeks at a fraction of the cost."
   }
 ];
 

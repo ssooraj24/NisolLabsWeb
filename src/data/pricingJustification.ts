@@ -50,10 +50,10 @@ export const BOARD_DELIVERABLE_PACKS: BoardDeliverablePack[] = [
     badge: "C-SUITE & BOARD",
     description: "CFO and Boardroom-ready investment memoranda and executive roadmaps designed for capital release and steering committee alignment.",
     deliverables: [
-      { name: "CFO & Board Investment Memorandum (10 Pages)", description: "Rigorous financial business case featuring NPV, IRR, 3-scenario sensitivity stress tests, and formal Board Resolution." },
-      { name: "Executive AI Readiness & Benchmark Report (30+ Pages)", description: "30-page comprehensive audit evaluating 8 capability dimensions vs. industry peer median and leader benchmarks." },
-      { name: "2D AI Opportunity & Value Matrix", description: "Interactive bubble matrix mapping high-impact initiatives against implementation feasibility and ROI magnitude." },
-      { name: "AI Transformation Strategy & 12-24 Mo Roadmap", description: "Phased implementation timeline with milestone KPIs, budget allocations, and RACI ownership." },
+      { name: "CFO & Board Investment Memorandum", description: "Rigorous financial business case featuring DCF, NPV, IRR, 3-scenario sensitivity stress tests, and formal Board Resolution." },
+      { name: "Flagship AI Transformation Strategy (9 Comprehensive Chapters)", description: "Enterprise audit evaluating 15 capability dimensions vs. industry peer median and leader benchmarks." },
+      { name: "2D AI Opportunity & Value Matrix (20 Use Cases)", description: "Bubble matrix mapping high-impact initiatives across 6 execution horizons against feasibility and ROI magnitude." },
+      { name: "AI Transformation Roadmap (Single-Pod Benchmark)", description: "Phased implementation timeline with milestone KPIs, budget allocations, and RACI ownership under the 1 pod / 1 initiative rule." },
       { name: "Minto Pyramid Executive Presentation Briefing", description: "Structured Situation-Complication-Resolution briefing formatted for executive presentation." }
     ]
   },
@@ -62,11 +62,11 @@ export const BOARD_DELIVERABLE_PACKS: BoardDeliverablePack[] = [
     badge: "CTO & DATA ENGINEERING",
     description: "Deep-dive technical blueprints, data quality scorecards, and security frameworks for engineering teams and architects.",
     deliverables: [
-      { name: "Data Strategy & Hybrid Vector Lakehouse Blueprint (12 Pages)", description: "Technical topology combining pgvector/Qdrant dense embeddings with BM25 hybrid keyword retrieval." },
+      { name: "Data Strategy & Vector Architecture Blueprint", description: "Target architectural hypothesis combining pgvector/Qdrant dense embeddings with BM25 hybrid keyword retrieval." },
       { name: "5-Dimension Enterprise Data Quality Scorecard", description: "Evaluation of Completeness, Accuracy, Timeliness, Consistency, and Accessibility across CRM & ERP." },
       { name: "Zero-Trust Security & PII Redaction Proxy Framework", description: "API proxy gateway specs with automated Presidio PII tokenization and audit logging." },
       { name: "Real-Time Change Data Capture (CDC) Pipeline Spec", description: "Debezium/Kafka streaming architecture replicating operational data into analytical vector stores." },
-      { name: "Data Preparation & Pre-requisites Budget Plan", description: "Itemized allocation (~42% of Phase 1 budget) for document OCR, ETL cleansing, and vector indexing." }
+      { name: "Direct Client Infrastructure Pass-Through Spec", description: "Itemized cloud compute (AWS/Azure/GCP VPCs) and foundation model token consumption guidelines." }
     ]
   },
   {
@@ -74,10 +74,10 @@ export const BOARD_DELIVERABLE_PACKS: BoardDeliverablePack[] = [
     badge: "RISK & OPERATIONS",
     description: "Organizational change management frameworks, empirical pilot evaluations, and regulatory compliance registers.",
     deliverables: [
-      { name: "Proof of Concept (PoC) Evaluation & Scalability Dossier (8 Pages)", description: "Empirical validation of pilot prototypes (accuracy, latency SLAs, task reduction) with formal Go/No-Go decision matrix." },
+      { name: "Proof of Concept (PoC) Decision Gate & Acceptance Protocol", description: "Prospective pilot governance protocol defining quantitative SLA thresholds and formal Gate 0–4 Go/No-Go decision matrix." },
       { name: "Enterprise AI Risk & Regulatory Register (5x5 Matrix)", description: "Risk register mapped to India DPDP Act 2023, EU AI Act, and RBI AI guidelines with concrete mitigation roadmaps." },
       { name: "Organizational Change Management (OCM) Plan", description: "Stakeholder resistance analysis, governance RACI matrix, and 90-day/1-year adoption KPIs." },
-      { name: "Role-Based AI Upskilling Curriculum", description: "Tailored training modules for General Staff (4 hrs), Champions (12 hrs), and Engineering (24 hrs)." },
+      { name: "3-Track Workforce Enablement Curriculum", description: "Tailored training modules for All-Hands Foundations, Department Champions Labs, and Leadership Management Seminars." },
       { name: "LLMOps & Continuous Evaluation Protocol", description: "Automated telemetry, hallucination monitoring, and cost optimization routing." }
     ]
   }

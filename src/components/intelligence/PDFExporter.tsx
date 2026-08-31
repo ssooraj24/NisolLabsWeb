@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   DELIVERABLE_PORTFOLIO,
   DeliverableType,
@@ -9,7 +9,7 @@ import {
   normalizePricingPlan,
   PLAN_CONFIG,
 } from "@/lib/report/reportPortfolioTypes";
-import { FileText, CheckCircle2, Shield, Layers, DollarSign, FlaskConical, Lock, CheckSquare, Square } from "lucide-react";
+import { FileText, Download, Lock, CheckCircle2, ArrowRight } from "lucide-react";
 
 interface PDFExporterProps {
   reportId: string;
@@ -19,42 +19,11 @@ interface PDFExporterProps {
   onExportSuccess?: () => void;
 }
 
-const SECTION_OPTIONS = [
-  { id: "summary", label: "1. Executive Summary & Value Prop" },
-  { id: "maturity", label: "2. AI Readiness & Vulnerabilities" },
-  { id: "matrix", label: "3. Opportunity Matrix & Top 20 Use Cases" },
-  { id: "roadmap", label: "4. Transformation Roadmap & KPIs" },
-  { id: "roi", label: "5. ROI Analysis & 5-Year Financials" },
-  { id: "blueprints", label: "6. Technical Solution Blueprints" },
-  { id: "proposal", label: "7. Recommended Roadmap & Investment" },
-];
-
 export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExportSuccess }: PDFExporterProps) {
   const normPlan = normalizePricingPlan(planTier);
   const planInfo = PLAN_CONFIG[normPlan];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDeliverables, setSelectedDeliverables] = useState<DeliverableType[]>(() => {
-    return planInfo.allowedDeliverables.length > 0
-      ? [...planInfo.allowedDeliverables]
-      : ["ai_readiness_transformation"];
-  });
-
-  // Ensure only valid allowed deliverables remain selected when plan changes
-  useEffect(() => {
-    setSelectedDeliverables((prev) => {
-      const valid = prev.filter((d) => isDeliverableAllowedForPlan(d, normPlan));
-      if (valid.length === 0) {
-        return [...planInfo.allowedDeliverables];
-      }
-      return valid;
-    });
-  }, [normPlan, planInfo.allowedDeliverables]);
-
-  const [selectedSections, setSelectedSections] = useState<string[]>(
-    SECTION_OPTIONS.map((s) => s.id)
-  );
-  const [includeTOC, setIncludeTOC] = useState(true);
   const [includeWatermark, setIncludeWatermark] = useState(true);
   const [currency, setCurrency] = useState<"INR" | "USD">("INR");
 
@@ -63,44 +32,19 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
   const [progress, setProgress] = useState(0);
   const [progressLabel, setProgressLabel] = useState("");
 
-  const toggleDeliverable = (id: DeliverableType) => {
-    if (selectedDeliverables.includes(id)) {
-      if (selectedDeliverables.length > 1) {
-        setSelectedDeliverables(selectedDeliverables.filter((d) => d !== id));
-      }
-    } else {
-      setSelectedDeliverables([...selectedDeliverables, id]);
-    }
-  };
-
-  const handleToggleAllDeliverables = () => {
-    const allowed = DELIVERABLE_PORTFOLIO.filter((d) => isDeliverableAllowedForPlan(d.id, normPlan)).map((d) => d.id);
-    if (selectedDeliverables.length === allowed.length) {
-      setSelectedDeliverables(["ai_readiness_transformation"]);
-    } else {
-      setSelectedDeliverables(allowed);
-    }
-  };
-
   const openModal = () => {
-    // Select all authorized deliverables by default on opening
-    setSelectedDeliverables([...planInfo.allowedDeliverables]);
     setIsModalOpen(true);
   };
 
-  const toggleSection = (id: string) => {
-    if (selectedSections.includes(id)) {
-      setSelectedSections(selectedSections.filter((s) => s !== id));
-    } else {
-      setSelectedSections([...selectedSections, id]);
-    }
-  };
-
-  const handleStartExport = async () => {
-    if (selectedDeliverables.length === 0) return;
+  const executeExport = async (deliverableTypes: DeliverableType[]) => {
+    if (deliverableTypes.length === 0) return;
     setExporting(true);
     setProgress(15);
-    setProgressLabel(`Compiling ${selectedDeliverables.length} specialized report${selectedDeliverables.length > 1 ? "s" : ""} & models...`);
+    setProgressLabel(
+      deliverableTypes.length > 1
+        ? `Compiling full ${deliverableTypes.length}-document engagement dossier...`
+        : `Generating specialized deliverable...`
+    );
 
     try {
       await new Promise((r) => setTimeout(r, 400));
@@ -114,10 +58,9 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
           reportId,
           auditTitle,
           companyName,
-          deliverableTypes: selectedDeliverables,
-          deliverableType: selectedDeliverables[0] || "ai_readiness_transformation",
-          sections: selectedSections,
-          includeTOC,
+          deliverableTypes,
+          deliverableType: deliverableTypes[0] || "ai_readiness_transformation",
+          includeTOC: true,
           watermarkText: includeWatermark ? "CONFIDENTIAL" : "",
           currency,
         }),
@@ -139,18 +82,33 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
       // Open in print window
       const printWindow = window.open("", "_blank");
       if (printWindow) {
+        printWindow.document.open();
         printWindow.document.write(html);
         printWindow.document.close();
       }
 
-      setIsModalOpen(false);
-      if (onExportSuccess) onExportSuccess();
+      if (onExportSuccess) {
+        onExportSuccess();
+      }
+
+      setTimeout(() => {
+        setIsModalOpen(false);
+      }, 1000);
     } catch (err: any) {
-      alert(`Export error: ${err.message}`);
+      console.error("[PDFExporter] Export error:", err);
+      alert(err.message || "Failed to export PDF deliverable.");
     } finally {
       setExporting(false);
       setProgress(0);
     }
+  };
+
+  const handleExportAll = () => {
+    executeExport([...planInfo.allowedDeliverables]);
+  };
+
+  const handleExportSingle = (delId: DeliverableType) => {
+    executeExport([delId]);
   };
 
   return (
@@ -170,16 +128,18 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-bold text-[#0A1E3C]">Export Consulting Deliverable</h3>
+                  <h3 className="text-lg font-bold text-[#0A1E3C]">Export Consulting Deliverables</h3>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 uppercase">
                     ★ {planInfo.name}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500">Choose from the authorized reports for your subscription tier</p>
+                <p className="text-xs text-slate-500">
+                  Authorized transformation dossier for {companyName || "your enterprise"}.
+                </p>
               </div>
               <button
                 onClick={() => !exporting && setIsModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 font-bold"
+                className="text-slate-400 hover:text-slate-600 font-bold cursor-pointer"
               >
                 ✕
               </button>
@@ -200,27 +160,20 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
               </div>
             ) : (
               <div className="space-y-4 text-xs font-semibold text-slate-700">
-                {/* 1. Deliverable Type Selector */}
+                {/* Dossier Deliverables List (No checkboxes) */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <label className="text-slate-900 font-bold">1. Select Deliverable Type:</label>
-                      <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
-                        {selectedDeliverables.length} of {planInfo.allowedDeliverables.length} selected
+                      <label className="text-slate-900 font-bold">Authorized Deliverables Suite:</label>
+                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        {planInfo.allowedDeliverables.length} Included in Plan
                       </span>
                     </div>
-                    <button
-                      type="button"
-                      onClick={handleToggleAllDeliverables}
-                      className="text-[11px] text-blue-600 hover:text-blue-800 font-bold cursor-pointer"
-                    >
-                      {selectedDeliverables.length === planInfo.allowedDeliverables.length ? "Deselect All" : "Select All"}
-                    </button>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+
+                  <div className="space-y-2">
                     {DELIVERABLE_PORTFOLIO.map((del) => {
                       const isAllowed = isDeliverableAllowedForPlan(del.id, normPlan);
-                      const isSelected = selectedDeliverables.includes(del.id) && isAllowed;
                       const requiredTierLabel =
                         del.id === "poc_evaluation_report" ? "Enterprise Plan Required" : "Growth Plan Required";
 
@@ -228,106 +181,70 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                         return (
                           <div
                             key={del.id}
-                            title={`This deliverable requires a ${requiredTierLabel}`}
-                            className="p-3 rounded-xl border border-dashed border-slate-200 bg-slate-50/70 text-left opacity-70 cursor-not-allowed select-none relative"
+                            className="p-3 rounded-xl border border-dashed border-slate-200 bg-slate-50/70 flex items-center justify-between gap-3 opacity-60 select-none"
                           >
-                            <div className="flex items-center justify-between gap-1 mb-1">
-                              <span className="font-bold text-slate-500 text-xs flex items-center gap-1.5">
-                                <Lock className="w-3.5 h-3.5 text-slate-400" />
-                                <span>{del.title}</span>
-                              </span>
-                              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-600">
-                                Locked
-                              </span>
+                            <div className="flex items-start gap-2.5">
+                              <div className="p-2 rounded-lg bg-slate-100 text-slate-400 mt-0.5">
+                                <Lock className="w-4 h-4" />
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-bold text-slate-600 text-xs">{del.title}</span>
+                                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-600">
+                                    Locked
+                                  </span>
+                                </div>
+                                <p className="text-[10.5px] text-slate-400 font-normal leading-tight mt-0.5">
+                                  {del.description}
+                                </p>
+                              </div>
                             </div>
-                            <p className="text-[10.5px] text-slate-400 font-normal line-clamp-2 leading-tight">
-                              {del.description}
-                            </p>
-                            <div className="text-[10px] text-amber-700 font-semibold mt-1.5 flex items-center gap-1">
-                              <span>🔒 {requiredTierLabel}</span>
-                            </div>
+                            <span className="text-[10px] text-amber-700 font-semibold shrink-0 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
+                              🔒 {requiredTierLabel}
+                            </span>
                           </div>
                         );
                       }
 
                       return (
-                        <button
+                        <div
                           key={del.id}
-                          type="button"
-                          onClick={() => toggleDeliverable(del.id)}
-                          className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
-                            isSelected
-                              ? "border-blue-600 bg-blue-50/70 shadow-xs ring-1 ring-blue-600"
-                              : "border-slate-200 bg-slate-50 hover:bg-slate-100 opacity-75"
-                          }`}
+                          className="p-3 rounded-xl border border-slate-200 bg-white hover:border-blue-400 hover:shadow-xs transition-all flex items-center justify-between gap-3"
                         >
-                          <div className="flex items-center justify-between gap-1 mb-1">
-                            <span className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-                              {isSelected ? (
-                                <CheckSquare className="w-4 h-4 text-blue-600 shrink-0" />
-                              ) : (
-                                <Square className="w-4 h-4 text-slate-400 shrink-0" />
-                              )}
-                              <span>{del.icon}</span>
-                              <span className="line-clamp-1">{del.title}</span>
-                            </span>
-                            <span
-                              className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ${
-                                isSelected ? "bg-blue-600 text-white" : "bg-slate-200 text-slate-700"
-                              }`}
-                            >
-                              {del.badge}
-                            </span>
+                          <div className="flex items-start gap-2.5">
+                            <span className="text-xl mt-0.5">{del.icon}</span>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="font-bold text-slate-900 text-xs">{del.title}</span>
+                                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                                  {del.badge}
+                                </span>
+                              </div>
+                              <p className="text-[10.5px] text-slate-500 font-normal leading-tight mt-0.5">
+                                {del.description}
+                              </p>
+                              <div className="text-[10px] text-slate-400 font-medium mt-1">
+                                Audience: {del.targetAudience.split(",")[0]} • {del.estimatedPages}
+                              </div>
+                            </div>
                           </div>
-                          <p className="text-[10.5px] text-slate-500 font-normal line-clamp-2 leading-tight ml-5.5">
-                            {del.description}
-                          </p>
-                          <div className="text-[10px] text-slate-400 font-medium mt-1.5 ml-5.5">
-                            Audience: {del.targetAudience.split(",")[0]} • {del.estimatedPages}
-                          </div>
-                        </button>
+
+                          <button
+                            type="button"
+                            onClick={() => handleExportSingle(del.id)}
+                            className="px-3 py-1.5 bg-slate-100 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 text-slate-700 font-bold rounded-lg border border-slate-200 flex items-center gap-1 shrink-0 cursor-pointer transition-colors"
+                            title={`Export ${del.title} individually`}
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>Download PDF</span>
+                          </button>
+                        </div>
                       );
                     })}
                   </div>
                 </div>
 
-                {/* 2. Flagship Section Selection (When flagship report is among selected) */}
-                {selectedDeliverables.includes("ai_readiness_transformation") && (
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-slate-900 font-bold">2. Sections to Include (Strategy):</label>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setSelectedSections(
-                            selectedSections.length === SECTION_OPTIONS.length
-                              ? []
-                              : SECTION_OPTIONS.map((s) => s.id)
-                          )
-                        }
-                        className="text-[11px] text-blue-600 hover:underline cursor-pointer"
-                      >
-                        {selectedSections.length === SECTION_OPTIONS.length ? "Deselect All" : "Select All"}
-                      </button>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
-                      {SECTION_OPTIONS.map((sec) => (
-                        <label key={sec.id} className="flex items-center gap-2 cursor-pointer font-normal">
-                          <input
-                            type="checkbox"
-                            checked={selectedSections.includes(sec.id)}
-                            onChange={() => toggleSection(sec.id)}
-                            className="rounded text-blue-600 focus:ring-blue-500"
-                          />
-                          <span>{sec.label}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* 3. Export Settings & Currency */}
+                {/* Export Settings & Currency */}
                 <div className="space-y-2 pt-2 border-t border-slate-100">
                   <div className="flex items-center justify-between">
                     <label className="flex items-center gap-2 cursor-pointer font-normal">
@@ -367,27 +284,30 @@ export function PDFExporter({ reportId, auditTitle, companyName, planTier, onExp
                 </div>
 
                 {/* Actions Footer */}
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleStartExport}
-                    disabled={selectedDeliverables.length === 0}
-                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold rounded-xl flex items-center gap-1.5 shadow-sm cursor-pointer"
-                  >
-                    <span>🚀</span>
-                    <span>
-                      {selectedDeliverables.length > 1
-                        ? `Generate ${selectedDeliverables.length} Deliverables Bundle`
-                        : "Generate Branded Deliverable"}
-                    </span>
-                  </button>
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <span className="text-[11px] text-slate-500 font-normal">
+                    Includes professional formatting, SVG charts & executive sign-off sheets.
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(false)}
+                      className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl cursor-pointer font-semibold"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleExportAll}
+                      className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center gap-1.5 shadow-sm cursor-pointer"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>
+                        Download Complete Dossier ({planInfo.allowedDeliverables.length} Deliverable
+                        {planInfo.allowedDeliverables.length > 1 ? "s" : ""})
+                      </span>
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

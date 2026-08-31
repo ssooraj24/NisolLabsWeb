@@ -95,51 +95,56 @@ const PACKAGES = [
       "Full 360° Diagnostic across ALL 15 Business Functions (62 Questions)",
       "Sector Benchmarking against 8 Industry Vertical Profiles",
       "Executive AI Readiness Assessment & Maturity Scorecard",
-      "2D Opportunity Bubble Matrix & Top 20 Prioritized Use Cases",
-      "30/90/180/365-Day Transformation Roadmap & Capital Budget",
+      "2D Opportunity Bubble Matrix & Top 5 Prioritized Quick Wins",
+      "Wave 1 (M 0–3) Transformation Roadmap & Lumpsum Capital Budget",
+      "0 Training Tracks (Self-Serve Diagnostic; Training available as add-on)",
       "Interactive Intelligence Portal (Read-Only Access)"
     ]
   },
   {
     name: "Growth Engagement",
     badge: "MOST POPULAR",
-    price: "Starting from ₹7,50,000",
+    price: "Starting from ₹8,50,000",
     priceSub: "Fixed-Price SOW (Scope-Based)",
     duration: "2–4 Weeks (10–15 Business Days)",
-    ideal: "Ideal for mid-market enterprises (51–250 employees) needing board-ready financial models and architecture blueprints.",
+    ideal: "Ideal for mid-market enterprises (51–250 employees) needing board-ready financial models, architecture blueprints, and staff upskilling.",
     popular: true,
     ctaText: "Talk to an AI Strategist",
     ctaLink: "/contact?type=discovery-call&package=Growth",
     features: [
       "Everything in Foundation, plus:",
-      "CFO & Board Investment Memorandum (10 Pages, NPV & IRR)",
+      "CFO & Board Investment Memorandum (DCF, NPV & IRR)",
       "3-Scenario Sensitivity Stress Test (75%–125% adoption)",
-      "Data Strategy & Hybrid Vector Lakehouse Blueprint (12 Pages)",
-      "5-Dimension Data Quality Scorecard & Real-Time CDC Spec",
+      "Data Strategy & Vector Architecture Blueprint (5-Dimension Scorecard)",
+      "15 Departmental Action Briefs (Operational Friction & Target Outcomes)",
       "5×5 Risk & Regulatory Register (DPDP Act 2023 / EU AI Act)",
       "Organizational Change Management (OCM) & RACI Governance",
+      "2 Workforce Training Tracks Included (All-Hands Demystification + Champions Labs)",
       "Solution Blueprints for Top 5 Priority AI Use Cases",
-      "Executive Steering Group Readout Session"
+      "Single-Pod Capacity Delivery Guarantee"
     ]
   },
   {
     name: "Enterprise Engagement",
-    badge: "CUSTOM SCOPE",
-    price: "Custom Quote",
+    badge: "STRATEGIC ARSENAL",
+    price: "Starting from ₹18,50,000",
     priceSub: "Based on Enterprise Scope",
     duration: "4–8 Weeks (Phased Transformation)",
-    ideal: "Designed for large, multi-entity enterprises (250+ employees) and complex operational environments.",
+    ideal: "Designed for large, multi-entity enterprises (250+ employees) requiring competitive defense, custom architectures, and pilot evaluation.",
     ctaText: "Request Enterprise Proposal",
     ctaLink: "/contact?type=proposal&package=Enterprise",
     popular: false,
     features: [
       "Everything in Growth, plus:",
-      "Empirical PoC Evaluation & Scalability Dossier (8 Pages)",
-      "Live Pilot Benchmarking & Go/No-Go Decision Gate Matrix",
-      "Multi-Entity Financial Modeling & Capital Allocation",
-      "Custom Multi-Agent Cluster & PII Tokenization Gateway Specs",
-      "AI Center of Excellence (CoE) Charter & Setup",
-      "Dedicated Enterprise Tenant Portal & Quarterly Re-benchmarking"
+      "PoC Decision Gate & Acceptance Protocol (SLA Benchmarks & Gate 0–4 Sign-off)",
+      "Shadow AI Exposure, Penetration Audit & Zero-Trust PII Gateway Spec",
+      "Vendor Dependency, Multi-LLM Lock-In & Switch-Cost Teardown",
+      "36-Month 3-Horizon Strategic Warfare Roadmap",
+      "Valuation Multiple Expansion Modeling (15%–25% multiple premium)",
+      "Full 3-Track Enablement Suite Included (All-Hands + Champions + Leadership Seminar)",
+      "Real-Time Change Data Capture (CDC) Pipeline Architecture",
+      "AI Center of Excellence (CoE) Charter & Multi-Entity Governance",
+      "Quarterly Re-benchmarking & Executive Steering Advisory"
     ]
   }
 ];

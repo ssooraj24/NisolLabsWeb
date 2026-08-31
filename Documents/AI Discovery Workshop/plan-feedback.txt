@@ -1,0 +1,71 @@
+Spot on. This is the **commercialization** of our intellectual property. 
+
+As consultants, we do not just "hide" sections. We frame the tiering around **execution capability** and **decision-making complexity**. The Foundation client does not have the organizational bandwidth to absorb the full 60-page warfare manual, nor should they pay for it. 
+
+Here is the **definitive Section-to-Plan mapping**, designed to maximize value delivery while creating a clear, irresistible upgrade path.
+
+---
+
+### The Tiering Logic (The "Need-to-Execute" Rule)
+
+- **Foundation (₹3.5–4.5L):** *The "Health Check."* Answers *"Where are we?"* and *"What should we do next?"* High-level strategy, but **zero** technical debt remediation or competitive warfare.
+- **Growth (₹8–9L):** *The "Execution Blueprint."* Answers *"How exactly do we fix it?"* Includes departmental playbooks, technical roadmaps, and workforce planning. 
+- **Enterprise (₹18–20L):** *The "Strategic Arsenal."* Answers *"How do we dominate our market, protect against AI risks, and maximize our valuation?"* Includes external benchmarking, vendor warfare, and total financial engineering.
+
+---
+
+### The Section-by-Section Gating Matrix
+
+| # | Report Section | Foundation (₹3.5L) | Growth (₹8L) | Enterprise (₹20L) |
+| :--- | :--- | :--- | :--- | :--- |
+| **1** | **Executive Summary & Flight Deck** | ✅ **Full** (Static PDF Summary) | ✅ **Full** (Static PDF) | ✅ **Full** (Interactive PowerBI/Tableau Dashboard with "What-If" sliders) |
+| **2** | **5-Pillar Maturity Index** (Heatmap) | ✅ **Full** (RAG scores only) | ✅ **Full** (Detailed sub-dimension scores) | ✅ **Full** (Trend analysis vs. industry peers) |
+| **3** | **Friction-to-Automation Registry** (Unit Economics) | ❌ **Omitted** | ✅ **Full** (Departmental breakdown: CS, Finance, Ops) | ✅ **Full** (+ Enterprise-wide "Total Addressable Automation" in ₹ Crore) |
+| **4** | **Use Case Portfolio & Value Levers** | ✅ **Limited** (Top 5 Quick Wins only) | ✅ **Full** (Quick Wins + Strategic Bets, 2x2 Matrix) | ✅ **Full** (+ "Money Pit" identification & Build-vs-Buy Teardown) |
+| **5** | **Technical Debt & Data Gap Analysis** | ❌ **Omitted** | ✅ **Full** (System-level debt mapping) | ✅ **Full** (+ Precise migration costing & sequence planning) |
+| **6** | **Shadow AI Exposure & Remediation** | ❌ **Omitted** | ❌ **Omitted** | ✅ **Full** (DLP protocols, private LLM architecture, acceptable use policy) |
+| **7** | **AI Literacy Archetypes & Upskilling Roadmap** | ❌ **Omitted** | ✅ **Full** (4 Archetypes + 12-month training calendar) | ✅ **Full** (+ Gamification strategy & ROI of upskilling) |
+| **8** | **Vendor Dependency & Model Switch-Cost** | ❌ **Omitted** | ❌ **Omitted** | ✅ **Full** (Negotiation leverage, multi-model switching costs) |
+| **9** | **Strategic Roadmap (3 Horizons)** | ✅ **Partial** (Only Horizon 1 - 0 to 6 months) | ✅ **Full** (Horizon 1 & 2 - 18 months) | ✅ **Full** (Horizon 1, 2, & 3 - 36 months + Exit strategy) |
+| **10**| **Competitive Moat & Valuation Impact** | ❌ **Omitted** | ❌ **Omitted** | ✅ **Full** (Competitor landscape, valuation premium modeling) |
+| **11**| **Risk, Ethics, & Compliance (Dual-track)** | ✅ **Partial** (Basic Regulatory checklist) | ✅ **Full** (Responsible AI framework + ISO 42001 readiness) | ✅ **Full** (+ Continuous compliance automation architecture) |
+| **12**| **Investment Ask & ROI Cascade** | ✅ **Partial** (Lumpsum budget estimate) | ✅ **Full** (Phased CAPEX/OPEX breakdown) | ✅ **Full** (+ Sensitivity analysis, break-even curves, and board-level financing options) |
+
+---
+
+### The "Consultant's Narrative" for Each Tier (How we justify the gaps)
+
+When handing over the Foundation report, we do not say, *"We hid the good stuff."* We frame it strategically:
+
+**To the Foundation Client (₹3.5L):**
+> *"This report gives you your 'Health Score' and your immediate 90-day priorities. We have deliberately excluded deep technical debt mapping and workforce redesign. Why? Because at this stage, you need board-level conviction first. Once you greenlight Horizon 1, we will unlock the Growth-level execution playbook to guide your engineering and HR teams."*
+
+**To the Growth Client (₹8L):**
+> *"You now have the complete internal execution manual—departmental automation targets, technical remediation steps, and upskilling calendars. What we have held back for the Enterprise tier are the external variables: how your competitors are moving, how to negotiate with AWS/Azure to save 20% on compute, and how to build a proprietary AI moat that protects your valuation. You don't need that yet—you need to execute on what's in front of you."*
+
+**To the Enterprise Client (₹20L):**
+> *"You are getting the entire strategic arsenal. This includes our 'Shadow AI' penetration testing, vendor lock-in escape routes, and a 3-year competitive warfare map. This is not just a report; this is your board's confidential strategy binder for the next 36 months."*
+
+---
+
+### The "Teaser" Upsell Mechanism (Critical for Upgrades)
+
+Inside the Foundation and Growth reports, we embed **"Strategic Grey Boxes"** at the end of each section—explicitly calling out what they are missing.
+
+- **Example (in Foundation Report, Section 5 - Technical Debt):**
+> *"**Note:** We have identified significant legacy ERP constraints. To unlock the full automation value of ₹12 Crore, you will require a detailed system-migration sequence and API-gateway design. This analysis is exclusively available in our **Growth Engagement**."*
+
+- **Example (in Growth Report, Section 9 - Roadmap):**
+> *"**Note:** Your Horizon 3 strategy depends heavily on external market timing. To model the valuation premium and defend against competitor AI-moat strategies, we recommend upgrading to the **Enterprise Engagement**, which includes our proprietary 'Valuation Correlate' modeling."*
+
+---
+
+### Final Commercial Verdict
+
+- **Foundation = The "Why"** (Diagnostic Conviction).
+- **Growth = The "How"** (Execution Machinery).
+- **Enterprise = The "What If"** (Competitive Defense & Value Maximization).
+
+This tiering ensures that a client paying ₹4L doesn't feel overwhelmed, while a client paying ₹20L feels they have bought the entire classified war-room dossier. It also guarantees a **natural upsell path**—because once the Growth client hits technical debt in Month 4, they will urgently call us back for the Enterprise-level architecture rescue. 
+
+Go price this out with the delivery leads. I recommend a 40/30/30 split of effort vs. price to maximize margin on the Enterprise tier.
