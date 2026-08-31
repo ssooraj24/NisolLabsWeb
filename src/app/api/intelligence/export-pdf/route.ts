@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
         ? audit.tenants[0]
         : (audit.tenants as any)
       : null;
-    const planTier = report?.plan_tier || tenantObj?.pricing_plan || "foundation";
+    const planTier = tenantObj?.pricing_plan || report?.plan_tier || "foundation";
     const reqDeliverable: DeliverableType = deliverableType || "ai_readiness_transformation";
 
     if (!isDeliverableAllowedForPlan(reqDeliverable, planTier)) {

@@ -116,6 +116,21 @@ export default function ReportEditorPage() {
     }
   }
 
+  const tenantObj = audit ? (Array.isArray(audit.tenants) ? audit.tenants[0] : audit.tenants) : null;
+  const profileObj = audit ? (Array.isArray(audit.profiles) ? audit.profiles[0] : audit.profiles) : null;
+  const tenantPlan = tenantObj?.pricing_plan ? normalizePricingPlan(tenantObj.pricing_plan) : null;
+  const reportPlan = report?.plan_tier ? normalizePricingPlan(report.plan_tier) : null;
+  const activePlan = tenantPlan || reportPlan || "foundation";
+  const planConfig = PLAN_CONFIG[activePlan] || PLAN_CONFIG.foundation;
+  const isPlanMismatched = Boolean(report && reportPlan && tenantPlan && reportPlan !== tenantPlan);
+
+  // If currently on an unauthorized tab, auto-switch to summary
+  useEffect(() => {
+    if (report && !isTabAllowedForPlan(activeTab, activePlan)) {
+      setActiveTab("summary");
+    }
+  }, [activePlan, activeTab, report]);
+
   useEffect(() => {
     loadData();
   }, [auditId, supabase]);
@@ -190,18 +205,6 @@ export default function ReportEditorPage() {
     );
   }
 
-  const tenantObj = Array.isArray(audit.tenants) ? audit.tenants[0] : audit.tenants;
-  const rawPlan = report?.plan_tier || tenantObj?.pricing_plan || "foundation";
-  const activePlan = normalizePricingPlan(rawPlan);
-  const planConfig = PLAN_CONFIG[activePlan];
-
-  // If currently on an unauthorized tab, auto-switch to summary
-  useEffect(() => {
-    if (report && !isTabAllowedForPlan(activeTab, activePlan)) {
-      setActiveTab("summary");
-    }
-  }, [activePlan, activeTab, report]);
-
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Top Bar Header */}
@@ -230,7 +233,7 @@ export default function ReportEditorPage() {
             <p className="text-xs text-slate-500 mt-1">
               Client: <span className="font-semibold text-slate-800">{tenantObj?.name || "N/A"}</span> • Industry:{" "}
               <span className="font-semibold text-slate-800">{tenantObj?.industry || "Technology"}</span> • Consultant:{" "}
-              <span className="font-semibold text-slate-800">{audit.profiles?.full_name || "Unassigned"}</span>
+              <span className="font-semibold text-slate-800">{profileObj?.full_name || "Unassigned"}</span>
             </p>
           </div>
 
@@ -263,6 +266,35 @@ export default function ReportEditorPage() {
           </div>
         </div>
       </div>
+
+      {/* Plan Mismatch Alert Banner */}
+      {isPlanMismatched && (
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-amber-900 shadow-2xs">
+          <div className="flex items-start sm:items-center gap-3">
+            <span className="text-2xl">⚡</span>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="text-xs font-black uppercase tracking-wider text-amber-900">
+                  Tenant Plan Updated to {planConfig.name}
+                </p>
+                <span className="text-[10px] bg-amber-200/80 text-amber-900 font-bold px-2 py-0.5 rounded-full">
+                  Action Required
+                </span>
+              </div>
+              <p className="text-xs text-amber-800 mt-1">
+                This report draft was originally generated under the <strong>{reportPlan ? PLAN_CONFIG[reportPlan]?.name : "older"}</strong> plan. Re-generate with AI to compose all new deliverables, data strategies, and financial models for the <strong>{planConfig.name}</strong> tier.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={handleGenerateReport}
+            disabled={generating}
+            className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition-all shadow-xs whitespace-nowrap disabled:opacity-50 flex items-center gap-1.5 cursor-pointer"
+          >
+            {generating ? "⚡ Analyzing..." : "🔄 Re-Generate with AI"}
+          </button>
+        </div>
+      )}
 
       {/* Main Report Body / Tab Navigation */}
       {!report ? (
