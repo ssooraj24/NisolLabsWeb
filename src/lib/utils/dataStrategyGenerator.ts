@@ -26,14 +26,25 @@ export function generateDataStrategyHTML(report: any, audit: any, options: DataS
   const reportDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
   const rawReadiness = report?.dataReadinessAssessment;
-  const qualityDims = rawReadiness?.qualityDimensions || [
+  const defaultQualityDims = [
     { dimension: "Completeness", score: 65, status: "Needs Attention", findings: "Legacy transactional records have variable mandatory field population." },
     { dimension: "Accuracy", score: 78, status: "Healthy", findings: "High core financial and operational precision; deduplication needed across CRM." },
     { dimension: "Timeliness", score: 58, status: "Needs Attention", findings: "Batch ETL sync intervals create latency for real-time agent responses." },
     { dimension: "Consistency", score: 62, status: "Needs Attention", findings: "Discrepant schema naming conventions across sales CRM vs ERP databases." },
     { dimension: "Accessibility", score: 60, status: "Needs Attention", findings: "Data locked in siloed department repositories without vector embeddings." },
   ];
+  const qualityDims = Array.isArray(rawReadiness?.qualityDimensions) && rawReadiness.qualityDimensions.length > 0
+    ? rawReadiness.qualityDimensions
+    : defaultQualityDims;
   const computedAvgScore = Math.round(qualityDims.reduce((sum: number, d: any) => sum + (d.score || 0), 0) / qualityDims.length);
+
+  const defaultRoadmap = [
+    "Conduct Phase 1 Technical Data Spike to inspect table schemas, latency, and read-replica availability",
+    "Deploy an automated Document Ingestion & OCR pipeline with chunk-level metadata tagging",
+    "Implement real-time Change Data Capture (CDC) pipelines from ERP/CRM into analytical vector stores",
+    "Configure granular Role-Based Access Control (RBAC) filtering at the embedding chunk level",
+    "Establish reverse-proxy PII tokenization layer prior to any foundation model API calls",
+  ];
 
   const dataReadiness = {
     overallDataScore: rawReadiness?.overallDataScore || computedAvgScore,
@@ -44,19 +55,17 @@ export function generateDataStrategyHTML(report: any, audit: any, options: DataS
     estimatedDataPrepCost: isINR ? "₹22 - ₹32 Lakhs" : "$28,000 - $40,000",
     estimatedDataPrepPctOfBudget: 35,
     qualityDimensions: qualityDims,
-    domainScorecards: rawReadiness?.domainScorecards || [
-      { domain: "Customer & CRM Telemetry", dataQualityScore: 72, ragVectorReadiness: "High", governanceMaturity: "Defined", keyBottlenecks: ["Lead notes lack standardized structuring", "Historical ticket archives need PII scrubbing"] },
-      { domain: "ERP & Financial Records", dataQualityScore: 82, ragVectorReadiness: "Moderate", governanceMaturity: "Managed", keyBottlenecks: ["Direct database read-only replicas needed", "Complex join logic across disparate ledgers"] },
-      { domain: "Unstructured Documents (PDFs)", dataQualityScore: 54, ragVectorReadiness: "Moderate", governanceMaturity: "Ad-hoc", keyBottlenecks: ["Scanned image PDFs require high-accuracy OCR", "Missing document versioning and obsolescence tagging"] },
-      { domain: "Operational Telemetry", dataQualityScore: 68, ragVectorReadiness: "High", governanceMaturity: "Defined", keyBottlenecks: ["High velocity logs require aggregation pipelines", "Retention policies must balance storage vs context depth"] },
-    ],
-    recommendedDataRoadmap: [
-      "Conduct Phase 1 Technical Data Spike to inspect table schemas, latency, and read-replica availability",
-      "Deploy an automated Document Ingestion & OCR pipeline with chunk-level metadata tagging",
-      "Implement real-time Change Data Capture (CDC) pipelines from ERP/CRM into analytical vector stores",
-      "Configure granular Role-Based Access Control (RBAC) filtering at the embedding chunk level",
-      "Establish reverse-proxy PII tokenization layer prior to any foundation model API calls",
-    ],
+    domainScorecards: Array.isArray(rawReadiness?.domainScorecards) && rawReadiness.domainScorecards.length > 0
+      ? rawReadiness.domainScorecards
+      : [
+          { domain: "Customer & CRM Telemetry", dataQualityScore: 72, ragVectorReadiness: "High", governanceMaturity: "Defined", keyBottlenecks: ["Lead notes lack standardized structuring", "Historical ticket archives need PII scrubbing"] },
+          { domain: "ERP & Financial Records", dataQualityScore: 82, ragVectorReadiness: "Moderate", governanceMaturity: "Managed", keyBottlenecks: ["Direct database read-only replicas needed", "Complex join logic across disparate ledgers"] },
+          { domain: "Unstructured Documents (PDFs)", dataQualityScore: 54, ragVectorReadiness: "Moderate", governanceMaturity: "Ad-hoc", keyBottlenecks: ["Scanned image PDFs require high-accuracy OCR", "Missing document versioning and obsolescence tagging"] },
+          { domain: "Operational Telemetry", dataQualityScore: 68, ragVectorReadiness: "High", governanceMaturity: "Defined", keyBottlenecks: ["High velocity logs require aggregation pipelines", "Retention policies must balance storage vs context depth"] },
+        ],
+    recommendedDataRoadmap: Array.isArray(rawReadiness?.recommendedDataRoadmap) && rawReadiness.recommendedDataRoadmap.length > 0
+      ? rawReadiness.recommendedDataRoadmap
+      : defaultRoadmap,
   };
 
   return `

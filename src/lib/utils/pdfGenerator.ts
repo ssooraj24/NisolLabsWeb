@@ -118,7 +118,14 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       ];
 
   // Prioritized Use Cases Catalog (Using industry-specific fallback if empty)
-  const rawUseCases = report?.opportunityPortfolio?.useCases || report?.top_use_cases?.use_cases || [];
+  const rawUseCases = Array.isArray(report?.opportunityPortfolio?.useCases)
+    ? report.opportunityPortfolio.useCases
+    : Array.isArray(report?.top_use_cases?.use_cases)
+    ? report.top_use_cases.use_cases
+    : Array.isArray(report?.top_use_cases)
+    ? report.top_use_cases
+    : [];
+
   const useCases = rawUseCases.length > 0 ? rawUseCases : industryBenchmark.topUseCasesCatalog.map((uc, i) => ({
     id: String(i + 1),
     name: uc.name,
@@ -135,7 +142,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
   }));
 
   // Risk Register Data
-  const riskRegister = report?.governanceAssessment?.riskRegister || [
+  const defaultRiskRegister = [
     {
       id: "RSK-01",
       category: "Data Privacy & Security",
@@ -176,38 +183,109 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       residualRisk: "Low",
     },
   ];
+  const rawRisk = report?.governanceAssessment?.riskRegister;
+  const riskRegister = Array.isArray(rawRisk) && rawRisk.length > 0 ? rawRisk : defaultRiskRegister;
 
   // Data Readiness Data
-  const dataReadiness = report?.dataReadinessAssessment || {
-    overallDataScore: 62,
-    qualityDimensions: [
-      { dimension: "Completeness", score: 65, status: "Needs Attention", findings: "Legacy records contain variable mandatory field population." },
-      { dimension: "Accuracy", score: 78, status: "Healthy", findings: "High core financial and transactional precision." },
-      { dimension: "Timeliness", score: 58, status: "Needs Attention", findings: "Batch sync intervals create multi-hour data latency." },
-      { dimension: "Accessibility", score: 60, status: "Needs Attention", findings: "Data locked in siloed department repositories without vector endpoints." },
-    ],
-    estimatedDataPrepCost: isINR ? "₹28 - ₹38 Lakhs" : "$35,000 - $50,000",
-    estimatedDataPrepPctOfBudget: 40,
+  const rawReadiness = report?.dataReadinessAssessment;
+  const defaultQualityDims = [
+    { dimension: "Completeness", score: 65, status: "Needs Attention", findings: "Legacy records contain variable mandatory field population." },
+    { dimension: "Accuracy", score: 78, status: "Healthy", findings: "High core financial and transactional precision." },
+    { dimension: "Timeliness", score: 58, status: "Needs Attention", findings: "Batch sync intervals create multi-hour data latency." },
+    { dimension: "Accessibility", score: 60, status: "Needs Attention", findings: "Data locked in siloed department repositories without vector endpoints." },
+  ];
+  const dataReadiness = {
+    overallDataScore: rawReadiness?.overallDataScore || 62,
+    qualityDimensions: Array.isArray(rawReadiness?.qualityDimensions) && rawReadiness.qualityDimensions.length > 0
+      ? rawReadiness.qualityDimensions
+      : defaultQualityDims,
+    estimatedDataPrepCost: rawReadiness?.estimatedDataPrepCost || (isINR ? "₹28 - ₹38 Lakhs" : "$35,000 - $50,000"),
+    estimatedDataPrepPctOfBudget: rawReadiness?.estimatedDataPrepPctOfBudget || 40,
   };
 
   // OCM Plan Data
-  const ocmPlan = report?.ocmPlan || {
-    overallChangeReadinessScore: 64,
-    stakeholderImpacts: [
-      { stakeholderGroup: "Frontline Support & Knowledge Workers", impactLevel: "High", anticipatedResistance: "Fear of automation and workflow disruption", changeIntervention: "AI Co-pilot hands-on training and efficiency incentives" },
-      { stakeholderGroup: "Middle Management & Team Leads", impactLevel: "High", anticipatedResistance: "Hesitation in trusting automated decision logs", changeIntervention: "Managerial audit dashboards and Human-in-the-loop controls" },
-    ],
-    raciMatrix: [
-      { initiative: "AI Strategic Roadmap & Governance", responsible: "Chief AI Officer", accountable: "Executive Committee", consulted: "Dept Heads", informed: "All Staff" },
-      { initiative: "AI Proxy Gateway & PII Redaction", responsible: "Security Architect", accountable: "CISO", consulted: "Legal", informed: "Engineering" },
-      { initiative: "Department AI Agents Rollout", responsible: "AI Dev Lead", accountable: "Dept Head", consulted: "Super-users", informed: "Impacted Teams" },
-    ],
+  const rawOcm = report?.ocmPlan;
+  const defaultRaci = [
+    { initiative: "AI Strategic Roadmap & Governance", responsible: "Chief AI Officer", accountable: "Executive Committee", consulted: "Dept Heads", informed: "All Staff" },
+    { initiative: "AI Proxy Gateway & PII Redaction", responsible: "Security Architect", accountable: "CISO", consulted: "Legal", informed: "Engineering" },
+    { initiative: "Department AI Agents Rollout", responsible: "AI Dev Lead", accountable: "Dept Head", consulted: "Super-users", informed: "Impacted Teams" },
+  ];
+  const ocmPlan = {
+    overallChangeReadinessScore: rawOcm?.overallChangeReadinessScore || 64,
+    stakeholderImpacts: Array.isArray(rawOcm?.stakeholderImpacts) ? rawOcm.stakeholderImpacts : [],
+    raciMatrix: Array.isArray(rawOcm?.raciMatrix) && rawOcm.raciMatrix.length > 0 ? rawOcm.raciMatrix : defaultRaci,
   };
 
   // Extract Department Scorecards, Blueprints, and Roadmap from report
-  const deptScorecards: any[] = report?.departmentScorecards || [];
-  const blueprints: any[] = report?.solutionBlueprints || [];
-  const roadmapPhases: any[] = report?.transformationRoadmap || [];
+  const rawScorecards = report?.departmentScorecards;
+  const deptScorecards: any[] = Array.isArray(rawScorecards)
+    ? rawScorecards
+    : Array.isArray(rawScorecards?.scorecards)
+    ? rawScorecards.scorecards
+    : [];
+
+  const rawBlueprints = report?.solutionBlueprints;
+  const blueprints: any[] = Array.isArray(rawBlueprints)
+    ? rawBlueprints
+    : Array.isArray(rawBlueprints?.blueprints)
+    ? rawBlueprints.blueprints
+    : [];
+
+  const rawRoadmap = report?.transformationRoadmap;
+  const extractedPhases: any[] = Array.isArray(rawRoadmap)
+    ? rawRoadmap
+    : Array.isArray(rawRoadmap?.phases)
+    ? rawRoadmap.phases
+    : [];
+
+  const defaultRoadmapPhases = [
+    {
+      phaseNumber: 1,
+      phaseName: "Wave 1 (M 0-3): Foundation & Anchor Quick Win",
+      durationMonths: 3,
+      focus: "Deploy single anchor high-ROI automation (1 Pod: Automated QA Test Case Generation) and establish enterprise AI proxy policy.",
+      keyProjects: ["Automated QA Test Case Generation", "Enterprise AI Security Proxy Setup"],
+      expectedMilestones: ["Inline PII redaction proxy setup", "Anchor Quick Win production cutover (>95% accuracy)"],
+      targetOutcomes: "70% regression test authoring time reduction",
+      estimatedCost: isINR ? "₹18 - ₹25 Lakhs" : "$22,000 - $32,000",
+      ownerRole: "Head of QA & Engineering",
+    },
+    {
+      phaseNumber: 2,
+      phaseName: "Wave 2 (M 3-6): Developer Velocity & Code Review",
+      durationMonths: 3,
+      focus: "Scale single-pod delivery to automated code review and department champions training.",
+      keyProjects: ["Automated AI Code Review & SAST Pipeline", "Department Champions Sandbox Labs"],
+      expectedMilestones: ["Code review cycle time compressed by 65%"],
+      targetOutcomes: "Zero security drift and 2x PR throughput",
+      estimatedCost: isINR ? "₹18 - ₹25 Lakhs" : "$22,000 - $32,000",
+      ownerRole: "VP of Engineering",
+    },
+    {
+      phaseNumber: 3,
+      phaseName: "Wave 3 (M 6-9): Financial Operations & Document Automation",
+      durationMonths: 3,
+      focus: "Deploy Intelligent Invoice OCR and finance reconciliation automation.",
+      keyProjects: ["Intelligent Invoice OCR & Financial Reconciliation"],
+      expectedMilestones: ["Automated invoice extraction and 3-way PO match"],
+      targetOutcomes: "92% straight-through invoice processing",
+      estimatedCost: isINR ? "₹28 - ₹38 Lakhs" : "$35,000 - $48,000",
+      ownerRole: "VP of Finance / Controller",
+    },
+    {
+      phaseNumber: 4,
+      phaseName: "Wave 4 (M 9-12): Enterprise Knowledge Graph",
+      durationMonths: 3,
+      focus: "Unify institutional knowledge into hybrid vector search and executive intelligence.",
+      keyProjects: ["Enterprise Knowledge Graph & Semantic Search"],
+      expectedMilestones: ["Multi-repo unified semantic search live across all units"],
+      targetOutcomes: "5.5 hours saved per engineer per week",
+      estimatedCost: isINR ? "₹45 - ₹65 Lakhs" : "$55,000 - $80,000",
+      ownerRole: "Chief Technology Officer (CTO)",
+    },
+  ];
+
+  const roadmapPhases: any[] = extractedPhases.length > 0 ? extractedPhases : defaultRoadmapPhases;
 
   // SVG Chart Generators with dynamic data
   const radarChartSVG = renderRadarChartSVG(radarData);
