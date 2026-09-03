@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { 
   Handshake, 
   Users, 
@@ -29,7 +30,7 @@ import {
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
-// Dummy initial data for initial preview & fallback when Supabase is connecting
+// Initial mock dataset for initial render / local preview
 const MOCK_PARTNERS = [
   {
     id: "p-101",
@@ -129,14 +130,21 @@ const MOCK_COMMISSIONS = [
   }
 ];
 
-export default function SuperadminPartnersPage() {
+function SuperadminPartnersContent() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab") as "applications" | "deals" | "directory" | "commissions" | "assets" | "settings" | null;
+
   const [activeTab, setActiveTab] = useState<"applications" | "deals" | "directory" | "commissions" | "assets" | "settings">("applications");
-  
+
+  useEffect(() => {
+    if (tabParam && ["applications", "deals", "directory", "commissions", "assets", "settings"].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
+
   const [partners, setPartners] = useState(MOCK_PARTNERS);
   const [deals, setDeals] = useState(MOCK_DEALS);
   const [commissions, setCommissions] = useState(MOCK_COMMISSIONS);
-
-  const [searchTerm, setSearchTerm] = useState("");
 
   const pendingApps = partners.filter(p => p.status === "pending_approval");
   const activePartners = partners.filter(p => p.status === "active");
@@ -301,9 +309,7 @@ export default function SuperadminPartnersPage() {
         </button>
       </div>
 
-      {/* ========================================================================= */}
-      {/* TAB 1: APPLICATIONS & APPROVALS */}
-      {/* ========================================================================= */}
+      {/* TAB CONTENTS */}
       {activeTab === "applications" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -376,9 +382,6 @@ export default function SuperadminPartnersPage() {
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* TAB 2: DEAL REGISTRATIONS & TIMESTAMP CONFLICTS */}
-      {/* ========================================================================= */}
       {activeTab === "deals" && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
@@ -455,9 +458,6 @@ export default function SuperadminPartnersPage() {
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* TAB 3: PARTNER DIRECTORY */}
-      {/* ========================================================================= */}
       {activeTab === "directory" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -496,9 +496,6 @@ export default function SuperadminPartnersPage() {
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* TAB 4: COMMISSIONS & PAYOUTS */}
-      {/* ========================================================================= */}
       {activeTab === "commissions" && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -542,9 +539,6 @@ export default function SuperadminPartnersPage() {
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* TAB 5: ASSETS & COLLATERAL */}
-      {/* ========================================================================= */}
       {activeTab === "assets" && (
         <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4">
           <h2 className="text-base font-bold text-[#0A1E3C]">Partner Resource & Sales Collateral Library</h2>
@@ -568,9 +562,6 @@ export default function SuperadminPartnersPage() {
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* TAB 6: PROGRAM SETTINGS */}
-      {/* ========================================================================= */}
       {activeTab === "settings" && (
         <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6 max-w-3xl">
           <h2 className="text-base font-bold text-[#0A1E3C]">Global Partner Program Configuration</h2>
@@ -602,5 +593,13 @@ export default function SuperadminPartnersPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SuperadminPartnersPage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-sm font-semibold text-slate-500">Loading Superadmin Partner Hub...</div>}>
+      <SuperadminPartnersContent />
+    </Suspense>
   );
 }
