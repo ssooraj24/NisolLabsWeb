@@ -1,0 +1,7 @@
+SCRAPE:     Apify / Crawlee (from this repo) → IT companies + public emails
+ENRICH:     Apollo API + HubSpot Clearbit (you already have this)
+VERIFY:     Hunter.io / NeverBounce (from this repo)
+BRAIN:      ai-marketing-skills Outbound Engine → ICP scoring + personalized copy
+AUTOMATE:   n8n (from this repo) → orchestrate the entire flow
+SEND:       Instantly.ai ($30/mo) → cold email from secondary domain
+CRM:        HubSpot → only warm/qualified leads

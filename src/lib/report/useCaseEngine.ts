@@ -5,8 +5,10 @@ import { getMatchingSeedUseCases } from "./opportunityLibrary";
 import { aiClient } from "@/lib/ai/client";
 
 export async function generateCustomizedUseCases(
-  context: BusinessContextJSON
+  context: BusinessContextJSON,
+  planTier?: string
 ): Promise<UseCaseItem[]> {
+  const isSpark = planTier?.toLowerCase().trim() === "spark";
   const seedCases = getMatchingSeedUseCases(
     context.industry,
     context.lowScoringSections,
@@ -82,6 +84,10 @@ Return ONLY a JSON object formatted as:
         };
       });
 
+      if (isSpark) {
+        return customizedList.slice(0, 5);
+      }
+
       // If AI customized a subset (e.g. 6-8), append the remaining high-impact seed cases to provide a full 20-use-case portfolio
       if (customizedList.length < seedCases.length) {
         const remainingSeeds = seedCases.slice(customizedList.length).map((s, extraIdx) => ({
@@ -98,5 +104,5 @@ Return ONLY a JSON object formatted as:
     console.warn("[UseCaseEngine] AI customization failed, utilizing curated seeds fallback:", err);
   }
 
-  return seedCases;
+  return isSpark ? seedCases.slice(0, 5) : seedCases;
 }

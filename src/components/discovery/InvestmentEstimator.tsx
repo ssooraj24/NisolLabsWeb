@@ -13,6 +13,16 @@ export function InvestmentEstimator() {
   const [depth, setDepth] = useState("growth"); // "foundation", "growth", "enterprise"
 
   const estimation = useMemo(() => {
+    if (depth === "spark") {
+      return {
+        minEstFormatted: "₹1,50,000",
+        maxEstFormatted: "₹1,50,000",
+        packageRecommendation: "Nisol Spark Engagement",
+        badgeVariant: "outline" as const,
+        timeline: "3 Business Days"
+      };
+    }
+
     const base = 350000;
 
     let wFunctions = 1.4;
@@ -41,9 +51,15 @@ export function InvestmentEstimator() {
     let timeline = "2–4 Weeks (10–15 Business Days)";
 
     if (depth === "foundation" || (headcount === "10-50" && depth !== "enterprise")) {
-      packageRecommendation = "Foundation Engagement";
-      badgeVariant = "navy";
-      timeline = "1–2 Weeks (7–11 Business Days)";
+      if (functions === "1-3") {
+        packageRecommendation = "Nisol Spark Engagement";
+        badgeVariant = "outline";
+        timeline = "3 Business Days";
+      } else {
+        packageRecommendation = "Foundation Engagement";
+        badgeVariant = "navy";
+        timeline = "1–2 Weeks (7–11 Business Days)";
+      }
     } else if (depth === "enterprise" || headcount === "1000+" || locations === "4+") {
       packageRecommendation = "Enterprise Engagement";
       badgeVariant = "golden";
@@ -154,9 +170,10 @@ export function InvestmentEstimator() {
                 onChange={(e) => setDepth(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-xl bg-navy-900 border border-navy-700 text-white focus:outline-none focus:border-golden-500 text-xs font-medium"
               >
-                <option value="foundation">Foundation (Core Scope)</option>
-                <option value="growth">Growth (Multi-Dept & Blueprints)</option>
-                <option value="enterprise">Enterprise (Custom Architecture)</option>
+                <option value="spark">Spark (3-Day Focus Track — ₹1.5L)</option>
+                <option value="foundation">Foundation (Core 360° Scope — ₹4.5L)</option>
+                <option value="growth">Growth (Multi-Dept & Blueprints — ₹8.5L)</option>
+                <option value="enterprise">Enterprise (Custom Architecture — ₹18.5L+)</option>
               </select>
             </div>
           </div>

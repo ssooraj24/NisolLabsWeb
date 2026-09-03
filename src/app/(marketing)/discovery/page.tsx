@@ -82,6 +82,24 @@ const DIFFERENTIATOR_MATRIX = [
 
 const PACKAGES = [
   {
+    name: "Nisol Spark Engagement",
+    badge: "FIRST LOOK",
+    price: "Starting from ₹1,50,000",
+    priceSub: "Fixed-Price 3-Day Sprint",
+    duration: "3 Business Days",
+    ideal: "Ideal for companies wanting a rapid evaluation of AI opportunities, token spend, or data compliance before full commitment.",
+    ctaText: "Apply for Spark Sprint",
+    ctaLink: "/contact?type=apply&package=Spark",
+    popular: false,
+    features: [
+      "Choice of 1 Focus Track: Opportunity Sprint OR Cost Audit OR Compliance Check",
+      "Rapid 3-day evaluation by Senior AI Architect",
+      "Identification of Top 5 High-Impact Use Cases or Token Savings",
+      "8–10 Page Executive Intelligence Brief",
+      "Direct 100% credit toward Nisol One if upgraded within 30 days"
+    ]
+  },
+  {
     name: "Foundation Engagement",
     badge: "STARTER",
     price: "Starting from ₹4,50,000",
@@ -186,19 +204,19 @@ const DELIVERABLE_PACKS = [
 ];
 
 const TABLE_COMPARISON = [
-  { feature: "Discovery Workshop Days", foundation: "Up to 2 Days", growth: "Up to 4 Days", enterprise: "Multi-Week / Multi-Site" },
-  { feature: "Capability Scope", foundation: "15 Domains", growth: "15 Domains", enterprise: "Customized Enterprise" },
-  { feature: "Session Contextual Capture", foundation: "Standard", growth: "Full Transcript AI Processing", enterprise: "Full Transcript AI Processing" },
-  { feature: "Executive Intelligence Pack", foundation: "Included", growth: "Included", enterprise: "Included" },
-  { feature: "AI Opportunity Pack", foundation: "Included", growth: "Included", enterprise: "Included" },
-  { feature: "Transformation Roadmap", foundation: "Included", growth: "Included", enterprise: "Included" },
-  { feature: "Financial ROI Modeling", foundation: "Standard", growth: "Granular Departmental", enterprise: "Multi-Entity Financial Model" },
-  { feature: "Solution Blueprints", foundation: "—", growth: "Top 5 Use Cases", enterprise: "Custom / All Priorities" },
-  { feature: "AI Governance Framework", foundation: "—", growth: "Included", enterprise: "Extended Enterprise" },
-  { feature: "Change Management Plan", foundation: "—", growth: "Included", enterprise: "Custom Org Design" },
-  { feature: "Industry Benchmarking", foundation: "—", growth: "Regional", enterprise: "Global Competitor Deep-Dive" },
-  { feature: "Client Portal Access", foundation: "Read-Only Client Portal", growth: "Read-Only Client Portal", enterprise: "Dedicated Tenant Portal" },
-  { feature: "Executive Readout Session", foundation: "Included", growth: "Steering Group", enterprise: "Board-Level Presentation" },
+  { feature: "Discovery Workshop Days", spark: "1 Focus Day", foundation: "Up to 2 Days", growth: "Up to 4 Days", enterprise: "Multi-Week / Multi-Site" },
+  { feature: "Capability Scope", spark: "1 Focus Track (3-5 Depts)", foundation: "15 Domains", growth: "15 Domains", enterprise: "Customized Enterprise" },
+  { feature: "Session Contextual Capture", spark: "Standard", foundation: "Standard", growth: "Full Transcript AI Processing", enterprise: "Full Transcript AI Processing" },
+  { feature: "Executive Intelligence Pack", spark: "8–10 Pg Brief", foundation: "Included", growth: "Included", enterprise: "Included" },
+  { feature: "AI Opportunity Pack", spark: "Top 5 List", foundation: "Included", growth: "Included", enterprise: "Included" },
+  { feature: "Transformation Roadmap", spark: "3-Month Horizon", foundation: "Included", growth: "Included", enterprise: "Included" },
+  { feature: "Financial ROI Modeling", spark: "Estimated Range", foundation: "Standard", growth: "Granular Departmental", enterprise: "Multi-Entity Financial Model" },
+  { feature: "Solution Blueprints", spark: "—", foundation: "—", growth: "Top 5 Use Cases", enterprise: "Custom / All Priorities" },
+  { feature: "AI Governance Framework", spark: "Basic Stance", foundation: "—", growth: "Included", enterprise: "Extended Enterprise" },
+  { feature: "Change Management Plan", spark: "—", foundation: "—", growth: "Included", enterprise: "Custom Org Design" },
+  { feature: "Industry Benchmarking", spark: "—", foundation: "—", growth: "Regional", enterprise: "Global Competitor Deep-Dive" },
+  { feature: "Client Portal Access", spark: "Read-Only Client Portal", foundation: "Read-Only Client Portal", growth: "Read-Only Client Portal", enterprise: "Dedicated Tenant Portal" },
+  { feature: "Executive Readout Session", spark: "Included", foundation: "Included", growth: "Steering Group", enterprise: "Board-Level Presentation" },
 ];
 
 const FAQS_LIST = [
@@ -208,11 +226,11 @@ const FAQS_LIST = [
   },
   {
     q: "What is included in the Discovery Workshop?",
-    a: "The workshop covers 62 core questions across 15 capability domains (Leadership, Data, Security, Operations, HR, Finance, etc.) facilitated over 2–4 days with your key department leads."
+    a: "The workshop covers core questions across 15 capability domains (Leadership, Data, Security, Operations, HR, Finance, etc.) or targeted single-track sprints for Spark engagements."
   },
   {
     q: "How long does the entire engagement take?",
-    a: "Typical duration is 7 to 11 business days for Foundation and Growth packages, from kickoff to final executive presentation."
+    a: "Typical duration is 3 business days for Nisol Spark, and 7 to 11 business days for Foundation and Growth packages, from kickoff to final executive presentation."
   },
   {
     q: "Is our business data safe when processed by your AI engine?",
@@ -341,11 +359,11 @@ export default function DiscoveryPage() {
           description="All 3 tiers evaluate 100% of your organization across all 15 business functions with our full 62-question diagnostic. Tier pricing scales strictly by company size, stakeholder headcount, and operational complexity."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {PACKAGES.map((pkg, idx) => (
             <div
               key={idx}
-              className={`rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 relative ${
+              className={`rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative ${
                 pkg.popular
                   ? "bg-navy-950 text-white border-2 border-golden-500 shadow-2xl scale-[1.02]"
                   : "bg-white text-navy-950 border border-slate-200 shadow-sm hover:shadow-md"
@@ -362,7 +380,7 @@ export default function DiscoveryPage() {
                   <Badge variant={pkg.popular ? "golden" : "navy"} className="text-[10px]">
                     {pkg.badge}
                   </Badge>
-                  <h3 className={`text-2xl font-black ${pkg.popular ? "text-white" : "text-navy-950"}`}>
+                  <h3 className={`text-xl sm:text-2xl font-black ${pkg.popular ? "text-white" : "text-navy-950"}`}>
                     {pkg.name}
                   </h3>
                   <p className={`text-xs ${pkg.popular ? "text-slate-300" : "text-slate-600"} min-h-[36px]`}>
@@ -371,7 +389,7 @@ export default function DiscoveryPage() {
                 </div>
 
                 <div className="space-y-1 border-y border-slate-200/40 py-4">
-                  <div className={`text-3xl font-black ${pkg.popular ? "golden-gradient-text" : "text-navy-950"}`}>
+                  <div className={`text-2xl sm:text-3xl font-black ${pkg.popular ? "golden-gradient-text" : "text-navy-950"}`}>
                     {pkg.price}
                   </div>
                   <div className={`text-[11px] font-semibold ${pkg.popular ? "text-slate-400" : "text-slate-500"}`}>
@@ -465,15 +483,17 @@ export default function DiscoveryPage() {
               <thead>
                 <tr className="bg-navy-950 text-white border-b border-navy-800">
                   <th className="py-4 px-6 font-bold uppercase tracking-wider">Deliverable / Feature</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Foundation (₹4.5L+)</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-golden-400 bg-navy-900/80">Growth (₹7.5L+)</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Enterprise (Custom)</th>
+                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-emerald-400">Spark (₹1.5L)</th>
+                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Foundation (₹4.5L)</th>
+                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-golden-400 bg-navy-900/80">Growth (₹8.5L ★)</th>
+                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Enterprise (₹18.5L+)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {TABLE_COMPARISON.map((row, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}>
                     <td className="py-3.5 px-6 font-bold text-navy-950">{row.feature}</td>
+                    <td className="py-3.5 px-6 font-medium text-emerald-800 bg-emerald-50/40">{row.spark}</td>
                     <td className="py-3.5 px-6 text-navy-700">{row.foundation}</td>
                     <td className="py-3.5 px-6 font-bold text-navy-900 bg-golden-500/5">{row.growth}</td>
                     <td className="py-3.5 px-6 text-navy-700">{row.enterprise}</td>

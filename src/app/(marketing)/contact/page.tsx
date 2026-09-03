@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Mail, ShieldCheck, Clock, CheckCircle2, ArrowRight, Bot, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 
-export default function ContactPage() {
+function ContactFormInner() {
+  const searchParams = useSearchParams();
+  const pkgParam = searchParams ? searchParams.get("package") : null;
+
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -14,13 +18,27 @@ export default function ContactPage() {
     fullName: "",
     workEmail: "",
     companyName: "",
-    interestPillar: "agents",
-    budgetRange: "$25k - $50k",
+    interestPillar: "discovery",
+    budgetRange: "Nisol Spark (₹1.5L)",
     message: ""
   });
 
+  useEffect(() => {
+    if (pkgParam) {
+      const p = pkgParam.toLowerCase();
+      if (p.includes("spark")) {
+        setFormData((prev) => ({ ...prev, budgetRange: "Nisol Spark (₹1.5L)" }));
+      } else if (p.includes("one") || p.includes("foundation")) {
+        setFormData((prev) => ({ ...prev, budgetRange: "Nisol One (₹4.5L)" }));
+      } else if (p.includes("pro") || p.includes("growth")) {
+        setFormData((prev) => ({ ...prev, budgetRange: "Nisol Pro (₹8.5L)" }));
+      } else if (p.includes("enterprise")) {
+        setFormData((prev) => ({ ...prev, budgetRange: "Nisol Enterprise (₹18.5L+)" }));
+      }
+    }
+  }, [pkgParam]);
+
   const sendAuditRequest = async () => {
-    // Validate required fields
     if (!formData.fullName || !formData.workEmail || !formData.companyName) {
       setErrorMessage("Please fill in all required fields (*).");
       return;
@@ -54,6 +72,145 @@ export default function ContactPage() {
   };
 
   return (
+    <div className="glass-panel rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm">
+      {submitted ? (
+        <div className="text-center py-12 space-y-6 animate-in fade-in duration-300">
+          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+            <CheckCircle2 className="w-10 h-10" />
+          </div>
+          <h3 className="text-2xl font-bold text-navy-950">Application Received</h3>
+          <p className="text-sm text-navy-700 max-w-md mx-auto leading-relaxed">
+            Thank you, <strong>{formData.fullName}</strong>. Your application is under review. A senior Nisol AI Architect will personally reach out within 48 hours.
+          </p>
+          <div className="pt-4">
+            <Button
+              onClick={() => {
+                setSubmitted(false);
+                setFormData({
+                  fullName: "",
+                  workEmail: "",
+                  companyName: "",
+                  interestPillar: "discovery",
+                  budgetRange: "Nisol Spark (₹1.5L)",
+                  message: ""
+                });
+              }}
+              variant="navy"
+              size="md"
+            >
+              Submit Another Application
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <form onSubmit={(e) => { e.preventDefault(); sendAuditRequest(); }} className="space-y-6">
+          <div className="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <h2 className="text-xl font-bold text-navy-950">
+              Organization Application
+            </h2>
+            <span className="text-xs font-semibold text-golden-600 bg-golden-50 px-2.5 py-1 rounded-full border border-golden-200">
+              Selective 5 Partners / Mo
+            </span>
+          </div>
+
+          {errorMessage && (
+            <div className="p-4 rounded-xl bg-red-50 text-red-600 border border-red-200 text-xs font-medium">
+              {errorMessage}
+            </div>
+          )}
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Full Name *</label>
+            <input
+              type="text"
+              required
+              placeholder="e.g. Sarah Jenkins"
+              value={formData.fullName}
+              onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Work Email *</label>
+              <input
+                type="email"
+                required
+                placeholder="sarah@company.com"
+                value={formData.workEmail}
+                onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Company / Organization *</label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. Acme Enterprise Solutions"
+                value={formData.companyName}
+                onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
+              />
+            </div>
+          </div>
+
+          {/* Package / Engagement Tier Selector */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">
+              Selected Package / Engagement Tier
+            </label>
+            <select
+              value={formData.budgetRange}
+              onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white font-semibold text-navy-950"
+            >
+              <option value="Nisol Spark (₹1.5L)">⚡ Nisol Spark (₹1,50,000 / $1,800 — 3-Day Focus Sprint)</option>
+              <option value="Nisol One (₹4.5L)">🚀 Nisol One (₹4,50,000 / $5,500 — Foundation 360° Assessment)</option>
+              <option value="Nisol Pro (₹8.5L)">★ Nisol Pro (₹8,50,000 / $10,500 — Growth & Board Memo)</option>
+              <option value="Nisol Enterprise (₹18.5L+)">🏢 Nisol Enterprise (₹18,50,000+ / $22,500+ — Multi-Entity Scope)</option>
+              <option value="General Discovery Call">💬 General Discovery & Strategy Call</option>
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">
+              What is the primary challenge or opportunity you want AI to address? <span className="text-slate-400 font-normal lowercase">(Optional)</span>
+            </label>
+            <textarea
+              rows={4}
+              placeholder="e.g. We want to reduce document processing time, automate internal knowledge retrieval, or cut token spend..."
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
+            />
+          </div>
+
+          <div onClick={sendAuditRequest}>
+            <Button
+              type="button"
+              variant="primary"
+              size="lg"
+              disabled={loading}
+              className="w-full justify-center cursor-pointer font-bold"
+              icon={loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
+            >
+              {loading ? "Submitting Application..." : "Submit Application →"}
+            </Button>
+          </div>
+          <p className="text-[11px] text-center text-slate-500 font-medium">
+            🔒 Strict Confidentiality Guaranteed • Mutual NDA provided prior to technical review
+          </p>
+        </form>
+      )}
+    </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
     <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4 pt-6">
@@ -68,121 +225,15 @@ export default function ContactPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto">
-        <div className="lg:col-span-7 glass-panel rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm">
-          {submitted ? (
-            <div className="text-center py-12 space-y-6 animate-in fade-in duration-300">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-10 h-10" />
-              </div>
-              <h3 className="text-2xl font-bold text-navy-950">Application Received</h3>
-              <p className="text-sm text-navy-700 max-w-md mx-auto leading-relaxed">
-                Thank you, <strong>{formData.fullName}</strong>. Your application is under review. A senior Nisol AI Architect will personally reach out within 48 hours.
-              </p>
-              <div className="pt-4">
-                <Button 
-                  onClick={() => {
-                    setSubmitted(false);
-                    setFormData({
-                      fullName: "",
-                      workEmail: "",
-                      companyName: "",
-                      interestPillar: "discovery",
-                      budgetRange: "Nisol One",
-                      message: ""
-                    });
-                  }} 
-                  variant="navy" 
-                  size="md"
-                >
-                  Submit Another Application
-                </Button>
-              </div>
+        <div className="lg:col-span-7">
+          <Suspense fallback={
+            <div className="glass-panel rounded-3xl p-8 text-center text-slate-500">
+              <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-navy-950" />
+              <p className="text-xs font-semibold">Loading application form...</p>
             </div>
-          ) : (
-            <form onSubmit={(e) => { e.preventDefault(); sendAuditRequest(); }} className="space-y-6">
-              <div className="border-b border-slate-200 pb-3 flex items-center justify-between">
-                <h2 className="text-xl font-bold text-navy-950">
-                  Organization Application
-                </h2>
-                <span className="text-xs font-semibold text-golden-600 bg-golden-50 px-2.5 py-1 rounded-full border border-golden-200">
-                  Selective 5 Partners / Mo
-                </span>
-              </div>
-
-              {errorMessage && (
-                <div className="p-4 rounded-xl bg-red-50 text-red-600 border border-red-200 text-xs font-medium">
-                  {errorMessage}
-                </div>
-              )}
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Full Name *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Sarah Jenkins"
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Work Email *</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="sarah@company.com"
-                    value={formData.workEmail}
-                    onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Company / Organization *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Acme Enterprise Solutions"
-                    value={formData.companyName}
-                    onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">
-                  What is the primary challenge or opportunity you want AI to address? <span className="text-slate-400 font-normal lowercase">(Optional)</span>
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="e.g. We want to reduce document processing time, automate internal knowledge retrieval, or cut token spend..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
-                />
-              </div>
-
-              <div onClick={sendAuditRequest}>
-                <Button 
-                  type="button" 
-                  variant="primary" 
-                  size="lg" 
-                  disabled={loading}
-                  className="w-full justify-center cursor-pointer font-bold" 
-                  icon={loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
-                >
-                  {loading ? "Submitting Application..." : "Submit Application →"}
-                </Button>
-              </div>
-              <p className="text-[11px] text-center text-slate-500 font-medium">
-                🔒 Strict Confidentiality Guaranteed • Mutual NDA provided prior to technical review
-              </p>
-            </form>
-          )}
+          }>
+            <ContactFormInner />
+          </Suspense>
         </div>
 
         {/* Right Column: Contact Info & Security Commitments */}

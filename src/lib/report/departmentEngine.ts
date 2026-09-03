@@ -152,9 +152,42 @@ const ENTERPRISE_15_DEPARTMENTS: DepartmentProfile[] = [
 
 export function generateDepartmentScorecards(
   context: BusinessContextJSON,
-  useCases: UseCaseItem[]
+  useCases: UseCaseItem[],
+  planTier?: string
 ): DepartmentScorecard[] {
-  return ENTERPRISE_15_DEPARTMENTS.map((deptProfile) => {
+  const isSpark = planTier?.toLowerCase().trim() === "spark";
+
+  let targetProfiles = ENTERPRISE_15_DEPARTMENTS;
+
+  if (isSpark) {
+    // Nisol Spark picks 3 core departments: Leadership (Strategy), Change/Risk (InfoSec), and 1 Functional Department (e.g. Sales/IT/HR/Finance)
+    const leadershipDept =
+      ENTERPRISE_15_DEPARTMENTS.find((d) => d.name.includes("Corporate Strategy")) ||
+      ENTERPRISE_15_DEPARTMENTS[14];
+
+    const changeDept =
+      ENTERPRISE_15_DEPARTMENTS.find((d) => d.name.includes("InfoSec")) ||
+      ENTERPRISE_15_DEPARTMENTS[6];
+
+    let functionalDept = ENTERPRISE_15_DEPARTMENTS.find(
+      (d) =>
+        d !== leadershipDept &&
+        d !== changeDept &&
+        useCases.some(
+          (uc) =>
+            uc.department.toLowerCase().includes(d.name.toLowerCase()) ||
+            d.aliases.some((alias) => uc.department.toLowerCase().includes(alias))
+        )
+    );
+
+    if (!functionalDept) {
+      functionalDept = ENTERPRISE_15_DEPARTMENTS[0]; // Fallback to Sales
+    }
+
+    targetProfiles = [leadershipDept, changeDept, functionalDept];
+  }
+
+  return targetProfiles.map((deptProfile) => {
     const deptUseCases = useCases.filter(
       (uc) =>
         uc.department.toLowerCase().includes(deptProfile.name.toLowerCase()) ||

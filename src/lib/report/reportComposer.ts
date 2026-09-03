@@ -40,7 +40,7 @@ export async function composeFullReport(
   const benchmark = resolveIndustryBenchmark(businessContext.industry);
 
   // 3. Hybrid Use Case Engine (AI Opportunity Library + LLM Contextualization)
-  const useCases = await generateCustomizedUseCases(businessContext);
+  const useCases = await generateCustomizedUseCases(businessContext, activePlan);
 
   // 4. Analytics Engine (Matrix Placement, Financial ROI Math with Sensitivity & Scenarios, Roadmap)
   const matrixQuadrants = categorizeUseCasesAndMatrix(useCases);
@@ -54,7 +54,7 @@ export async function composeFullReport(
   };
 
   // 5. Department, Governance, Data Readiness, and OCM Engines
-  const departmentScorecards = generateDepartmentScorecards(businessContext, useCases);
+  const departmentScorecards = generateDepartmentScorecards(businessContext, useCases, activePlan);
   const governanceAssessment = generateGovernanceAssessment(businessContext);
   const dataReadinessAssessment = generateDataReadinessAssessment(businessContext);
   const ocmPlan = generateOCMPlan(businessContext);
