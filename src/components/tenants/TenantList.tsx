@@ -262,6 +262,12 @@ export default function TenantList({
                         </span>
                       </div>
                     )}
+                    {tenant.partner_name && (
+                      <div className="flex items-center justify-between text-xs text-slate-600 bg-golden-50 p-2 rounded-xl border border-golden-200 mt-2">
+                        <span className="text-golden-900 font-bold text-[10px] uppercase">🤝 Referred By Partner:</span>
+                        <span className="font-extrabold text-golden-800">{tenant.partner_name}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 

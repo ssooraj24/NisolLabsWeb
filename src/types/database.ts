@@ -58,6 +58,8 @@ export type Tenant = {
   tenant_secure?: string | null;
   company_hash?: string | null;
   website_hash?: string | null;
+  partner_id?: string | null;
+  partner_name?: string | null;
 };
 
 export type RevenueRangeDefault = {

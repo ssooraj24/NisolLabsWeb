@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { IndustrySector, RevenueRangeOption, Tenant, TenantStatus, TenantType, PricingPlan } from "@/types/database";
 import { updateTenant } from "@/lib/supabase/queries/tenants";
 import { PRICING_PLAN_OPTIONS } from "./CreateTenantForm";
+import { createBrowserClient } from "@supabase/ssr";
 
 const INDUSTRY_SECTORS: IndustrySector[] = [
   "Technology",
@@ -46,6 +47,12 @@ const TENANT_TYPE_OPTIONS: { label: string; value: TenantType }[] = [
   { label: "Internal", value: "internal" },
 ];
 
+const MOCK_ACTIVE_PARTNERS = [
+  { id: "p-101", company_name: "Apex Tech Solutions", full_name: "Vikram Mehta" },
+  { id: "p-102", company_name: "Atlas Advisory Group", full_name: "Sarah Jenkins" },
+  { id: "p-103", company_name: "NextGen Cloud Systems", full_name: "Rahul Sharma" }
+];
+
 interface EditTenantFormProps {
   tenant: Tenant | null;
   isOpen: boolean;
@@ -63,6 +70,7 @@ export default function EditTenantForm({
 }: EditTenantFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [partners, setPartners] = useState<{ id: string; company_name: string; full_name: string }[]>(MOCK_ACTIVE_PARTNERS);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -79,7 +87,29 @@ export default function EditTenantForm({
     city: "",
     status: "active" as TenantStatus,
     joined_date: "",
+    partner_id: "" as string,
+    partner_name: "" as string,
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      const fetchPartners = async () => {
+        try {
+          const client = supabaseClient || createBrowserClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+          );
+          const { data } = await client.from("partners").select("id, company_name, full_name").eq("status", "active");
+          if (data && data.length > 0) {
+            setPartners(data);
+          }
+        } catch (e) {
+          // Keep mock fallback
+        }
+      };
+      fetchPartners();
+    }
+  }, [isOpen, supabaseClient]);
 
   useEffect(() => {
     if (tenant) {
@@ -98,6 +128,8 @@ export default function EditTenantForm({
         city: tenant.city || "",
         status: tenant.status || "active",
         joined_date: tenant.joined_date || "",
+        partner_id: tenant.partner_id || "",
+        partner_name: tenant.partner_name || "",
       });
     }
   }, [tenant]);
@@ -132,6 +164,8 @@ export default function EditTenantForm({
           city: formData.city.trim() || null,
           status: formData.status,
           joined_date: formData.joined_date || null,
+          partner_id: formData.partner_id || null,
+          partner_name: formData.partner_name || null,
         },
         supabaseClient
       );
@@ -147,7 +181,7 @@ export default function EditTenantForm({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto font-sans">
       <div className="bg-white rounded-2xl p-6 md:p-8 max-w-2xl w-full shadow-2xl border my-8">
         <div className="flex items-center justify-between border-b pb-4 mb-6">
           <div>
@@ -166,7 +200,7 @@ export default function EditTenantForm({
         </div>
 
         {error && (
-          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs">
+          <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
             {error}
           </div>
         )}
@@ -215,6 +249,33 @@ export default function EditTenantForm({
                 onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                 className="w-full text-sm border rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-[#0A1E3C]"
               />
+            </div>
+
+            {/* OPTIONAL PARTNER MAPPING */}
+            <div className="md:col-span-2 p-3 rounded-xl bg-golden-50/70 border border-golden-300">
+              <label className="block text-xs font-bold text-golden-900 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>🤝 Referred by Partner <span className="text-golden-700 font-medium text-[10px]">(Optional)</span></span>
+                <span className="text-[10px] font-bold text-golden-800 uppercase">30% Commission Attribution</span>
+              </label>
+              <select
+                value={formData.partner_id}
+                onChange={(e) => {
+                  const selected = partners.find((p) => p.id === e.target.value);
+                  setFormData({
+                    ...formData,
+                    partner_id: e.target.value,
+                    partner_name: selected ? selected.company_name : "",
+                  });
+                }}
+                className="w-full text-sm border border-golden-400 rounded-xl p-2.5 bg-white font-semibold text-navy-950 focus:outline-none focus:ring-2 focus:ring-golden-500"
+              >
+                <option value="">None — Direct Nisol Client (No Partner)</option>
+                {partners.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.company_name} ({p.full_name})
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Tenant Type */}
