@@ -1,45 +1,47 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
-import { createBrowserClient } from "@supabase/ssr"
+import { usePathname } from "next/navigation"
+import { useState } from "react"
 import { 
-  Handshake, 
-  Sparkles, 
-  Award, 
-  FileText, 
-  ShieldCheck, 
-  DollarSign, 
-  Users, 
   ChevronDown, 
   ChevronRight,
-  Compass,
-  LayoutDashboard,
-  Building2,
-  Layers,
-  HelpCircle,
-  Zap
+  ExternalLink
 } from "lucide-react"
 
 interface MenuItem {
   label: string
   href: string
   badge?: string
-  icon?: any
+  external?: boolean
 }
 
 interface MenuSection {
+  id: string
   title: string
   items: MenuItem[]
 }
 
 export const Sidebar = () => {
   const pathname = usePathname()
-  const [partnerMenuExpanded, setPartnerMenuExpanded] = useState(true)
+
+  // Track collapsed state for each menu section
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({
+    partners: false,
+    intelligence: false,
+    discovery: false,
+  })
+
+  const toggleSection = (sectionId: string) => {
+    setCollapsedSections((prev) => ({
+      ...prev,
+      [sectionId]: !prev[sectionId],
+    }))
+  }
 
   const menuSections: MenuSection[] = [
     {
+      id: "partners",
       title: "🤝 NISOL PARTNER PROGRAM",
       items: [
         { label: "Partner Management Hub", href: "/dashboard/partners", badge: "SUPERADMIN" },
@@ -47,27 +49,28 @@ export const Sidebar = () => {
         { label: "🛡️ Timestamped Deal Conflicts", href: "/dashboard/partners?tab=deals" },
         { label: "👥 Partner Directory & Tiers", href: "/dashboard/partners?tab=directory" },
         { label: "💰 Commissions & Payouts", href: "/dashboard/partners?tab=commissions" },
-        { label: "📄 Partner Terms & Conditions", href: "/partner/terms" },
+        { label: "📄 Partner Terms & Conditions", href: "/partner/terms", external: true, badge: "NEW TAB" },
       ],
     },
     {
+      id: "intelligence",
       title: "🧠 NISOL INTELLIGENCE & GRANTS",
       items: [
         { label: "Intelligence Dashboard", href: "/intelligence/dashboard" },
-        { label: "Intelligence Grants", href: "/intelligence/grants", badge: "GRANTS" },
-        { label: "Public Grants Program", href: "/grants" },
-        { label: "Audits", href: "/intelligence/audits" },
-        { label: "Templates", href: "/intelligence/templates" },
-        { label: "Blueprints", href: "/intelligence/blueprints" },
+        { label: "🎓 Intelligence Grants Program", href: "/intelligence/grants", external: true, badge: "NEW TAB" },
+        { label: "📐 Solution Blueprints", href: "/intelligence/blueprints" },
       ],
     },
     {
+      id: "discovery",
       title: "📋 NISOL DISCOVERY & CLIENTS",
       items: [
         { label: "Discovery Dashboard", href: "/dashboard" },
         { label: "Tenants / Clients", href: "/clients" },
         { label: "Users & Team", href: "/users" },
         { label: "Discovery Audits", href: "/audits" },
+        { label: "Intelligence Audits", href: "/intelligence/audits" },
+        { label: "Templates Library", href: "/intelligence/templates" },
         { label: "Questionnaire Library", href: "/questionnaire" },
         { label: "Profile", href: "/profile" },
       ],
@@ -75,7 +78,7 @@ export const Sidebar = () => {
   ]
 
   return (
-    <aside className="w-64 bg-[#0A1E3C] border-r border-slate-800 h-full p-4 text-white flex flex-col justify-between overflow-y-auto shrink-0 shadow-xl">
+    <aside className="w-64 bg-[#0A1E3C] border-r border-slate-800 h-full p-4 text-white flex flex-col justify-between overflow-y-auto shrink-0 shadow-xl font-sans">
       <div>
         {/* Brand Header */}
         <div className="px-3 py-4 border-b border-white/10 mb-4 flex items-center justify-between">
@@ -92,51 +95,97 @@ export const Sidebar = () => {
           </span>
         </div>
 
-        {/* Menu Sections */}
-        <div className="space-y-6">
-          {menuSections.map((section) => (
-            <div key={section.title}>
-              <h3 className="px-3 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
-                <span>{section.title}</span>
-              </h3>
-              <ul className="space-y-1">
-                {section.items.map((item) => {
-                  const isActive =
-                    pathname === item.href ||
-                    (item.href !== "/dashboard" &&
-                      item.href !== "/intelligence/dashboard" &&
-                      item.href.includes("?") === false &&
-                      pathname.startsWith(item.href))
+        {/* Menu Sections (Collapsible & Expandable) */}
+        <div className="space-y-4">
+          {menuSections.map((section) => {
+            const isCollapsed = collapsedSections[section.id]
 
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
-                          isActive
-                            ? "bg-golden-500 text-navy-950 font-bold shadow-md"
-                            : "text-slate-200 hover:bg-white/10 hover:text-white"
-                        }`}
-                      >
-                        <span className="truncate">{item.label}</span>
-                        {item.badge && (
-                          <span className={`text-[9px] px-1.5 py-0.5 rounded font-extrabold shrink-0 ${
-                            isActive
-                              ? "bg-navy-950 text-golden-400"
-                              : item.badge === "SUPERADMIN"
-                              ? "bg-golden-500/20 text-golden-300 border border-golden-500/30"
-                              : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                          }`}>
-                            {item.badge}
-                          </span>
-                        )}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          ))}
+            return (
+              <div key={section.id} className="space-y-1">
+                {/* Collapsible Section Header */}
+                <button
+                  type="button"
+                  onClick={() => toggleSection(section.id)}
+                  className="w-full px-3 py-2 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider hover:text-white flex items-center justify-between transition-colors cursor-pointer rounded-lg hover:bg-white/5"
+                >
+                  <span className="truncate">{section.title}</span>
+                  {isCollapsed ? (
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                  ) : (
+                    <ChevronDown className="w-3.5 h-3.5 text-golden-400 shrink-0" />
+                  )}
+                </button>
+
+                {/* Section Items */}
+                {!isCollapsed && (
+                  <ul className="space-y-1 pl-1">
+                    {section.items.map((item) => {
+                      const isActive =
+                        !item.external &&
+                        (pathname === item.href ||
+                          (item.href !== "/dashboard" &&
+                            item.href !== "/intelligence/dashboard" &&
+                            item.href.includes("?") === false &&
+                            pathname.startsWith(item.href)))
+
+                      if (item.external) {
+                        return (
+                          <li key={item.href}>
+                            <a
+                              href={item.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-white/10 hover:text-white transition-all group"
+                            >
+                              <span className="truncate flex items-center gap-1.5">
+                                <span>{item.label}</span>
+                              </span>
+                              <div className="flex items-center gap-1">
+                                {item.badge && (
+                                  <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-golden-500/20 text-golden-300 border border-golden-400/30">
+                                    {item.badge}
+                                  </span>
+                                )}
+                                <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-golden-400 shrink-0" />
+                              </div>
+                            </a>
+                          </li>
+                        )
+                      }
+
+                      return (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                              isActive
+                                ? "bg-golden-500 text-navy-950 font-bold shadow-md"
+                                : "text-slate-200 hover:bg-white/10 hover:text-white"
+                            }`}
+                          >
+                            <span className="truncate">{item.label}</span>
+                            {item.badge && (
+                              <span
+                                className={`text-[9px] px-1.5 py-0.5 rounded font-extrabold shrink-0 ${
+                                  isActive
+                                    ? "bg-navy-950 text-golden-400"
+                                    : item.badge === "SUPERADMIN"
+                                    ? "bg-golden-500/20 text-golden-300 border border-golden-500/30"
+                                    : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                                }`}
+                              >
+                                {item.badge}
+                              </span>
+                            )}
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+              </div>
+            )
+          })}
         </div>
       </div>
 
