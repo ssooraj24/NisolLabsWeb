@@ -1,8 +1,8 @@
 export const ROSENSE_DATA = {
   name: "RoSense AI",
-  tagline: "Enterprise Conversation Intelligence Platform",
-  heroHeadline: "Turn 18 Hours of Strategy into Immediate Execution.",
-  heroSubheadline: "RoSense AI captures conversations, extracts decisions and commitments, and builds a searchable organizational memory—privately, securely, and at enterprise scale.",
+  tagline: "Enterprise Intelligence & Strategy Engine",
+  heroHeadline: "Turn Boardroom Conversations Into Immediate Execution.",
+  heroSubheadline: "RoSense AI captures executive offsites and strategic meetings with absolute privacy, transforming spoken dialogue into structured decision blueprints and searchable organizational memory.",
   
   safeguards: [
     {
@@ -27,7 +27,7 @@ export const ROSENSE_DATA = {
     },
     {
       title: "100% Data Sovereignty",
-      description: "You own all vector embeddings, transcripts, and master encryption keys.",
+      description: "You own all vector memory, transcripts, and master encryption keys.",
       icon: "Database"
     }
   ],
@@ -36,24 +36,24 @@ export const ROSENSE_DATA = {
     {
       stepNumber: "01",
       id: "listen",
-      title: "Listen",
-      subtitle: "Multi-Hour Audio Ingestion & Speaker Diarization",
-      techBadge: "WhisperX + Pyannote 3.1",
-      description: "Upload multi-hour recordings, boardroom sessions, or multi-day workshop audio. RoSense accurately transcribes and identifies every speaker without context degradation.",
+      title: "Listen & Absorb",
+      subtitle: "High-Fidelity Audio Ingestion & Speaker Identification",
+      techBadge: "Intelligence Engine",
+      description: "Upload multi-hour recordings, boardroom sessions, or multi-day workshop audio. RoSense accurately transcribes and identifies every speaker without missing detail.",
       features: [
-        "Handles 18+ hour recordings with zero context degradation",
-        "Pyannote 3.1 speaker diarization pinpoints exactly who spoke when",
-        "RAM-only audio decryption guarantees strict data confidentiality",
-        "Supports direct zoom bot ingestion, phone PWA recording, and multi-format upload"
+        "Handles 18+ hour recordings without context degradation",
+        "Speaker identification pinpoints exactly who made key commitments",
+        "RAM-only audio processing guarantees strict data confidentiality",
+        "Supports direct meeting ingestion, mobile recording, and multi-format audio"
       ],
       executionSnippet: {
         stage: "STAGE 01 EXECUTION",
         status: "Complete",
-        detailHeader: "▶ Ingesting 14.3GB Audio Stream",
-        detailSub: "File: Executive_Offsite_FullDay.m4a (18h 45m)",
+        detailHeader: "▶ Ingesting Executive Audio Stream",
+        detailSub: "Session: Executive_Offsite_FullDay.m4a (18h 45m)",
         speakers: [
           "Speaker 01: CEO (34% talk time)",
-          "Speaker 02: VP Engineering (28% talk time)",
+          "Speaker 02: VP Operations (28% talk time)",
           "Speaker 03: Lead Counsel (18% talk time)"
         ]
       }
@@ -61,21 +61,21 @@ export const ROSENSE_DATA = {
     {
       stepNumber: "02",
       id: "structure",
-      title: "Structure",
-      subtitle: "Zero-Shot Decision & Commitment Extraction",
-      techBadge: "Mamba-3 2.8B SSM Engine",
-      description: "Proprietary State Space Model (SSM) processes infinite context windows in O(1) constant memory. Automatically categorizes raw transcripts into verified business outputs.",
+      title: "Structure & Extract",
+      subtitle: "Automated Decision & Commitment Extraction",
+      techBadge: "Zero-Loss Reasoning",
+      description: "Our intelligence engine processes full context windows to automatically categorize raw transcripts into verified, actionable business outputs.",
       features: [
-        "Extracts structured JSON: Decisions, Objections, Commitments, and Action Owners",
-        "Constant O(1) memory footprint eliminates Transformer OOM crashes on long sessions",
-        "Exact timestamp audio proofs linked to every extracted decision",
-        "Hallucination-free extraction validated by local evaluation loops"
+        "Extracts structured outputs: Decisions, Objections, Commitments, and Action Owners",
+        "Constant O(1) memory footprint eliminates system crashes on long sessions",
+        "Exact audio timestamps linked to every extracted decision for 100% auditability",
+        "Hallucination-free extraction validated by automated evaluation loops"
       ],
       executionSnippet: {
         stage: "STAGE 02 EXTRACTION",
         status: "Processing",
-        detailHeader: "▶ Mamba-3 State Machine Active",
-        detailSub: "State Checkpoint: /checkpoints/job_93a1.pt",
+        detailHeader: "▶ Decision Extraction Active",
+        detailSub: "Session Checkpoint: /checkpoints/session_93a1.pt",
         speakers: [
           "Decision #01: Q4 European expansion approved",
           "Commitment #04: Security audit by Aug 15 (Owner: Priya)",
@@ -86,25 +86,25 @@ export const ROSENSE_DATA = {
     {
       stepNumber: "03",
       id: "deliver",
-      title: "Deliver",
+      title: "Deliver & Secure",
       subtitle: "Executive Memory & Workflow Integration",
-      techBadge: "Supabase pgvector + AWS Cloud API",
-      description: "Stores vectorized semantic memory for instant natural language search. Streams real-time webhooks into Nisol Studio, Slack, Teams, or custom enterprise ERPs.",
+      techBadge: "Private Cloud",
+      description: "Stores searchable organizational memory for instant query responses. Integrates seamlessly into your enterprise portals, Slack, Teams, or ERP systems.",
       features: [
-        "High-performance cosine vector search over 1M+ embedding segments",
-        "Automated Webhooks with exponential backoff into enterprise CRMs & ERPs",
+        "Instant natural language search across years of executive decision history",
+        "Automated integration into enterprise CRMs & ERP systems",
         "Role-Based Access Control (RBAC) ensuring strict departmental privacy",
         "Board-ready Executive Summaries generated in minutes post-session"
       ],
       executionSnippet: {
         stage: "STAGE 03 DELIVER",
         status: "Syncing",
-        detailHeader: "▶ Vector Indexing Complete",
-        detailSub: "Table: rosense_embeddings (bge-large-en-v1.5 1024-dim)",
+        detailHeader: "▶ Organizational Memory Sync",
+        detailSub: "Table: enterprise_memory_vault",
         speakers: [
-          "Webhook Delivered -> Nisol Transformation Portal",
+          "Delivered -> Nisol Transformation Portal",
           "Executive Summary Generated -> Board PDF",
-          "Vector Search Ready -> Sub-10ms response"
+          "Search Index Ready -> Instant query response"
         ]
       }
     }
@@ -159,52 +159,52 @@ export const ROSENSE_DATA = {
 
   deployments: [
     {
-      title: "RoSense Cloud (AWS Native)",
+      title: "Private Cloud Managed Engine",
       badge: "CLOUD SCALABLE",
-      description: "Deployed on AWS EC2/ECS container clusters, AWS S3 audio vaults, and Supabase Cloud vector storage.",
+      description: "Deployed in your enterprise tenant on AWS, Azure, or Google Cloud with auto-scaling compute and encrypted storage.",
       specs: [
-        "Serverless microservice architecture",
-        "AWS S3 audio encryption & storage buckets",
-        "FastAPI + Celery + Redis scale-out pool",
-        "Supabase pgvector sub-10ms similarity search"
+        "Cloud-native microservice architecture",
+        "Encrypted audio vaults & asset storage",
+        "Auto-scaling compute clusters",
+        "Sub-second similarity search across historical memory"
       ]
     },
     {
-      title: "RoSense Box (On-Prem Appliance)",
+      title: "On-Premise Appliance",
       badge: "AIR-GAPPED APPLIANCE",
       description: "Turnkey hardware appliance running locally inside your secure facility with zero external network connectivity.",
       specs: [
-        "Private Ryzen 9 + NVIDIA RTX GPU Hardware",
-        "100% local model execution (WhisperX + Mamba-3)",
-        "Local Docker + Supabase container stack",
+        "High-performance local GPU hardware",
+        "100% local model execution & transcription",
+        "Local containerized memory stack",
         "Zero data transmission outside your firewall"
       ]
     }
   ],
 
   awsIntegration: {
-    title: "Enterprise AWS Cloud Infrastructure Stack",
-    description: "RoSense AI is built natively for AWS Cloud deployment, combining high-throughput GPU compute with resilient managed storage and security services.",
+    title: "Enterprise Infrastructure & Security Architecture",
+    description: "RoSense AI is built natively for enterprise cloud and hybrid on-premise deployment, combining scalable compute with resilient storage and security.",
     services: [
       {
-        name: "AWS Bedrock",
-        role: "LLM Orchestration & Guardrails",
-        description: "Enforces enterprise security guardrails and fine-tuned model evaluation across all structured extractions."
+        name: "Enterprise Cloud Compute",
+        role: "Scalable Processing Clusters",
+        description: "Runs containerized intelligence microservices with auto-scaling compute capacity."
       },
       {
-        name: "AWS Textract",
+        name: "Document Intelligence",
         role: "Multi-Modal Document Processing",
-        description: "Extracts tables, forms, and handwritten slides attached during executive strategy sessions."
+        description: "Extracts tables, forms, and slides presented during executive strategy sessions."
       },
       {
-        name: "AWS EC2 & ECS",
-        role: "High-Throughput Container Clusters",
-        description: "Runs Dockerized WhisperX, Pyannote, and FastAPI microservices with auto-scaling GPU instances."
+        name: "Container Orchestration",
+        role: "High-Throughput Clusters",
+        description: "Runs Dockerized transcription and intelligence engines with zero downtime."
       },
       {
-        name: "AWS S3 Vault",
+        name: "Encrypted Storage Vault",
         role: "Encrypted Audio & Asset Vault",
-        description: "AES-256 encrypted object storage for raw audio streams, state checkpoints, and generated transcripts."
+        description: "AES-256 encrypted object storage for raw audio streams, decision checkpoints, and transcripts."
       }
     ]
   }

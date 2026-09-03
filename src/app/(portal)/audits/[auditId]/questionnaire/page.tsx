@@ -179,10 +179,17 @@ export default function AuditQuestionnaireWizard() {
           .eq("id", auditId)
           .maybeSingle()
 
+        let targetSections: string[] | null = null
         if (isMounted && auditData) {
           if (auditData.title) setAuditTitle(auditData.title)
           if (auditData.raw_responses && typeof auditData.raw_responses === "object") {
             setResponses(auditData.raw_responses)
+            const raw = auditData.raw_responses as any
+            if (Array.isArray(raw._target_sections)) {
+              targetSections = raw._target_sections
+            } else if (Array.isArray(raw._meta?.target_sections)) {
+              targetSections = raw._meta.target_sections
+            }
           }
         }
 
@@ -193,11 +200,14 @@ export default function AuditQuestionnaireWizard() {
           .order("order_index", { ascending: true })
 
         if (isMounted) {
-          if (!qErr && dbQuestions && dbQuestions.length > 0) {
-            setQuestions(dbQuestions)
-          } else {
-            setQuestions(INITIAL_62_QUESTIONS)
+          let baseQuestions: QuestionItem[] = (!qErr && dbQuestions && dbQuestions.length > 0)
+            ? dbQuestions
+            : INITIAL_62_QUESTIONS
+
+          if (targetSections && targetSections.length > 0) {
+            baseQuestions = baseQuestions.filter((q) => targetSections!.includes(q.section))
           }
+          setQuestions(baseQuestions)
         }
       } catch (err: any) {
         console.error("Error initializing questionnaire:", err)

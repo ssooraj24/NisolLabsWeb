@@ -51,6 +51,7 @@ export const Sidebar = () => {
       items: [
         { label: "Dashboard", href: "/intelligence/dashboard" },
         { label: "Audits", href: "/intelligence/audits" },
+        { label: "Intelligence Grants", href: "/intelligence/grants", role: "super_admin" },
         { label: "Templates", href: "/intelligence/templates", role: "super_admin" },
         { label: "Blueprints", href: "/intelligence/blueprints" },
       ],

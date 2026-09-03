@@ -30,17 +30,16 @@ import { Button } from "@/components/ui/Button";
 import { ROSENSE_DATA } from "@/data/rosenseData";
 
 export const metadata = {
-  title: "RoSense AI — Enterprise Conversation Intelligence Platform | Nisol AI",
+  title: "RoSense AI — Enterprise Conversation & Strategy Intelligence | Nisol AI",
   description: "Turn 18 hours of strategy into immediate execution. RoSense AI captures boardroom sessions & discovery workshops, extracts decisions, commitments, and risks with 100% data sovereignty.",
   keywords: [
     "RoSense AI",
     "Conversation Intelligence",
     "Meeting Decision Extraction",
-    "Mamba SSM",
+    "Enterprise AI Strategy",
     "Private AI Appliance",
-    "WhisperX Diarization",
-    "AWS Bedrock",
-    "Supabase pgvector",
+    "Multi-Cloud AI",
+    "Data Sovereignty",
     "Nisol AI"
   ]
 };
@@ -62,11 +61,11 @@ export default function RoSenseProductPage() {
                 <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="text-emerald-400 font-mono text-[11px] uppercase tracking-wider">PROPRIETARY AI ENGINE</span>
                 <span className="text-slate-600">•</span>
-                <span className="text-golden-400 font-mono text-[11px]">AWS Cloud & On-Prem Appliance</span>
+                <span className="text-golden-400 font-mono text-[11px]">Private Cloud & On-Prem Appliance</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-                Turn 18 Hours of Strategy into{" "}
+                Turn Boardroom Conversations Into{" "}
                 <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-golden-400 bg-clip-text text-transparent">
                   Immediate Execution.
                 </span>
@@ -93,7 +92,7 @@ export default function RoSenseProductPage() {
                   className="w-full sm:w-auto border-navy-700 text-slate-200 hover:bg-navy-800/80 hover:text-white"
                   icon={<Cpu className="w-4 h-4 text-emerald-400" />}
                 >
-                  AWS & Tech Architecture
+                  Explore Architecture
                 </Button>
               </div>
 
@@ -147,10 +146,10 @@ export default function RoSenseProductPage() {
                     ))}
                   </div>
 
-                  {/* Mamba-3 Live Processing Status */}
+                  {/* Live Processing Status */}
                   <div className="my-2 flex items-center gap-2 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20">
                     <Sparkles className="w-3.5 h-3.5 shrink-0" />
-                    <span>Mamba-3 SSM Extracting Decisions & Commitments...</span>
+                    <span>Extracting Decisions, Risks & Commitments...</span>
                   </div>
 
                   {/* Structured Output Cards */}
@@ -303,19 +302,19 @@ export default function RoSenseProductPage() {
         </div>
       </section>
 
-      {/* 4. EXPLICIT AWS CLOUD INFRASTRUCTURE STACK (AWS Activate Feature) */}
+      {/* 4. ENTERPRISE INFRASTRUCTURE & HYBRID DEPLOYMENT */}
       <section id="architecture" className="py-24 bg-navy-950/60 border-b border-navy-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 bg-golden-500/10 text-golden-400 border border-golden-500/20 px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
               <Cloud className="w-4 h-4 text-golden-400" />
-              <span>AWS Cloud Integration</span>
+              <span>Enterprise Infrastructure</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              Enterprise AWS Infrastructure & Supabase Hybrid Stack
+              Enterprise Cloud & On-Premise Hybrid Architecture
             </h2>
             <p className="mt-4 text-lg text-slate-300">
-              RoSense AI combines AWS enterprise cloud compute and security services with high-precision vector database storage for scalable deployment.
+              RoSense AI combines enterprise cloud compute and security services with high-precision vector memory storage for scalable deployment.
             </p>
           </div>
 
@@ -334,8 +333,8 @@ export default function RoSenseProductPage() {
                   <p className="text-xs text-slate-300 leading-relaxed">{svc.description}</p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-navy-800 flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="font-mono text-emerald-400">AWS Native</span>
-                  <span className="text-slate-500">SOC-2 Ready</span>
+                  <span className="font-mono text-emerald-400">Enterprise Ready</span>
+                  <span className="text-slate-500">SOC-2 Compliant</span>
                 </div>
               </div>
             ))}
@@ -345,14 +344,14 @@ export default function RoSenseProductPage() {
           <div className="mt-12 p-8 rounded-2xl bg-gradient-to-r from-navy-900 via-navy-950 to-navy-900 border border-navy-700/80 text-center max-w-4xl mx-auto">
             <h3 className="text-xl font-bold text-white mb-2">Hybrid Deployment Flexibility</h3>
             <p className="text-sm text-slate-300 max-w-2xl mx-auto mb-6">
-              Deploy on managed <strong>AWS EC2/ECS GPU clusters + AWS S3</strong> for unlimited cloud scale, or run <strong>100% air-gapped on-premise</strong> via the RoSense Box hardware appliance.
+              Deploy on managed <strong>Private Cloud GPU clusters</strong> for unlimited cloud scale, or run <strong>100% air-gapped on-premise</strong> via the RoSense Box hardware appliance.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 font-mono text-xs">
-              <span className="px-3 py-1.5 rounded-lg bg-navy-800 text-emerald-400 border border-emerald-500/30">WhisperX ASR</span>
+              <span className="px-3 py-1.5 rounded-lg bg-navy-800 text-emerald-400 border border-emerald-500/30">Audio Ingestion & Speaker Identification</span>
               <span className="text-slate-600">➔</span>
-              <span className="px-3 py-1.5 rounded-lg bg-navy-800 text-golden-400 border border-golden-500/30">Mamba-3 SSM (2.8B FP16)</span>
+              <span className="px-3 py-1.5 rounded-lg bg-navy-800 text-golden-400 border border-golden-500/30">Zero-Loss Decision Engine</span>
               <span className="text-slate-600">➔</span>
-              <span className="px-3 py-1.5 rounded-lg bg-navy-800 text-teal-300 border border-teal-500/30">Supabase pgvector (1024-dim)</span>
+              <span className="px-3 py-1.5 rounded-lg bg-navy-800 text-teal-300 border border-teal-500/30">Vector Memory Vault</span>
             </div>
           </div>
         </div>

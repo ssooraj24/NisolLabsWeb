@@ -42,17 +42,37 @@ export const metadata: Metadata = {
 
 const PRICING_TIERS = [
   {
+    id: "spark",
+    name: "Nisol Spark",
+    badge: "FIRST LOOK",
+    price: "₹1,50,000",
+    priceUSD: "$1,800",
+    priceSub: "Fixed-Price 3-Day Sprint",
+    duration: "3 Business Days",
+    ideal: "For companies considering AI or wanting a fast evaluation of AI opportunities, token spend, or data compliance before full commitment.",
+    popular: false,
+    ctaText: "Apply for Spark Sprint",
+    ctaLink: "/contact?type=apply&package=Spark",
+    highlights: [
+      "Choice of 1 Focus Track: Opportunity Sprint OR Cost Audit OR Data/Compliance Check",
+      "Rapid 3-day evaluation by Senior AI Architect",
+      "Identification of Top 5 High-Impact AI Use Cases or Token Savings",
+      "8–10 Page Executive Intelligence Brief",
+      "Direct 100% credit toward Nisol One if upgraded within 30 days"
+    ]
+  },
+  {
     id: "foundation",
-    name: "Foundation Diagnostic",
-    badge: "STARTER",
+    name: "Nisol One",
+    badge: "THE BEGINNING",
     price: "₹4,50,000",
     priceUSD: "$5,500",
     priceSub: "Fixed-Price SOW (Scope-Based)",
     duration: "1–2 Weeks (7–11 Business Days)",
     ideal: "For growing organizations (10–50 employees) seeking rapid 360° evaluation across all 15 business capabilities.",
     popular: false,
-    ctaText: "Book Foundation Call",
-    ctaLink: "/contact?type=discovery-call&package=Foundation",
+    ctaText: "Apply for Nisol One",
+    ctaLink: "/contact?type=apply&package=One",
     highlights: [
       "Full 360° Diagnostic across 15 capabilities (62 questions)",
       "Sector Benchmarking against 8 industry verticals",
@@ -66,7 +86,7 @@ const PRICING_TIERS = [
   },
   {
     id: "growth",
-    name: "Growth Transformation",
+    name: "Nisol Pro",
     badge: "MOST POPULAR",
     price: "₹8,50,000",
     priceUSD: "$10,500",
@@ -74,10 +94,10 @@ const PRICING_TIERS = [
     duration: "2–4 Weeks (10–15 Business Days)",
     ideal: "For mid-market enterprises (51–250 employees) needing board-level financial justification, engineering architecture, and staff upskilling.",
     popular: true,
-    ctaText: "Talk to an AI Strategist",
-    ctaLink: "/contact?type=discovery-call&package=Growth",
+    ctaText: "Apply for Nisol Pro",
+    ctaLink: "/contact?type=apply&package=Pro",
     highlights: [
-      "Everything in Foundation, plus:",
+      "Everything in Nisol One, plus:",
       "CFO & Board Investment Memorandum (DCF, NPV & IRR)",
       "3-Scenario Sensitivity Stress Test (75%–125% adoption)",
       "Data Strategy & Vector Architecture Blueprint (5-Dimension Hygiene)",
@@ -91,18 +111,18 @@ const PRICING_TIERS = [
   },
   {
     id: "enterprise",
-    name: "Enterprise Scale",
-    badge: "STRATEGIC ARSENAL",
+    name: "Nisol Enterprise",
+    badge: "THE FULL VISION",
     price: "₹18,50,000",
     priceUSD: "$22,500",
     priceSub: "Starting from ₹18,50,000 (Multi-Entity Scope)",
     duration: "4–8 Weeks (Phased Rollout)",
     ideal: "For large enterprises (250+ employees) requiring multi-entity governance, custom architectures, competitive defense, and pilot evaluation.",
     popular: false,
-    ctaText: "Request Enterprise Proposal",
-    ctaLink: "/contact?type=proposal&package=Enterprise",
+    ctaText: "Apply for Enterprise",
+    ctaLink: "/contact?type=apply&package=Enterprise",
     highlights: [
-      "Everything in Growth, plus:",
+      "Everything in Nisol Pro, plus:",
       "PoC Decision Gate & Acceptance Protocol (SLA Benchmarks & Gate 0–4 Sign-off)",
       "Shadow AI Exposure, Penetration Audit & Zero-Trust PII Gateway Spec",
       "Vendor Dependency, Multi-LLM Lock-In & Switch-Cost Teardown",
@@ -144,20 +164,19 @@ const DELIVERABLES_SUMMARY = [
 ];
 
 const COMPARISON_ROWS = [
-  { feature: "Diagnostic Depth", foundation: "15 Capabilities / 62 Questions", growth: "15 Capabilities / 62 Questions", enterprise: "Extended Multi-Entity Scope" },
-  { feature: "Industry Peer Benchmarking", foundation: "8 Sectors (Median)", growth: "8 Sectors (Median + Top Quartile)", enterprise: "Global Competitor Deep-Dive" },
-  { feature: "Opportunity Prioritization", foundation: "Top 5 Quick Wins", growth: "2D Bubble Matrix (20 Cases)", enterprise: "Build-vs-Buy & Money-Pit Teardown" },
-  { feature: "Financial Modeling", foundation: "Lumpsum ROI & Payback", growth: "CFO Board Memo + Phased Budget", enterprise: "Full DCF Model + Valuation Premium" },
-  { feature: "Workforce Enablement & Training", foundation: "0 Tracks (Add-on available)", growth: "2 Tracks (All-Hands + Champions Labs)", enterprise: "All 3 Tracks (+ Leadership Seminar)" },
-  { feature: "Risk & Regulatory Register", foundation: "Basic Regulatory Checklist", growth: "5x5 Matrix (DPDP Act / EU AI Act)", enterprise: "Continuous Audit Architecture" },
-  { feature: "Data Strategy & Architecture", foundation: "Readiness Score", growth: "5-Dimension Scorecard + CDC Spec", enterprise: "Full Vector Lakehouse & PII Gateway" },
-  { feature: "Shadow AI & Vendor Dependency", foundation: "—", growth: "—", enterprise: "Included (DLP & Switch-Cost Audit)" },
-  { feature: "Change Management & RACI", foundation: "General Guidance", growth: "Full OCM Plan + RACI Matrix", enterprise: "Custom Org Design & CoE Setup" },
-  { feature: "PoC Decision Gate Protocol", foundation: "—", growth: "Optional Add-on", enterprise: "Included (Prospective Gate Dossier)" },
-  { feature: "Cloud & LLM Infrastructure", foundation: "Direct Client Pass-Through", growth: "Direct Client Pass-Through", enterprise: "Direct Client Pass-Through" },
-  { feature: "Pod Delivery Capacity", foundation: "Diagnostic Squad", growth: "1 Pod (1 Initiative / 12–14 wks)", enterprise: "1 Pod per Initiative (Multi-Pod Supported)" },
-  { feature: "Delivery Timeline", foundation: "7–11 Business Days", growth: "10–15 Business Days", enterprise: "Phased (4–8 Weeks)" },
-  { feature: "IP Ownership", foundation: "100% Client Owned", growth: "100% Client Owned", enterprise: "100% Client Owned" }
+  { feature: "Diagnostic Depth", spark: "1 Focus Track (3–5 Depts)", foundation: "15 Capabilities / 62 Questions", growth: "15 Capabilities / 62 Questions", enterprise: "Extended Multi-Entity Scope" },
+  { feature: "Industry Peer Benchmarking", spark: "—", foundation: "8 Sectors (Median)", growth: "8 Sectors (Median + Top Quartile)", enterprise: "Global Competitor Deep-Dive" },
+  { feature: "Opportunity Prioritization", spark: "Top 5 List", foundation: "Top 5 Quick Wins", growth: "2D Bubble Matrix (20 Cases)", enterprise: "Build-vs-Buy & Money-Pit Teardown" },
+  { feature: "Financial Modeling", spark: "Estimated ROI Range", foundation: "Lumpsum ROI & Payback", growth: "CFO Board Memo + Phased Budget", enterprise: "Full DCF Model + Valuation Premium" },
+  { feature: "Workforce Enablement & Training", spark: "—", foundation: "0 Tracks (Add-on available)", growth: "2 Tracks (All-Hands + Champions Labs)", enterprise: "All 3 Tracks (+ Leadership Seminar)" },
+  { feature: "Risk & Regulatory Register", spark: "Basic Checklist (Track C)", foundation: "Basic Regulatory Checklist", growth: "5x5 Matrix (DPDP Act / EU AI Act)", enterprise: "Continuous Audit Architecture" },
+  { feature: "Data Strategy & Architecture", spark: "Gap Summary", foundation: "Readiness Score", growth: "5-Dimension Scorecard + CDC Spec", enterprise: "Full Vector Lakehouse & PII Gateway" },
+  { feature: "Shadow AI & Vendor Dependency", spark: "—", foundation: "—", growth: "—", enterprise: "Included (DLP & Switch-Cost Audit)" },
+  { feature: "Change Management & RACI", spark: "—", foundation: "General Guidance", growth: "Full OCM Plan + RACI Matrix", enterprise: "Custom Org Design & CoE Setup" },
+  { feature: "PoC Decision Gate Protocol", spark: "—", foundation: "—", growth: "Optional Add-on", enterprise: "Included (Prospective Gate Dossier)" },
+  { feature: "Cloud & LLM Infrastructure", spark: "Direct Pass-Through", foundation: "Direct Client Pass-Through", growth: "Direct Client Pass-Through", enterprise: "Direct Client Pass-Through" },
+  { feature: "Delivery Timeline", spark: "3 Business Days", foundation: "7–11 Business Days", growth: "10–15 Business Days", enterprise: "Phased (4–8 Weeks)" },
+  { feature: "IP Ownership", spark: "100% Client Owned", foundation: "100% Client Owned", growth: "100% Client Owned", enterprise: "100% Client Owned" }
 ];
 
 const FAQS = [
@@ -215,38 +234,38 @@ export default function PricingPage() {
       </div>
 
       {/* 2. PRICING CARDS */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {PRICING_TIERS.map((tier) => (
           <div
             key={tier.id}
-            className={`rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 relative ${
+            className={`rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative ${
               tier.popular
                 ? "bg-navy-950 text-white border-2 border-golden-500 shadow-2xl scale-[1.02]"
                 : "bg-white text-navy-950 border border-slate-200 shadow-md hover:shadow-xl"
             }`}
           >
             {tier.popular && (
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-golden-500 to-golden-600 text-navy-950 font-black text-[11px] uppercase tracking-widest px-4 py-1 rounded-full shadow-md">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-golden-500 to-golden-600 text-navy-950 font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full shadow-md whitespace-nowrap">
                 Recommended For Most Enterprises
               </div>
             )}
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
                 <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
                   tier.popular ? "bg-golden-500/20 text-golden-400 border border-golden-500/30" : "bg-slate-100 text-slate-700"
                 }`}>
                   {tier.badge}
                 </span>
-                <h3 className="text-2xl font-black mt-3">{tier.name}</h3>
+                <h3 className="text-xl font-black mt-3">{tier.name}</h3>
                 <p className={`text-xs mt-2 leading-relaxed ${tier.popular ? "text-navy-200" : "text-slate-600"}`}>
                   {tier.ideal}
                 </p>
               </div>
 
-              <div className="border-t border-b py-4 border-slate-200/40">
+              <div className="border-t border-b py-3 border-slate-200/40">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl sm:text-4xl font-black">{tier.price}</span>
+                  <span className="text-2xl sm:text-3xl font-black">{tier.price}</span>
                   <span className={`text-xs font-semibold ${tier.popular ? "text-golden-400" : "text-slate-500"}`}>
                     ({tier.priceUSD})
                   </span>
@@ -260,10 +279,10 @@ export default function PricingPage() {
                 <span className={`text-xs font-bold uppercase tracking-wider block ${tier.popular ? "text-golden-400" : "text-slate-900"}`}>
                   What&apos;s Included:
                 </span>
-                <ul className="space-y-2.5 text-xs font-medium">
+                <ul className="space-y-2 text-xs font-medium">
                   {tier.highlights.map((h, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${tier.popular ? "text-golden-400" : "text-emerald-600"}`} />
+                      <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${tier.popular ? "text-golden-400" : "text-emerald-600"}`} />
                       <span className={tier.popular ? "text-navy-100" : "text-slate-700"}>{h}</span>
                     </li>
                   ))}
@@ -271,12 +290,12 @@ export default function PricingPage() {
               </div>
             </div>
 
-            <div className="pt-8">
+            <div className="pt-6">
               <Button
                 href={tier.ctaLink}
                 variant={tier.popular ? "primary" : "secondary"}
-                size="lg"
-                className={`w-full justify-center ${tier.popular ? "bg-gradient-to-r from-golden-500 to-golden-600 hover:from-golden-600 hover:to-golden-700 text-navy-950 font-black border-none shadow-lg" : ""}`}
+                size="md"
+                className={`w-full justify-center text-xs ${tier.popular ? "bg-gradient-to-r from-golden-500 to-golden-600 hover:from-golden-600 hover:to-golden-700 text-navy-950 font-black border-none shadow-lg" : ""}`}
               >
                 {tier.ctaText}
               </Button>
@@ -336,28 +355,30 @@ export default function PricingPage() {
         <SectionHeader
           title="Detailed Package Comparison"
           subtitle="Complete Feature Breakdown"
-          description="Compare diagnostic scope, technical architectures, and financial modeling depth across all three tiers."
+          description="Compare diagnostic scope, technical architectures, and financial modeling depth across all four tiers."
           badgeText="Side-by-Side"
           badgeVariant="outline"
         />
 
-        <div className="max-w-5xl mx-auto overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div className="max-w-6xl mx-auto overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
           <table className="min-w-full divide-y divide-slate-200 text-xs">
             <thead className="bg-navy-950 text-white">
               <tr>
-                <th className="px-6 py-4 text-left font-bold uppercase tracking-wider w-1/3">Feature / Capability</th>
-                <th className="px-6 py-4 text-left font-bold uppercase tracking-wider">Foundation</th>
-                <th className="px-6 py-4 text-left font-bold uppercase tracking-wider text-golden-400">Growth (Most Popular)</th>
-                <th className="px-6 py-4 text-left font-bold uppercase tracking-wider">Enterprise Scale</th>
+                <th className="px-5 py-4 text-left font-bold uppercase tracking-wider w-1/4">Feature / Capability</th>
+                <th className="px-4 py-4 text-left font-bold uppercase tracking-wider text-emerald-400">Spark (₹1.5L)</th>
+                <th className="px-4 py-4 text-left font-bold uppercase tracking-wider">One (₹4.5L)</th>
+                <th className="px-4 py-4 text-left font-bold uppercase tracking-wider text-golden-400">Pro (₹8.5L ★)</th>
+                <th className="px-4 py-4 text-left font-bold uppercase tracking-wider">Enterprise (₹18.5L+)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 font-medium">
               {COMPARISON_ROWS.map((row, idx) => (
                 <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                  <td className="px-6 py-4 font-bold text-navy-950">{row.feature}</td>
-                  <td className="px-6 py-4 text-slate-600">{row.foundation}</td>
-                  <td className="px-6 py-4 font-bold text-navy-950 bg-golden-50/40">{row.growth}</td>
-                  <td className="px-6 py-4 text-slate-600">{row.enterprise}</td>
+                  <td className="px-5 py-4 font-bold text-navy-950">{row.feature}</td>
+                  <td className="px-4 py-4 text-slate-600 bg-emerald-50/30">{row.spark}</td>
+                  <td className="px-4 py-4 text-slate-600">{row.foundation}</td>
+                  <td className="px-4 py-4 font-bold text-navy-950 bg-golden-50/40">{row.growth}</td>
+                  <td className="px-4 py-4 text-slate-600">{row.enterprise}</td>
                 </tr>
               ))}
             </tbody>

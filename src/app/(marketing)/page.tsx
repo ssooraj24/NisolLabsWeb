@@ -123,29 +123,29 @@ export default function HomePage() {
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/90 border border-emerald-500/30 text-emerald-300 text-xs font-semibold shadow-lg">
-                <Sparkles className="w-4 h-4 text-emerald-400" />
-                <span>Nisol AI — End-to-End Enterprise Transformation</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/90 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
+                <Sparkles className="w-4 h-4 text-golden-400" />
+                <span>Nisol AI — Enterprise Intelligence OS</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-                Transform Enterprise Operations with{" "}
+                Intelligence. <br />
                 <span className="bg-gradient-to-r from-golden-400 via-emerald-400 to-teal-300 bg-clip-text text-transparent">
-                  End-to-End AI.
+                  Delivered.
                 </span>
               </h1>
 
               <p className="text-lg sm:text-xl text-navy-100/90 max-w-2xl leading-relaxed font-normal">
-                From 7–11 day executive discovery workshops and AWS multi-agent implementation to continuous LLMOps telemetry and governance. Powered by proprietary AI engines like <strong className="text-emerald-400 font-semibold">RoSense AI</strong>.
+                Your enterprise has a thousand decisions. We make them intelligent — in 7 days.
               </p>
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                 <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-                  Book AI Discovery Workshop
+                  Apply for Discovery →
                 </Button>
-                <Button href="/products/rosense-ai" variant="navy" size="lg" icon={<Cpu className="w-4 h-4 text-emerald-400" />}>
-                  Explore RoSense AI
+                <Button href="/pricing" variant="navy" size="lg" icon={<Sparkles className="w-4 h-4 text-golden-400" />}>
+                  Explore Product Family
                 </Button>
               </div>
 
@@ -157,13 +157,13 @@ export default function HomePage() {
                 </div>
                 <div>
                   <div className="text-2xl font-extrabold text-emerald-400">Phase 2</div>
-                  <div className="text-xs text-navy-200">AWS Build & Deploy</div>
+                  <div className="text-xs text-navy-200">Cloud Build & Deploy</div>
                 </div>
                 <div>
                   <div className="text-2xl font-extrabold text-teal-300">Phase 3</div>
                   <div className="text-xs text-navy-200">Monitoring & Scale</div>
                 </div>
-                </div>
+              </div>
             </div>
 
             {/* Right Interactive Discovery Preview Card */}
@@ -262,7 +262,7 @@ export default function HomePage() {
               </p>
               <div className="pt-2 border-t border-navy-800 text-[11px] text-golden-300 font-mono flex items-center gap-1.5">
                 <Cpu className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Powered by RoSense AI Audio Engine</span>
+                <span>Powered by RoSense AI</span>
               </div>
             </div>
 
@@ -277,7 +277,7 @@ export default function HomePage() {
                 Engineering autonomous agent clusters, RAG knowledge copilots, and cloud/on-prem appliances with zero vendor lock-in.
               </p>
               <div className="pt-2 border-t border-navy-800 text-[11px] text-emerald-400 font-mono">
-                <span>AWS Bedrock • Textract • EC2/ECS</span>
+                <span>Multi-Cloud • Private LLMs • Cloud Native</span>
               </div>
             </div>
 
@@ -299,40 +299,44 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 1.3: PROPRIETARY FEATURED PRODUCT — ROSENSE AI */}
+      {/* SECTION 1.3: APPLE-STYLE FEATURED PRODUCT — ROSENSE AI */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-navy-950 via-[#030d1d] to-navy-950 border border-emerald-500/40 shadow-2xl relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-5 text-white">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
-                <Cpu className="w-4 h-4" />
-                <span>FLAGSHIP PROPRIETARY PRODUCT</span>
+        <div className="p-8 lg:p-12 rounded-3xl bg-gradient-to-br from-navy-950 via-[#030d1d] to-navy-950 border border-emerald-500/40 shadow-2xl relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-7 space-y-6 text-white">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                <Cpu className="w-4 h-4 text-emerald-400" />
+                <span>Nisol AI Proprietary Technology</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                RoSense AI — <span className="text-emerald-400">Enterprise Conversation Intelligence</span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+                RoSense AI. <br />
+                <span className="text-emerald-400">Turn Boardroom Conversations Into Enterprise Action.</span>
               </h2>
 
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                Turn 18 hours of strategy offsites and boardroom discussions into structured execution. RoSense AI transcribes, diarizes, and extracts decisions, commitments, and risks with 100% data sovereignty.
+              <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+                Every offsite, executive discussion, and strategic meeting holds your company&apos;s future direction. RoSense AI captures every decision, risk, and commitment with absolute privacy — turning spoken words into structured enterprise intelligence.
               </p>
 
-              <div className="grid grid-cols-2 gap-3 font-mono text-xs text-slate-300">
-                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>WhisperX + Pyannote 3.1</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-xs">
+                <div className="p-4 rounded-xl bg-navy-900/90 border border-navy-700/80 space-y-1">
+                  <div className="font-bold text-white text-sm flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Total Decision Retention</span>
+                  </div>
+                  <p className="text-slate-400 text-xs leading-relaxed">
+                    Never lose a strategic commitment or action item from multi-hour leadership offsites.
+                  </p>
                 </div>
-                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Mamba-3 SSM Engine</span>
-                </div>
-                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Supabase pgvector Search</span>
-                </div>
-                <div className="flex items-center gap-2 bg-navy-900/80 p-2.5 rounded-lg border border-navy-700">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>AWS Cloud & Air-Gapped Box</span>
+
+                <div className="p-4 rounded-xl bg-navy-900/90 border border-navy-700/80 space-y-1">
+                  <div className="font-bold text-white text-sm flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Absolute Data Privacy</span>
+                  </div>
+                  <p className="text-slate-400 text-xs leading-relaxed">
+                    Runs in your private cloud or on-prem appliance. Zero external model training.
+                  </p>
                 </div>
               </div>
 
@@ -340,35 +344,53 @@ export default function HomePage() {
                 <Button 
                   href="/products/rosense-ai" 
                   variant="primary" 
-                  size="md"
+                  size="lg"
                   className="bg-emerald-500 hover:bg-emerald-600 text-navy-950 font-bold border-emerald-400"
                   icon={<ArrowRight className="w-4 h-4" />}
                 >
-                  Explore RoSense AI Product
+                  Explore RoSense AI →
                 </Button>
               </div>
             </div>
 
-            {/* Right Feature Card */}
-            <div className="lg:col-span-5 bg-navy-900/90 rounded-2xl p-6 border border-emerald-500/30 font-mono text-xs text-white space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-navy-700 text-[11px]">
-                <span className="text-emerald-400 font-bold">Listen ➔ Structure ➔ Deliver</span>
-                <span className="text-slate-400">v2.1 Supabase Native</span>
-              </div>
-              <div className="space-y-2 text-[11px] text-slate-300">
-                <div className="p-2.5 rounded bg-navy-950 border border-navy-800">
-                  <span className="text-golden-400 font-semibold">[Listen]</span> Transcribes 18+ hour recordings without context loss
+            {/* Right Apple-Style Experience Showcase */}
+            <div className="lg:col-span-5">
+              <div className="bg-navy-900/90 rounded-3xl p-8 border border-emerald-500/30 text-white space-y-6 shadow-2xl relative">
+                <div className="space-y-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">The RoSense Experience</span>
+                  <h3 className="text-xl font-bold text-white">Seamless Intelligence Flow</h3>
                 </div>
-                <div className="p-2.5 rounded bg-navy-950 border border-navy-800">
-                  <span className="text-emerald-400 font-semibold">[Structure]</span> Zero-shot decision & action item extraction
+
+                <div className="space-y-4 text-xs">
+                  <div className="p-4 rounded-2xl bg-navy-950 border border-navy-800 space-y-1">
+                    <div className="font-bold text-golden-400 flex items-center justify-between">
+                      <span>1. Listen & Absorb</span>
+                      <span className="text-[10px] text-slate-400 font-mono">Real-time</span>
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">Captures hours of nuanced executive dialogue without missing detail.</p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-navy-950 border border-navy-800 space-y-1">
+                    <div className="font-bold text-emerald-400 flex items-center justify-between">
+                      <span>2. Extract & Structure</span>
+                      <span className="text-[10px] text-slate-400 font-mono">Automated</span>
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">Transforms spoken strategy into clear RACI matrices and action blueprints.</p>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-navy-950 border border-navy-800 space-y-1">
+                    <div className="font-bold text-teal-300 flex items-center justify-between">
+                      <span>3. Secure & Own</span>
+                      <span className="text-[10px] text-slate-400 font-mono">100% Private</span>
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">Stored securely in your enterprise tenant. You own the intelligence forever.</p>
+                  </div>
                 </div>
-                <div className="p-2.5 rounded bg-navy-950 border border-navy-800">
-                  <span className="text-teal-300 font-semibold">[Deliver]</span> Sub-10ms vector memory search over 1M+ embeddings
+
+                <div className="pt-2 border-t border-navy-800 text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>🔒 Enterprise Grade Privacy</span>
+                  <span className="text-emerald-400 font-semibold">Zero Lock-In</span>
                 </div>
-              </div>
-              <div className="pt-2 border-t border-navy-700 text-[10px] text-slate-400 flex items-center justify-between">
-                <span>AES-256 Encrypted</span>
-                <span className="text-emerald-400">Zero Model Training</span>
               </div>
             </div>
           </div>
@@ -1119,21 +1141,21 @@ export default function HomePage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-golden-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl space-y-6 text-center mx-auto">
-            <Badge variant="golden">Ready to Start Your AI Transformation?</Badge>
+            <Badge variant="golden">Selective Partnerships</Badge>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
-              Discover Your High-ROI <br />
-              <span className="golden-gradient-text">AI Architecture Today</span>
+              We partner with 5 new <br />
+              <span className="golden-gradient-text">enterprises each month.</span>
             </h2>
             <p className="text-sm sm:text-base text-navy-100/90 leading-relaxed">
-              Discover your AI readiness, identify high-impact opportunities, and build an executive transformation roadmap in weeks—not months.
+              Apply for a Discovery Session to see if we are the right fit for your organization. Applications are reviewed within 48 hours.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-                Book AI Discovery Workshop
+                Apply for Discovery →
               </Button>
-              <Button href="/resources/roi-calculator" variant="navy" size="lg" icon={<BarChart3 className="w-4 h-4" />}>
-                Try the ROI Calculator
+              <Button href="/pricing" variant="navy" size="lg" icon={<Sparkles className="w-4 h-4 text-golden-400" />}>
+                Explore Pricing & Scope
               </Button>
             </div>
           </div>

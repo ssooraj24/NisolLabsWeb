@@ -20,8 +20,9 @@ const TYPE_BADGES: Record<TenantType, { bg: string; text: string }> = {
 };
 
 const PLAN_BADGES: Record<PricingPlan, { bg: string; text: string; label: string }> = {
-  foundation: { bg: "bg-slate-100 border border-slate-200", text: "text-slate-700", label: "Foundation" },
-  growth: { bg: "bg-amber-50 border border-amber-300", text: "text-amber-800", label: "Growth" },
+  spark: { bg: "bg-emerald-50 border border-emerald-300", text: "text-emerald-800", label: "Spark" },
+  foundation: { bg: "bg-slate-100 border border-slate-200", text: "text-slate-700", label: "One" },
+  growth: { bg: "bg-amber-50 border border-amber-300", text: "text-amber-800", label: "Pro" },
   enterprise: { bg: "bg-purple-50 border border-purple-300", text: "text-purple-800", label: "Enterprise" },
   custom: { bg: "bg-blue-50 border border-blue-300", text: "text-blue-800", label: "Custom" },
 };
@@ -154,9 +155,10 @@ export default function TenantList({
             className="border rounded-xl px-3 py-2 bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-[#0A1E3C]"
           >
             <option value="all">All Plans</option>
-            <option value="foundation">Foundation</option>
-            <option value="growth">Growth</option>
-            <option value="enterprise">Enterprise</option>
+            <option value="spark">Spark</option>
+            <option value="foundation">Nisol One</option>
+            <option value="growth">Nisol Pro</option>
+            <option value="enterprise">Nisol Enterprise</option>
             <option value="custom">Custom</option>
           </select>
         </div>

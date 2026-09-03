@@ -57,26 +57,26 @@ export default function ContactPage() {
     <div className="space-y-16 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4 pt-6">
-        <Badge variant="golden">AI Transformation Session</Badge>
+        <Badge variant="golden">Apply for Discovery</Badge>
         <h1 className="text-4xl sm:text-5xl font-black text-navy-950 tracking-tight">
-          Book an Enterprise <br />
-          <span className="golden-gradient-text">AI Discovery Session</span>
+          Apply for a <br />
+          <span className="golden-gradient-text">Discovery Session</span>
         </h1>
         <p className="text-base sm:text-lg text-navy-700/90 leading-relaxed">
-          Speak directly with our senior AI architects. Receive an initial technical feasibility audit and structured adoption timeline.
+          We partner with 5 new enterprises each month. Tell us about your organization to see if we are the right fit.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto">
         <div className="lg:col-span-7 glass-panel rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm">
           {submitted ? (
             <div className="text-center py-12 space-y-6 animate-in fade-in duration-300">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h3 className="text-2xl font-bold text-navy-950">Discovery Request Received</h3>
-              <p className="text-sm text-navy-700 max-w-md mx-auto">
-                Thank you, <strong>{formData.fullName}</strong>. A senior Nisol AI Architect will review your requirements and reach out within 24 business hours.
+              <h3 className="text-2xl font-bold text-navy-950">Application Received</h3>
+              <p className="text-sm text-navy-700 max-w-md mx-auto leading-relaxed">
+                Thank you, <strong>{formData.fullName}</strong>. Your application is under review. A senior Nisol AI Architect will personally reach out within 48 hours.
               </p>
               <div className="pt-4">
                 <Button 
@@ -86,23 +86,28 @@ export default function ContactPage() {
                       fullName: "",
                       workEmail: "",
                       companyName: "",
-                      interestPillar: "agents",
-                      budgetRange: "$25k - $50k",
+                      interestPillar: "discovery",
+                      budgetRange: "Nisol One",
                       message: ""
                     });
                   }} 
                   variant="navy" 
                   size="md"
                 >
-                  Submit Another Inquiry
+                  Submit Another Application
                 </Button>
               </div>
             </div>
           ) : (
             <form onSubmit={(e) => { e.preventDefault(); sendAuditRequest(); }} className="space-y-6">
-              <h2 className="text-xl font-bold text-navy-950 mb-4 border-b border-slate-200 pb-3">
-                Project & Organization Details
-              </h2>
+              <div className="border-b border-slate-200 pb-3 flex items-center justify-between">
+                <h2 className="text-xl font-bold text-navy-950">
+                  Organization Application
+                </h2>
+                <span className="text-xs font-semibold text-golden-600 bg-golden-50 px-2.5 py-1 rounded-full border border-golden-200">
+                  Selective 5 Partners / Mo
+                </span>
+              </div>
 
               {errorMessage && (
                 <div className="p-4 rounded-xl bg-red-50 text-red-600 border border-red-200 text-xs font-medium">
@@ -110,19 +115,19 @@ export default function ContactPage() {
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Full Name *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Sarah Jenkins"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
-                  />
-                </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Sarah Jenkins"
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
+                />
+              </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Work Email *</label>
                   <input
@@ -134,58 +139,27 @@ export default function ContactPage() {
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
                   />
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Organization / Company *</label>
+                  <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Company / Organization *</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Acme Health Corp"
+                    placeholder="e.g. Acme Enterprise Solutions"
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
                   />
                 </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Primary AI Pillar</label>
-                  <select
-                    value={formData.interestPillar}
-                    onChange={(e) => setFormData({ ...formData, interestPillar: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white font-medium"
-                  >
-                    <option value="Nisol AI Discovery Call">Nisol AI Discovery Call (Flagship)</option>
-                    <option value="Autonomous AI Agents">Autonomous AI Agents</option>
-                    <option value="AI Engineering & LLMOps">AI Engineering & LLMOps (Differentiator)</option>
-                    <option value="AI Strategy & Discovery">AI Strategy & Discovery</option>
-                    <option value="Enterprise AI Assistants">Enterprise AI Assistants (RAG)</option>
-                    <option value="AI-Powered Automation">AI-Powered Automation (IDP)</option>
-                    <option value="Data Readiness for AI">Data Readiness for AI</option>
-                  </select>
-                </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Project Budget Scope</label>
-                <select
-                  value={formData.budgetRange}
-                  onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white font-medium"
-                >
-                  <option value="$15k - $25k">$15,000 - $25,000 (Initial PoC)</option>
-                  <option value="$25k - $50k">$25,000 - $50,000 (Multi-Agent System)</option>
-                  <option value="$50k - $100k">$50,000 - $100,000 (Full Enterprise Platform)</option>
-                  <option value="$100k+">$100,000+ (Custom Transformation)</option>
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">Project Goals & Context</label>
+                <label className="text-xs font-bold text-navy-900 uppercase tracking-wider">
+                  What is the primary challenge or opportunity you want AI to address? <span className="text-slate-400 font-normal lowercase">(Optional)</span>
+                </label>
                 <textarea
                   rows={4}
-                  placeholder="Describe your current bottlenecks, target workflows, or data environment..."
+                  placeholder="e.g. We want to reduce document processing time, automate internal knowledge retrieval, or cut token spend..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-golden-500 text-sm bg-white"
@@ -198,12 +172,15 @@ export default function ContactPage() {
                   variant="primary" 
                   size="lg" 
                   disabled={loading}
-                  className="w-full justify-center cursor-pointer" 
+                  className="w-full justify-center cursor-pointer font-bold" 
                   icon={loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowRight className="w-4 h-4" />}
                 >
-                  {loading ? "Sending Request..." : "Request Confidential AI Audit"}
+                  {loading ? "Submitting Application..." : "Submit Application →"}
                 </Button>
               </div>
+              <p className="text-[11px] text-center text-slate-500 font-medium">
+                🔒 Strict Confidentiality Guaranteed • Mutual NDA provided prior to technical review
+              </p>
             </form>
           )}
         </div>

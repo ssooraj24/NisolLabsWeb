@@ -134,6 +134,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/partner" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-golden-400">
+                  <span>Partner Program</span>
+                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 py-0.5 rounded border border-golden-500/30">30% RECURRING</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/industries" className="hover:text-golden-300 transition-colors">
                   Industries We Serve
                 </Link>

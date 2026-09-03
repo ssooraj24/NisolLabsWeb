@@ -25,7 +25,8 @@ import {
   Info,
   Award,
   Tag,
-  Mail
+  Mail,
+  Handshake
 } from "lucide-react";
 
 export interface NavItem {
@@ -266,6 +267,7 @@ export const COMPANY_MENU: NavSection = {
   items: [
     { name: "About Nisol AI", href: "/about", icon: Info },
     { name: "Leadership & Architects", href: "/about#leadership", icon: Users },
+    { name: "Partner Program", href: "/partner", badge: "30% RECURRING", icon: Handshake },
     { name: "Our Core Principles", href: "/about#values", icon: Award },
     { name: "Contact Us", href: "/contact", icon: Mail }
   ]

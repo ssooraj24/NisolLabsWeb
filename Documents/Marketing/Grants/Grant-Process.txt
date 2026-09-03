@@ -1,0 +1,157 @@
+Here is the complete, ready-to-deploy package. I’ve designed both documents to reflect the **Apple/Nisol brand ethos**: minimalist, crystal-clear, legally robust but written in human language, and designed to feel like a *partnership agreement* rather than a legal threat.
+
+You can copy-paste these directly into a Google Doc (for the Agreement) and a Webflow/Typeform page (for the Application).
+
+---
+
+## PART 1: THE GRANT APPLICATION FORM
+*Title: **Apply for the Nisol Enterprise Intelligence Grant***
+
+*Subtitle: *Three awards. ₹4,50,000 in strategic intelligence. Zero cost to you.*
+
+---
+
+### Section A: Your Organization
+**1. Organization Name** *(Text Field)*
+
+**2. Registration Type & Number** *(Text Field - e.g., Section 8 Company, Trust, Society, Educational Trust)*
+
+**3. Headquarters Location** *(City, State/Emirate, Country)*
+
+**4. Your Mission in One Sentence** *(Text Field - Max 140 characters)*
+> *"We exist to..."*
+
+---
+
+### Section B: The Impact & The Bottleneck
+**5. The Problem You Solve** *(Text Area - 200 words)*
+> *Tell us about the community, students, or cause you serve. What is the primary challenge you are tackling?*
+
+**6. Your Current Technology Bottleneck** *(Text Area - 150 words)*
+> *We don’t expect you to be tech experts. Tell us in plain English: What manual process consumes the most team hours? Where do you struggle to manage data (student records, donation tracking, research data)? Why hasn't AI helped you yet?*
+
+---
+
+### Section C: The Partnership Commitment
+**7. Leadership Engagement** *(Checkbox + Text)*
+> *"I confirm that our Executive Director / Dean / CEO will be available for the 7-day intensive discovery sprint and the final deliverable review."*
+
+**8. Why This Grant?** *(Text Area - 100 words)*
+> *"If awarded this grant, we will use the Nisol Intelligence Architecture to..."* (e.g., *"reduce student dropout rates by 15%,"* *"optimize our rural supply chain,"* *"automate grant reporting for our researchers"*).
+
+**9. Amplification Pledge** *(Checkbox + Text)*
+> *"We understand this is a partnership. If selected, we are excited to share our journey publicly via a co-produced case study, video testimonial, and press release to inspire other institutions."*
+> *(Optional: Provide a link to your past media mentions or social channels to show your reach).*
+
+---
+
+### Section D: Submit
+**10. Primary Contact** *(Name, Title, Email, Phone)*
+
+**📎 Upload:** *Optional: Upload a 2-page PDF deck or brochure about your work (Max 5MB).*
+
+**Submit Button:** *"Apply for the Intelligence Grant"*
+
+---
+
+### 📋 INTERNAL SCORING RUBRIC (For the "Grant Advisory Board")
+
+| Criteria | Weight | Scoring (1-5) |
+| :--- | :--- | :--- |
+| **Social / Educational Impact** | 35% | Does this solve a critical problem affecting many people? |
+| **Data Complexity** | 25% | Does their data challenge allow us to showcase our RoSense AI capabilities well? |
+| **Leadership Buy-In** | 20% | Is the top leader truly committed to the 7-day sprint? |
+| **Amplification Potential** | 20% | Do they have an engaged audience (students, donors, media) to share the success story? |
+
+---
+
+## PART 2: THE GRANT MARKETING RIGHTS AGREEMENT
+*Title: **The Nisol Enterprise Intelligence Grant — Partnership Acknowledgment***
+
+*Subtitle: *A shared commitment to clarity, impact, and storytelling.*
+
+---
+
+**This Agreement is made between:**
+**Nisol AI** (*"The Grantor"*) — and —
+**[Recipient Organization Name]** (*"The Recipient"*)
+
+**Date:** [Insert Date]
+
+### 1. The Grant Scope
+The Grantor agrees to provide the Recipient with a **Nisol One™ Enterprise Intelligence Discovery**, valued at **₹4,50,000 (Indian Rupees Four Lakh Fifty Thousand)** , at **zero cost** to the Recipient. This includes:
+- A 7-day strategic diagnostic sprint.
+- 15 board-ready capability deliverables.
+- A physical, museum-quality Intelligence Dossier.
+
+### 2. The Recipient's Commitment
+In exchange for this grant, the Recipient agrees to:
+- **Provide Access:** Facilitate interviews with 3–5 key stakeholders (leadership, operations, and ground staff) during the 7-day sprint.
+- **Timely Feedback:** Review draft deliverables within 48 hours of receipt to ensure the final product is accurate and actionable.
+
+### 3. Media & Content Rights (The "Storytelling" Clause)
+The Recipient agrees that the Grantor may capture, produce, and distribute content related to this engagement for promotional, educational, and brand-building purposes. This includes, but is not limited to:
+
+- **Written Content:** A detailed case study published on the Grantor’s website, LinkedIn, and in the "State of Enterprise AI" annual report.
+- **Visual Content:** Photographs and/or short video clips (3–5 minutes) of the collaboration, workshops, or interviews, featuring the Recipient's leadership and branding.
+- **Public Announcements:** A joint press release announcing the Recipient as a Grant awardee.
+
+> **The Nisol Promise (Recipient Data Protection):**  
+> *We will never share your raw proprietary data, internal financials, or student/personnel records. We only share the **strategic insights, the journey, and the final outcomes**—never the underlying raw data.*
+
+### 4. Intellectual Property (The "Zero Lock-In" Clause)
+The strategic recommendations, architecture diagrams, and roadmaps produced during this grant remain the **sole intellectual property** of the Recipient. The Grantor retains the right to use the *methodology* and *framework* used to generate the recommendations for future clients, but the specific IP, code, and strategy tailored to the Recipient belongs entirely to the Recipient.
+
+### 5. Confidentiality
+Both parties agree to keep any sensitive operational or financial data shared during the sprint strictly confidential. This Agreement ensures a safe space for transparency.
+
+### 6. Acceptance & Signatures
+By signing below, both parties acknowledge they have read, understood, and agreed to this Partnership Acknowledgment.
+
+---
+
+**For the Grantor (Nisol AI):**
+
+Signature: ___________________
+
+Name: [Founder/CMO Name]
+
+Title: Chief Marketing Officer
+
+Date: _______________
+
+---
+
+**For the Recipient:**
+
+Signature: ___________________
+
+Name: [Dean/Executive Director Name]
+
+Title: ___________________
+
+Date: _______________
+
+---
+
+## 🚀 OPERATIONAL INSTRUCTIONS (How to Deploy This)
+
+1.  **Launch the Application (Week 1):**
+    - Create a dedicated page on `nisolai.com/grants` with the Apple aesthetic.
+    - Share it via a **LinkedIn post** (tagging top educators/NGO leaders) and send it directly to 20 hand-picked institutions via personalized email.
+
+2.  **The "Juror" Invitation (Week 2):**
+    - Send the scoring rubric (above) to your 3 external jurors. Host a 30-minute virtual meeting to review the top 10 applications together.
+
+3.  **The Award Announcement (Week 4):**
+    - Don't just send an email. **Video call** the winners to tell them they've been selected. Record the reaction (with their permission) for a "Winner Announcement" social clip.
+
+4.  **The "Unboxing" of the Agreement (Week 5):**
+    - Don't just email the PDF. Mail the physical, printed copy of this Agreement (cloth-bound, or at least premium cardstock) to the Recipient's headquarters. Have them sign it physically and return it. **This sets the tone that this is a premium, serious engagement.**
+
+5.  **The Execution (Week 6-8):**
+    - Run the 3 Grants **consecutively, not in parallel** (so your team isn't overwhelmed). Use the first one to refine the process, the second to optimize, and the third to perfect the "unboxing" video.
+
+---
+
+**Final Recommendation:** Print this Agreement on your premium letterhead and physically courier it to the grant winners. The physical act of signing a beautifully designed document is what makes them feel like "Apple awardees"—and that emotional commitment ensures they will eagerly participate in your marketing videos later.

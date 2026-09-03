@@ -1,0 +1,154 @@
+# Lighthouse Client Outreach Script
+
+## The 1-Page Letter / Email
+
+---
+
+### FORMAT OPTION 1: PHYSICAL LETTER (Recommended for Tier-1 Targets)
+
+*Printed on premium letterhead, hand-signed, couriered in a branded envelope.*
+
+---
+
+**[Date]**
+
+**[First Name] [Last Name]**
+**[Title]**
+**[Company Name]**
+**[Address]**
+
+**Re: An Invitation to Co-Create the Future of Enterprise Intelligence**
+
+Dear [First Name],
+
+Your competitors are spending ₹10–50 crores on AI experiments. Most of them are failing. Not because the technology isn't ready—but because they started building before they knew what to build.
+
+We have a proposition that will sound radical: **We will deliver a complete Enterprise Intelligence Architecture for your organization in 7 days. At zero cost. In exchange for one thing: your partnership in shaping a new category.**
+
+**What we're offering:**
+
+Over 7 days, our team deploys the **Nisol Discovery™** framework—a forensic diagnostic powered by **RoSense AI**—to map every capability, data pipeline, and automation opportunity across your enterprise. You receive:
+
+- **15 board-ready deliverables** (capability radar maps, DCF models, architecture blueprints, action briefs)
+- **A physical, museum-quality Intelligence Dossier** (cloth-bound, foil-stamped)
+- **A clear 12-month AI roadmap** with quantified ROI
+
+**Timeline:** 7 days from kickoff to deliverable. **Investment:** ₹0. **The only cost:** Your willingness to share your success story with the world.
+
+**Why we're doing this:**
+
+We're launching the **Nisol Enterprise Intelligence Grant**—awarding 3 full engagements (₹4,50,000 value each) to institutions that will help us prove that enterprise intelligence doesn't require 6 months and 200-page slide decks. We've hand-selected [Company Name] because your leadership in [industry/sector] sets the standard others follow.
+
+**What we need from you:**
+
+A 15-minute conversation to determine if this is the right fit. No pitch. No obligation. Just a dialogue about where your AI journey stands today.
+
+I'll have my team reach out this week to schedule. Alternatively, you can reply directly to this letter.
+
+**One final thought:** The enterprises that win the AI race won't be the ones with the biggest budgets. They'll be the ones who started with clarity.
+
+Let's build that clarity together.
+
+With respect,
+
+**[Founder/CMO Name]**
+*Chief Marketing Officer, Nisol AI*
+
+---
+
+### FORMAT OPTION 2: EMAIL VERSION (For Faster Execution)
+
+*Subject Line Options:*
+- *"An invitation: 7 days to enterprise intelligence clarity"*
+- *"[Company Name]: A proposition from Nisol AI"*
+- *"The 7-day intelligence architecture — at zero cost"*
+
+---
+
+**Dear [First Name],**
+
+Your competitors are spending ₹10–50 crores on AI experiments. Most are failing—not because the technology isn't ready, but because they started building before they knew what to build.
+
+**We have a proposition:** We'll deliver a complete Enterprise Intelligence Architecture for [Company Name] in 7 days. At zero cost. In exchange for your partnership in shaping a new category.
+
+**What you receive:**
+
+- **15 board-ready deliverables** (capability radars, DCF models, architecture blueprints, action briefs)
+- **A physical, museum-quality Intelligence Dossier** (cloth-bound, foil-stamped)
+- **A clear 12-month AI roadmap** with quantified ROI
+
+**Timeline:** 7 days from kickoff to deliverable.
+**Investment:** ₹0.
+**The only cost:** Your willingness to share your success story.
+
+**Why you?**
+
+We're awarding 3 full Enterprise Intelligence Grants (₹4,50,000 value each) to organizations that set industry standards. [Company Name] was selected because of your leadership in [industry/sector].
+
+**Next step:** A 15-minute conversation. No pitch. No obligation. Just a dialogue about where your AI journey stands.
+
+**[Calendar Link]**
+
+**One final thought:** The enterprises that win the AI race won't be the ones with the biggest budgets. They'll be the ones who started with clarity.
+
+Let's build that clarity together.
+
+Warmly,
+
+**[Founder/CMO Name]**
+*Chief Marketing Officer, Nisol AI*
+
+---
+
+## EXECUTION NOTES
+
+| Element | Recommendation |
+| :--- | :--- |
+| **Tier 1 Targets** | Send the **physical letter** via courier. The unboxing experience is part of the pitch. |
+| **Tier 2 Targets** | Use the **email version** with a Calendly link. |
+| **Personalization** | Replace `[industry/sector]` with the specific vertical (BFSI, Manufacturing, Healthcare, IT/Software, Professional Services). |
+| **Follow-Up Cadence** | Day 3: LinkedIn connection request. Day 7: Brief email: *"Following up on my letter—worth 15 minutes?"* Day 14: Final email: *"Closing our grant application window this week."* |
+| **Physical Asset** | Include a **"Nisol Intelligence" branded pen** or a **preview card** (showing the cloth-bound dossier) inside the courier package. |
+
+---
+
+## ALTERNATIVE: THE "BOARD-READY" VERSION (For CFO/CEO Targets)
+
+*Use this if the primary contact is the CEO or CFO.*
+
+---
+
+**Subject: The cost of waiting**
+
+Dear [First Name],
+
+Every month your AI strategy remains unclear costs your organization approximately **₹2–5 crores** in missed efficiency, competitive advantage, and budget that's already been allocated but isn't delivering returns.
+
+We're offering **7 days of clarity**—at zero cost—through the Nisol Enterprise Intelligence Grant.
+
+**What lands on your desk on Day 8:**
+
+- A quantified DCF model showing exactly which AI initiatives deliver the highest NPV
+- A 12-month roadmap with clear milestones and budget projections
+- A physical dossier worthy of your boardroom table
+
+**Why we're doing this:** We're proving that enterprise intelligence doesn't require 6 months and 200-page slide decks. We need partners like [Company Name] to help us make that case.
+
+**15 minutes.** That's all we're asking for.
+
+**[Calendar Link]**
+
+The enterprises that win the AI race won't be the ones with the biggest budgets. They'll be the ones who started with clarity.
+
+Let's build that clarity together.
+
+Warmly,
+
+**[Founder/CMO Name]**
+
+---
+
+**Would you like me to create:**
+1. **A follow-up sequence** (3 emails + 1 LinkedIn message) for each target?
+2. **A "Grant Acceptance" letter** to send once a Lighthouse client says yes?
+3. **A physical collateral brief** (what to include in the courier package alongside the letter)?

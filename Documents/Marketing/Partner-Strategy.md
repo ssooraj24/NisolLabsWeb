@@ -1,0 +1,278 @@
+Yes — and **30% is the industry sweet spot** for enterprise AI referral partnerships.
+
+Here's why it works, exactly how to structure it, and a step-by-step playbook to launch.
+
+---
+
+## Why 30% Works
+
+| Benchmark | Source |
+| :--- | :--- |
+| 30% recurring for 12 months | BA Copilot Consultant Partner Program |
+| 30% recurring for 24 months | Handinger Partner Program |
+| 30% first-year, 10% renewal | ShiftArmor Partner Program |
+| 15-20% referral (passive) | Olakai Referral Partners |
+| 25-35% recurring (tiered) | Simplia Partners (Gold 25%, Platinum 35%) |
+| 20-30% standard | SaaS industry benchmark |
+
+**Key insight:** 30% is the "strong default" for early-stage B2B SaaS/AI programs with healthy margins. It's high enough to motivate partners, but low enough to protect your margins.
+
+---
+
+## Commission Model: Flat 30% → Tiered (Phased Approach)
+
+### Phase 1: Founding Partner Period (Months 1–6) — Flat 30%
+
+All partners who join in the first 6 months receive a **flat 30% commission** regardless of volume. No tiers, no complexity. This maximizes recruitment speed and removes objections.
+
+**Why flat first:** Early-stage programs need momentum. A tiered structure at launch penalizes your first partners (starting at 15%) and makes competing programs with flat 20–30% more attractive. Simplicity wins during recruitment.
+
+### Phase 2: Tiered Structure (Month 7+) — For New Partners Only
+
+New partners joining after Month 6 enter the tiered structure:
+
+| Tier | Active Accounts | Commission |
+| :--- | :--- | :--- |
+| Silver | 1–5 | 20% recurring |
+| Gold | 6–20 | 25% recurring |
+| Platinum | 21+ | 30% recurring |
+
+**Founding Partners are grandfathered at 30% minimum.** This becomes a powerful recruitment hook — "Join now before tiers kick in."
+
+This creates a **natural incentive** for new partners to grow with you while rewarding early adopters for their trust.
+
+### Renewal Commission Structure
+
+| Period | Commission Rate | Rationale |
+| :--- | :--- | :--- |
+| **Year 1** | **30%** | Partner did the hard work — sourcing, convincing, closing. They deserve the premium |
+| **Year 2 onward** | **20%** | Client relationship is now with Nisol. 20% keeps partners engaged and motivated for retention |
+| **Upsells (any year)** | **30% on incremental revenue** | If a partner upsells a client (e.g., Nisol One → Enterprise), they earn 30% on the new revenue for that upsell's first year, then 20% ongoing |
+
+**Why 20% in Year 2+ (not 10% or 0%):**
+- 0% = partner has zero reason to help retain the client. They may even push the client toward a competitor offering fresh commissions
+- 10% = feels like a slap after earning 30%. The drop is too steep and damages trust
+- **20% = sweet spot.** A reasonable 33% reduction, but still meaningful income. Partners stay motivated to support renewals and upsells
+
+---
+
+## Territory Model: Non-Exclusive + Priority Territory
+
+Partners operate on a **non-exclusive basis** with **Priority Territory recognition** by vertical or geography.
+
+### How Priority Territory Works
+
+| Element | Detail |
+| :--- | :--- |
+| **Declaration** | Partners declare their primary market (e.g., "Mumbai financial services" or "Dubai healthcare") |
+| **First Right of Refusal** | When a lead comes in from that market, the Priority Partner gets a **48-hour window** to claim it |
+| **If they pass** | Lead goes to the next eligible partner or Nisol's internal sales team |
+| **No exclusivity** | Nisol AI can still sell directly in any territory at any time |
+
+### Territory Guidelines by Market
+
+| Market | Approach |
+| :--- | :--- |
+| **India (Tier-1 cities)** | Non-exclusive. Multiple partners can operate in Mumbai, Bangalore, Delhi. Priority territory assigned by **vertical** (fintech, healthcare, manufacturing) rather than geography |
+| **Dubai** | First Dubai partner receives a **soft-exclusive for 6 months** as a Founding Partner perk — with a performance clause: minimum 3 qualified leads per quarter, or exclusivity lapses |
+
+---
+
+## How It Works: The Partner Journey
+
+### Step 1: Sign Up (No Cost)
+
+- No joining fee
+- Partner fills a simple application form
+- Gets unique referral link + dashboard access
+
+### Step 2: Share & Refer
+
+- Partner shares Nisol AI with their network
+- Every client that signs through their link is **automatically attributed**
+- **Deal registration** protects partners from internal sales conflicts
+- **Nisol AI commits to contacting all partner-referred leads within 48 hours** — partners are notified when outreach is made
+
+### Step 3: Earn Recurring Revenue
+
+- Partner earns **30% of every client's first-year contract value**
+- **Year 2 onward:** Partner continues earning **20%** on renewals
+- **Upsells:** If the partner drives an upsell, they earn **30% on the incremental revenue** for Year 1 of that upsell
+- Paid monthly
+- Full visibility in partner dashboard
+
+### Step 4: Grow & Upgrade
+
+- As partners bring more clients, they move to higher tiers (post Month 6 for new partners)
+- Higher tiers = higher commissions + co-marketing + dedicated support
+
+---
+
+## Who to Target as Partners
+
+| Partner Type | Why They're Valuable | Where to Find Them |
+| :--- | :--- | :--- |
+| **System Integrators** | Already have enterprise client relationships. They need AI capabilities to add to their portfolio | LinkedIn, industry events, partner directories |
+| **IT Consulting Firms** | They advise CIOs on technology strategy. They can recommend Nisol AI as the "intelligence layer" | NASSCOM, TiE, industry associations |
+| **MSPs (Managed Service Providers)** | They manage IT for enterprises. AI is the natural next service | Channel events, MSP-focused communities |
+| **Business Consultancies** | They sell strategy. Nisol AI helps them **execute** that strategy | Boutique firms (50-200 people), not just Big 4 |
+| **Former CXOs / Industry Experts** | They have networks and trust. They can open doors that cold outreach cannot | LinkedIn, executive networks, alumni groups |
+| **Cloud Partners (AWS, Azure, GCP)** | They want their enterprise clients to succeed with AI. Co-marketing with them gives you credibility | Partner portals, channel teams |
+
+---
+
+## The Economics: Why 30% Works for Nisol AI
+
+### Year 1 Economics
+
+| Metric | Nisol One | Nisol Enterprise |
+| :--- | :--- | :--- |
+| **Deal Size** | ₹4,50,000 ($5,500) | ₹18,50,000 ($22,500) |
+| **Partner Commission (30%)** | ₹1,35,000 ($1,650) | ₹5,55,000 ($6,750) |
+| **Nisol Margin (After Commission)** | ₹3,15,000 ($3,850) | ₹12,95,000 ($15,750) |
+
+### Year 2+ Economics (Renewal at 20%)
+
+| Metric | Nisol One | Nisol Enterprise |
+| :--- | :--- | :--- |
+| **Renewal Value** | ₹4,50,000 ($5,500) | ₹18,50,000 ($22,500) |
+| **Partner Commission (20%)** | ₹90,000 ($1,100) | ₹3,70,000 ($4,500) |
+| **Nisol Margin (After Commission)** | ₹3,60,000 ($4,400) | ₹14,80,000 ($18,000) |
+
+**The math:** Even at 30%, you keep **70% of every deal** in Year 1 and **80% from Year 2 onward**. And you get access to enterprise relationships you would otherwise spend months building.
+
+**Recurring upside:** If a partner-referred client moves to a retainer (Nisol Build/Manage/Monitor), the partner continues earning 20% of that recurring revenue from Year 2. If the partner actively upsells, they earn 30% on the new incremental revenue. This aligns their incentives with your long-term success.
+
+---
+
+## Founding Partner Program — Exclusive Benefits (First 10 Partners)
+
+The first 10 partners to join the Nisol AI Partner Program receive **Founding Partner** status with the following exclusive, time-limited benefits:
+
+| Benefit | Detail |
+| :--- | :--- |
+| **Guaranteed 30% Commission** | Grandfathered at 30% even after tiered structure launches in Month 7. No risk of starting at a lower tier |
+| **Co-Branded Case Study** | Nisol AI will produce one professional co-branded case study featuring the partner and their first closed deal — at no cost to the partner |
+| **Featured on Partner Page** | Founding Partners are spotlighted on `nisolai.com/partners` with logo, description, and link to their website |
+| **Priority Lead Routing** | Founding Partners get first right of refusal on all inbound leads in their declared vertical/territory for the first 6 months |
+| **Direct Access to Nisol Leadership** | Quarterly strategy call with Nisol AI's CMO/CEO — not just a support channel, but a direct line to leadership |
+| **Early Access to Product Roadmap** | Preview of upcoming Nisol AI features and products 30 days before public launch. Partners can pre-sell upcoming capabilities |
+
+**Eligibility window:** First 10 partners to sign the Partner Agreement and register at least 1 deal within 60 days of joining.
+
+**Why this matters:** Founding Partner benefits are designed to be *impossible to replicate later*. This creates urgency and rewards early movers with permanent advantages.
+
+---
+
+## Implementation Roadmap
+
+### Month 1: Foundation
+
+| Task | Owner |
+| :--- | :--- |
+| Draft Partner Program Agreement (1-page, simple) | Legal + Marketing |
+| Build Partner Landing Page on `nisolai.com/partners` | Marketing |
+| Set up Partner Dashboard (tracking, attribution, payouts) | Tech + Ops |
+| Define commission structure (flat 30% for Founding Partners) | CMO + Sales |
+| Create Partner Toolkit (deck, case studies, one-pagers) | Marketing |
+| Set up 48-hour lead response SLA tracking | Sales + Ops |
+
+### Month 2: Recruitment
+
+| Task | Owner |
+| :--- | :--- |
+| Identify top 20 target partners (SIs, consultancies, MSPs) | Sales |
+| Send personalized outreach to each | Sales + CMO |
+| Onboard first 5 partners (training + toolkit access) | Sales |
+| Launch "Founding Partner" program (exclusive benefits for first 10) | CMO |
+
+### Month 3: Activation
+
+| Task | Owner |
+| :--- | :--- |
+| Host virtual Partner Onboarding Webinar | Marketing |
+| Share first 3 co-branded case studies (with Founding Partners) | Marketing |
+| Track partner performance; optimize messaging | Sales + Ops |
+| Audit 48-hour lead response SLA compliance | Sales |
+| Identify top-performing partners for recognition | Sales |
+
+### Month 6: Scale & Transition
+
+| Task | Owner |
+| :--- | :--- |
+| Evaluate program performance | CMO |
+| Introduce tiered commission structure for new partners (Silver/Gold/Platinum) | CMO + Sales |
+| Grandfather Founding Partners at 30% | Ops |
+| Expand to Dubai partners (SIs, consultancies) | Dubai BD |
+| Launch co-marketing campaigns with top partners | Marketing |
+| Consider "Partner Summit" (annual invite-only event) | CMO |
+
+---
+
+## Sample Partner Agreement (1-Page)
+
+> **Nisol AI Partner Program — Partnership Acknowledgment**
+
+**1. Commission Structure**
+- **All Partners (Founding Period, Months 1–6):** 30% of contract value on all closed deals. Founding Partners are grandfathered at this rate permanently.
+- **New Partners (Post Month 6):** Commission per tiered structure — Silver (20%), Gold (25%), Platinum (30%).
+- **Renewal Commission:** Year 1 at 30%. Year 2 onward at 20% on renewed contract value.
+- **Upsell Commission:** 30% on incremental revenue for the first year of any upsell, then 20% ongoing.
+
+**2. Deal Registration & Lead Response**
+- Partners must register deals via the Partner Portal before introducing Nisol AI to the client.
+- Registered deals are protected for **90 days**. If Nisol AI's internal team has already engaged the prospect, the partner will be notified.
+- **Nisol AI commits to contacting all partner-referred leads within 48 hours** of registration. Partners will receive confirmation when outreach is initiated.
+
+**3. Territory**
+- All partnerships are **non-exclusive**.
+- Partners may declare a **Priority Territory** (by vertical or geography) and receive first right of refusal (48-hour window) on matching inbound leads.
+- Nisol AI reserves the right to sell directly in all territories.
+
+**4. Payment Terms**
+- Commissions paid monthly, net-30.
+- Minimum payout threshold: ₹10,000 ($120).
+
+**5. Partner Obligations**
+- Represent Nisol AI accurately. No misleading claims.
+- No bidding on Nisol AI branded keywords in paid search.
+
+**6. Termination**
+- Either party may terminate with 30 days' written notice.
+- Commissions earned prior to termination remain payable.
+- Renewal commissions (Year 2+ at 20%) continue to be paid for clients acquired during the active partnership period.
+
+---
+
+## Risks & Mitigation
+
+| Risk | Mitigation |
+| :--- | :--- |
+| **Partner claims your internal lead** | Deal registration + 90-day "right of first refusal" clause |
+| **Partner misrepresents your product** | Provide approved messaging + training. Regularly audit partner content |
+| **Partner stops performing** | Tiered structure (post Month 6) rewards active partners. Inactive partners lose tier benefits |
+| **Commission eats into margins** | Cap at 30% Year 1, drops to 20% Year 2+. For very large deals (>₹50L), negotiate case-by-case |
+| **Partners compete with your sales team** | Clear guidelines: partners sell to their existing clients; your team sells net-new logos |
+| **Slow lead follow-up damages partner trust** | 48-hour SLA on all partner-referred leads. Tracked and audited monthly |
+| **Territory conflicts between partners** | Non-exclusive model with Priority Territory declaration. 48-hour claim window prevents overlaps |
+
+---
+
+## Final Recommendation
+
+| Element | Recommendation |
+| :--- | :--- |
+| **Commission Rate** | Flat 30% for Founding Partners (Months 1–6). Tiered (20/25/30%) for new partners from Month 7 |
+| **Renewal Commission** | Year 1: 30%. Year 2+: 20%. Upsells reset to 30% on incremental revenue |
+| **Territory** | Non-exclusive + Priority Territory by vertical. Soft-exclusive for first Dubai partner (6 months, performance-gated) |
+| **Lead Response SLA** | Nisol AI contacts all partner-referred leads within 48 hours |
+| **Deal Protection** | 90-day deal registration protection |
+| **Founding Partner Benefits** | Grandfathered 30%, co-branded case study, featured on partner page, priority lead routing, leadership access, early product access |
+| **Payment** | Monthly, net-30, with partner dashboard |
+| **First Targets** | 5-10 system integrators + consulting firms in India Tier-1 cities |
+| **Dubai** | Target SIs and consultancies with existing enterprise relationships |
+| **Launch Timeline** | Start partner recruitment in Month 2, first deals by Month 4 |
+
+---
+
+**Next steps:** Would you like me to draft the **Partner Program Landing Page copy** (for `nisolai.com/partners`) or the **Partner Outreach Email** (to recruit the first 10 partners)?

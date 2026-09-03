@@ -9,6 +9,7 @@ import { StatusBadge } from "@/components/intelligence/StatusBadge";
 interface Tenant {
   name: string;
   industry?: string;
+  pricing_plan?: string;
 }
 
 interface Profile {
@@ -35,6 +36,24 @@ interface Question {
   tip_discussion: string | null;
 }
 
+const ALL_POSSIBLE_SECTIONS = [
+  "Leadership & Strategy",
+  "IT / Technology",
+  "Data & Analytics",
+  "Security & Compliance",
+  "Customer Service",
+  "Sales",
+  "Marketing",
+  "Operations & Supply Chain",
+  "Finance",
+  "HR",
+  "Procurement",
+  "Legal",
+  "Knowledge Management",
+  "Project Management",
+  "Culture & Change",
+];
+
 export default function AuditDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -54,6 +73,10 @@ export default function AuditDetailPage() {
 
   const [selectedSection, setSelectedSection] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
+  const [selectedTargetSections, setSelectedTargetSections] = useState<string[]>([]);
+  const [savingSections, setSavingSections] = useState(false);
 
   useEffect(() => {
     if (!auditId) return;
@@ -92,6 +115,13 @@ export default function AuditDetailPage() {
 
         setAudit(auditData as unknown as AuditDetail);
         setQuestions(questionData || []);
+
+        const raw = auditData.raw_responses as any;
+        if (raw && Array.isArray(raw._target_sections)) {
+          setSelectedTargetSections(raw._target_sections);
+        } else {
+          setSelectedTargetSections([]);
+        }
       } catch (err: any) {
         console.error("Error loading audit detail:", err);
         setError(err.message || "An unknown error occurred");
@@ -102,6 +132,38 @@ export default function AuditDetailPage() {
 
     loadAuditData();
   }, [auditId, supabase]);
+
+  const handleSaveTargetSections = async (newSections: string[]) => {
+    if (!audit) return;
+    setSavingSections(true);
+    try {
+      const updatedRaw = {
+        ...(audit.raw_responses || {}),
+        _target_sections: newSections,
+      };
+
+      const { error: uErr } = await supabase
+        .from("audits")
+        .update({
+          raw_responses: updatedRaw,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", audit.id);
+
+      if (uErr) throw uErr;
+
+      setAudit({
+        ...audit,
+        raw_responses: updatedRaw,
+      });
+      setSelectedTargetSections(newSections);
+      setIsConfigModalOpen(false);
+    } catch (err: any) {
+      alert(`Failed to save capability scope: ${err.message}`);
+    } finally {
+      setSavingSections(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -181,6 +243,17 @@ export default function AuditDetailPage() {
           {/* Action Buttons */}
           <div className="flex items-center gap-3">
             <button
+              onClick={() => setIsConfigModalOpen(true)}
+              className="px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-900 text-sm font-semibold rounded-xl transition-colors border border-amber-300 flex items-center gap-1.5 cursor-pointer"
+            >
+              ⚙️ Scope Capabilities
+              {selectedTargetSections.length > 0 && (
+                <span className="text-[10px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full font-bold">
+                  {selectedTargetSections.length}/15
+                </span>
+              )}
+            </button>
+            <button
               onClick={() => router.push(`/audits/${audit.id}/questionnaire`)}
               className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-xl transition-colors border border-slate-200"
             >
@@ -195,6 +268,132 @@ export default function AuditDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Scope Active Callout Banner */}
+      {selectedTargetSections.length > 0 && (
+        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between gap-4 text-emerald-950">
+          <div className="flex items-center gap-3">
+            <span className="text-xl">🎯</span>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-900">
+                  Targeted Spark Scope Active ({selectedTargetSections.length} Sections Selected)
+                </span>
+              </div>
+              <p className="text-xs text-emerald-800 mt-0.5">
+                Active Sections: <strong>{selectedTargetSections.join(", ")}</strong>. Questionnaires will display only questions belonging to these modules.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => handleSaveTargetSections([])}
+            disabled={savingSections}
+            className="text-xs font-bold text-emerald-800 hover:text-emerald-950 underline shrink-0 cursor-pointer"
+          >
+            Unlock All 15 Capabilities
+          </button>
+        </div>
+      )}
+
+      {/* MODAL: Configure Capability Scope */}
+      {isConfigModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto">
+          <div className="bg-white rounded-2xl p-6 md:p-8 max-w-xl w-full shadow-2xl border my-8 space-y-6">
+            <div className="flex items-center justify-between border-b pb-4">
+              <div>
+                <h3 className="text-lg font-bold text-[#0A1E3C]">Configure Capability Scope</h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Select specific capability modules to ask during the diagnostic workshop (e.g. Nisol Spark 3-day sprint).
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsConfigModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 font-bold p-1 rounded-lg hover:bg-slate-100"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                <span>Select Sections ({selectedTargetSections.length || "All 15"} active):</span>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTargetSections(["Leadership & Strategy", "IT / Technology", "Culture & Change"])}
+                    className="text-[11px] text-amber-700 hover:underline font-semibold"
+                  >
+                    Set Spark Preset (3)
+                  </button>
+                  <span>•</span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTargetSections([])}
+                    className="text-[11px] text-blue-600 hover:underline font-semibold"
+                  >
+                    Select All (Full 15)
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto p-2 bg-slate-50 rounded-xl border">
+                {ALL_POSSIBLE_SECTIONS.map((sec) => {
+                  const isChecked = selectedTargetSections.length === 0 || selectedTargetSections.includes(sec);
+                  return (
+                    <label
+                      key={sec}
+                      className={`flex items-center gap-2 p-2.5 rounded-lg border text-xs font-medium cursor-pointer transition-colors ${
+                        isChecked
+                          ? "bg-white border-amber-300 text-navy-950 font-bold shadow-2xs"
+                          : "bg-slate-100/50 border-slate-200 text-slate-500"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={(e) => {
+                          let current = selectedTargetSections.length === 0 ? [...ALL_POSSIBLE_SECTIONS] : [...selectedTargetSections];
+                          if (e.target.checked) {
+                            if (!current.includes(sec)) current.push(sec);
+                          } else {
+                            current = current.filter((s) => s !== sec);
+                          }
+                          if (current.length === ALL_POSSIBLE_SECTIONS.length) {
+                            setSelectedTargetSections([]);
+                          } else {
+                            setSelectedTargetSections(current);
+                          }
+                        }}
+                        className="rounded text-amber-600 focus:ring-amber-500"
+                      />
+                      <span>{sec}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 pt-4 border-t">
+              <button
+                type="button"
+                onClick={() => setIsConfigModalOpen(false)}
+                className="px-4 py-2 border rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={savingSections}
+                onClick={() => handleSaveTargetSections(selectedTargetSections)}
+                className="px-6 py-2 bg-[#0A1E3C] text-white text-xs font-bold rounded-xl hover:bg-slate-800 shadow-md disabled:opacity-50"
+              >
+                {savingSections ? "Saving Scope..." : "Save Capability Scope"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* KPI & Summary Bar */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

@@ -55,7 +55,7 @@ export const DELIVERABLE_PORTFOLIO: DeliverableMeta[] = [
   },
 ];
 
-export type PricingPlan = "foundation" | "growth" | "enterprise" | "custom";
+export type PricingPlan = "spark" | "foundation" | "growth" | "enterprise" | "custom";
 
 export interface PlanConfig {
   id: PricingPlan;
@@ -71,13 +71,25 @@ export interface PlanConfig {
 }
 
 export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
+  spark: {
+    id: "spark",
+    name: "Nisol Spark",
+    badge: "FIRST LOOK",
+    priceLabel: "₹1,50,000",
+    priceUSD: "$1,800",
+    description: "3-day focused evaluation sprint (AI Opportunity, Token Cost Audit, or Data/Compliance Check).",
+    allowedDeliverables: ["ai_readiness_transformation"],
+    allowedTabs: ["summary", "usecases", "roadmap", "proposal"],
+    trainingTracksCount: 0,
+    trainingHighlights: ["Training tracks available in Nisol Pro & Enterprise"],
+  },
   foundation: {
     id: "foundation",
-    name: "Foundation Diagnostic",
-    badge: "STARTER",
+    name: "Nisol One",
+    badge: "THE BEGINNING",
     priceLabel: "₹4,50,000",
     priceUSD: "$5,500",
-    description: "Core 360° AI diagnostic for small to mid organizations (10–50 employees).",
+    description: "Core 360° AI diagnostic for growing organizations (10–50 employees) in 7–11 business days.",
     allowedDeliverables: ["ai_readiness_transformation"],
     allowedTabs: ["summary", "maturity", "matrix", "usecases", "roadmap", "proposal"],
     trainingTracksCount: 0,
@@ -85,7 +97,7 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
   },
   growth: {
     id: "growth",
-    name: "Growth Transformation",
+    name: "Nisol Pro",
     badge: "MOST POPULAR",
     priceLabel: "₹8,50,000",
     priceUSD: "$10,500",
@@ -116,8 +128,8 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
   },
   enterprise: {
     id: "enterprise",
-    name: "Enterprise Scale",
-    badge: "ENTERPRISE",
+    name: "Nisol Enterprise",
+    badge: "THE FULL VISION",
     priceLabel: "₹18,50,000",
     priceUSD: "$22,500",
     description: "Complete multi-entity portfolio including PoC decision gate protocol, Shadow AI remediation, and full 3-track training suite.",
@@ -185,9 +197,11 @@ export const PLAN_CONFIG: Record<PricingPlan, PlanConfig> = {
 export function normalizePricingPlan(plan?: string | null): PricingPlan {
   if (!plan) return "foundation";
   const normalized = plan.toLowerCase().trim();
-  if (normalized === "growth") return "growth";
-  if (normalized === "enterprise") return "enterprise";
+  if (normalized === "spark") return "spark";
+  if (normalized === "growth" || normalized === "pro" || normalized === "nisol pro") return "growth";
+  if (normalized === "enterprise" || normalized === "nisol enterprise") return "enterprise";
   if (normalized === "custom") return "custom";
+  if (normalized === "one" || normalized === "nisol one") return "foundation";
   return "foundation";
 }
 

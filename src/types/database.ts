@@ -32,7 +32,7 @@ export type RevenueRangeOption =
 
 export type TenantStatus = 'prospect' | 'active' | 'inactive' | 'lost' | 'past';
 export type TenantType = 'client' | 'prospect' | 'partner' | 'internal';
-export type PricingPlan = 'foundation' | 'growth' | 'enterprise' | 'custom';
+export type PricingPlan = 'spark' | 'foundation' | 'growth' | 'enterprise' | 'custom';
 
 export type Tenant = {
   id: string;

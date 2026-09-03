@@ -46,9 +46,10 @@ const TENANT_TYPE_OPTIONS: { label: string; value: TenantType }[] = [
 ];
 
 export const PRICING_PLAN_OPTIONS: { label: string; value: PricingPlan; badge: string; desc: string }[] = [
-  { label: "Foundation Diagnostic (₹4.5L)", value: "foundation", badge: "Starter", desc: "Core 360° AI diagnostic strategy" },
-  { label: "Growth Transformation (₹7.5L)", value: "growth", badge: "Most Popular", desc: "Board memo, data blueprint & financial ROI" },
-  { label: "Enterprise Scale (Custom)", value: "enterprise", badge: "Enterprise", desc: "Full multi-entity portfolio with PoC evaluation" },
+  { label: "Nisol Spark (₹1.5L)", value: "spark", badge: "First Look", desc: "3-day focused evaluation sprint" },
+  { label: "Nisol One (₹4.5L)", value: "foundation", badge: "The Beginning", desc: "Core 360° AI diagnostic strategy in 7-11 days" },
+  { label: "Nisol Pro (₹8.5L)", value: "growth", badge: "Most Popular", desc: "Board memo, data blueprint & financial ROI" },
+  { label: "Nisol Enterprise (₹18.5L+)", value: "enterprise", badge: "The Full Vision", desc: "Full multi-entity portfolio with PoC evaluation" },
   { label: "Custom Scope", value: "custom", badge: "Custom", desc: "Custom tailored enterprise engagement" },
 ];
 
