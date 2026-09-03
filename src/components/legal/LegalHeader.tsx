@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShieldCheck, FileText, Lock, Copy, Check, Printer, ArrowRight } from "lucide-react";
+import { ShieldCheck, FileText, Lock, Copy, Check, Printer, ArrowRight, Award } from "lucide-react";
 
 interface LegalHeaderProps {
   title: string;
@@ -19,6 +19,7 @@ export function LegalHeader({ title, subtitle, lastUpdated, badgeText }: LegalHe
   const tabs = [
     { name: "Privacy Policy", href: "/privacy", icon: Lock },
     { name: "Terms of Service", href: "/terms", icon: FileText },
+    { name: "Grant Terms", href: "/grants/terms", icon: Award },
     { name: "Security & Compliance", href: "/security", icon: ShieldCheck },
   ];
 

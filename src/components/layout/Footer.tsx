@@ -129,6 +129,12 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs font-medium text-slate-300 mb-6">
               <li>
+                <Link href="/grants" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-blue-400">
+                  <span>Intelligence Grants</span>
+                  <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1 py-0.5 rounded border border-blue-500/30">₹4.5L AWARD</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="hover:text-golden-300 transition-colors">
                   About & Leadership
                 </Link>
@@ -180,12 +186,15 @@ export function Footer() {
             © {new Date().getFullYear()} Nisol AI. All rights reserved. The Core of Intelligence.
           </div>
 
-          <div className="flex items-center gap-6 font-medium">
+          <div className="flex flex-wrap items-center gap-6 font-medium">
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
+            </Link>
+            <Link href="/grants/terms" className="hover:text-white transition-colors text-golden-400 font-semibold">
+              Grant Terms & Conditions
             </Link>
             <Link href="/security" className="hover:text-white transition-colors">
               Security & Compliance

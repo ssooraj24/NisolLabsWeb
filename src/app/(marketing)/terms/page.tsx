@@ -161,6 +161,24 @@ export default function TermsOfServicePage() {
                   </p>
                 </div>
               </div>
+
+              {/* Grant Program Callout */}
+              <div className="mt-4 p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <strong className="font-bold flex items-center gap-1.5 text-blue-900">
+                    <span>🏆 Enterprise Intelligence Grant Program</span>
+                  </strong>
+                  <p className="text-slate-600 text-xs">
+                    Participating educational institutions and non-profit grant recipients are governed by the dedicated Grant Partnership Agreement.
+                  </p>
+                </div>
+                <Link
+                  href="/grants/terms"
+                  className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors shrink-0 shadow-xs"
+                >
+                  View Grant Terms →
+                </Link>
+              </div>
             </div>
           </section>
 

@@ -19,6 +19,7 @@ export default function GrantsPage() {
     contact_title: "",
     contact_email: "",
     contact_phone: "",
+    terms_accepted: false,
   })
 
   const [loading, setLoading] = useState(false)
@@ -113,23 +114,42 @@ export default function GrantsPage() {
           </div>
         </div>
 
-        {/* 7-Day Sprint Guide Brochure Download Banner */}
-        <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-blue-900/40 via-indigo-900/40 to-slate-900/40 border border-blue-500/30 flex flex-col md:flex-row items-center justify-between gap-6 text-left">
-          <div className="space-y-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-400">📄 Client Onboarding Booklet</span>
-            <h4 className="text-lg font-bold text-white">The 7-Day Intelligence Sprint Guide</h4>
-            <p className="text-xs text-slate-300">
-              Download our complete 7-day day-by-day roadmap booklet detailing stakeholder time commitments, deliverables, and board presentation formats.
-            </p>
+        {/* 7-Day Sprint Guide Brochure & Terms Banners */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-900/40 via-indigo-900/40 to-slate-900/40 border border-blue-500/30 flex flex-col justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">📄 Client Onboarding Booklet</span>
+              <h4 className="text-lg font-bold text-white">The 7-Day Intelligence Sprint Guide</h4>
+              <p className="text-xs text-slate-300">
+                Download our complete 7-day day-by-day roadmap booklet detailing stakeholder time commitments, deliverables, and board presentation formats.
+              </p>
+            </div>
+            <a
+              href="/api/grants/sprint-guide"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold tracking-wide transition-colors whitespace-nowrap shadow-md w-fit"
+            >
+              Download Sprint Booklet (PDF) →
+            </a>
           </div>
-          <a
-            href="/api/grants/sprint-guide"
-            target="_blank"
-            rel="noreferrer"
-            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold tracking-wide transition-colors whitespace-nowrap shadow-md"
-          >
-            Download Sprint Booklet (PDF) →
-          </a>
+
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-amber-950/30 via-slate-900/40 to-blue-950/30 border border-amber-500/30 flex flex-col justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-400">⚖️ Legal Framework & IP Rights</span>
+              <h4 className="text-lg font-bold text-white">Grant Terms & Partnership Agreement</h4>
+              <p className="text-xs text-slate-300">
+                Review official terms governing 100% enterprise IP ownership, zero vendor lock-in, recipient time commitments, and the Nisol Data Promise.
+              </p>
+            </div>
+            <Link
+              href="/grants/terms"
+              target="_blank"
+              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-amber-600/80 hover:bg-amber-500 text-white text-xs font-bold tracking-wide transition-colors whitespace-nowrap shadow-md w-fit"
+            >
+              View Grant Terms & Conditions →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -345,6 +365,24 @@ export default function GrantsPage() {
                       />
                       <span className="text-xs text-slate-300 leading-relaxed">
                         <strong>Amplification Pledge:</strong> If selected, we are excited to share our journey publicly via a co-produced case study, video testimonial, and joint press release to inspire other institutions.
+                      </span>
+                    </label>
+
+                    <label className="flex items-start gap-3 cursor-pointer p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 mt-3">
+                      <input
+                        type="checkbox"
+                        name="terms_accepted"
+                        required
+                        checked={formData.terms_accepted}
+                        onChange={handleChange}
+                        className="mt-0.5 w-4 h-4 rounded border-blue-400/40 bg-white/5 text-blue-600 focus:ring-0 shrink-0"
+                      />
+                      <span className="text-xs text-slate-200 leading-relaxed">
+                        <strong>Terms & Conditions Acceptance *</strong>: I have read, understood, and agree to the official{" "}
+                        <Link href="/grants/terms" target="_blank" className="text-blue-400 hover:underline font-bold">
+                          Nisol Enterprise Intelligence Grant Terms & Conditions ↗
+                        </Link>
+                        , governing 100% enterprise IP ownership, the 48-hour review SLA, and data protection rules.
                       </span>
                     </label>
                   </div>
