@@ -29,6 +29,7 @@ export const Sidebar = () => {
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({
     partners: false,
     intelligence: false,
+    grants: false,
     discovery: false,
   })
 
@@ -54,11 +55,18 @@ export const Sidebar = () => {
     },
     {
       id: "intelligence",
-      title: "🧠 NISOL INTELLIGENCE & GRANTS",
+      title: "🧠 NISOL INTELLIGENCE",
       items: [
         { label: "Intelligence Dashboard", href: "/intelligence/dashboard" },
-        { label: "🎓 Intelligence Grants Program", href: "/intelligence/grants", external: true, badge: "NEW TAB" },
         { label: "📐 Solution Blueprints", href: "/intelligence/blueprints" },
+      ],
+    },
+    {
+      id: "grants",
+      title: "🎓 NISOL GRANTS PROGRAM",
+      items: [
+        { label: "📜 Grant Applications Hub", href: "/intelligence/grants", badge: "SUPERADMIN" },
+        { label: "🌐 Public Application Portal", href: "/grants", external: true, badge: "NEW TAB" },
       ],
     },
     {
