@@ -26,7 +26,8 @@ import {
   Award,
   Tag,
   Mail,
-  Handshake
+  Handshake,
+  Globe2
 } from "lucide-react";
 
 export interface NavItem {
@@ -53,10 +54,17 @@ export const DISCOVERY_MENU: NavSection = {
       icon: Compass 
     },
     { 
+      name: "Nisol Spark (3-Day Sprint)", 
+      href: "/spark", 
+      badge: "₹1.5L",
+      description: "Rapid single-track focus sprint: Opportunity, Cost, or Data check.",
+      icon: Zap 
+    },
+    { 
       name: "Engagement Pricing", 
       href: "/pricing", 
       badge: "FIXED-PRICE", 
-      description: "Transparent, scope-based fixed pricing for Foundation, Growth, & Enterprise.",
+      description: "Transparent, scope-based fixed pricing for Spark, One, Pro, & Enterprise.",
       icon: Tag 
     },
     { 
@@ -84,6 +92,13 @@ export const DISCOVERY_MENU: NavSection = {
       href: "/discovery/methodology", 
       description: "Data readiness, workflow analysis, and security stance mapping.",
       icon: Search 
+    },
+    { 
+      name: "2-Min AI Readiness Quiz", 
+      href: "/assessment", 
+      badge: "INSTANT SCORE",
+      description: "Evaluate your AI maturity across 6 questions and get an instant score.",
+      icon: CheckCircle2 
     },
     { 
       name: "AI Readiness Assessment", 
@@ -117,6 +132,13 @@ export const PLATFORM_SOLUTIONS_MENU = {
   title: "Platform & Solutions",
   productsTitle: "Proprietary Products",
   products: [
+    { 
+      name: "Nisol Spark", 
+      href: "/spark", 
+      badge: "₹1.5L SPRINT",
+      description: "Fixed-Price 3-Day Focus Sprint for rapid AI opportunity and cost audits.",
+      icon: Zap 
+    },
     { 
       name: "RoSense AI", 
       href: "/products/rosense-ai", 
@@ -172,6 +194,13 @@ export const PLATFORM_SOLUTIONS_MENU = {
 export const PRODUCTS_MENU: NavSection = {
   title: "Proprietary Products",
   items: [
+    { 
+      name: "Nisol Spark", 
+      href: "/spark", 
+      badge: "₹1.5L SPRINT",
+      description: "Fixed-Price 3-Day Focus Sprint for rapid AI opportunity and cost audits.",
+      icon: Zap 
+    },
     { 
       name: "RoSense AI", 
       href: "/products/rosense-ai", 
@@ -267,6 +296,7 @@ export const COMPANY_MENU: NavSection = {
   items: [
     { name: "About Nisol AI", href: "/about", icon: Info },
     { name: "Leadership & Architects", href: "/about#leadership", icon: Users },
+    { name: "Dubai & Gulf Hub", href: "/dubai", badge: "UAE / GULF", icon: Globe2 },
     { name: "Partner Program", href: "/partner", badge: "30% RECURRING", icon: Handshake },
     { name: "Our Core Principles", href: "/about#values", icon: Award },
     { name: "Contact Us", href: "/contact", icon: Mail }

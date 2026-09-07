@@ -9,6 +9,9 @@ import { Badge } from "@/components/ui/Badge";
 function ContactFormInner() {
   const searchParams = useSearchParams();
   const pkgParam = searchParams ? searchParams.get("package") : null;
+  const regionParam = searchParams ? searchParams.get("region") : null;
+  const trackParam = searchParams ? searchParams.get("track") : null;
+  const scoreParam = searchParams ? searchParams.get("score") : null;
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,19 +27,34 @@ function ContactFormInner() {
   });
 
   useEffect(() => {
+    let defaultMsg = "";
+    if (scoreParam) {
+      defaultMsg += `AI Readiness Self-Assessment Score: ${scoreParam}/100. `;
+    }
+    if (trackParam) {
+      defaultMsg += `Selected Spark Sprint Track: Track ${trackParam}. `;
+    }
+    if (regionParam && regionParam.toLowerCase() === "dubai") {
+      defaultMsg += `Region: UAE / Gulf Market. `;
+    }
+
+    if (defaultMsg) {
+      setFormData((prev) => ({ ...prev, message: prev.message ? `${prev.message}\n\n[Context]: ${defaultMsg}` : `[Context]: ${defaultMsg}` }));
+    }
+
     if (pkgParam) {
       const p = pkgParam.toLowerCase();
       if (p.includes("spark")) {
-        setFormData((prev) => ({ ...prev, budgetRange: "Nisol Spark (₹1.5L)" }));
+        setFormData((prev) => ({ ...prev, budgetRange: regionParam?.toLowerCase() === "dubai" ? "Nisol Spark ($2,500)" : "Nisol Spark (₹1.5L)" }));
       } else if (p.includes("one") || p.includes("foundation")) {
-        setFormData((prev) => ({ ...prev, budgetRange: "Nisol One (₹4.5L)" }));
+        setFormData((prev) => ({ ...prev, budgetRange: regionParam?.toLowerCase() === "dubai" ? "Nisol One ($7,500)" : "Nisol One (₹4.5L)" }));
       } else if (p.includes("pro") || p.includes("growth")) {
-        setFormData((prev) => ({ ...prev, budgetRange: "Nisol Pro (₹8.5L)" }));
+        setFormData((prev) => ({ ...prev, budgetRange: regionParam?.toLowerCase() === "dubai" ? "Nisol Pro ($15,000)" : "Nisol Pro (₹8.5L)" }));
       } else if (p.includes("enterprise")) {
-        setFormData((prev) => ({ ...prev, budgetRange: "Nisol Enterprise (₹18.5L+)" }));
+        setFormData((prev) => ({ ...prev, budgetRange: regionParam?.toLowerCase() === "dubai" ? "Nisol Enterprise ($30,000+)" : "Nisol Enterprise (₹18.5L+)" }));
       }
     }
-  }, [pkgParam]);
+  }, [pkgParam, regionParam, trackParam, scoreParam]);
 
   const sendAuditRequest = async () => {
     if (!formData.fullName || !formData.workEmail || !formData.companyName) {
@@ -171,6 +189,10 @@ function ContactFormInner() {
               <option value="Nisol One (₹4.5L)">🚀 Nisol One (₹4,50,000 / $5,500 — Foundation 360° Assessment)</option>
               <option value="Nisol Pro (₹8.5L)">★ Nisol Pro (₹8,50,000 / $10,500 — Growth & Board Memo)</option>
               <option value="Nisol Enterprise (₹18.5L+)">🏢 Nisol Enterprise (₹18,50,000+ / $22,500+ — Multi-Entity Scope)</option>
+              <option value="Nisol Spark ($2,500)">⚡ Nisol Spark — Gulf Edition ($2,500 USD)</option>
+              <option value="Nisol One ($7,500)">🚀 Nisol One — Gulf Edition ($7,500 USD)</option>
+              <option value="Nisol Pro ($15,000)">★ Nisol Pro — Gulf Edition ($15,000 USD)</option>
+              <option value="Nisol Enterprise ($30,000+)">🏢 Nisol Enterprise — Gulf Edition ($30,000+ USD)</option>
               <option value="General Discovery Call">💬 General Discovery & Strategy Call</option>
             </select>
           </div>

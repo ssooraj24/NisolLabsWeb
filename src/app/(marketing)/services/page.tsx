@@ -1,119 +1,239 @@
 import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
-import { Bot, Cpu, Compass, MessageSquareCode, Zap, Database, ArrowRight, CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import { 
+  Bot, 
+  Cpu, 
+  Compass, 
+  MessageSquareCode, 
+  Zap, 
+  Database, 
+  ArrowRight, 
+  CheckCircle2, 
+  ShieldCheck, 
+  Sparkles,
+  Lock,
+  Layers,
+  ChevronRight
+} from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { SERVICES } from "@/data/services";
 import { DeliveryModelsSection } from "@/components/home/DeliveryModelsSection";
 import { ZeroLockInGuarantee } from "@/components/shared/ZeroLockInGuarantee";
 
 export const metadata: Metadata = {
-  title: "AI Services & Core Pillars | Autonomous Agents, LLMOps & Strategy",
-  description: "Explore Nisol AI's 6 core AI pillars: Autonomous AI Agents, AI Engineering & DevOps, AI Strategy, AI Assistants, Automation, and Data Readiness."
+  title: "Enterprise Intelligence Systems & Architecture | Nisol AI",
+  description: "One unified architecture. Five interconnected systems: Autonomous Agents, Vector Memory, LLMOps, Data Lakehouses, and Zero-Trust Security.",
 };
+
+const ARCHITECTURE_SYSTEMS = [
+  {
+    id: "agents",
+    title: "Autonomous Agent Clusters",
+    tagline: "Stateful Execution Graphs",
+    description: "Multi-agent orchestration workflows with deterministic state machines and human-in-the-loop review gates.",
+    href: "/services/agents",
+    icon: Bot,
+    highlights: [
+      "LangGraph & AutoGen multi-agent state machines",
+      "Deterministic tool execution with rollback capability",
+      "Sub-200ms decision latency on critical enterprise tasks"
+    ]
+  },
+  {
+    id: "assistants",
+    title: "Enterprise Vector Memory & RAG",
+    tagline: "Zero-Hallucination Domain Knowledge",
+    description: "High-precision dense-sparse hybrid retrieval indexed over proprietary corporate documentation, ERP, and databases.",
+    href: "/services/assistants",
+    icon: MessageSquareCode,
+    highlights: [
+      "Hybrid BM25 + dense vector embeddings (pgvector/Qdrant)",
+      "Strict Role-Based Access Control (RBAC) at chunk level",
+      "Citation-backed responses with source verification"
+    ]
+  },
+  {
+    id: "engineering",
+    title: "LLMOps & Model Guardrails",
+    tagline: "Cost Optimization & Latency SLAs",
+    description: "Production telemetry proxy enforcing PII masking, intelligent model routing, and semantic prompt caching.",
+    href: "/services/engineering",
+    icon: Cpu,
+    highlights: [
+      "Smart routing: GPT-4o only when necessary; Claude Haiku / vLLM for simple tasks",
+      "Real-time semantic caching reducing token spend by up to 52%",
+      "Continuous CI/CD regression evaluation against benchmark datasets"
+    ]
+  },
+  {
+    id: "data-readiness",
+    title: "Data Readiness & Lakehouse Pipelines",
+    tagline: "Clean Foundations for Model Ingestion",
+    description: "Automated CDC ingestion pipelines transforming dirty operational databases into pristine, embedded vector lakehouses.",
+    href: "/services/data-readiness",
+    icon: Database,
+    highlights: [
+      "Automated PII scrubbing and compliance tokenization",
+      "Real-time Change Data Capture (CDC) pipeline sync",
+      "Embedding hygiene and vector drift monitoring"
+    ]
+  },
+  {
+    id: "strategy",
+    title: "Zero-Trust Security & Compliance",
+    tagline: "DPDP Act 2023 & EU AI Act Guardrails",
+    description: "End-to-end security architecture isolating proprietary enterprise intelligence from external model providers.",
+    href: "/services/strategy",
+    icon: ShieldCheck,
+    highlights: [
+      "Air-gapped on-premise or sovereign cloud VPC deployments",
+      "Prompt injection defense and automated jailbreak mitigation",
+      "Tamper-proof compliance audit logging and telemetry"
+    ]
+  }
+];
 
 export default function ServicesPage() {
   return (
-    <div className="space-y-20 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Hero Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4 pt-6">
-        <Badge variant="golden">Enterprise AI Capabilities</Badge>
-        <h1 className="text-4xl sm:text-5xl font-black text-navy-950 tracking-tight">
-          Practical, Scalable, Outcome-Driven <br />
-          <span className="golden-gradient-text">Enterprise AI Services</span>
+    <div className="space-y-24 sm:space-y-32 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 1. HERO */}
+      <section className="text-center max-w-4xl mx-auto space-y-6 pt-6">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
+          <Sparkles className="w-4 h-4 text-golden-400" />
+          <span>Enterprise Intelligence Architecture</span>
+        </div>
+
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-navy-950 tracking-tight leading-[1.08]">
+          One Architecture. <br />
+          <span className="golden-gradient-text">Five Interconnected Systems.</span>
         </h1>
-        <p className="text-base sm:text-lg text-navy-700/90 leading-relaxed">
-          From executive strategic roadmaps to autonomous multi-agent state graphs and LLMOps infrastructure, we deliver end-to-end AI capabilities that drive measurable ROI.
+
+        <p className="text-lg sm:text-xl text-navy-700/90 leading-relaxed font-medium max-w-3xl mx-auto">
+          We don't sell random AI features or disconnected consulting hours. We deploy the complete architecture that allows an enterprise to think, decide, and act autonomously.
         </p>
-      </div>
 
-      {/* 3 FLEXIBLE DELIVERY MODELS SECTION */}
-      <div id="delivery-models">
-        <DeliveryModelsSection />
-      </div>
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
+            Apply for Discovery →
+          </Button>
+          <Button href="/pricing" variant="navy" size="lg">
+            View Engagement Pricing
+          </Button>
+        </div>
+      </section>
 
-      {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {SERVICES.map((service) => (
-          <div
-            key={service.id}
-            className="glass-panel rounded-2xl p-8 border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative"
-          >
-            {service.badge && (
-              <div className="absolute top-6 right-6">
-                <Badge variant={service.badge === "FLAGSHIP" ? "golden" : "navy"}>
-                  {service.badge}
-                </Badge>
-              </div>
-            )}
+      {/* 2. THE 5 CORE SYSTEMS GRID */}
+      <section className="space-y-12">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <Badge variant="golden" className="mx-auto">Architectural Capabilities</Badge>
+          <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
+            The Enterprise Intelligence Stack
+          </h2>
+          <p className="text-sm text-navy-700/80">
+            Engineered for high reliability, sub-200ms latency, and absolute data sovereignty.
+          </p>
+        </div>
 
-            <div>
-              <div className="w-14 h-14 rounded-2xl bg-navy-900 text-golden-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md">
-                {service.id === "agents" && <Bot className="w-7 h-7" />}
-                {service.id === "engineering" && <Cpu className="w-7 h-7" />}
-                {service.id === "strategy" && <Compass className="w-7 h-7" />}
-                {service.id === "assistants" && <MessageSquareCode className="w-7 h-7" />}
-                {service.id === "automation" && <Zap className="w-7 h-7" />}
-                {service.id === "data-readiness" && <Database className="w-7 h-7" />}
-              </div>
-
-              <h2 className="text-2xl font-bold text-navy-950 mb-2">
-                {service.title}
-              </h2>
-              <p className="text-xs font-semibold text-golden-700 mb-4">{service.tagline}</p>
-
-              <p className="text-sm text-navy-700/90 leading-relaxed mb-6">
-                {service.description}
-              </p>
-
-              <div className="space-y-2.5 mb-6">
-                <div className="text-xs font-bold uppercase tracking-wider text-navy-600">Core Benefits</div>
-                {service.keyBenefits.map((benefit, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs text-navy-800">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-golden-600 shrink-0 mt-0.5" />
-                    <span>{benefit}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {ARCHITECTURE_SYSTEMS.map((system) => {
+            const Icon = system.icon;
+            return (
+              <div
+                key={system.id}
+                className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
+              >
+                <div>
+                  <div className="w-14 h-14 rounded-2xl bg-navy-950 text-golden-400 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform shadow-md">
+                    <Icon className="w-7 h-7" />
                   </div>
-                ))}
-              </div>
 
-              <div className="flex flex-wrap gap-1.5 mb-6">
-                {service.technologies.slice(0, 4).map((tech, idx) => (
-                  <span key={idx} className="text-[10px] font-mono bg-navy-50 text-navy-800 px-2 py-0.5 rounded border border-navy-200">
-                    {tech}
+                  <h3 className="text-2xl font-bold text-navy-950 mb-1">
+                    {system.title}
+                  </h3>
+                  <div className="text-xs font-bold text-golden-600 mb-4">{system.tagline}</div>
+
+                  <p className="text-xs sm:text-sm text-navy-700/90 leading-relaxed mb-6">
+                    {system.description}
+                  </p>
+
+                  <div className="space-y-2.5 mb-6 pt-4 border-t border-slate-100">
+                    {system.highlights.map((h, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-xs text-navy-800">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-slate-500">
+                    Production-Grade
                   </span>
-                ))}
+                  <Link
+                    href={system.href}
+                    className="text-xs font-bold text-navy-900 hover:text-golden-600 flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                  >
+                    <span>Deep Dive</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
+            );
+          })}
+
+          {/* 6th Card: Product Bridge */}
+          <div className="bg-navy-950 text-white rounded-3xl p-8 border border-golden-500/30 shadow-2xl flex flex-col justify-between">
+            <div className="space-y-4">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-golden-400">
+                Where to Begin
+              </span>
+              <h3 className="text-2xl font-black text-white">
+                Not Sure Which System You Need First?
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                That is exactly what <strong>Nisol Discovery™</strong> solves. In 7 days, our architects audit your capabilities and tell you precisely which systems deliver maximum ROI.
+              </p>
             </div>
 
-            <div className="pt-5 border-t border-slate-200 flex items-center justify-between">
-              <div className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
-                {service.caseStudyHighlight.metric}
-              </div>
-              <Button href={`/services/${service.slug}`} variant="navy" size="sm" icon={<ArrowRight className="w-3.5 h-3.5" />}>
-                Pillar Details
+            <div className="pt-6 border-t border-navy-800 space-y-3">
+              <Button href="/spark" variant="primary" size="sm" className="w-full justify-center">
+                Start with 3-Day Spark Sprint (₹1.5L) →
+              </Button>
+              <Button href="/discovery" variant="navy" size="sm" className="w-full justify-center">
+                Full 360° Discovery (Nisol One)
               </Button>
             </div>
           </div>
-        ))}
+        </div>
+      </section>
+
+      {/* 3. THE 3 DELIVERY MODELS */}
+      <div id="delivery-models" className="space-y-12">
+        <DeliveryModelsSection />
       </div>
 
-      {/* Strategic Callout */}
-      <div className="bg-navy-950 text-white rounded-3xl p-10 border border-golden-500/30 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
-        <div className="space-y-3 max-w-2xl">
-          <Badge variant="golden">Unsure Which Pillar Fits Best?</Badge>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Schedule a Confidential AI Feasibility & Discovery Session
-          </h3>
-          <p className="text-sm text-navy-200">
-            Our principal AI engineers will analyze your business processes and provide an initial feasibility matrix within 48 hours.
-          </p>
+      {/* 4. ZERO LOCK-IN GUARANTEE */}
+      <section className="max-w-4xl mx-auto">
+        <ZeroLockInGuarantee />
+      </section>
+
+      {/* 5. STRATEGIC CALLOUT */}
+      <section className="max-w-4xl mx-auto text-center space-y-6 pb-8">
+        <Badge variant="golden" className="mx-auto">Controlled Scarcity</Badge>
+        <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
+          Ready to Architect Your Enterprise Intelligence?
+        </h2>
+        <p className="text-base text-navy-700/85 max-w-xl mx-auto">
+          We accept only 5 enterprise engagements per month. Apply now to secure your architecture sprint.
+        </p>
+        <div className="pt-2">
+          <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
+            Apply for Discovery Session →
+          </Button>
         </div>
-        <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-          Book Discovery Call
-        </Button>
-      </div>
+      </section>
     </div>
   );
 }
