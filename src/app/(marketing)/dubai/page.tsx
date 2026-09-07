@@ -20,7 +20,8 @@ import { Badge } from "@/components/ui/Badge";
 const DUBAI_TIERS = [
   {
     name: "Spark Sprint",
-    price: "$2,500",
+    price: "AED 9,200",
+    usdEquiv: "(~$2,500 USD)",
     duration: "3 Business Days",
     tagline: "The Gulf Executive First Look",
     description: "Laser-focused evaluation of your highest-value AI opportunity or cloud LLM spend audit.",
@@ -29,7 +30,8 @@ const DUBAI_TIERS = [
   },
   {
     name: "Nisol One",
-    price: "$7,500",
+    price: "AED 27,500",
+    usdEquiv: "(~$7,500 USD)",
     duration: "7–11 Business Days",
     tagline: "360° Enterprise Diagnostic",
     description: "Complete 62-question audit across 15 capabilities, benchmarked against Gulf industry leaders.",
@@ -38,16 +40,18 @@ const DUBAI_TIERS = [
   },
   {
     name: "Nisol Pro",
-    price: "$15,000",
+    price: "AED 55,000",
+    usdEquiv: "(~$15,000 USD)",
     duration: "10–15 Business Days",
     tagline: "Full Transformation Blueprint",
-    description: "Comprehensive architecture, CFO financial model (USD), data lakehouse blueprint, and board memo.",
+    description: "Comprehensive architecture, CFO financial model (AED & USD), data lakehouse blueprint, and board memo.",
     href: "/contact?region=dubai&package=Pro",
     popular: true,
   },
   {
     name: "Nisol Enterprise",
-    price: "$30,000+",
+    price: "AED 110,000+",
+    usdEquiv: "(~$30,000+ USD)",
     duration: "4–8 Weeks",
     tagline: "Sovereign Intelligence System",
     description: "Multi-entity holding conglomerate deployment, custom AI CoE charter, and private VPC orchestration.",
@@ -139,10 +143,10 @@ export default function DubaiPage() {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <Badge variant="golden" className="mx-auto">Gulf Engagement Pricing</Badge>
           <h2 className="text-3xl sm:text-5xl font-black text-navy-950 tracking-tight">
-            Transparent USD Fixed-Price Engagements
+            Transparent Fixed-Price Engagements in AED
           </h2>
           <p className="text-sm text-navy-700/80">
-            Fixed scope, museum-grade deliverable packaging, and zero vendor lock-in.
+            Fixed scope, museum-grade deliverable packaging, and zero vendor lock-in. Invoiced in AED or USD (Pegged at 1 USD = 3.67 AED).
           </p>
         </div>
 
@@ -173,8 +177,11 @@ export default function DubaiPage() {
 
                 <div className="mb-4">
                   <div className="text-3xl font-black">{tier.price}</div>
-                  <div className={`text-xs ${tier.popular ? "text-slate-400" : "text-slate-500"}`}>
-                    USD • Fixed-Price SOW
+                  <div className={`text-xs font-semibold ${tier.popular ? "text-golden-400" : "text-golden-600"} mt-0.5`}>
+                    {tier.usdEquiv}
+                  </div>
+                  <div className={`text-[11px] ${tier.popular ? "text-slate-400" : "text-slate-500"} mt-0.5`}>
+                    AED • Fixed-Price SOW
                   </div>
                 </div>
 
