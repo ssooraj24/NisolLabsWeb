@@ -11,7 +11,7 @@ export const EVERY_ENGAGEMENT_INCLUDES = [
   { title: "Prioritized Use Cases", description: "Cataloging top 20 GenAI opportunities into Quick Wins vs. Bets." },
   { title: "ROI Analysis", description: "Quantified 5-year financial payback, labor savings & NPV model." },
   { title: "Transformation Roadmap", description: "30/90/180/365-day execution plan with milestone KPIs." },
-  { title: "Executive Report", description: "20-slide boardroom-ready deck formatted for C-suite alignment." },
+  { title: "Executive Dossier", description: "Museum-grade board portfolio with CFO financial models & PoC gates." },
   { title: "Commercial Blueprint", description: "Target architecture, model selection & delivery choice specs." }
 ];
 
@@ -32,7 +32,7 @@ export const WHY_FASTER_COMPARISON = {
     duration: "7–11 Business Days",
     points: [
       "7–11 business days execution",
-      "Executive-led assessment (24+ yrs engineering)",
+      "Master systems architects (40+ yrs enterprise experience)",
       "AI opportunity mapping & telemetry audit",
       "ROI-backed business cases (payback & NPV)",
       "Board-ready roadmap & 15 deliverables"
@@ -156,8 +156,8 @@ export function WhyFasterInclusions() {
                 <ShieldCheck className="w-4 h-4 text-golden-400 shrink-0" />
                 <span>All 8 deliverables are included in Nisol Discovery™.</span>
               </div>
-              <Button href="/contact?type=discovery-call" variant="primary" size="sm" icon={<ArrowRight className="w-3.5 h-3.5" />}>
-                Request Engagement Proposal
+              <Button href="/contact?package=One" variant="primary" size="sm" icon={<ArrowRight className="w-3.5 h-3.5" />}>
+                Apply for Discovery →
               </Button>
             </div>
           </div>

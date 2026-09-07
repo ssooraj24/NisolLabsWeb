@@ -372,12 +372,12 @@ export default function DiscoveryReadinessPage() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto">
-          <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Book a Discovery Call
+        <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-lg mx-auto">
+          <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
+            Apply for Discovery →
           </Button>
-          <Button href="/contact?type=proposal" variant="secondary" size="lg">
-            Request a Proposal
+          <Button href="/assessment" variant="secondary" size="lg">
+            Take 2-Min Interactive Quiz →
           </Button>
         </div>
 

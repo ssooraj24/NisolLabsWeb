@@ -641,8 +641,8 @@ export default function ROICalculatorPage() {
                     Thank you, <strong>{leadForm.fullName}</strong>. A detailed PDF copy of your ROI analysis and AI Maturity Roadmap has been sent to <strong>{leadForm.email}</strong>.
                   </p>
                   <div className="pt-4 flex justify-center gap-4">
-                    <Button href="/contact" variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                      Book Free Consultation
+                    <Button href="/contact?package=One" variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
+                      Apply for Discovery Session →
                     </Button>
                     <Button onClick={() => setCurrentStep(1)} variant="navy" size="md" icon={<RotateCcw className="w-4 h-4" />}>
                       Recalculate

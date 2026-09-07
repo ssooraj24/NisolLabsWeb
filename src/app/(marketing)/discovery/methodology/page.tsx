@@ -223,8 +223,8 @@ export default function DiscoveryMethodologyPage() {
           Unlike generic advisory assessments, Nisol Discovery™ is a structured, data-driven methodology designed to deliver absolute executive clarity and measurable business outcomes.
         </p>
         <div className="flex flex-wrap justify-center gap-4 pt-4">
-          <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Book a Discovery Call
+          <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
+            Apply for Discovery →
           </Button>
           <Button href="/transformation-framework" variant="secondary" size="lg">
             Explore 9-Stage Transformation Lifecycle →
@@ -422,11 +422,11 @@ export default function DiscoveryMethodologyPage() {
           Ready to apply the Nisol Discovery™ methodology to your business?
         </h2>
         <p className="text-xs sm:text-sm text-navy-200 max-w-xl mx-auto">
-          Collaborate with Nisol AI architects to establish a definitive transformation timeline tailored to your specific organizational needs.
+          We partner with only 5 new enterprises each month. Apply for a Discovery Session to establish your transformation roadmap.
         </p>
         <div className="pt-2">
-          <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Book a Discovery Call
+          <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
+            Apply for Discovery Session →
           </Button>
         </div>
       </div>

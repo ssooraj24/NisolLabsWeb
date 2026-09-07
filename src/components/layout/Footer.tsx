@@ -23,7 +23,7 @@ export function Footer() {
             </Link>
 
             <p className="text-sm text-navy-200/80 leading-relaxed max-w-sm">
-              Nisol AI — End-to-End Enterprise AI Transformation & Implementation Partner. Discover, Implement, Govern, and Scale AI with zero vendor lock-in.
+              Nisol AI — Enterprise Intelligence System. Intelligence. Delivered. Zero vendor lock-in.
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-golden-500/10 border border-golden-500/30 text-golden-300 text-[11px] font-bold uppercase tracking-wider">
               <span>Guaranteed Zero Vendor Lock-in</span>
@@ -36,6 +36,12 @@ export function Footer() {
               Core Services
             </h4>
             <ul className="space-y-2.5 text-xs font-medium text-slate-300">
+              <li>
+                <Link href="/spark" className="hover:text-golden-300 transition-colors flex items-center gap-1 font-semibold text-golden-400">
+                  <span>Nisol Spark (3-Day Sprint)</span>
+                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">₹1.5L</span>
+                </Link>
+              </li>
               <li>
                 <Link href="/transformation-framework" className="hover:text-golden-300 transition-colors flex items-center gap-1">
                   <span>9-Stage Transformation Lifecycle</span>
@@ -95,7 +101,13 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs font-medium text-slate-300">
               <li>
-                <Link href="/resources/roi-calculator" className="text-golden-400 hover:text-golden-300 transition-colors font-bold">
+                <Link href="/assessment" className="text-golden-400 hover:text-golden-300 transition-colors font-bold flex items-center gap-1.5">
+                  <span>2-Min AI Readiness Quiz</span>
+                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">INSTANT</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/resources/roi-calculator" className="hover:text-golden-300 transition-colors">
                   Interactive AI ROI Calculator
                 </Link>
               </li>
@@ -129,14 +141,20 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs font-medium text-slate-300 mb-6">
               <li>
-                <Link href="/grants" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-blue-400">
-                  <span>Intelligence Grants</span>
-                  <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1 py-0.5 rounded border border-blue-500/30">₹4.5L AWARD</span>
+                <Link href="/about" className="hover:text-golden-300 transition-colors">
+                  About & Leadership
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-golden-300 transition-colors">
-                  About & Leadership
+                <Link href="/dubai" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-emerald-400">
+                  <span>Dubai & Gulf Hub</span>
+                  <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1 py-0.5 rounded border border-emerald-500/30">UAE</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/grants" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-blue-400">
+                  <span>Intelligence Grants</span>
+                  <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1 py-0.5 rounded border border-blue-500/30">₹4.5L AWARD</span>
                 </Link>
               </li>
               <li>
@@ -151,8 +169,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact?type=discovery-call" className="hover:text-golden-300 transition-colors">
-                  Book Discovery Call
+                <Link href="/contact" className="hover:text-golden-300 transition-colors font-bold text-golden-400">
+                  Apply for Discovery →
                 </Link>
               </li>
             </ul>

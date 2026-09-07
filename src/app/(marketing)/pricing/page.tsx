@@ -224,8 +224,8 @@ export default function PricingPage() {
           Every engagement delivers audit-grade deliverables reviewed by senior AI architects, backed by our Zero Lock-In Guarantee.
         </p>
         <div className="flex flex-wrap justify-center gap-4 pt-4">
-          <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Book a Discovery Call
+          <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
+            Apply for Discovery →
           </Button>
           <Button href="/resources/roi-calculator" variant="secondary" size="lg">
             Try Interactive ROI Calculator →
@@ -425,14 +425,14 @@ export default function PricingPage() {
           Move from AI Uncertainty to an Executable Roadmap in Days
         </h2>
         <p className="text-xs sm:text-sm text-navy-200 max-w-xl mx-auto leading-relaxed">
-          Schedule a 30-minute discovery consultation with senior enterprise AI architects to define your scope and expected ROI payback.
+          We partner with only 5 new enterprises each month. Apply for a Discovery Session to define your scope and board roadmap.
         </p>
         <div className="pt-2 flex flex-wrap justify-center gap-4">
-          <Button href="/contact?type=discovery-call" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Book a Discovery Call
+          <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
+            Apply for Discovery Session →
           </Button>
-          <Button href="/contact?type=proposal" variant="navy" size="lg">
-            Request a Custom Scope Proposal
+          <Button href="/spark" variant="navy" size="lg">
+            Explore Nisol Spark (₹1.5L) →
           </Button>
         </div>
       </div>

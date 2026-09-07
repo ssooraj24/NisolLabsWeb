@@ -294,20 +294,20 @@ export default function TransformationFrameworkPage() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
             <Button
-              href="/contact?type=discovery-call"
+              href="/contact?package=One"
               size="lg"
               className="bg-golden-500 text-navy-950 hover:bg-golden-400 font-extrabold shadow-lg shadow-golden-500/20"
               icon={<ArrowRight className="w-4 h-4" />}
             >
-              Book AI Discovery Workshop
+              Apply for Discovery →
             </Button>
             <Button
-              href="/contact?type=expert"
+              href="/spark"
               size="lg"
               variant="outline"
               className="border-navy-700 text-slate-200 hover:text-white hover:bg-navy-800"
             >
-              Talk to a Transformation Expert
+              Explore Nisol Spark (₹1.5L) →
             </Button>
           </div>
         </div>
@@ -486,16 +486,16 @@ export default function TransformationFrameworkPage() {
             Ready to Begin Your AI Transformation Journey?
           </h2>
           <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
-            Book an AI Discovery Workshop or speak with an AI Transformation Architect to build your prioritized implementation roadmap.
+            We partner with only 5 new enterprises each month. Apply for a Discovery Session to build your prioritized implementation roadmap.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <Button
-              href="/contact?type=discovery-call"
+              href="/contact?package=One"
               size="lg"
               className="bg-golden-500 text-navy-950 hover:bg-golden-400 font-extrabold shadow-xl"
               icon={<ArrowRight className="w-4 h-4" />}
             >
-              Book AI Discovery Workshop
+              Apply for Discovery Session →
             </Button>
             <Button
               href="/discovery"

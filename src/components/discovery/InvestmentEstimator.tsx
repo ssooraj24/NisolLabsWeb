@@ -46,22 +46,22 @@ export function InvestmentEstimator() {
     const minEst = Math.round((rawEst * 0.9) / 10000) * 10000;
     const maxEst = Math.round((rawEst * 1.1) / 10000) * 10000;
 
-    let packageRecommendation = "Growth Engagement";
+    let packageRecommendation = "Nisol Pro";
     let badgeVariant: "golden" | "navy" | "outline" = "golden";
     let timeline = "2–4 Weeks (10–15 Business Days)";
 
     if (depth === "foundation" || (headcount === "10-50" && depth !== "enterprise")) {
       if (functions === "1-3") {
-        packageRecommendation = "Nisol Spark Engagement";
+        packageRecommendation = "Nisol Spark";
         badgeVariant = "outline";
         timeline = "3 Business Days";
       } else {
-        packageRecommendation = "Foundation Engagement";
+        packageRecommendation = "Nisol One";
         badgeVariant = "navy";
         timeline = "1–2 Weeks (7–11 Business Days)";
       }
     } else if (depth === "enterprise" || headcount === "1000+" || locations === "4+") {
-      packageRecommendation = "Enterprise Engagement";
+      packageRecommendation = "Nisol Enterprise";
       badgeVariant = "golden";
       timeline = "4–8 Weeks (Custom Roadmap)";
     }
@@ -215,13 +215,13 @@ export function InvestmentEstimator() {
 
           <div className="pt-2">
             <Button
-              href={`/contact?type=discovery-call&package=${encodeURIComponent(estimation.packageRecommendation)}&est=${encodeURIComponent(estimation.minEstFormatted + ' - ' + estimation.maxEstFormatted)}`}
+              href={`/contact?type=apply&package=${encodeURIComponent(estimation.packageRecommendation)}&est=${encodeURIComponent(estimation.minEstFormatted + ' - ' + estimation.maxEstFormatted)}`}
               variant="primary"
               size="md"
               className="w-full justify-center text-xs font-bold"
               icon={<ArrowRight className="w-3.5 h-3.5" />}
             >
-              Lock In Estimate & Book Call
+              Apply for Discovery with Estimate →
             </Button>
           </div>
         </div>
