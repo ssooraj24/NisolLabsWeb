@@ -301,7 +301,7 @@ export default function AboutPage() {
               Deliverables Engineered for the Boardroom.
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              Every deliverable leaving Nisol AI follows Apple hardware unboxing principles: cloth-bound physical executive portfolios, clear CFO financial sensitivity models, and deterministic architectural blueprints.
+              Every deliverable leaving Nisol AI follows museum-grade unboxing principles: cloth-bound physical executive portfolios, clear CFO financial sensitivity models, and deterministic architectural blueprints.
             </p>
             <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-slate-200">
               <div className="flex items-center gap-2">

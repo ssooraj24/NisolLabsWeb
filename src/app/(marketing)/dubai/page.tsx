@@ -209,7 +209,7 @@ export default function DubaiPage() {
       <section className="max-w-5xl mx-auto bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200 space-y-6 text-center">
         <Badge variant="golden" className="mx-auto">Museum-Grade Delivery</Badge>
         <h2 className="text-2xl sm:text-4xl font-black text-navy-950 tracking-tight">
-          Delivered Like an Apple Product.
+          Delivered with Uncompromising Precision.
         </h2>
         <p className="text-sm sm:text-base text-navy-700/85 max-w-2xl mx-auto leading-relaxed">
           Your final Intelligence Dossier is not an email attachment. It arrives in an embossed, cloth-bound executive portfolio case, personally presented by our principal architect to your board or executive committee.

@@ -290,7 +290,7 @@ export default function DiscoveryPage() {
       {/* ── 2. WHY FASTER & INCLUSIONS ─────────────────────────────────── */}
       <WhyFasterInclusions />
 
-      {/* ── 3. DIFFERENTIATOR MATRIX (Apple vs Industry) ──────────────── */}
+      {/* ── 3. DIFFERENTIATOR MATRIX (Nisol Standard vs Industry) ──────────────── */}
       <section className="space-y-10 max-w-5xl mx-auto">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <Badge variant="golden" className="mx-auto">Built Different</Badge>
@@ -425,7 +425,7 @@ export default function DiscoveryPage() {
           <Badge variant="golden">Museum-Grade Dossier</Badge>
           <h2 className="text-3xl sm:text-4xl font-black text-white">3 Executive Deliverable Packs</h2>
           <p className="text-sm text-slate-300">
-            Every deliverable leaving Nisol AI follows Apple hardware unboxing principles: museum-grade physical dossiers, clear CFO sensitivity models, and deterministic architectural blueprints.
+            Every deliverable leaving Nisol AI follows museum-grade unboxing principles: custom-bound physical dossiers, clear CFO sensitivity models, and deterministic architectural blueprints.
           </p>
         </div>
 
