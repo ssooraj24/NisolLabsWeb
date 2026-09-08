@@ -23,7 +23,7 @@ export function Footer() {
             </Link>
 
             <p className="text-sm text-navy-200/80 leading-relaxed max-w-sm">
-              Nisol AI — Enterprise Intelligence System. Intelligence. Delivered. Zero vendor lock-in.
+              Nisol AI — Founded August 2026. Enterprise Intelligence Systems. Intelligence. Delivered. Zero vendor lock-in.
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-golden-500/10 border border-golden-500/30 text-golden-300 text-[11px] font-bold uppercase tracking-wider">
               <span>Guaranteed Zero Vendor Lock-in</span>
@@ -201,7 +201,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-navy-300">
           <div>
-            © {new Date().getFullYear()} Nisol AI. All rights reserved. The Core of Intelligence.
+            © {new Date().getFullYear()} Nisol AI (Founded August 2026). All rights reserved. The Core of Intelligence.
           </div>
 
           <div className="flex flex-wrap items-center gap-6 font-medium">

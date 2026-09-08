@@ -1,12 +1,14 @@
 export const COMPANY = {
   name: "Nisol AI",
+  founded: "August 2026",
+  stage: "Early-Stage / Bootstrapped",
   tagline: "The Core of Intelligence. Intelligence. Delivered.",
   vision: "We don't build prototypes. We awaken enterprises. We engineer production-grade enterprise intelligence systems with zero vendor lock-in.",
   mission: "Empower the world's most ambitious enterprises to think and execute with machine intelligence — from rapid 7-day discovery to autonomous multi-agent systems and sovereign data infrastructure.",
   personality: ["Enterprise-Grade", "Engineered", "Proprietary IP", "AWS Cloud Native", "Minimal", "Trustworthy", "Intelligent", "Outcome-Driven"],
   stats: [
-    { label: "AI Implementations", value: "45+" },
-    { label: "Average Token Cost Reduction", value: "52%" },
+    { label: "Founded", value: "August 2026" },
+    { label: "Funding Stage", value: "Bootstrapped" },
     { label: "Executive Discovery Timeline", value: "7-11 Days" },
     { label: "Proprietary AI Engines", value: "RoSense AI" }
   ],
@@ -14,7 +16,7 @@ export const COMPANY = {
     {
       name: "Ssooraj Rauth",
       role: "Co-Founder & Chief AI Architect",
-      bio: "Ssooraj Rauth has spent 24+ years architecting enterprise systems — from cloud-native platforms to AI-powered solutions. He specializes in AI engineering, LLMOps, and multi-agent orchestration, helping enterprises move from AI experimentation to production-grade systems. At Nisol AI, he leads the design and delivery of AI solutions that are reliable, scalable, and business-aligned.",
+      bio: "Ssooraj Rauth brings 24+ years of prior enterprise systems architecture experience — from cloud-native platforms to AI-powered solutions. He specializes in AI engineering, LLMOps, and multi-agent orchestration. Co-founding Nisol AI in August 2026, he leads the design and delivery of AI solutions that are reliable, scalable, and business-aligned.",
       position:"Co-Founder",
       image: "/images/ssooraj-photo.png",
       linkedin: "#",
@@ -23,7 +25,7 @@ export const COMPANY = {
     {
       name: "Amol",
       role: "Co-Founder & Head of Data Engineering",
-      bio: "Amol is a data engineering leader with 18+ years of experience building enterprise-scale data platforms. He specializes in architecting AI-ready data infrastructure — from real-time pipelines and data lakehouses to vector databases and knowledge graphs. At Nisol AI, Amol ensures every AI system is built on a foundation of reliable, high-quality data.",
+      bio: "Amol brings 18+ years of prior data engineering leadership building enterprise-scale data platforms. He specializes in architecting AI-ready data infrastructure — from real-time pipelines and data lakehouses to vector databases and knowledge graphs. Co-founding Nisol AI in August 2026, Amol ensures every AI system is built on a foundation of reliable, high-quality data.",
       position:"Co-Founder",
       image: "/images/amol-photo-2.png",
       linkedin: "#",

@@ -24,14 +24,14 @@ import { COMPANY } from "@/data/company";
 
 export const metadata: Metadata = {
   title: "About Nisol AI | Enterprise Intelligence Partner",
-  description: "We've spent two decades building intelligence systems. Now we build them for you. Learn about our philosophy, architecture, and anti-consulting standard.",
+  description: "Founded in August 2026 by senior architects with over two decades of enterprise systems leadership, Nisol AI builds production-grade enterprise intelligence systems with zero vendor lock-in.",
 };
 
 const ANTI_CONSULTING_COMPARISON = [
   {
     category: "Team Architecture",
     traditional: "47-person junior team learning on your dollar",
-    nisol: "2-person master architect pod with 40+ years experience",
+    nisol: "Founding master architect pod with 40+ years combined industry experience",
   },
   {
     category: "Incentive Model",
@@ -89,7 +89,7 @@ export default function AboutPage() {
       <section className="text-center max-w-4xl mx-auto space-y-6 pt-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
           <Sparkles className="w-3.5 h-3.5 text-golden-400" />
-          <span>Enterprise Intelligence Partner</span>
+          <span>Founded August 2026 • Enterprise AI Systems</span>
         </div>
 
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-navy-950 tracking-tight leading-[1.08]">
@@ -100,7 +100,7 @@ export default function AboutPage() {
         </h1>
 
         <p className="text-xl sm:text-2xl text-navy-700/90 leading-relaxed font-medium max-w-3xl mx-auto pt-2">
-          "We've spent two decades building intelligence systems. Now we build them for you."
+          "Founded in August 2026, Nisol AI brings two decades of enterprise engineering leadership to build sovereign, production-grade intelligence."
         </p>
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -134,7 +134,7 @@ export default function AboutPage() {
               We watched companies treat AI as an IT accessory rather than what it truly is: <strong className="text-white">a fundamental reimagination of how an enterprise thinks, decides, and executes.</strong>
             </p>
             <p className="border-l-2 border-golden-400 pl-4 text-white font-medium italic">
-              Nisol AI was founded on a radically simple principle: Bring two senior enterprise architects into a room with leadership, audit 62 dimensions of capability and data hygiene in 7 days, and deliver a strategy so clear and mathematically sound that the board approves it on Monday morning.
+              Nisol AI was founded in August 2026 on a radically simple principle: Bring two senior enterprise architects into a room with leadership, audit 62 dimensions of capability and data hygiene in 7 days, and deliver a strategy so clear and mathematically sound that the board approves it on Monday morning.
             </p>
           </div>
         </div>

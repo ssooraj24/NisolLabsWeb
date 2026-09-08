@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: "Nisol AI | Intelligence. Delivered. — Enterprise AI Strategy & Engineering",
     template: "%s | Nisol AI"
   },
-  description: "Nisol AI helps businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions. Autonomous Agents, AI Engineering, LLMOps, Strategy, and RAG.",
+  description: "Founded in August 2026, Nisol AI helps businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions. Autonomous Agents, AI Engineering, LLMOps, Strategy, and RAG.",
   keywords: [
     "Enterprise AI Consulting",
     "Autonomous AI Agents",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Nisol AI Engineering Team" }],
   openGraph: {
     title: "Nisol AI — Intelligence. Delivered.",
-    description: "Enterprise-grade AI Strategy, Autonomous Multi-Agent Orchestration, LLMOps, and Intelligent Document Automation.",
+    description: "Founded in August 2026. Enterprise-grade AI Strategy, Autonomous Multi-Agent Orchestration, LLMOps, and Intelligent Document Automation.",
     siteName: "Nisol AI",
     locale: "en_US",
     type: "website"
