@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Bot, ArrowRight, ShieldCheck, Mail, MapPin, Globe } from "lucide-react";
 import { COMPANY } from "@/data/company";
+import { LinkedinIcon } from "@/components/icons/LinkedinIcon";
 
 export function Footer() {
   return (
@@ -27,6 +28,19 @@ export function Footer() {
             </p>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-golden-500/10 border border-golden-500/30 text-golden-300 text-[11px] font-bold uppercase tracking-wider">
               <span>Guaranteed Zero Vendor Lock-in</span>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href={COMPANY.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Nisol AI on LinkedIn"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-navy-900/90 border border-navy-800 hover:border-golden-500/40 text-xs font-medium text-slate-300 hover:text-golden-300 transition-colors group"
+              >
+                <LinkedinIcon className="w-3.5 h-3.5 text-golden-400 group-hover:text-golden-300 transition-colors shrink-0" />
+                <span>Follow on LinkedIn</span>
+              </a>
             </div>
           </div>
 
@@ -186,12 +200,27 @@ export function Footer() {
             </ul>
             <div className="space-y-2 text-xs text-navy-200/80">
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-golden-400" />
-                <span>contact@nisolai.com</span>
+                <Mail className="w-3.5 h-3.5 text-golden-400 shrink-0" />
+                <a href="mailto:contact@nisolai.com" className="hover:text-golden-300 transition-colors">
+                  contact@nisolai.com
+                </a>
               </div>
               <div className="flex items-center gap-2">
-                <Globe className="w-3.5 h-3.5 text-golden-400" />
-                <span>www.nisolai.com</span>
+                <Globe className="w-3.5 h-3.5 text-golden-400 shrink-0" />
+                <a href="https://www.nisolai.com" target="_blank" rel="noopener noreferrer" className="hover:text-golden-300 transition-colors">
+                  www.nisolai.com
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <LinkedinIcon className="w-3.5 h-3.5 text-golden-400 shrink-0" />
+                <a
+                  href={COMPANY.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-golden-300 transition-colors"
+                >
+                  LinkedIn
+                </a>
               </div>
             </div>
           </div>
@@ -217,6 +246,15 @@ export function Footer() {
             <Link href="/security" className="hover:text-white transition-colors">
               Security & Compliance
             </Link>
+            <a
+              href={COMPANY.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-golden-300 transition-colors"
+            >
+              <LinkedinIcon className="w-3.5 h-3.5 text-golden-400" />
+              <span>LinkedIn</span>
+            </a>
           </div>
         </div>
 

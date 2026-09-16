@@ -1,5 +1,6 @@
 export const COMPANY = {
   name: "Nisol AI",
+  linkedin: "https://www.linkedin.com/company/nisolai",
   founded: "August 2026",
   stage: "Early-Stage / Bootstrapped",
   tagline: "The Core of Intelligence. Intelligence. Delivered.",

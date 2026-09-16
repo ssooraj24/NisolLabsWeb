@@ -1,6 +1,7 @@
 // lib/ai/client.ts
 
 import { MODEL_ROUTING, ReportOutputType } from "./modelConfig";
+import { recordTrace } from "@/lib/observability/langfuse";
 
 export class AIClient {
   private getGeminiKey(): string | undefined {
@@ -35,15 +36,47 @@ export class AIClient {
    */
   async callModel(modelSpec: string, prompt: string, maxTokens = 4000, temperature = 0.7): Promise<string> {
     const [provider, modelName] = modelSpec.split("/");
+    const targetModel = modelName || modelSpec;
+    const startTime = Date.now();
 
-    if (provider === "google") {
-      return this.callGemini(modelName || "gemini-flash-latest", prompt, maxTokens, temperature);
-    } else if (provider === "openai") {
-      return this.callOpenAI(modelName || "gpt-4o", prompt, maxTokens, temperature);
-    } else if (provider === "anthropic") {
-      return this.callAnthropic(modelName || "claude-3-5-sonnet-20241022", prompt, maxTokens, temperature);
-    } else {
-      throw new Error(`Unsupported model provider: ${provider}`);
+    try {
+      let output = "";
+      if (provider === "google") {
+        output = await this.callGemini(targetModel, prompt, maxTokens, temperature);
+      } else if (provider === "openai") {
+        output = await this.callOpenAI(targetModel, prompt, maxTokens, temperature);
+      } else if (provider === "anthropic") {
+        output = await this.callAnthropic(targetModel, prompt, maxTokens, temperature);
+      } else {
+        throw new Error(`Unsupported model provider: ${provider}`);
+      }
+
+      // Fire-and-forget Langfuse telemetry logging
+      recordTrace({
+        traceName: `AI Generation: ${modelSpec}`,
+        model: targetModel,
+        inputPrompt: prompt,
+        outputResponse: output,
+        latencyMs: Date.now() - startTime,
+        status: "SUCCESS",
+        tags: ["production-inference", provider],
+      }).catch((traceErr) => console.warn("[Langfuse Trace Warning]:", traceErr));
+
+      return output;
+    } catch (err: any) {
+      // Record failure telemetry
+      recordTrace({
+        traceName: `AI Generation Failed: ${modelSpec}`,
+        model: targetModel,
+        inputPrompt: prompt,
+        outputResponse: `[FAILED]: ${err.message}`,
+        latencyMs: Date.now() - startTime,
+        status: "ERROR",
+        errorMessage: err.message,
+        tags: ["production-inference", "error", provider],
+      }).catch((traceErr) => console.warn("[Langfuse Trace Warning]:", traceErr));
+
+      throw err;
     }
   }
 

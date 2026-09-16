@@ -59,6 +59,7 @@ export const Sidebar = () => {
       items: [
         { label: "Intelligence Dashboard", href: "/intelligence/dashboard" },
         { label: "📐 Solution Blueprints", href: "/intelligence/blueprints" },
+        { label: "🔭 LLM Observability", href: "/observability", badge: "LIVE" },
       ],
     },
     {
