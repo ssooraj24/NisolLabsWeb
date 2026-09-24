@@ -5,15 +5,22 @@ let poolInstance: Pool | null = null;
 export function getPool(): Pool {
   if (!poolInstance) {
     const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/nisolai';
-    const isLocalhost = connectionString.includes('localhost') || connectionString.includes('127.0.0.1') || connectionString.includes('10.0.0.');
+    const isInternal =
+      connectionString.includes('localhost') ||
+      connectionString.includes('127.0.0.1') ||
+      connectionString.includes('postgres:') ||
+      connectionString.includes('@postgres') ||
+      connectionString.includes('10.0.0.') ||
+      connectionString.includes('172.');
+
+    const requireSsl = process.env.DATABASE_SSL === 'true' || (!isInternal && process.env.NODE_ENV === 'production' && !connectionString.includes('sslmode=disable'));
 
     const config: PoolConfig = {
       connectionString,
       max: 20,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 5000,
-      // Cloud databases outside VPC may require SSL, internal VPC typically does not
-      ssl: isLocalhost || process.env.NODE_ENV === 'development' ? false : { rejectUnauthorized: false },
+      ssl: requireSsl ? { rejectUnauthorized: false } : false,
     };
 
     poolInstance = new Pool(config);
