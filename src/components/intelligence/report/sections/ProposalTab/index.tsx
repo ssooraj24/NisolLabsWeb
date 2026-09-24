@@ -47,11 +47,19 @@ export default function ProposalTab({ reportId }: ProposalTabProps) {
         if (reportData?.audit_id) {
           const { data: auditData } = await supabase
             .from("audits")
-            .select("title, overall_maturity_score, tenants:tenant_id (name, industry, employee_count)")
+            .select("*")
             .eq("id", reportData.audit_id)
             .single();
 
-          const tenantObj = Array.isArray(auditData?.tenants) ? auditData?.tenants[0] : auditData?.tenants;
+          let tenantObj = null;
+          if (auditData?.tenant_id) {
+            const { data: tData } = await supabase
+              .from("tenants")
+              .select("name, industry, employee_count")
+              .eq("id", auditData.tenant_id)
+              .maybeSingle();
+            tenantObj = tData;
+          }
 
           const roiCalc = calculateROICalculations(reportData?.roi_estimates);
 

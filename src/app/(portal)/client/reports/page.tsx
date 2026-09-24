@@ -50,38 +50,45 @@ export default function ClientReportsListPage() {
         if (user) {
           const { data: profile } = await supabase
             .from("profiles")
-            .select("tenant_id, tenants:tenant_id(name)")
+            .select("*")
             .eq("id", user.id)
             .single();
 
-          const tenantObj = Array.isArray(profile?.tenants) ? profile?.tenants[0] : profile?.tenants;
-          if (tenantObj?.name) {
-            setTenantName(tenantObj.name);
+          if (profile?.tenant_id) {
+            const { data: tData } = await supabase
+              .from("tenants")
+              .select("name")
+              .eq("id", profile.tenant_id)
+              .maybeSingle();
+            if (tData?.name) {
+              setTenantName(tData.name);
+            }
           }
         }
 
-        // 2. Fetch finalized reports (RLS policy automatically restricts to tenant's finalized records)
-        const { data, error: err } = await supabase
+        // 2. Fetch finalized reports
+        const { data: reportsData, error: err } = await supabase
           .from("audit_reports")
-          .select(`
-            id,
-            audit_id,
-            version,
-            status,
-            finalized_at,
-            generated_at,
-            audits:audit_id (
-              title,
-              overall_maturity_score,
-              tenants:tenant_id (name, industry)
-            )
-          `)
+          .select("*")
           .eq("status", "finalized")
           .order("finalized_at", { ascending: false });
 
         if (err && err.code !== "PGRST116") throw err;
 
-        setReports((data as unknown as FinalizedReport[]) || []);
+        // Fetch associated audits
+        const auditIds = Array.from(new Set((reportsData || []).map((r: any) => r.audit_id).filter(Boolean)));
+        let auditMap = new Map();
+        if (auditIds.length > 0) {
+          const { data: auditsList } = await supabase.from("audits").select("*").in("id", auditIds);
+          (auditsList || []).forEach((a: any) => auditMap.set(a.id, a));
+        }
+
+        const mappedReports = (reportsData || []).map((r: any) => ({
+          ...r,
+          audits: auditMap.get(r.audit_id) || null,
+        }));
+
+        setReports(mappedReports as unknown as FinalizedReport[]);
       } catch (err: any) {
         console.error("Error loading client reports:", err);
         setError(err.message || "Failed to load reports");

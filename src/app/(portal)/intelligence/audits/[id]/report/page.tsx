@@ -83,19 +83,27 @@ export default function ReportEditorPage() {
       // Fetch Audit details
       const { data: auditData, error: aErr } = await supabase
         .from("audits")
-        .select(`
-          id,
-          title,
-          status,
-          raw_responses,
-          tenants:tenant_id (name, industry, pricing_plan),
-          profiles:conducted_by (full_name)
-        `)
+        .select("*")
         .eq("id", auditId)
         .single();
 
       if (aErr) throw aErr;
-      setAudit(auditData);
+
+      let tenantObj = null;
+      if (auditData?.tenant_id) {
+        const { data: tData } = await supabase
+          .from("tenants")
+          .select("id, name, industry, pricing_plan")
+          .eq("id", auditData.tenant_id)
+          .maybeSingle();
+        tenantObj = tData;
+      }
+
+      setAudit({
+        ...auditData,
+        tenants: tenantObj,
+        profiles: { full_name: "Lead Assessor" },
+      });
 
       // Fetch Latest Report
       const { data: reportData, error: rErr } = await supabase

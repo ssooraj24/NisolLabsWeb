@@ -33,19 +33,7 @@ export async function getUsers(filters?: UserFilters, client?: any): Promise<Use
 
   let query = supabase
     .from('profiles')
-    .select(`
-      id,
-      full_name,
-      role,
-      tenant_id,
-      created_at,
-      updated_at,
-      tenants:tenant_id (
-        id,
-        name,
-        tenant_type
-      )
-    `)
+    .select('*')
     .order('created_at', { ascending: false });
 
   if (filters?.role && filters.role !== 'all') {
@@ -61,9 +49,13 @@ export async function getUsers(filters?: UserFilters, client?: any): Promise<Use
     throw error;
   }
 
+  // Fetch tenants to map organization info
+  const { data: tenantsData } = await supabase.from('tenants').select('id, name, tenant_type');
+  const tenantMap = new Map((tenantsData || []).map((t: any) => [t.id, t]));
+
   let results: UserProfile[] = (data || []).map((item: any) => ({
     ...item,
-    tenants: Array.isArray(item.tenants) ? item.tenants[0] || null : item.tenants,
+    tenants: item.tenant_id ? tenantMap.get(item.tenant_id) || null : null,
   }));
 
   if (filters?.search && filters.search.trim()) {
@@ -96,25 +88,23 @@ export async function updateUserProfile(
       updated_at: new Date().toISOString(),
     })
     .eq('id', userId)
-    .select(`
-      id,
-      full_name,
-      role,
-      tenant_id,
-      created_at,
-      updated_at,
-      tenants:tenant_id (
-        id,
-        name,
-        tenant_type
-      )
-    `)
+    .select('*')
     .single();
 
   if (error) throw error;
 
+  let tenantObj = null;
+  if (data?.tenant_id) {
+    const { data: tData } = await supabase
+      .from('tenants')
+      .select('id, name, tenant_type')
+      .eq('id', data.tenant_id)
+      .maybeSingle();
+    tenantObj = tData || null;
+  }
+
   return {
     ...data,
-    tenants: Array.isArray(data.tenants) ? data.tenants[0] || null : data.tenants,
+    tenants: tenantObj,
   };
 }

@@ -55,13 +55,26 @@ export default function ClientReportViewerPage() {
         setReport(reportData);
 
         // Fetch Audit metadata
-        const { data: auditData } = await supabase
+        const { data: aData } = await supabase
           .from("audits")
-          .select("title, overall_maturity_score, tenants:tenant_id (name, industry)")
+          .select("*")
           .eq("id", reportData.audit_id)
           .single();
 
-        setAudit(auditData);
+        let tenantData = null;
+        if (aData?.tenant_id) {
+          const { data: tData } = await supabase
+            .from("tenants")
+            .select("id, name, industry")
+            .eq("id", aData.tenant_id)
+            .maybeSingle();
+          tenantData = tData;
+        }
+
+        setAudit({
+          ...aData,
+          tenants: tenantData,
+        });
       } catch (err: any) {
         console.error("Error fetching client report:", err);
         setError(err.message || "Failed to load report");
