@@ -143,7 +143,7 @@ services:
           memory: 512M
 
   waha:
-    image: devlikeappro/waha:latest
+    image: devlikeapro/waha:latest
     container_name: nisol-waha
     restart: unless-stopped
     environment:
