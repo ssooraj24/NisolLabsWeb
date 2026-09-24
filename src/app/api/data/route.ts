@@ -46,7 +46,24 @@ export async function POST(req: NextRequest) {
     const tableName = table.includes("user") || table.includes("session") ? `"${table}"` : `public."${table}"`;
 
     if (action === "select") {
-      let sql = `SELECT ${select === "*" ? "*" : select.split(",").map((c: string) => c.trim()).join(", ")} FROM ${tableName}`;
+      let selectClause = "*";
+      if (select && select !== "*") {
+        if (select.includes(":") || select.includes("(") || select.includes(")")) {
+          selectClause = "*";
+        } else {
+          try {
+            selectClause = select
+              .split(",")
+              .map((c: string) => c.trim())
+              .filter(Boolean)
+              .map((c: string) => sanitizeIdentifier(c))
+              .join(", ");
+          } catch {
+            selectClause = "*";
+          }
+        }
+      }
+      let sql = `SELECT ${selectClause} FROM ${tableName}`;
       const params: any[] = [];
       const whereClauses: string[] = [];
 

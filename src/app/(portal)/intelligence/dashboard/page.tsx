@@ -67,21 +67,22 @@ export default function IntelligenceDashboardPage() {
       // 2. Fetch Audits for Work Queue
       const { data: auditData, error: aErr } = await supabase
         .from("audits")
-        .select(`
-          id,
-          title,
-          status,
-          overall_maturity_score,
-          conducted_at,
-          created_at,
-          raw_responses,
-          tenants:tenant_id (name, industry),
-          profiles:conducted_by (full_name)
-        `)
-        .order("updated_at", { ascending: false });
+        .select("*")
+        .order("created_at", { ascending: false });
 
       if (aErr) throw aErr;
-      setAudits((auditData as unknown as AuditWorkItem[]) || []);
+      const mapped = ((auditData || []) as any[]).map((a) => ({
+        id: a.id,
+        title: a.company_name || a.title || "Enterprise Audit",
+        status: a.status || "in_progress",
+        overall_maturity_score: a.overall_score || a.overall_maturity_score || 0,
+        conducted_at: a.created_at,
+        created_at: a.created_at,
+        raw_responses: a.metadata?.responses || a.raw_responses || null,
+        tenants: { name: a.company_name, industry: a.industry },
+        profiles: { full_name: "Lead Assessor" },
+      }));
+      setAudits(mapped);
       setLastUpdated(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     } catch (err: any) {
       console.error("Error loading dashboard data:", err);
