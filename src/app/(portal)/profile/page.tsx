@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 type User = {

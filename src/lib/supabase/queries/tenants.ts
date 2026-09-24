@@ -1,4 +1,4 @@
-import { createBrowserClient } from '@supabase/ssr';
+import { db } from '@/lib/db/client';
 import { Tenant, TenantStatus, TenantType, IndustrySector, PricingPlan } from '@/types/database';
 import { encryptPayload, decryptPayload } from '@/lib/security/encryption';
 import { generateBlindIndex } from '@/lib/security/hash';
@@ -13,11 +13,8 @@ export interface TenantFilters {
   search?: string;
 }
 
-function getSupabaseClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+function getDatabaseClient() {
+  return db;
 }
 
 /**
@@ -42,7 +39,7 @@ function hydrateTenantData(rawTenant: any): Tenant {
 }
 
 export async function getTenants(filters?: TenantFilters, client?: any): Promise<Tenant[]> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
   let query = supabase.from('tenants').select('*').order('created_at', { ascending: false });
 
   if (filters?.status) {
@@ -96,7 +93,7 @@ export async function getTenants(filters?: TenantFilters, client?: any): Promise
 }
 
 export async function getTenantById(id: string, client?: any): Promise<Tenant | null> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
   const { data, error } = await supabase.from('tenants').select('*').eq('id', id).single();
   if (error) {
     if (error.code === 'PGRST116') return null;
@@ -109,7 +106,7 @@ export async function createTenant(
   tenantData: Partial<Omit<Tenant, 'id' | 'company_size' | 'created_at' | 'updated_at'>>,
   client?: any
 ): Promise<Tenant> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
 
   const {
     data: { user },
@@ -165,7 +162,7 @@ export async function updateTenant(
   tenantData: Partial<Tenant>,
   client?: any
 ): Promise<Tenant> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
 
   const {
     data: { user },

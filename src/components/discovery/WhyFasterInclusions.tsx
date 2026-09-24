@@ -28,7 +28,7 @@ export const WHY_FASTER_COMPARISON = {
     ]
   },
   nisol: {
-    title: "Nisol Discovery™",
+    title: "Nisol 360™",
     duration: "7–11 Business Days",
     points: [
       "7–11 business days execution",
@@ -54,7 +54,7 @@ export function WhyFasterInclusions() {
             <span>Executive Speed & Standard Inclusions</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Why Nisol Discovery™ <span className="gradient-text-gold">Delivers Results Faster</span>
+            Why Nisol 360™ <span className="gradient-text-gold">Delivers Results Faster</span>
           </h2>
           <p className="text-navy-200 text-base sm:text-lg leading-relaxed">
             Eliminate months of traditional consulting overhead. We deliver 15 board-ready deliverables in 7–11 business days—backed by senior leadership and AI-powered session synthesis.
@@ -99,7 +99,7 @@ export function WhyFasterInclusions() {
                 {/* Nisol Box */}
                 <div className="p-4 rounded-xl bg-navy-900 border border-golden-400 shadow-lg space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-golden-300">Nisol Discovery™</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-golden-300">Nisol 360™</span>
                     <span className="text-xs font-extrabold text-navy-950 bg-golden-400 px-2 py-0.5 rounded">
                       {WHY_FASTER_COMPARISON.nisol.duration}
                     </span>
@@ -154,10 +154,10 @@ export function WhyFasterInclusions() {
             <div className="pt-6 mt-6 border-t border-navy-800 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2 text-xs text-navy-200">
                 <ShieldCheck className="w-4 h-4 text-golden-400 shrink-0" />
-                <span>All 8 deliverables are included in Nisol Discovery™.</span>
+                <span>All 8 deliverables are included in Nisol 360™.</span>
               </div>
               <Button href="/contact?package=One" variant="primary" size="sm" icon={<ArrowRight className="w-3.5 h-3.5" />}>
-                Apply for Discovery →
+                Apply for Nisol 360™ →
               </Button>
             </div>
           </div>

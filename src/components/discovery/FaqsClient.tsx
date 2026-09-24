@@ -38,21 +38,21 @@ interface Category {
 const FAQ_CATEGORIES: Category[] = [
   {
     id: "about",
-    name: "About Nisol Discovery™",
+    name: "About Nisol 360™",
     emoji: "🔍",
     tagline: "What is it, who is it for, and why does it exist?",
     questions: [
       {
-        q: "What is Nisol Discovery™?",
-        a: "Nisol Discovery™ is a fixed-price, outcome-based AI transformation discovery engagement. It combines a structured 62-question diagnostic workshop with AI-powered analysis to deliver executive-ready insights, opportunities, and a transformation roadmap in weeks—not months."
+        q: "What is Nisol 360™?",
+        a: "Nisol 360™ is a fixed-price, outcome-based AI transformation discovery engagement. It combines a structured 62-question diagnostic workshop with AI-powered analysis to deliver executive-ready insights, opportunities, and a transformation roadmap in weeks—not months."
       },
       {
-        q: "Who is Nisol Discovery™ for?",
-        a: "Nisol Discovery™ is designed for organizations that are serious about AI transformation. It's ideal for mid-market to enterprise companies (50+ employees) across industries like Manufacturing, BFSI, Healthcare, Retail, and Professional Services."
+        q: "Who is Nisol 360™ for?",
+        a: "Nisol 360™ is designed for organizations that are serious about AI transformation. It's ideal for mid-market to enterprise companies (50+ employees) across industries like Manufacturing, BFSI, Healthcare, Retail, and Professional Services."
       },
       {
-        q: "Why should I choose Nisol Discovery™ over traditional consulting?",
-        a: "Traditional consulting engagements take months, deliver generic recommendations, and depend on a single consultant's expertise. Nisol Discovery™ is faster (weeks vs. months), data-driven (62 questions, AI-powered), and delivers a repeatable, proprietary methodology with consultant review."
+        q: "Why should I choose Nisol 360™ over traditional consulting?",
+        a: "Traditional consulting engagements take months, deliver generic recommendations, and depend on a single consultant's expertise. Nisol 360™ is faster (weeks vs. months), data-driven (62 questions, AI-powered), and delivers a repeatable, proprietary methodology with consultant review."
       }
     ]
   },
@@ -67,7 +67,7 @@ const FAQ_CATEGORIES: Category[] = [
         a: "The engagement follows a structured 4-phase process: Discovery Workshop (2–4 days), Data Validation & Analysis (1–2 days), AI Report Generation (0.5–1 day), Consultant Review & Quality Assurance (1–2 days), and Executive Presentation (0.5–1 day)."
       },
       {
-        q: "How long does a Nisol Discovery™ engagement take?",
+        q: "How long does a Nisol 360™ engagement take?",
         a: "A typical engagement takes 7–11 business days, depending on stakeholder availability and the number of business functions involved. The Discovery Workshop itself is 2–4 days."
       },
       {
@@ -107,8 +107,8 @@ const FAQ_CATEGORIES: Category[] = [
     tagline: "Pricing, payment terms, and outcome guarantees.",
     questions: [
       {
-        q: "How much does a Nisol Discovery™ engagement cost?",
-        a: "Nisol Discovery™ is a scope-based, fixed-price engagement starting at ₹4.5 Lakhs for Foundation (small enterprises) and ₹7.5 Lakhs for Growth (mid-market). All tiers evaluate 100% of your organization across all 15 business functions and 62 diagnostic questions. Final investment depends on your company size, stakeholder headcount, and operational complexity."
+        q: "How much does a Nisol 360™ engagement cost?",
+        a: "Nisol 360™ is a scope-based, fixed-price engagement starting at ₹4.5 Lakhs for Foundation (small enterprises) and ₹7.5 Lakhs for Growth (mid-market). All tiers evaluate 100% of your organization across all 15 business functions and 62 diagnostic questions. Final investment depends on your company size, stakeholder headcount, and operational complexity."
       },
       {
         q: "Why is it a fixed-price engagement?",
@@ -155,8 +155,8 @@ const FAQ_CATEGORIES: Category[] = [
     tagline: "Evaluating fit and current maturity prerequisites.",
     questions: [
       {
-        q: "Is Nisol Discovery™ right for my organization?",
-        a: "Nisol Discovery™ is designed for organizations with 50+ employees that are serious about AI transformation. If you're unsure whether it fits, schedule a Discovery Call and we'll discuss your specific needs."
+        q: "Is Nisol 360™ right for my organization?",
+        a: "Nisol 360™ is designed for organizations with 50+ employees that are serious about AI transformation. If you're unsure whether it fits, schedule a Discovery Call and we'll discuss your specific needs."
       },
       {
         q: "What if we already know our AI priorities?",
@@ -164,7 +164,7 @@ const FAQ_CATEGORIES: Category[] = [
       },
       {
         q: "What if our organization is not technically mature?",
-        a: "That's exactly when Nisol Discovery™ is most valuable. We identify gaps and provide a phased roadmap that starts with foundational capabilities before moving to advanced AI."
+        a: "That's exactly when Nisol 360™ is most valuable. We identify gaps and provide a phased roadmap that starts with foundational capabilities before moving to advanced AI."
       }
     ]
   },
@@ -293,10 +293,10 @@ export default function FaqsClient() {
         <Badge variant="golden" className="animate-pulse">Ask Us Anything</Badge>
         <h1 className="text-4xl sm:text-6xl font-black text-navy-950 tracking-tight leading-none">
           Everything You Need to Know <br />
-          <span className="golden-gradient-text">About Nisol Discovery™</span>
+          <span className="golden-gradient-text">About Nisol 360™</span>
         </h1>
         <p className="text-lg sm:text-xl text-navy-800 font-semibold max-w-2xl mx-auto leading-relaxed">
-          Explore answers to frequently asked questions about the Nisol Discovery™ engagement. We clarify process, deliverables, cost, and logistics upfront.
+          Explore answers to frequently asked questions about the Nisol 360™ engagement. We clarify process, deliverables, cost, and logistics upfront.
         </p>
 
         {/* Live Search Bar */}
@@ -518,7 +518,7 @@ export default function FaqsClient() {
                 <Badge variant="golden">Consultation Enquiry</Badge>
                 <h3 className="text-2xl font-black text-navy-950">Ask Us a Question</h3>
                 <p className="text-xs text-navy-700 leading-relaxed font-medium">
-                  Have an enquiry about Nisol Discovery™ that isn't answered in the FAQs? Send it directly to our consultants.
+                  Have an enquiry about Nisol 360™ that isn't answered in the FAQs? Send it directly to our consultants.
                 </p>
               </div>
 

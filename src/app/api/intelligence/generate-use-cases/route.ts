@@ -1,15 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { query, getOne } from "@/lib/db";
 import { aiClient } from "@/lib/ai/client";
 import { PROMPTS } from "@/lib/ai/prompts";
 import { DEFAULT_TOP_20_USE_CASES } from "@/lib/ai/defaultUseCases";
-
-function getSupabaseClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-  return createClient(url, serviceKey || anonKey);
-}
 
 function parseAIJson<T>(text: string, fallback: T): T {
   if (!text || typeof text !== "string") return fallback;
@@ -66,64 +59,29 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const supabase = getSupabaseClient();
+    // 1. Fetch Audit Report and linked Audit & Tenant data from PostgreSQL
+    const selectSql = `
+      SELECT r.id, r.audit_id, a.raw_responses, t.name AS company_name, t.industry
+      FROM public.audit_reports r
+      JOIN public.audits a ON r.audit_id = a.id
+      LEFT JOIN public.tenants t ON a.tenant_id = t.id
+      WHERE ${reportId ? "r.id = $1" : "r.audit_id = $1"}
+      LIMIT 1
+    `;
 
-    // 1. Fetch Audit Report and linked Audit & Tenant data
-    let targetReportId = reportId;
-    let rawAudit: any = null;
+    const report = await getOne<any>(selectSql, [reportId || auditId]);
 
-    if (reportId) {
-      const { data: report, error: repErr } = await supabase
-        .from("audit_reports")
-        .select(`
-          id,
-          audit_id,
-          audits (
-            id,
-            raw_responses,
-            tenants:tenant_id (name, industry)
-          )
-        `)
-        .eq("id", reportId)
-        .single();
-
-      if (repErr || !report) {
-        return NextResponse.json(
-          { success: false, error: `Report not found: ${repErr?.message || reportId}` },
-          { status: 404 }
-        );
-      }
-      targetReportId = report.id;
-      rawAudit = Array.isArray(report.audits) ? report.audits[0] : report.audits;
-    } else if (auditId) {
-      const { data: report, error: repErr } = await supabase
-        .from("audit_reports")
-        .select(`
-          id,
-          audit_id,
-          audits (
-            id,
-            raw_responses,
-            tenants:tenant_id (name, industry)
-          )
-        `)
-        .eq("audit_id", auditId)
-        .single();
-
-      if (repErr || !report) {
-        return NextResponse.json(
-          { success: false, error: `Report for audit not found: ${repErr?.message || auditId}` },
-          { status: 404 }
-        );
-      }
-      targetReportId = report.id;
-      rawAudit = Array.isArray(report.audits) ? report.audits[0] : report.audits;
+    if (!report) {
+      return NextResponse.json(
+        { success: false, error: `Report not found for ${reportId || auditId}` },
+        { status: 404 }
+      );
     }
 
-    const rawResponses = rawAudit?.raw_responses || {};
-    const tenantObj = Array.isArray(rawAudit?.tenants) ? rawAudit.tenants[0] : rawAudit?.tenants;
-    const companyName = tenantObj?.name || "Enterprise Client";
-    const industry = tenantObj?.industry || "Technology";
+    const targetReportId = report.id;
+    const rawResponses = report.raw_responses || {};
+    const companyName = report.company_name || "Enterprise Client";
+    const industry = report.industry || "Technology";
 
     console.log(`[GenerateUseCases API] Generating custom use cases for report ${targetReportId} (${companyName})`);
 
@@ -145,30 +103,25 @@ export async function POST(req: NextRequest) {
 
     const newUseCasesData = { use_cases: useCasesList };
 
-    // 3. Save to database
-    const { error: updateErr } = await supabase
-      .from("audit_reports")
-      .update({
-        top_use_cases: newUseCasesData,
-        last_edited_at: new Date().toISOString(),
-      })
-      .eq("id", targetReportId);
+    // 3. Save to database using PostgreSQL query
+    await query(
+      `UPDATE public.audit_reports SET top_use_cases = $1, last_edited_at = $2 WHERE id = $3`,
+      [JSON.stringify(newUseCasesData), new Date().toISOString(), targetReportId]
+    );
 
-    if (updateErr) {
-      throw new Error(`Failed to update top_use_cases in database: ${updateErr.message}`);
-    }
-
-    console.log(`[GenerateUseCases API] Successfully generated ${useCasesList.length} customized use cases.`);
-
-    return NextResponse.json({
-      success: true,
-      reportId: targetReportId,
-      top_use_cases: newUseCasesData,
-    });
-  } catch (err: any) {
-    console.error("[GenerateUseCases API] Error:", err);
     return NextResponse.json(
-      { success: false, error: err.message || "Failed to generate customized use cases" },
+      {
+        success: true,
+        reportId: targetReportId,
+        useCasesCount: useCasesList.length,
+        data: newUseCasesData,
+      },
+      { status: 200 }
+    );
+  } catch (err: any) {
+    console.error("[GenerateUseCases API] Critical error:", err);
+    return NextResponse.json(
+      { success: false, error: err.message || "Failed to generate use cases" },
       { status: 500 }
     );
   }

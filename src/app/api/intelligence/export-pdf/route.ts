@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getOne } from "@/lib/db";
 import { generateReportHTML } from "@/lib/utils/pdfGenerator";
 import { generateBoardMemoHTML } from "@/lib/utils/boardMemoGenerator";
 import { generateDataStrategyHTML } from "@/lib/utils/dataStrategyGenerator";
@@ -37,29 +37,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-
     // 1. Try fetching report by reportId (id)
-    let { data: report } = await supabase
-      .from("audit_reports")
-      .select("*")
-      .eq("id", reportId)
-      .maybeSingle();
+    let report = await getOne<any>(`SELECT * FROM public.audit_reports WHERE id = $1`, [reportId]);
 
     // 2. If not found by report id, try fetching by audit_id
     if (!report) {
-      const { data: reportByAudit } = await supabase
-        .from("audit_reports")
-        .select("*")
-        .eq("audit_id", reportId)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
-      report = reportByAudit;
+      report = await getOne<any>(
+        `SELECT * FROM public.audit_reports WHERE audit_id = $1 ORDER BY created_at DESC LIMIT 1`,
+        [reportId]
+      );
     }
 
     // Decrypt full report payload if present and merge
@@ -76,23 +62,21 @@ export async function POST(req: NextRequest) {
 
     // 3. Fetch audit metadata using report.audit_id or reportId
     const targetAuditId = report?.audit_id || reportId;
-    const { data: audit } = await supabase
-      .from("audits")
-      .select("id, title, status, raw_responses, tenant_id, tenants:tenant_id (name, industry, pricing_plan)")
-      .eq("id", targetAuditId)
-      .maybeSingle();
+    const audit = await getOne<any>(
+      `SELECT a.id, a.title, a.status, a.raw_responses, a.tenant_id,
+              t.name, t.industry, t.pricing_plan
+       FROM public.audits a
+       LEFT JOIN public.tenants t ON a.tenant_id = t.id
+       WHERE a.id = $1`,
+      [targetAuditId]
+    );
 
-    // Direct tenant query fallback if join didn't populate tenants
-    if (audit && audit.tenant_id && !audit.tenants) {
-      const { data: tenantData } = await supabase
-        .from("tenants")
-        .select("name, industry, pricing_plan")
-        .eq("id", audit.tenant_id)
-        .maybeSingle();
-
-      if (tenantData) {
-        (audit as any).tenants = tenantData;
-      }
+    if (audit) {
+      audit.tenants = {
+        name: audit.name,
+        industry: audit.industry,
+        pricing_plan: audit.pricing_plan,
+      };
     }
 
     // GATING CHECK: Verify requested deliverable against subscribed plan
@@ -149,11 +133,10 @@ export async function POST(req: NextRequest) {
     };
 
     if (templateId) {
-      const { data: tmpl } = await supabase
-        .from("report_templates")
-        .select("styling")
-        .eq("id", templateId)
-        .maybeSingle();
+      const tmpl = await getOne<any>(
+        `SELECT styling FROM public.report_templates WHERE id = $1`,
+        [templateId]
+      );
 
       if (tmpl?.styling) {
         stylingOptions = {

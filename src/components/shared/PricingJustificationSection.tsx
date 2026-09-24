@@ -25,7 +25,7 @@ export function PricingJustificationSection() {
               <span>AI Transformation Partner</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
-              Why Nisol Discovery <span className="gradient-text-gold">Accelerates AI Transformation</span>
+              Why Nisol 360™ <span className="gradient-text-gold">Accelerates AI Transformation</span>
             </h2>
             <p className="text-navy-200 text-base sm:text-lg leading-relaxed">
               Identify high-impact AI opportunities, quantify ROI, and build an implementation roadmap in days—not months. Nisol AI helps organizations move from AI uncertainty to business outcomes.
@@ -43,7 +43,7 @@ export function PricingJustificationSection() {
                 </div>
                 {/* Nisol Box */}
                 <div className="p-3 rounded-xl bg-navy-950 border border-golden-400/80">
-                  <span className="text-[10px] font-bold text-golden-300 uppercase tracking-wider block mb-1">Nisol Discovery™</span>
+                  <span className="text-[10px] font-bold text-golden-300 uppercase tracking-wider block mb-1">Nisol 360™</span>
                   <p className="text-xs text-golden-200 font-bold">Structured assessment, prioritized use cases, ROI-backed roadmap</p>
                 </div>
               </div>
@@ -92,7 +92,7 @@ export function PricingJustificationSection() {
             </p>
           </div>
           <Button href="/contact?type=discovery-call" variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-            Book Nisol Discovery
+            Apply for Nisol 360™
           </Button>
         </div>
 

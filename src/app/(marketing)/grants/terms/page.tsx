@@ -136,7 +136,7 @@ export default function GrantTermsPage() {
                 1.2 <strong>Monetary Valuation:</strong> Each Grant award carries a commercial value of <strong>₹4,50,000 INR ($5,500 USD)</strong> and is delivered to the Recipient at <strong>zero financial cost</strong>.
               </p>
               <p className="text-sm text-slate-700 leading-relaxed">
-                1.3 <strong>Included Deliverables:</strong> The Grant includes full access to the Nisol Discovery™ framework:
+                1.3 <strong>Included Deliverables:</strong> The Grant includes full access to the Nisol 360™ framework:
               </p>
               
               <div className="grid sm:grid-cols-3 gap-3 pt-2">

@@ -299,7 +299,7 @@ export default function TransformationFrameworkPage() {
               className="bg-golden-500 text-navy-950 hover:bg-golden-400 font-extrabold shadow-lg shadow-golden-500/20"
               icon={<ArrowRight className="w-4 h-4" />}
             >
-              Apply for Discovery →
+              Apply for Nisol 360™ →
             </Button>
             <Button
               href="/spark"
@@ -495,7 +495,7 @@ export default function TransformationFrameworkPage() {
               className="bg-golden-500 text-navy-950 hover:bg-golden-400 font-extrabold shadow-xl"
               icon={<ArrowRight className="w-4 h-4" />}
             >
-              Apply for Discovery Session →
+              Apply for Nisol 360™ →
             </Button>
             <Button
               href="/discovery"

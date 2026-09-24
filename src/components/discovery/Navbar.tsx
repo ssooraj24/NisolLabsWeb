@@ -3,37 +3,28 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { createBrowserClient } from "@supabase/ssr"
+import { authClient } from "@/lib/auth-client"
 
 export const Navbar = () => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const [supabase] = useState(() =>
-    createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
-  )
-
+  const { data: session } = authClient.useSession()
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [userInitials, setUserInitials] = useState<string>("U")
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   useEffect(() => {
-    async function getUser() {
-      const { data } = await supabase.auth.getUser()
-      if (data?.user) {
-        setUserEmail(data.user.email || "Consultant")
-        const initial = (data.user.email?.[0] || "U").toUpperCase()
-        setUserInitials(initial)
-      }
+    if (session?.user) {
+      const email = session.user.email || "Consultant"
+      setUserEmail(email)
+      const initial = (session.user.name?.[0] || email[0] || "U").toUpperCase()
+      setUserInitials(initial)
     }
-    getUser()
-  }, [supabase])
+  }, [session])
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    await authClient.signOut()
     router.push("/login")
   }
 
@@ -132,7 +123,7 @@ export const Navbar = () => {
             <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 z-50 animate-fade-in">
               <div className="px-3 py-2 border-b mb-1">
                 <p className="text-xs font-bold text-[#0A1E3C] truncate">{userEmail || "Consultant User"}</p>
-                <p className="text-[10px] text-slate-400">Authenticated Supabase User</p>
+                <p className="text-[10px] text-slate-400">Authenticated Nisol User</p>
               </div>
 
               <Link

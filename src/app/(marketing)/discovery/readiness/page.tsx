@@ -374,7 +374,7 @@ export default function DiscoveryReadinessPage() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-lg mx-auto">
           <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Apply for Discovery →
+            Apply for Nisol 360™ →
           </Button>
           <Button href="/assessment" variant="secondary" size="lg">
             Take 2-Min Interactive Quiz →

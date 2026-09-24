@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/intelligence/StatusBadge";
 
 interface Tenant {
@@ -439,7 +439,7 @@ export default function AuditDetailPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
             <h2 className="text-lg font-bold text-[#0A1E3C]">Raw Assessment Data (62 Questions)</h2>
-            <p className="text-xs text-slate-500">Collected workshop responses from Nisol Discovery</p>
+            <p className="text-xs text-slate-500">Collected workshop responses from Nisol 360™</p>
           </div>
 
           <div className="flex items-center gap-3">

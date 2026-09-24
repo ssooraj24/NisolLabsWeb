@@ -1,0 +1,210 @@
+Here is your new `/discovery` page — rewritten as **Apple / Tesla would launch it**. Code-free, no dependency, 30-360 Blueprint first.
+
+Paste-ready for your dev. Use your new **Black + Gold N + Core logo** — `[N-icon] nisolai` all lowercase, flat gold core.
+
+---
+
+### PAGE: /discovery (Canonical: /blueprint — keep /discovery as redirect)
+
+**SEO Title:** `Nisol One: The 30-360 Blueprint | 7-Day Code-Free Architecture | Nisolai`
+**SEO Description:** `Two senior architects. 62 dimensions. One board-ready 30/60/90/180/360 blueprint your CFO can present Monday. No code in discovery. No lock-in. You own it.`
+
+---
+
+#### TOP BAR (Sticky)
+`SEPTEMBER: 2/5 BLUEPRINTS LEFT — We architect only 5 per month. No dependency on us.`
+
+#### NAV
+`[N-icon] nisolai | How It Works | Blueprint | Apply`
+
+#### 1. HERO
+
+```
+THE 30-360 BLUEPRINT
+Your enterprise, architected in 7 days.
+
+No code in discovery.
+No lock-in. Ever.
+You own the blueprint — build it with anyone.
+```
+
+**Sub:**
+`Two senior enterprise architects. 62 capability dimensions. One museum-grade dossier your CFO can present on Monday morning.`
+
+**CTAs:**
+`[Primary] Apply for September Blueprint →`
+`[Secondary] See a sample Blueprint (Redacted Novatech)`
+
+**Trust bar under CTA:**
+`✓ Stop-the-Clock ✓ No-Blame Exit ✓ Client Infra Pass-Through ✓ 48h Architect Review`
+
+**Hero Visual:** Your actual 15-Capability Radar (from Novatech) + 30/60/90/180/360 timeline on pure black #0A0A0A. No stock icons.
+
+#### 2. SPEED COMPARISON — Why Discovery Takes Months Elsewhere
+
+Headline: `The Anti-Consulting Standard`
+
+Two columns:
+
+**Traditional Consulting**
+- 8-12 weeks, consulting drag
+- Junior analysts learning on your budget
+- Generic 120-slide deck
+- Open-ended time & materials
+- Proprietary lock-in
+
+**The Nisol One Standard**
+- 7-11 business days, fixed
+- 2-person Master Architect Pod (40+ yrs)
+- 3-Pack Board Dossier + CFO Model
+- Fixed-price SOW by outcome
+- 100% Blueprint ownership — no dependency
+
+#### 3. WHAT YOU GET ON DAY 7
+
+Headline: `What You Get on Day 7.`
+Sub: `Not a slide deck. A board-ready architecture + audit plan for 30/60/90/180/360 days.`
+
+**3 Cards (Visual, not bullet list):**
+
+**PACK 01: BOARD STRATEGY**
+`5 Reports`
+- CFO & Board Investment Memorandum (DCF, NPV, IRR, 3-scenario stress test + Board Resolution)
+- 15-Capability Transformation Strategy (vs industry median & leader)
+- 2D Opportunity Matrix (20 Use Cases)
+- Single-Pod Roadmap (30/90/180/360)
+- Minto Executive Brief
+
+**PACK 02: OPPORTUNITY PACK**
+`4 Reports`
+- Bubble Matrix: Impact vs Feasibility
+- Top 20 Prioritized Use Cases
+- Quick Wins vs Strategic Bets
+- Production Execution Queue
+
+**PACK 03: TRANSFORMATION & GOVERNANCE PACK**
+`6 Reports`
+- 30/90/180/360-Day Roadmap with KPIs, Budget, RACI
+- CFO Model (NPV/IRR/OPEX)
+- Vector Lakehouse Blueprint (pgvector / Qdrant + Hybrid BM25 + BGE-M3 + CDC + RBAC)
+- Solution Architectures for Top 5 (What to build, not code)
+- OCM & RACI Governance
+- 5x5 DPDP & EU AI Act Risk + PoC Gate Protocol
+
+Micro under packs: `Full 15-report list inside sample Blueprint. Museum-grade bound dossier.`
+
+#### 4. THE CORE DIFFERENCE — We Architect. You Own.
+
+Headline: `We Architect. You Own. Anyone Can Build.`
+
+Body:
+```
+Discovery is code-free. We write zero lines of code in this phase.
+
+That's intentional.
+
+You get the complete 30/60/90/180/360 architecture, data lakehouse blueprint, financial model, staff upskilling plan, and 4 Go-Live Audit Gates.
+
+Then you choose:
+
+Option A: Build it with Nisol
+Option B: Hire Nisol to Manage & Audit the build against the Blueprint
+Option C: Build it with anyone. The Blueprint is yours. No dependency on us.
+
+Client Infrastructure Pass-Through: You pay AWS/GCP directly. We never touch your data.
+```
+
+**4 Gates Visual:**
+`Gate 0: Architecture Review | Gate 1: Accuracy >95% Citation | Gate 2: Security & PII | Gate 3: Usability & Economics`
+
+#### 5. THE 4 BLUEPRINTS — Fixed-Price. Zero Ambiguity.
+
+Headline: `Four Blueprints. Zero Ambiguity.`
+
+**SPARK — 3 Days**
+`The First Look Memo`
+`₹1,50,000 Fixed | $1,800 USD outside India`
+- 1 Focus Track: Opportunity Sprint OR Cost Audit OR Compliance Check
+- 1 Senior Architect
+- 8-10 Page Executive Brief
+- 100% credit toward One within 30 days
+`[Apply for Spark]`
+
+**ONE — Most Popular (Gold border)**
+`The 30-360 Blueprint`
+`7-11 Business Days`
+`₹4,50,000 Fixed | $5,500 USD outside India`
+- Full 62-Q Diagnostic across 15 Capabilities + 8-industry benchmark
+- Radar + Opportunity Matrix + Top 5 Quick Wins
+- 30/60/90/180/360 Roadmap + Basic Capital Budget
+- Executive Readout
+`[Apply for One — 2 slots left]`
+
+**PRO**
+`The Blueprint + Model`
+`10-15 Business Days`
+`₹8,50,000 Fixed | $10,500 USD outside India`
+- Everything in One, plus:
+- CFO Investment Memo (DCF, NPV, IRR) + 3-scenario stress test
+- Vector Lakehouse Blueprint + 5-Dimension Scorecard
+- 15 Dept Action Briefs + 5x5 Risk Register
+- OCM & RACI + 2 Training Tracks
+`[Apply for Pro]`
+
+**ENTERPRISE**
+`The Full Vision`
+`4-8 Weeks`
+`₹18,50,000+ Fixed | $22,500+ outside India`
+- Everything in Pro, plus:
+- Shadow AI Exposure + Zero-Trust PII Gateway Spec
+- Multi-LLM Switch-Cost Teardown + Vendor Dependency Audit
+- 36-Month 3-Horizon Roadmap + Valuation Multiple Model
+- AI CoE Charter + Multi-Entity Governance
+`[Apply for Enterprise]`
+
+Under cards: `All Blueprints: You own the architecture. No code in discovery. No dependency on us.`
+
+#### 6. SECURITY
+
+Headline: `Enterprise Security & Zero Public Training`
+
+**Zero Public Model Training**
+`Your workshop responses, transcripts, and data are never used to train external LLMs. Tenant-isolated, encrypted.`
+
+**Enterprise Tenant**
+`Isolated cloud databases, RBAC, read-only client portal to track progress.`
+
+#### 7. FINAL SCARCITY
+
+```
+We Architect Only 5 Blueprints Per Month.
+
+Not a body shop. Two senior architects per engagement.
+Applications reviewed directly by architects within 48 hours.
+Mutual NDA before any technical review.
+
+September: 2/5 left.
+
+[Apply for Blueprint — 48h Response]
+Strict Non-Disclosure • No spam • Only architects.
+```
+
+#### FOOTER
+
+`[N-icon] nisolai — The Core of Intelligence`
+`Own Your Intelligence. Intelligence. Delivered.`
+
+---
+
+**Dev Checklist for /discovery -> /blueprint:**
+
+- [ ] Delete estimator, delete comparison table, delete 15-bullet repeat list
+- [ ] Replace `You Own Every Line of Code` with `You Own The Blueprint — No Dependency`
+- [ ] Add 30/60/90/180/360 explicitly in hero and Pack 01
+- [ ] Add "We Architect. You Own. Anyone Can Build." 3-option block — this is your Tesla moment
+- [ ] Use new Black + Gold logo, no gradients
+- [ ] Background: Hero black, rest white, cards with thin 1px #E5E5E5 border
+
+This page will now convert because it says the truth you told me: **"We don't write code in discovery. We give you what to do in next 30/60/90/180/360 days. You can hire us for dev/management/auditing, or anyone. No dependency."**
+
+Want me to build this as a live preview HTML so you can see the Apple-style scroll before your dev builds it?

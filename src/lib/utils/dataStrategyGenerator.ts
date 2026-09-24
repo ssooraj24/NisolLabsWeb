@@ -228,7 +228,7 @@ export function generateDataStrategyHTML(report: any, audit: any, options: DataS
     <div class="section-title">1. Enterprise Data Quality Assessment (5 Dimensions)</div>
     
     <p>
-      McKinsey research demonstrates that 87% of AI initiative failures stem from unresolved data pipeline and hygiene bottlenecks. This evaluation establishes the baseline data quality posture for <strong>${tenantName}</strong>.
+      Industry empirical research demonstrates that 87% of AI initiative failures stem from unresolved data pipeline and hygiene bottlenecks. This evaluation establishes the baseline data quality posture for <strong>${tenantName}</strong>.
     </p>
 
     <table class="table-custom">

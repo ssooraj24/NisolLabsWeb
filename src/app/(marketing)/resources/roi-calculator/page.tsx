@@ -642,7 +642,7 @@ export default function ROICalculatorPage() {
                   </p>
                   <div className="pt-4 flex justify-center gap-4">
                     <Button href="/contact?package=One" variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                      Apply for Discovery Session →
+                      Apply for Nisol 360™ →
                     </Button>
                     <Button onClick={() => setCurrentStep(1)} variant="navy" size="md" icon={<RotateCcw className="w-4 h-4" />}>
                       Recalculate

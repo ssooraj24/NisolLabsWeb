@@ -30,7 +30,7 @@ export function DeliveryModelsSection() {
             Your AI Transformation, <span className="gradient-text-gold">Your Way.</span>
           </h2>
           <p className="text-navy-200 text-base sm:text-lg leading-relaxed">
-            We don't lock you into a single delivery model. Following the Nisol Discovery™ phase, you choose how to execute based on your internal capabilities.
+            We don't lock you into a single delivery model. Following the Nisol 360™ phase, you choose how to execute based on your internal capabilities.
           </p>
         </div>
 

@@ -1,182 +1,305 @@
+"use client";
+
 import React from "react";
-import { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
   ShieldCheck,
-  Zap,
-  Lock,
-  Sparkles,
-  FileCheck,
   CheckCircle2,
   XCircle,
-  Clock,
+  FileCheck,
+  Zap,
+  Lock,
   Award,
-  Globe,
-  Code2,
-  Users,
   Layers,
-  Check
+  Sparkles,
+  Server,
+  Database,
+  Cpu,
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { COMPANY } from "@/data/company";
-
-export const metadata: Metadata = {
-  title: "About Nisol AI | Enterprise Intelligence Partner",
-  description: "Founded in August 2026 by senior architects with over two decades of enterprise systems leadership, Nisol AI builds production-grade enterprise intelligence systems with zero vendor lock-in.",
-};
-
-const ANTI_CONSULTING_COMPARISON = [
-  {
-    category: "Team Architecture",
-    traditional: "47-person junior team learning on your dollar",
-    nisol: "Founding master architect pod with 40+ years combined industry experience",
-  },
-  {
-    category: "Incentive Model",
-    traditional: "Billed by the hour — financially rewarded for delays",
-    nisol: "Fixed-price by outcome — engineered for rapid, flawless delivery",
-  },
-  {
-    category: "Delivery Speed",
-    traditional: "6 months of discovery meetings & discovery decks",
-    nisol: "7–11 business days to a complete, board-approved roadmap",
-  },
-  {
-    category: "IP & Code Ownership",
-    traditional: "Proprietary vendor lock-in & managed hosting traps",
-    nisol: "100% Sovereign IP — you own every repo, weight, and dataset",
-  },
-  {
-    category: "Deliverable Standard",
-    traditional: "Generic 120-slide PowerPoint that gathers dust",
-    nisol: "Museum-grade board dossier with CFO cash-flow models & PoC gates",
-  },
-];
 
 const CORE_PRINCIPLES = [
   {
-    number: "01",
-    title: "Radical Clarity",
-    description: "No buzzwords. No techno-babble. Every enterprise decision is framed with mathematical certainty and business truth.",
-    icon: Sparkles,
+    n: "01",
+    t: "Audit Maturity First. Then Architect Transformation.",
+    d: "We audit enterprise AI maturity across 62 dimensions of data hygiene, security, and unit economics before anyone writes code. That's why 73% of enterprise AI projects fail before production, and ours don't.",
   },
   {
-    number: "02",
-    title: "Outcome Over Effort",
-    description: "We don't celebrate hours worked. We measure impact in EBITDA expansion, operational latency reduction, and hard ROI.",
-    icon: Zap,
+    n: "02",
+    t: "Own Your Intelligence.",
+    d: "Your intelligence belongs inside your perimeter. We deliver architecture, not dependency. Client infra pass-through. You pay AWS directly. You own the Blueprint. Build with us, or anyone.",
   },
   {
-    number: "03",
-    title: "Sovereign Intelligence",
-    description: "Your intelligence belongs inside your perimeter. We engineer systems that give you total autonomy, with zero vendor lock-in.",
-    icon: Lock,
+    n: "03",
+    t: "Board-Ready or It Doesn't Ship.",
+    d: "Every dossier must pass CFO review Monday morning: DCF, NPV, IRR, 4 Go-Live Gates, Stop-the-Clock. If it can't be presented to the board with mathematical certainty, we don't ship it.",
+  },
+];
+
+const FOUNDERS = [
+  {
+    initials: "SR",
+    name: "Ssooraj Rauth",
+    role: "Co-Founder & Chief AI Architect",
+    experience: "24+ Years Enterprise Systems",
+    bio: "Cloud-native platforms to LLMOps & multi-agent orchestration. Former enterprise engineering director leading mission-critical architectures across BFSI, retail, and global cloud systems.",
+    focus: ["Distributed Architecture", "LLMOps & Agent Mesh", "Zero-Trust Security", "Latency & Cost SLAs"],
   },
   {
-    number: "04",
-    title: "Museum-Grade Craftsmanship",
-    description: "Every report, architecture blueprint, and code commit is crafted with unreasonable precision. Designed to be shown to the board.",
-    icon: Award,
+    initials: "A",
+    name: "Amol",
+    role: "Co-Founder & Head of Data Engineering",
+    experience: "18+ Years Data Platforms",
+    bio: "Real-time pipelines, lakehouses, vector DBs & knowledge graphs. Every enterprise AI system stands on data he architects. Built high-scale telemetry for national-scale infrastructure.",
+    focus: ["Enterprise Lakehouse", "Vector Search & RAG", "Data Lineage & Governance", "Real-Time Streaming"],
+  },
+];
+
+const ANTI_CONSULTING_COMPARISON = [
+  {
+    dimension: "Team Architecture",
+    traditional: "40-person junior team learning on your dollar",
+    agency: "Boutique devs rushing unvetted code",
+    nisol: "Master enterprise architects with 40+ years combined systems engineering",
+  },
+  {
+    dimension: "Discovery Phase",
+    traditional: "6 months of discovery meetings & slide decks",
+    agency: "Hasty code repo without architecture",
+    nisol: "7–11 days. 100% code-free. Complete 30-360 Blueprint you own",
+  },
+  {
+    dimension: "Incentive Model",
+    traditional: "Billed by the hour — financially rewarded for delays",
+    agency: "Monthly retainer milestone lock",
+    nisol: "Fixed outcome — Stop-the-Clock & No-Blame Exit guarantee",
+  },
+  {
+    dimension: "IP & Infrastructure",
+    traditional: "Proprietary vendor lock-in & managed hosting traps",
+    agency: "Proprietary wrappers hosted on agency cloud",
+    nisol: "100% Sovereign IP — direct client cloud pass-through (you pay AWS directly)",
+  },
+  {
+    dimension: "Deliverable Standard",
+    traditional: "120-slide PowerPoint that gathers dust",
+    agency: "Fragile demo repo failing security audit",
+    nisol: "Museum-grade dossier: Architecture specs, CFO models (NPV/IRR), 4 Go-Live Gates",
   },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="space-y-28 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* 1. HERO: EMOTION-LED MANIFESTO */}
-      <section className="text-center max-w-4xl mx-auto space-y-6 pt-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
-          <Sparkles className="w-3.5 h-3.5 text-golden-400" />
-          <span>Founded August 2026 • Enterprise AI Systems</span>
-        </div>
+    <div className="min-h-screen bg-[#FBF8F3] text-slate-900 selection:bg-[#D4A24E]/20">
+      
+      {/* 1. HERO SECTION: TESLA / APPLE SCALE */}
+      <section className="bg-[#0C1731] text-white pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-[#1B2D5B] relative overflow-hidden">
+        {/* Subtle ambient lighting */}
+        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#D4A24E]/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-[#1B2D5B]/30 rounded-full blur-[100px] pointer-events-none" />
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-navy-950 tracking-tight leading-[1.08]">
-          We don't build prototypes. <br />
-          <span className="bg-gradient-to-r from-golden-500 via-amber-400 to-golden-600 bg-clip-text text-transparent">
-            We awaken enterprises.
-          </span>
-        </h1>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl space-y-8">
+            
+            {/* Pill */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#101D3D] border border-[#D4A24E]/40 text-[#D4A24E] text-xs font-mono font-bold tracking-wider uppercase shadow-inner">
+              <span className="w-2 h-2 rounded-full bg-[#D4A24E] animate-pulse" />
+              <span>Enterprise Intelligence System Architect • Founded August 2026</span>
+            </div>
 
-        <p className="text-xl sm:text-2xl text-navy-700/90 leading-relaxed font-medium max-w-3xl mx-auto pt-2">
-          "Founded in August 2026, Nisol AI brings two decades of enterprise engineering leadership to build sovereign, production-grade intelligence."
-        </p>
+            {/* Headline */}
+            <h1 className="text-5xl sm:text-7xl lg:text-[96px] font-black tracking-[-0.04em] leading-[0.92] text-white">
+              We Architect. <br />
+              <span className="text-[#D4A24E]">You Own.</span>
+            </h1>
 
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-            Apply for Discovery →
-          </Button>
-          <Button href="/pricing" variant="navy" size="lg">
-            Explore Product Hierarchy
-          </Button>
+            {/* Core Narrative / Left-Border Manifesto */}
+            <div className="mt-8 border-l-2 border-[#D4A24E] pl-6 sm:pl-8 space-y-5 max-w-3xl">
+              <p className="text-xl sm:text-2xl text-slate-200 font-medium leading-relaxed tracking-tight">
+                Nisolai was founded on one observation: Enterprise AI didn&apos;t fail because models are weak. It failed because nobody stopped to think first.
+              </p>
+              <p className="text-base sm:text-lg text-slate-400 leading-relaxed font-normal">
+                In 2024, boards demanded AI. Consultancies sent 40-person teams billing millions for demo wrappers that hallucinated, leaked PII, and died in security review.
+              </p>
+              <p className="text-base sm:text-lg text-white font-semibold leading-relaxed">
+                We are Intelligence Architects — we audit enterprise AI maturity (Nisol Score™) and architect end-to-end AI transformation (Nisol 360™). We don&apos;t build disposable demo PoCs. We engineer board-ready 30-360 architectures in 7 days. Zero code in discovery. Zero vendor lock-in. You own it.
+              </p>
+            </div>
+
+            {/* Telemetry Status Strip */}
+            <div className="pt-8 border-t border-[#1B2D5B] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+              <div className="flex items-center gap-2 text-slate-300">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="font-bold text-white uppercase tracking-wider">System Status: Architecting</span>
+                <span className="hidden sm:inline text-slate-500">•</span>
+                <span className="hidden sm:inline text-slate-400">Master enterprise architects per engagement</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-[#D4A24E] font-bold">Cohort: 2/5 Left</span>
+                <span className="text-slate-600">|</span>
+                <span className="text-slate-400">48h Direct Review</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
-      {/* 2. THE EMOTIONAL TRUTH: WHY WE EXIST */}
-      <section className="max-w-4xl mx-auto">
-        <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-14 border border-navy-800 shadow-2xl space-y-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-golden-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* 2. THE OPERATING CODE (THE 3 PRINCIPLES) */}
+      <section className="py-20 sm:py-28 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto text-center mb-16 space-y-4">
+          <Badge variant="golden" className="mx-auto font-mono">OUR OPERATING CODE</Badge>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#1B2D5B] tracking-tight">
+            The Code We Live By.
+          </h2>
+          <div className="w-12 h-1 bg-[#D4A24E] mx-auto rounded-full" />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {CORE_PRINCIPLES.map((principle) => (
+            <div
+              key={principle.n}
+              className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+            >
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-base font-mono font-black text-[#D4A24E]">
+                    {principle.n}
+                  </span>
+                  <span className="w-8 h-px bg-slate-200" />
+                </div>
+                <h3 className="text-2xl font-bold text-[#1B2D5B] tracking-tight group-hover:text-[#D4A24E] transition-colors">
+                  {principle.t}
+                </h3>
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                  {principle.d}
+                </p>
+              </div>
+
+              <div className="pt-8 mt-8 border-t border-slate-100 flex items-center gap-2 text-xs font-mono text-slate-500">
+                <ShieldCheck className="w-4 h-4 text-[#D4A24E]" />
+                <span>Institutional Standard</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. THE ARCHITECTS: DIRECT ENGAGEMENT */}
+      <section id="leadership" className="py-20 sm:py-28 bg-[#101D3D] text-white border-y border-[#1B2D5B]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="space-y-4">
-            <span className="text-xs uppercase tracking-widest text-golden-400 font-bold">The Core Belief</span>
-            <h2 className="text-2xl sm:text-4xl font-black text-white leading-tight">
-              Enterprise AI didn't fail because of the models. <br />
-              <span className="text-golden-400">It failed because nobody stopped to think first.</span>
+          <div className="max-w-2xl mb-16 space-y-4">
+            <Badge variant="golden" className="font-mono">FOUNDING ARCHITECTS</Badge>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+              Architects, Not <br />Account Managers.
             </h2>
+            <p className="text-base sm:text-lg text-slate-300">
+              When you engage Nisolai, you work directly with the systems architects who design the architecture. No junior developers. No handoffs.
+            </p>
           </div>
 
-          <div className="space-y-5 text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-            <p>
-              In 2024, the world rushed into generative AI. Boards demanded immediate adoption. Consultancies responded by deploying 40-person teams that billed millions for demo wrappers that crashed in production. Hallucinations went undetected, token costs skyrocketed, and security teams shut projects down.
-            </p>
-            <p>
-              We watched companies treat AI as an IT accessory rather than what it truly is: <strong className="text-white">a fundamental reimagination of how an enterprise thinks, decides, and executes.</strong>
-            </p>
-            <p className="border-l-2 border-golden-400 pl-4 text-white font-medium italic">
-              Nisol AI was founded in August 2026 on a radically simple principle: Bring two senior enterprise architects into a room with leadership, audit 62 dimensions of capability and data hygiene in 7 days, and deliver a strategy so clear and mathematically sound that the board approves it on Monday morning.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {FOUNDERS.map((founder) => (
+              <div
+                key={founder.name}
+                className="bg-[#0C1731] p-8 sm:p-10 rounded-2xl border border-[#1B2D5B] flex flex-col justify-between space-y-8 hover:border-[#D4A24E]/60 transition-all shadow-xl"
+              >
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    {/* Initials Avatar */}
+                    <div className="w-16 h-16 rounded-2xl bg-[#D4A24E] text-[#101D3D] font-black text-2xl flex items-center justify-center shadow-lg">
+                      {founder.initials}
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-[#101D3D] border border-[#1B2D5B] text-xs font-mono text-[#D4A24E]">
+                      {founder.experience}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-black text-white">{founder.name}</h3>
+                    <p className="text-xs font-mono uppercase tracking-wider text-[#D4A24E] mt-1 font-bold">
+                      {founder.role}
+                    </p>
+                  </div>
+
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    {founder.bio}
+                  </p>
+
+                  <div className="space-y-2 pt-2">
+                    <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">Architectural Focus:</div>
+                    <div className="flex flex-wrap gap-2">
+                      {founder.focus.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-1 rounded-lg bg-[#101D3D] border border-[#1B2D5B] text-slate-300 text-xs font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-[#1B2D5B] flex items-center justify-between text-xs font-mono text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#D4A24E]" />
+                    <span className="text-white font-semibold">Direct Engagement Pod</span>
+                  </div>
+                  <span>Pune • Mumbai • Global</span>
+                </div>
+              </div>
+            ))}
           </div>
+
         </div>
       </section>
 
-      {/* 3. BUILT DIFFERENT: THE ANTI-CONSULTING CONTRAST */}
-      <section className="space-y-10 max-w-5xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Badge variant="golden" className="mx-auto">Anti-Consulting Philosophy</Badge>
-          <h2 className="text-3xl sm:text-5xl font-black text-navy-950 tracking-tight">
+      {/* 4. THE ANTI-CONSULTING CONTRAST MATRIX */}
+      <section className="py-20 sm:py-28 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto text-center mb-16 space-y-4">
+          <Badge variant="golden" className="mx-auto font-mono">DISRUPTION MATRIX</Badge>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#1B2D5B] tracking-tight">
             Built Different.
           </h2>
-          <p className="text-base text-navy-700/80">
-            Why the world's most ambitious executives choose a 2-person architect pod over Big-4 consulting armies.
+          <p className="text-base sm:text-lg text-slate-600">
+            Why enterprise leadership chooses a 2-person master architect pod over 40-person consulting armies.
           </p>
+          <div className="w-12 h-1 bg-[#D4A24E] mx-auto rounded-full" />
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
-          <div className="grid grid-cols-12 bg-navy-950 text-white p-5 text-xs uppercase tracking-wider font-bold border-b border-navy-800">
-            <div className="col-span-4 sm:col-span-3 text-slate-400">Dimension</div>
-            <div className="col-span-4 sm:col-span-4 text-rose-400 flex items-center gap-1.5">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
+          {/* Table Header */}
+          <div className="grid grid-cols-12 bg-[#101D3D] text-white p-4 sm:p-5 text-xs font-mono font-bold uppercase tracking-wider border-b border-[#1B2D5B]">
+            <div className="col-span-3 text-slate-400">Dimension</div>
+            <div className="col-span-4 text-rose-300 flex items-center gap-1.5">
               <XCircle className="w-4 h-4 text-rose-400" />
-              <span>Industry Default</span>
+              <span>Traditional Consulting Armies</span>
             </div>
-            <div className="col-span-4 sm:col-span-5 text-golden-400 flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-golden-400" />
-              <span>The Nisol AI Standard</span>
+            <div className="col-span-5 text-[#D4A24E] flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-[#D4A24E]" />
+              <span>Nisolai Standard</span>
             </div>
           </div>
 
+          {/* Table Rows */}
           <div className="divide-y divide-slate-100">
             {ANTI_CONSULTING_COMPARISON.map((row, idx) => (
-              <div key={idx} className="grid grid-cols-12 p-5 sm:p-6 items-center gap-3 text-sm hover:bg-slate-50/80 transition-colors">
-                <div className="col-span-12 sm:col-span-3 font-bold text-navy-950 text-xs sm:text-sm">
-                  {row.category}
+              <div
+                key={idx}
+                className="grid grid-cols-12 p-5 sm:p-6 items-center gap-3 text-sm hover:bg-slate-50 transition-colors"
+              >
+                <div className="col-span-12 sm:col-span-3 font-bold text-[#1B2D5B]">
+                  {row.dimension}
                 </div>
                 <div className="col-span-6 sm:col-span-4 text-slate-500 text-xs sm:text-sm flex items-start gap-2">
                   <span className="text-rose-500 font-bold shrink-0">✕</span>
                   <span>{row.traditional}</span>
                 </div>
-                <div className="col-span-6 sm:col-span-5 text-navy-950 font-semibold text-xs sm:text-sm flex items-start gap-2">
-                  <span className="text-emerald-500 font-bold shrink-0">✓</span>
+                <div className="col-span-6 sm:col-span-5 text-[#101D3D] font-semibold text-xs sm:text-sm flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold shrink-0">✓</span>
                   <span>{row.nisol}</span>
                 </div>
               </div>
@@ -185,175 +308,77 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. THE FOUR CORE PRINCIPLES */}
-      <section className="space-y-12 max-w-6xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Badge variant="golden" className="mx-auto">Our Operating Code</Badge>
-          <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
-            The Principles That Guide Every Engagement
+      {/* 5. DELIVERABLES ENGINEERED FOR THE BOARDROOM */}
+      <section className="py-16 sm:py-20 bg-[#0C1731] text-white border-y border-[#1B2D5B]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          <Badge variant="golden" className="mx-auto font-mono">EXECUTIVE RIGOR</Badge>
+          
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+            Deliverables Engineered <br />for the Boardroom.
           </h2>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CORE_PRINCIPLES.map((principle, idx) => {
-            const Icon = principle.icon;
-            return (
-              <div
-                key={idx}
-                className="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-navy-900 text-golden-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-mono font-bold text-slate-400">{principle.number}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-navy-950 mb-2">{principle.title}</h3>
-                  <p className="text-xs sm:text-sm text-navy-700/85 leading-relaxed">
-                    {principle.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 5. THE ARCHITECTS: SOVEREIGN SYSTEMS THINKERS */}
-      <section id="leadership" className="space-y-10 max-w-6xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Badge variant="golden" className="mx-auto">Leadership & Architects</Badge>
-          <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
-            Architects, Not Account Managers.
-          </h2>
-          <p className="text-base text-navy-700/80">
-            When you engage Nisol AI, you work directly with the systems architects who design and write the core.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {COMPANY.founders.slice(0, 2).map((founder, idx) => (
-            <div key={idx} className="bg-white rounded-3xl p-8 border border-slate-200 shadow-md flex flex-col justify-between hover:border-golden-400/50 transition-all">
-              <div className="space-y-5">
-                <div className="flex items-center gap-5">
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden relative border-2 border-golden-500/40 shrink-0 bg-navy-950">
-                    <img src={founder.image} alt={founder.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-navy-950">{founder.name}</h3>
-                    <p className="text-xs font-bold text-golden-700 uppercase tracking-wider">{founder.role}</p>
-                    <span className="inline-block mt-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      Co-Founder & Systems Architect
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-sm text-navy-700/90 leading-relaxed">
-                  {founder.bio}
-                </p>
-              </div>
-
-              <div className="pt-6 border-t border-slate-100 flex items-center justify-between mt-6">
-                <span className="text-xs text-slate-500 font-medium">
-                  Direct engagement on every audit
-                </span>
-                <div className="flex items-center gap-3 text-navy-600">
-                  <a href={founder.linkedin} className="hover:text-golden-600 transition-colors" title="LinkedIn Profile">
-                    <Globe className="w-4 h-4" />
-                  </a>
-                  <a href={founder.github} className="hover:text-golden-600 transition-colors" title="Code Repository">
-                    <Code2 className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <div className="px-5 py-3 rounded-xl bg-[#101D3D] border border-[#1B2D5B] text-slate-200 text-sm font-medium flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#D4A24E]" />
+              <span>Zero Slide Deck Bloat</span>
             </div>
-          ))}
-        </div>
-
-        {/* Emerging Engineers */}
-        {COMPANY.founders[2] && (
-          <div className="max-w-3xl mx-auto bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col sm:flex-row items-center gap-5">
-            <div className="w-14 h-14 rounded-full overflow-hidden border border-golden-400 shrink-0 bg-navy-900">
-              <img src={COMPANY.founders[2].image} alt={COMPANY.founders[2].name} className="w-full h-full object-cover" />
+            <div className="px-5 py-3 rounded-xl bg-[#101D3D] border border-[#1B2D5B] text-slate-200 text-sm font-medium flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#D4A24E]" />
+              <span>CFO Cash-Flow Models (NPV / IRR)</span>
             </div>
-            <div className="space-y-1 text-center sm:text-left flex-1">
-              <div className="flex items-center justify-center sm:justify-start gap-2">
-                <h4 className="font-bold text-navy-950 text-sm">{COMPANY.founders[2].name}</h4>
-                <span className="text-[10px] bg-navy-100 text-navy-800 font-semibold px-2 py-0.5 rounded">
-                  {COMPANY.founders[2].role}
-                </span>
-              </div>
-              <p className="text-xs text-navy-600 leading-relaxed">
-                {COMPANY.founders[2].bio}
-              </p>
+            <div className="px-5 py-3 rounded-xl bg-[#101D3D] border border-[#1B2D5B] text-slate-200 text-sm font-medium flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#D4A24E]" />
+              <span>Deterministic Go-Live Audit Gates</span>
             </div>
           </div>
-        )}
-      </section>
 
-      {/* 6. MUSEUM-GRADE DELIVERABLES STANDARD */}
-      <section className="max-w-5xl mx-auto bg-navy-950 text-white rounded-3xl p-8 sm:p-12 border border-golden-500/20 shadow-2xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-7 space-y-4">
-            <span className="text-xs uppercase tracking-widest text-golden-400 font-bold">Unboxing Intelligence</span>
-            <h2 className="text-2xl sm:text-4xl font-black text-white leading-tight">
-              Deliverables Engineered for the Boardroom.
-            </h2>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              Every deliverable leaving Nisol AI follows museum-grade unboxing principles: cloth-bound physical executive portfolios, clear CFO financial sensitivity models, and deterministic architectural blueprints.
-            </p>
-            <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-slate-200">
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-golden-400" />
-                <span>Zero Slide Deck Bloat</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-golden-400" />
-                <span>CFO Cash-Flow Models</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-golden-400" />
-                <span>Deterministic PoC Gates</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-golden-400" />
-                <span>Full Source Code Ownership</span>
-              </div>
-            </div>
-          </div>
-          <div className="lg:col-span-5 bg-navy-900/90 rounded-2xl p-6 border border-navy-700 text-center space-y-4">
-            <div className="text-3xl font-black text-golden-400">7–11 Days</div>
-            <div className="text-xs text-slate-300 font-medium">
-              Average turnaround from Discovery kickoff to Board Memorandum presentation.
-            </div>
-            <div className="pt-2">
-              <Button href="/contact" variant="primary" size="md" className="w-full justify-center">
-                Apply for Discovery →
-              </Button>
-            </div>
+          <div className="pt-4 text-xs sm:text-sm font-mono text-[#D4A24E] uppercase tracking-wider">
+            7–11 Days Average: Kickoff to Board Memorandum • Stop-the-Clock Clause Included
           </div>
         </div>
       </section>
 
-      {/* 7. CONTROLLED SCARCITY CLOSE */}
-      <section className="text-center max-w-3xl mx-auto space-y-5 pb-8">
-        <Badge variant="golden" className="mx-auto">Controlled Scarcity</Badge>
-        <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
+      {/* 6. CONTROLLED SCARCITY & APPLICATION CLOSER */}
+      <section className="py-20 sm:py-28 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <Badge variant="golden" className="mx-auto font-mono">CONTROLLED SCARCITY</Badge>
+
+        <h2 className="text-3xl sm:text-5xl font-black text-[#1B2D5B] tracking-tight">
           We Partner With Only 5 New Enterprises Each Month.
         </h2>
-        <p className="text-base text-navy-700/85 max-w-2xl mx-auto">
-          We reject the agency model of infinite scaling with junior developers. We take only 5 accounts per month so our founding architects can dedicate full focus to your transformation.
-        </p>
-        <div className="pt-4">
-          <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-            Apply for Discovery Session →
-          </Button>
+
+        <div className="space-y-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p>
+            We reject the agency model of infinite scaling with junior developers. Master enterprise architects per engagement.
+          </p>
+          <p className="text-sm text-slate-500">
+            Applications are reviewed directly by master enterprise architects within 48 hours. Mutual NDA provided prior to any technical review.
+          </p>
+          <div className="text-2xl font-black text-[#D4A24E] pt-2 font-mono">
+            Cohort: 2/5 Nisol 360™ Left.
+          </div>
         </div>
-        <p className="text-xs text-slate-400">
-          Applications reviewed within 48 hours • Mutual NDA provided prior to review
+
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href="/contact"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#D4A24E] hover:bg-[#E5B25B] text-[#101D3D] font-black text-base shadow-xl hover:shadow-2xl transition-all duration-200 active:scale-[0.98] group gap-2.5"
+          >
+            <span>Apply for Nisol 360™ — 48h Response</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            href="/discovery"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-[#1B2D5B] font-bold text-base border border-slate-300 shadow-sm transition-all duration-200"
+          >
+            See The 30-360 Deliverable Dossier
+          </Link>
+        </div>
+
+        <p className="text-xs text-slate-400 pt-3 font-mono">
+          Strict Non-Disclosure Guarantee • Direct Partner Access • Zero Lock-in Handover
         </p>
       </section>
+
     </div>
   );
 }

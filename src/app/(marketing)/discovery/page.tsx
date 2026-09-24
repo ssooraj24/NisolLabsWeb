@@ -1,589 +1,763 @@
-import React from "react";
-import { Metadata } from "next";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import { 
-  Compass, 
-  Search, 
+  ArrowRight, 
+  Sparkles, 
+  Check, 
   CheckCircle2, 
-  FileText, 
-  Calculator, 
-  HelpCircle, 
-  Send,
-  ArrowRight,
-  ShieldCheck,
-  Zap,
-  Layers,
-  Cpu,
-  BarChart3,
-  Sparkles,
-  Lock,
-  Clock,
+  Clock, 
+  Lock, 
+  FileCheck, 
+  ShieldCheck, 
+  Layers, 
+  ChevronRight,
   TrendingUp,
-  FileCheck,
-  Check,
+  AlertTriangle,
+  Building,
+  Cpu,
+  FileText,
+  Compass,
   X as XIcon,
-  Bot,
-  UserCheck,
-  Building2,
-  Download,
-  Award
+  HelpCircle,
+  Database,
+  BarChart3
 } from "lucide-react";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { InvestmentEstimator } from "@/components/discovery/InvestmentEstimator";
-import { BoardDeliverablesGrid } from "@/components/discovery/BoardDeliverablesGrid";
-import { PricingJustificationSection } from "@/components/shared/PricingJustificationSection";
-import { ZeroLockInGuarantee } from "@/components/shared/ZeroLockInGuarantee";
-import { WhyFasterInclusions } from "@/components/discovery/WhyFasterInclusions";
 
-export const metadata: Metadata = {
-  title: "Nisol Discovery™ | Enterprise Intelligence Architecture in 7 Days",
-  description: "Two senior AI architects. 62 capability dimensions. A museum-grade board dossier your CFO can present on Monday morning. Fixed-price, outcome-based engagements.",
-};
+// 15 Capabilities for Novatech Dossier Radar Visual
+const CAPABILITIES_15 = [
+  { name: "Data Hygiene & Prep", baseline: 32, target: 88 },
+  { name: "Vector Search & Retrieval", baseline: 40, target: 92 },
+  { name: "Agent Governance", baseline: 20, target: 85 },
+  { name: "Hallucination Guardrails", baseline: 25, target: 90 },
+  { name: "Unit Economics & OPEX", baseline: 30, target: 94 },
+  { name: "Latency & SLA Control", baseline: 45, target: 89 },
+  { name: "Model Fine-Tuning", baseline: 18, target: 80 },
+  { name: "Security & Zero Trust", baseline: 35, target: 95 },
+  { name: "Lakehouse Architecture", baseline: 28, target: 86 },
+  { name: "Multi-Agent Systems", baseline: 15, target: 84 },
+  { name: "Continuous Evaluation", baseline: 22, target: 91 },
+  { name: "Fallback & Failovers", baseline: 30, target: 88 },
+  { name: "Cost Observability", baseline: 38, target: 96 },
+  { name: "Regulatory Compliance", baseline: 26, target: 90 },
+  { name: "Enterprise API Mesh", baseline: 42, target: 93 }
+];
 
-const DIFFERENTIATOR_MATRIX = [
+// Differentiator Comparison
+const SPEED_COMPARISON = [
   {
-    dimension: "Speed to Insight",
-    traditional: "8–12 Weeks (Consulting Drag)",
-    nisol: "7–11 Business Days (3 Days for Spark)",
-    highlight: true
+    dimension: "Speed & Timeline",
+    traditional: "8–12 weeks consulting drag",
+    nisol: "7–11 business days, fixed"
   },
   {
     dimension: "Architect Caliber",
     traditional: "Junior analysts learning on your budget",
-    nisol: "2-Person Master Architect Pod (40+ Yrs Enterprise Experience)",
-    highlight: true
+    nisol: "2-Person Master Architect Pod (40+ yrs)"
   },
   {
-    dimension: "Deliverable Standard",
+    dimension: "Deliverable Format",
     traditional: "Generic 120-slide PowerPoint decks",
-    nisol: "15 Museum-Grade Board Deliverables & CFO Financial Models",
-    highlight: true
+    nisol: "3-Pack Board Dossier + CFO Model"
   },
   {
-    dimension: "Financial Justification",
-    traditional: "Vague high-level assumptions",
-    nisol: "Deterministic DCF, NPV, IRR (44.5%) & 3-Scenario Stress Tests",
-    highlight: false
-  },
-  {
-    dimension: "Pricing Model",
+    dimension: "Commercial Model",
     traditional: "Open-ended time & materials",
-    nisol: "Transparent Fixed-Price SOW by Outcome",
-    highlight: true
+    nisol: "Fixed-price SOW by outcome"
   },
   {
-    dimension: "IP & Code Ownership",
+    dimension: "Architecture Ownership",
     traditional: "Proprietary vendor lock-in",
-    nisol: "100% Sovereign IP — You Own Every Line of Code Forever",
-    highlight: true
+    nisol: "100% Blueprint ownership — no dependency"
   }
 ];
 
-const PACKAGES = [
-  {
-    name: "Nisol Spark",
-    badge: "FIRST LOOK",
-    price: "₹1,50,000",
-    priceSub: "$1,800 USD • Fixed-Price 3-Day Sprint",
-    duration: "3 Business Days",
-    ideal: "For companies wanting a fast, laser-focused evaluation of AI opportunities, token spend, or data compliance before full commitment.",
-    ctaText: "Apply for Spark Sprint →",
-    ctaLink: "/contact?package=Spark",
-    popular: false,
-    features: [
-      "Choice of 1 Focus Track: Opportunity Sprint OR Cost Audit OR Compliance Check",
-      "Rapid 3-day evaluation by Senior AI Architect",
-      "Identification of Top 5 High-Impact Use Cases or Token Savings",
-      "8–10 Page Executive Intelligence Brief",
-      "Direct 100% credit toward Nisol One if upgraded within 30 days"
-    ]
-  },
-  {
-    name: "Nisol One",
-    badge: "THE BEGINNING",
-    price: "₹4,50,000",
-    priceSub: "$5,500 USD • Fixed-Price SOW",
-    duration: "7–11 Business Days",
-    ideal: "For growing organizations seeking a rapid 360° evaluation across all 15 business capabilities.",
-    ctaText: "Apply for Nisol One →",
-    ctaLink: "/contact?package=One",
-    popular: false,
-    features: [
-      "Full 360° Diagnostic across ALL 15 Capabilities (62 Questions)",
-      "Sector Benchmarking against 8 Industry Vertical Profiles",
-      "Executive AI Readiness Assessment & Maturity Scorecard",
-      "2D Opportunity Bubble Matrix & Top 5 Prioritized Quick Wins",
-      "Wave 1 (M 0–3) Transformation Roadmap & Lumpsum Capital Budget",
-      "Basic Regulatory Risk Stance (DPDP / EU AI Act)",
-      "Executive Readout & Findings Session"
-    ]
-  },
-  {
-    name: "Nisol Pro",
-    badge: "MOST POPULAR",
-    price: "₹8,50,000",
-    priceSub: "$10,500 USD • Fixed-Price SOW",
-    duration: "10–15 Business Days",
-    ideal: "For mid-market enterprises needing board-ready financial models, architecture blueprints, and staff upskilling.",
-    ctaText: "Apply for Nisol Pro →",
-    ctaLink: "/contact?package=Pro",
-    popular: true,
-    features: [
-      "Everything in Nisol One, plus:",
-      "CFO & Board Investment Memorandum (DCF, NPV & IRR)",
-      "3-Scenario Sensitivity Stress Test (75%–125% adoption)",
-      "Data Strategy & Vector Architecture Blueprint (5-Dimension Scorecard)",
-      "15 Departmental Action Briefs (Operational Friction & Target Outcomes)",
-      "5×5 Risk & Regulatory Register (DPDP Act 2023 / EU AI Act)",
-      "Organizational Change Management (OCM) & RACI Governance",
-      "2 Workforce Training Tracks Included",
-      "Solution Blueprints for Top 5 Priority AI Use Cases"
-    ]
-  },
-  {
-    name: "Nisol Enterprise",
-    badge: "THE FULL VISION",
-    price: "₹18,50,000+",
-    priceSub: "$22,500+ USD • Phased Transformation",
-    duration: "4–8 Weeks",
-    ideal: "For multi-entity conglomerates requiring custom sovereign architectures, pilot evaluation gates, and CoE charter.",
-    ctaText: "Apply for Enterprise →",
-    ctaLink: "/contact?package=Enterprise",
-    popular: false,
-    features: [
-      "Everything in Nisol Pro, plus:",
-      "PoC Decision Gate & Acceptance Protocol (SLA Benchmarks & Gate 0–4 Sign-off)",
-      "Shadow AI Exposure & Zero-Trust PII Gateway Spec",
-      "Vendor Dependency, Multi-LLM Lock-In & Switch-Cost Teardown",
-      "36-Month 3-Horizon Strategic Roadmap",
-      "Valuation Multiple Expansion Modeling (15%–25% multiple premium)",
-      "Full 3-Track Enablement Suite Included",
-      "AI Center of Excellence (CoE) Charter & Multi-Entity Governance"
-    ]
-  }
-];
-
+// The 3-Pack Board Dossier (15 Reports)
 const DELIVERABLE_PACKS = [
   {
-    title: "Executive Intelligence Pack",
-    deliverables: [
-      "1. Executive Summary & Board Thesis",
-      "2. 15-Capability Readiness Stance",
-      "3. C-Suite Dashboard & Maturity Score",
-      "4. Sector Benchmark Scorecard"
-    ],
-    description: "High-level strategic findings, maturity radar charts across 15 capabilities, and C-suite alignment dashboards."
+    id: "pack-01",
+    tag: "PACK 01",
+    title: "BOARD STRATEGY",
+    count: "5 Reports",
+    summary: "For the Board of Directors, CEO, and Investment Committee.",
+    reports: [
+      "CFO & Board Investment Memorandum (DCF, NPV, IRR, 3-scenario stress test + Board Resolution)",
+      "15-Capability Transformation Strategy (vs industry median & leader)",
+      "2D Opportunity Matrix (Top 20 Enterprise Use Cases)",
+      "Single-Pod Roadmap (30 / 60 / 90 / 180 / 360 days)",
+      "Minto Pyramid Executive Brief & Core Thesis"
+    ]
   },
   {
-    title: "AI Opportunity Pack",
-    deliverables: [
-      "5. 2D Opportunity Bubble Matrix",
-      "6. Top 20 Prioritized Use Cases",
-      "7. High-ROI Quick Wins vs. Moonshots",
-      "8. Production Execution Queue"
-    ],
-    description: "Impact vs. Feasibility matrix (2D bubble), catalog of top 20 prioritized use cases, and rapid ROI quick-win categorization."
+    id: "pack-02",
+    tag: "PACK 02",
+    title: "OPPORTUNITY PACK",
+    count: "4 Reports",
+    summary: "For Department Heads, Product Owners, and BU Leaders.",
+    reports: [
+      "2D Bubble Matrix: High-Impact vs Technical Feasibility",
+      "Top 20 Prioritized Enterprise Use Cases Catalog",
+      "High-ROI Quick Wins vs Strategic Moonshot Bets",
+      "Production Execution Queue with Dependency Graph"
+    ]
   },
   {
-    title: "Transformation & Governance Pack",
-    deliverables: [
-      "9. 30/90/180/365-Day Roadmap",
-      "10. CFO Financial Model (NPV/IRR)",
-      "11. Vector Lakehouse Blueprint",
-      "12. Top 5 Solution Blueprints",
-      "13. OCM & RACI Governance",
-      "14. 5x5 DPDP & EU AI Act Risk Dossier",
-      "15. Empirical PoC Gate Protocol"
-    ],
-    description: "Phased roadmap, deterministic CFO benefit projections, data architecture blueprints, risk governance, and empirical pilot gates."
+    id: "pack-03",
+    tag: "PACK 03",
+    title: "TRANSFORMATION & GOVERNANCE",
+    count: "6 Reports",
+    summary: "For CTO, CIO, Chief Data Officer, and SecOps.",
+    reports: [
+      "30/90/180/360-Day Roadmap with KPIs, Capital Budget, RACI",
+      "CFO Operational Financial Model (NPV / IRR / Token OPEX)",
+      "Vector Lakehouse Blueprint (pgvector/Qdrant + Hybrid BM25 + BGE-M3 + CDC + RBAC)",
+      "Top 5 Solution Architectures (Systems specifications, not code)",
+      "Organizational Change Management (OCM) & RACI Matrix",
+      "5x5 DPDP & EU AI Act Risk Matrix + Empirical PoC Gate Protocol"
+    ]
   }
 ];
 
-const TABLE_COMPARISON = [
-  { feature: "Diagnostic Scope", spark: "1 Focus Track (3-5 Depts)", one: "All 15 Capabilities", pro: "All 15 Capabilities", enterprise: "Multi-Entity / Holding Scope" },
-  { feature: "Duration", spark: "3 Business Days", one: "7–11 Business Days", pro: "10–15 Business Days", enterprise: "4–8 Weeks" },
-  { feature: "Senior Architect Engagement", spark: "1 Senior Architect", one: "2 Senior Architects", pro: "2 Senior Architects", enterprise: "Principal Architect Pod" },
-  { feature: "Executive Brief / Dossier", spark: "8–10 Page Brief", one: "30+ Page Board Dossier", pro: "Full 4-Pack Portfolio", enterprise: "Full Portfolio + CoE Charter" },
-  { feature: "CFO Investment Memorandum", spark: "Estimated Range", one: "Basic Budget", pro: "DCF, NPV & IRR (44.5%)", enterprise: "Multi-Entity Financial Model" },
-  { feature: "Data Strategy & Lakehouse", spark: "Hygiene Scan", one: "Readiness Score", pro: "Vector Lakehouse Blueprint", enterprise: "CDC Sync & Sovereign VPC" },
-  { feature: "Governance & Risk Register", spark: "Basic Stance", one: "Regulatory Checklist", pro: "5x5 DPDP/EU AI Act Matrix", enterprise: "Zero-Trust Proxy & Shadow AI" },
-  { feature: "Workforce Training Tracks", spark: "—", one: "Available as Add-On", pro: "2 Tracks Included", enterprise: "Full 3-Track Enablement" },
-  { feature: "PoC Decision Gate Protocol", spark: "—", one: "—", pro: "Standard Gates", enterprise: "Empirical Gate 0–4 SLA Protocol" },
-  { feature: "Client IP Ownership", spark: "100% Client Owned", one: "100% Client Owned", pro: "100% Client Owned", enterprise: "100% Client Owned" },
+// 4 Blueprints Pricing Data
+const BLUEPRINTS = [
+  {
+    id: "spark",
+    name: "Nisol Spark",
+    subtitle: "The First Look Memo",
+    duration: "3 Business Days",
+    inr: "₹1,50,000",
+    usd: "$1,800 USD",
+    summary: "1 Focus Track: AI Opportunity, Cost Audit, or Data Compliance check.",
+    details: [
+      "1 Senior Enterprise Architect",
+      "8–10 Page Executive Brief",
+      "Go / No-Go Memo with unit economics preview",
+      "100% credited toward One if upgraded within 30 days"
+    ],
+    ctaText: "Apply for Spark",
+    popular: false,
+    slotsLeft: null,
+  },
+  {
+    id: "one",
+    name: "Nisol One",
+    subtitle: "Nisol 360™: The 30-360 Architecture",
+    duration: "7–11 Business Days",
+    inr: "₹4,50,000",
+    usd: "$5,500 USD",
+    summary: "Full 62-Q Diagnostic across 15 Capabilities + 8-industry benchmark.",
+    details: [
+      "2 Master Enterprise Architects (Pod)",
+      "Radar + 2D Opportunity Matrix + Top 5 Quick Wins",
+      "30/60/90/180/360-Day Roadmap + Basic Capital Budget",
+      "Executive Readout & Findings Session"
+    ],
+    ctaText: "Apply for One — 2 slots left",
+    popular: true,
+    slotsLeft: "MOST POPULAR",
+  },
+  {
+    id: "pro",
+    name: "Nisol Pro",
+    subtitle: "The Blueprint + Model",
+    duration: "10–15 Business Days",
+    inr: "₹8,50,000",
+    usd: "$10,500 USD",
+    summary: "Everything in One + Full financial model (NPV/IRR) + Lakehouse plan.",
+    details: [
+      "CFO Investment Memo (DCF, NPV, IRR) + 3-scenario stress test",
+      "Vector Lakehouse Blueprint + 5-Dimension Scorecard",
+      "15 Department Action Briefs + 5x5 Risk Register",
+      "OCM & RACI Governance + 2 Training Tracks Included"
+    ],
+    ctaText: "Apply for Pro",
+    popular: false,
+    slotsLeft: null,
+  },
+  {
+    id: "enterprise",
+    name: "Nisol Enterprise",
+    subtitle: "The Full Vision",
+    duration: "4–8 Weeks",
+    inr: "₹18,50,000+",
+    usd: "$22,500+ USD",
+    summary: "Multi-entity architecture, custom AI CoE charter, empirical PoC gates.",
+    details: [
+      "Shadow AI Exposure + Zero-Trust PII Gateway Spec",
+      "Multi-LLM Switch-Cost Teardown & Vendor Dependency Audit",
+      "36-Month 3-Horizon Roadmap + Valuation Multiple Model",
+      "AI Center of Excellence (CoE) Charter & Multi-Entity Governance"
+    ],
+    ctaText: "Apply for Enterprise",
+    popular: false,
+    slotsLeft: null,
+  },
 ];
 
-const FAQS_LIST = [
-  {
-    q: "How does Nisol Discovery™ differ from traditional management consulting?",
-    a: "Traditional consulting relies on junior analysts, months of manual interviews, and generic slide decks. We send two master enterprise architects who audit 62 dimensions in 7 days and deliver museum-grade board dossiers with mathematical CFO models."
-  },
-  {
-    q: "What is the Nisol Spark 100% credit guarantee?",
-    a: "If you start with Nisol Spark (₹1,50,000) and decide to upgrade to Nisol One within 30 days of receiving your brief, 100% of your ₹1.5L fee is credited directly toward Nisol One. You risk nothing."
-  },
-  {
-    q: "How long does the entire engagement take?",
-    a: "Duration is strictly timeboxed: 3 business days for Nisol Spark, 7 to 11 business days for Nisol One, and 10 to 15 business days for Nisol Pro from kickoff to final board readout."
-  },
-  {
-    q: "Is our business data safe during the audit?",
-    a: "Strictly guaranteed. All discussions and data samples are covered by mutual non-disclosure agreements prior to technical review. We enforce zero third-party model training—your data never leaves your secure perimeter."
-  },
-  {
-    q: "What happens after Discovery?",
-    a: "You have complete freedom. With our Zero Lock-In Guarantee, you own every deliverable, architecture blueprint, and line of code. You can build it with your internal team, hire third-party vendors, or engage Nisol AI for scaled execution."
-  }
+const FOUR_GATES = [
+  { gate: "Gate 0", title: "Architecture & Data Audit", desc: "Verifies data hygiene, lakehouse readiness, and token cost models." },
+  { gate: "Gate 1", title: "Citation Accuracy >95%", desc: "Evaluates zero-hallucination thresholds on domain-specific gold sets." },
+  { gate: "Gate 2", title: "Zero-Trust Security & PII", desc: "Validates tenant isolation, encrypted boundaries, and air-gap proxies." },
+  { gate: "Gate 3", title: "Production Economics", desc: "Confirms OPEX per query, latency SLAs, and CFO ROI breakeven." }
 ];
+
+function getRadarCoordinates(values: number[], radius: number, cx: number, cy: number) {
+  const total = values.length;
+  return values.map((val, i) => {
+    const angle = (Math.PI * 2 / total) * i - Math.PI / 2;
+    const r = (val / 100) * radius;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(" ");
+}
 
 export default function DiscoveryPage() {
+  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
+  const [activeCapability, setActiveCapability] = useState<number | null>(null);
+
+  // Radar geometry
+  const size = 520;
+  const cx = size / 2;
+  const cy = size / 2;
+  const radius = 175;
+  const baselineValues = CAPABILITIES_15.map(c => c.baseline);
+  const targetValues = CAPABILITIES_15.map(c => c.target);
+  const baselinePoints = getRadarCoordinates(baselineValues, radius, cx, cy);
+  const targetPoints = getRadarCoordinates(targetValues, radius, cx, cy);
+
   return (
-    <div className="space-y-24 sm:space-y-32 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* ── 1. HERO SECTION ───────────────────────────────────────────── */}
-      <section className="text-center max-w-4xl mx-auto space-y-6 pt-6">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-golden-500/30 text-golden-300 text-xs font-semibold shadow-lg">
-          <Sparkles className="w-3.5 h-3.5 text-golden-400" />
-          <span>The Nisol Discovery™ Framework</span>
+    <div className="bg-[#FBF8F3] text-[#1B2D5B] antialiased">
+      
+      {/* ============================================================ */}
+      {/* 1. HERO SECTION (Apple / Tesla Style Product Reveal)          */}
+      {/* ============================================================ */}
+      <section className="relative min-h-[90vh] bg-[#101D3D] text-white flex flex-col justify-center pt-24 pb-20 overflow-hidden border-b border-[#1B2D5B]">
+        {/* Glow & Architectural Grid */}
+        <div className="absolute inset-0 bg-[radial-gradient(#1B2D5B_1px,transparent_1px)] [background-size:32px_32px] opacity-25 pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[#D4A24E]/10 rounded-full blur-[160px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center space-y-8">
+          
+          {/* Micro Tag */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1B2D5B]/90 border border-[#D4A24E]/40 text-[#D4A24E] text-xs font-semibold tracking-wider uppercase font-mono shadow-lg">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#D4A24E] animate-pulse" />
+            <span>ENTERPRISE AI TRANSFORMATION ARCHITECTURE • NISOL 360™</span>
+          </div>
+
+          {/* Main Hero Headline */}
+          <div className="space-y-4 max-w-4xl mx-auto">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.02] text-white select-none">
+              Your Enterprise, <br />
+              <span className="text-[#D4A24E]">
+                Architected in 7 Days.
+              </span>
+            </h1>
+
+            <div className="text-lg sm:text-2xl text-slate-200 font-semibold tracking-tight max-w-3xl mx-auto pt-2">
+              <span className="text-[#D4A24E]">Nisol 360™</span> is our Enterprise AI Transformation Architecture.
+            </div>
+
+            <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal pt-1">
+              Diagnosis (Score™) → Architecture Spec → 30/60/90/180/360 Roadmap → 4 Go-Live Decision Gates → Board Dossier. Master enterprise architects. Zero code in discovery. Zero vendor lock-in. You own it.
+            </p>
+          </div>
+
+          {/* CTA Row */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link
+              href="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#D4A24E] hover:bg-[#E5B25B] text-[#101D3D] font-black text-base shadow-xl hover:shadow-2xl transition-all duration-200 active:scale-[0.98] group gap-2.5"
+            >
+              <span>Apply for Nisol 360™ Architecture</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/blueprint"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#1B2D5B]/80 hover:bg-[#1B2D5B] text-slate-200 hover:text-white border border-[#D4A24E]/30 font-semibold text-base transition-all duration-200"
+            >
+              See Blueprint Product Spec
+            </Link>
+          </div>
+
+          {/* Micro-trust under CTA */}
+          <div className="pt-2 text-xs sm:text-sm text-slate-400 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-medium">
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <Check className="w-4 h-4 text-[#D4A24E]" /> Stop-the-Clock Clause
+            </span>
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <Check className="w-4 h-4 text-[#D4A24E]" /> No-Blame Exit
+            </span>
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <Check className="w-4 h-4 text-[#D4A24E]" /> Client Infra Pass-Through
+            </span>
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <Check className="w-4 h-4 text-[#D4A24E]" /> 48h Architect Review
+            </span>
+          </div>
+
+          {/* Hero Visual: 15-Capability Radar & 30-360 Rhythm */}
+          <div className="pt-12 max-w-3xl mx-auto">
+            <div className="bg-[#0C1731] p-6 sm:p-8 rounded-3xl border border-[#1B2D5B] shadow-2xl relative">
+              <div className="text-center space-y-1 mb-6">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#D4A24E]">
+                  Artifact Preview • Redacted Novatech Case
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-white">
+                  15 Capabilities Benchmark vs. Target 360 Architecture
+                </h3>
+              </div>
+
+              {/* Radar SVG */}
+              <div className="relative max-w-[420px] mx-auto">
+                <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-auto drop-shadow-xl select-none">
+                  {[0.2, 0.4, 0.6, 0.8, 1.0].map((lvl, i) => (
+                    <circle key={i} cx={cx} cy={cy} r={radius * lvl} fill="none" stroke="#1B2D5B" strokeWidth="1.2" strokeDasharray={i === 4 ? "none" : "3 3"} />
+                  ))}
+                  {CAPABILITIES_15.map((_, i) => {
+                    const angle = (Math.PI * 2 / 15) * i - Math.PI / 2;
+                    return <line key={i} x1={cx} y1={cy} x2={cx + radius * Math.cos(angle)} y2={cy + radius * Math.sin(angle)} stroke="#1B2D5B" strokeWidth="1" />;
+                  })}
+                  <polygon points={targetPoints} fill="rgba(212, 162, 78, 0.22)" stroke="#D4A24E" strokeWidth="2.5" />
+                  <polygon points={baselinePoints} fill="rgba(217, 79, 79, 0.18)" stroke="#D94F4F" strokeWidth="1.8" strokeDasharray="4 4" />
+                </svg>
+              </div>
+
+              {/* 30/60/90/180/360 Horizon Ribbon */}
+              <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-5 gap-2 text-center text-xs font-mono">
+                <div className="p-2 rounded-lg bg-[#1B2D5B]/50">
+                  <div className="text-[#D4A24E] font-bold">30D</div>
+                  <div className="text-[10px] text-slate-400">Foundation</div>
+                </div>
+                <div className="p-2 rounded-lg bg-[#1B2D5B]/50">
+                  <div className="text-[#D4A24E] font-bold">60D</div>
+                  <div className="text-[10px] text-slate-400">Lakehouse</div>
+                </div>
+                <div className="p-2 rounded-lg bg-[#1B2D5B]/50">
+                  <div className="text-[#D4A24E] font-bold">90D</div>
+                  <div className="text-[10px] text-slate-400">First Pilot</div>
+                </div>
+                <div className="p-2 rounded-lg bg-[#1B2D5B]/50">
+                  <div className="text-[#D4A24E] font-bold">180D</div>
+                  <div className="text-[10px] text-slate-400">Multi-Agent</div>
+                </div>
+                <div className="p-2 rounded-lg bg-[#1B2D5B]/80 border border-[#D4A24E]/40">
+                  <div className="text-[#D4A24E] font-bold">360D</div>
+                  <div className="text-[10px] text-white">Full CoE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 2. SPEED COMPARISON — THE ANTI-CONSULTING STANDARD            */}
+      {/* ============================================================ */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-10">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <Badge variant="golden" className="mx-auto font-mono">The Comparison</Badge>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#1B2D5B] tracking-tight">
+            The Anti-Consulting Standard
+          </h2>
+          <p className="text-base text-slate-600">
+            Why traditional enterprise AI discovery takes 3-6 months and delivers slide decks that never ship.
+          </p>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-navy-950 tracking-tight leading-[1.08]">
-          Your Enterprise Intelligence System, <br />
-          <span className="golden-gradient-text">Architected in 7 Days.</span>
-        </h1>
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+            
+            {/* Column 1: Traditional Consulting */}
+            <div className="p-8 space-y-6 bg-slate-50/50">
+              <div className="space-y-1">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-500">
+                  TRADITIONAL CONSULTING
+                </span>
+                <h3 className="text-xl font-bold text-slate-800">The 6-Month Consulting Drag</h3>
+              </div>
 
-        <p className="text-xl sm:text-2xl text-navy-700/90 max-w-3xl mx-auto leading-relaxed font-medium">
-          "Two senior enterprise architects. 62 capability dimensions. A museum-grade board dossier your CFO can present on Monday morning."
-        </p>
+              <ul className="space-y-4 text-sm text-slate-600">
+                <li className="flex items-start gap-3 text-rose-700">
+                  <XIcon className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                  <span><strong>8–12 weeks</strong> of endless workshops and interview drag</span>
+                </li>
+                <li className="flex items-start gap-3 text-rose-700">
+                  <XIcon className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                  <span>Junior analysts learning machine learning on your budget</span>
+                </li>
+                <li className="flex items-start gap-3 text-rose-700">
+                  <XIcon className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                  <span>Generic 120-slide PowerPoint deck that never ships to users</span>
+                </li>
+                <li className="flex items-start gap-3 text-rose-700">
+                  <XIcon className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                  <span>Open-ended time &amp; materials billing with constant scope creep</span>
+                </li>
+                <li className="flex items-start gap-3 text-rose-700">
+                  <XIcon className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                  <span>Proprietary vendor lock-in — you can&apos;t build without them</span>
+                </li>
+              </ul>
+            </div>
 
-        {/* Primary CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-          <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-            Apply for Discovery →
-          </Button>
-          <Button href="#pricing" variant="navy" size="lg">
-            Explore Engagement Tiers
-          </Button>
-        </div>
+            {/* Column 2: The Nisol One Standard */}
+            <div className="p-8 space-y-6 bg-[#101D3D] text-white">
+              <div className="space-y-1">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#D4A24E]">
+                  THE NISOL ONE STANDARD
+                </span>
+                <h3 className="text-xl font-bold text-white">The 7-Day Mathematical Truth</h3>
+              </div>
 
-        {/* Rhythm Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 max-w-4xl mx-auto">
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
-            <div className="text-2xl font-black text-golden-600">7–11 Days</div>
-            <div className="text-[11px] text-slate-500 font-medium">Executive Speed</div>
-          </div>
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
-            <div className="text-2xl font-black text-navy-950">62 Dimensions</div>
-            <div className="text-[11px] text-slate-500 font-medium">Rigorous Audit</div>
-          </div>
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
-            <div className="text-2xl font-black text-emerald-600">15 Dossiers</div>
-            <div className="text-[11px] text-slate-500 font-medium">Board Deliverables</div>
-          </div>
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs text-center">
-            <div className="text-2xl font-black text-golden-600">0% Lock-In</div>
-            <div className="text-[11px] text-slate-500 font-medium">100% Client IP</div>
+              <ul className="space-y-4 text-sm text-slate-200">
+                <li className="flex items-start gap-3 text-[#D4A24E]">
+                  <Check className="w-5 h-5 text-[#D4A24E] shrink-0 mt-0.5" />
+                  <span><strong>7–11 business days</strong> fixed from kickoff to CFO readout</span>
+                </li>
+                <li className="flex items-start gap-3 text-[#D4A24E]">
+                  <Check className="w-5 h-5 text-[#D4A24E] shrink-0 mt-0.5" />
+                  <span><strong>2-Person Master Architect Pod</strong> with 40+ years enterprise systems experience</span>
+                </li>
+                <li className="flex items-start gap-3 text-[#D4A24E]">
+                  <Check className="w-5 h-5 text-[#D4A24E] shrink-0 mt-0.5" />
+                  <span><strong>3-Pack Board Dossier</strong> + CFO financial model (NPV, IRR, Token OPEX)</span>
+                </li>
+                <li className="flex items-start gap-3 text-[#D4A24E]">
+                  <Check className="w-5 h-5 text-[#D4A24E] shrink-0 mt-0.5" />
+                  <span><strong>Fixed-price SOW</strong> tied strictly to concrete board deliverables</span>
+                </li>
+                <li className="flex items-start gap-3 text-[#D4A24E]">
+                  <Check className="w-5 h-5 text-[#D4A24E] shrink-0 mt-0.5" />
+                  <span><strong>100% Blueprint ownership</strong> — build with anyone, zero dependency</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ── 2. WHY FASTER & INCLUSIONS ─────────────────────────────────── */}
-      <WhyFasterInclusions />
-
-      {/* ── 3. DIFFERENTIATOR MATRIX (Nisol Standard vs Industry) ──────────────── */}
-      <section className="space-y-10 max-w-5xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Badge variant="golden" className="mx-auto">Built Different</Badge>
-          <h2 className="text-3xl sm:text-4xl font-black text-navy-950 tracking-tight">
-            The Anti-Consulting Discovery Standard
+      {/* ============================================================ */}
+      {/* 3. WHAT YOU GET ON DAY 7 (The 3-Pack Board Dossier)           */}
+      {/* ============================================================ */}
+      <section id="packs" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-12">
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <Badge variant="golden" className="mx-auto font-mono">15 Board Deliverables</Badge>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#1B2D5B] tracking-tight">
+            What You Get on Day 7.
           </h2>
-          <p className="text-sm text-navy-700/80">
-            How we eliminate months of consulting drag while delivering vastly superior architectural rigor.
+          <p className="text-base sm:text-lg text-slate-600">
+            Not a slide deck. A board-ready architecture + audit plan for 30 / 60 / 90 / 180 / 360 days.
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden text-xs sm:text-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-navy-950 text-white border-b border-navy-800">
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider">Dimension</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-rose-400">Traditional Consulting</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-golden-400 bg-navy-900/80">The Nisol AI Standard</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {DIFFERENTIATOR_MATRIX.map((row, idx) => (
-                  <tr key={idx} className={row.highlight ? "bg-golden-50/20" : "bg-white"}>
-                    <td className="py-4 px-6 font-bold text-navy-950">{row.dimension}</td>
-                    <td className="py-4 px-6 text-slate-500">{row.traditional}</td>
-                    <td className="py-4 px-6 font-bold text-navy-950 bg-golden-500/5 flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                      <span>{row.nisol}</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. 15 BOARD-READY DELIVERABLES GRID ───────────────────────────── */}
-      <BoardDeliverablesGrid />
-
-      {/* ── 5. PRICING JUSTIFICATION VALUE FRAMEWORK ──────────────────────── */}
-      <PricingJustificationSection />
-
-      {/* ── 6. ZERO VENDOR LOCK-IN GUARANTEE ─────────────────────────────── */}
-      <ZeroLockInGuarantee />
-
-      {/* ── 7. ENGAGEMENT PACKAGES (4-TIER CARDS) ────────────────────────── */}
-      <section className="space-y-12" id="pricing">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Badge variant="golden" className="mx-auto">Engagement Hierarchy</Badge>
-          <h2 className="text-3xl sm:text-5xl font-black text-navy-950 tracking-tight">
-            Four Iconic Tiers. Fixed-Price SOW.
-          </h2>
-          <p className="text-base text-navy-700/80">
-            Transparent, outcome-based investments designed to scale strictly by your enterprise scope.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {PACKAGES.map((pkg, idx) => (
+        {/* 3 Visual Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {DELIVERABLE_PACKS.map((pack) => (
             <div
-              key={idx}
-              className={`rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 relative ${
-                pkg.popular
-                  ? "bg-navy-950 text-white ring-2 ring-golden-500 shadow-2xl lg:-translate-y-2"
-                  : "bg-white text-navy-950 border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1"
-              }`}
+              key={pack.id}
+              className="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div className="space-y-6">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
-                      pkg.popular ? "bg-golden-500 text-navy-950" : "bg-navy-100 text-navy-800"
-                    }`}>
-                      {pkg.badge}
-                    </span>
-                    <span className={`text-xs font-medium ${pkg.popular ? "text-slate-400" : "text-slate-500"}`}>
-                      {pkg.duration}
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl font-black mb-1">{pkg.name}</h3>
-                  <p className={`text-xs leading-relaxed ${pkg.popular ? "text-slate-300" : "text-slate-600"}`}>
-                    {pkg.ideal}
-                  </p>
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <span className="text-xs font-mono font-bold tracking-wider text-[#D4A24E] uppercase">
+                    {pack.tag}
+                  </span>
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#1B2D5B]/10 text-[#1B2D5B]">
+                    {pack.count}
+                  </span>
                 </div>
 
-                <div className="space-y-1 border-y border-slate-200/20 py-4">
-                  <div className={`text-3xl font-black ${pkg.popular ? "text-golden-400" : "text-navy-950"}`}>
-                    {pkg.price}
-                  </div>
-                  <div className={`text-xs ${pkg.popular ? "text-slate-400" : "text-slate-500"}`}>
-                    {pkg.priceSub}
-                  </div>
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-black text-[#1B2D5B]">{pack.title}</h3>
+                  <p className="text-xs text-slate-500 font-medium">{pack.summary}</p>
                 </div>
 
-                <div className="space-y-3 text-xs">
-                  <span className={`font-bold uppercase tracking-wider block ${pkg.popular ? "text-golden-400" : "text-navy-900"}`}>
-                    Included Scope:
+                <div className="space-y-3 pt-2">
+                  <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
+                    Reports &amp; Specifications:
                   </span>
                   <ul className="space-y-2.5">
-                    {pkg.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2">
-                        <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${pkg.popular ? "text-golden-400" : "text-emerald-600"}`} />
-                        <span className={pkg.popular ? "text-slate-200" : "text-navy-800"}>{feat}</span>
+                    {pack.reports.map((report, rIdx) => (
+                      <li key={rIdx} className="text-xs font-medium text-slate-700 flex items-start gap-2.5">
+                        <CheckCircle2 className="w-4 h-4 text-[#D4A24E] shrink-0 mt-0.5" />
+                        <span className="leading-snug">{report}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
 
-              <div className="pt-8">
-                <Button
-                  href={pkg.ctaLink}
-                  variant={pkg.popular ? "primary" : "navy"}
-                  size="md"
-                  className="w-full justify-center text-xs font-bold"
-                  icon={<ArrowRight className="w-3.5 h-3.5" />}
-                >
-                  {pkg.ctaText}
-                </Button>
+              <div className="pt-6 mt-6 border-t border-slate-100 text-[11px] text-slate-400 font-mono">
+                Included inside Nisol One bound dossier.
               </div>
             </div>
           ))}
         </div>
-      </section>
 
-      {/* ── 8. DELIVERABLES BREAKDOWN (3 EXECUTIVE INSIGHT PACKS) ───────────── */}
-      <section className="bg-navy-950 text-white rounded-3xl p-8 sm:p-12 border border-golden-500/30 space-y-10">
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <Badge variant="golden">Museum-Grade Dossier</Badge>
-          <h2 className="text-3xl sm:text-4xl font-black text-white">3 Executive Deliverable Packs</h2>
-          <p className="text-sm text-slate-300">
-            Every deliverable leaving Nisol AI follows museum-grade unboxing principles: custom-bound physical dossiers, clear CFO sensitivity models, and deterministic architectural blueprints.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {DELIVERABLE_PACKS.map((pack, idx) => (
-            <div key={idx} className="bg-navy-900/90 rounded-2xl p-6 border border-navy-700/80 space-y-4 flex flex-col justify-between">
-              <div className="space-y-3">
-                <div className="text-xs font-mono font-bold text-golden-400 uppercase tracking-widest border-b border-navy-800 pb-2">
-                  PACK 0{idx + 1}
-                </div>
-                <h3 className="text-lg font-bold text-white">{pack.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">{pack.description}</p>
-
-                <div className="pt-2 space-y-2">
-                  <span className="text-[10px] uppercase font-bold text-golden-300 tracking-wider block">Deliverables Included:</span>
-                  <div className="space-y-1.5">
-                    {pack.deliverables.map((del, dIdx) => (
-                      <div key={dIdx} className="text-xs font-semibold text-slate-200 bg-navy-950 px-3 py-1.5 rounded-lg border border-navy-800 flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-golden-400 shrink-0" />
-                        <span>{del}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="text-center text-xs sm:text-sm text-slate-500 font-mono max-w-2xl mx-auto pt-2">
+          Full 15-report list delivered as a museum-grade bound dossier. Custom leather binding with gold-foil seal available upon board request.
         </div>
       </section>
 
-      {/* ── 9. FEATURE COMPARISON TABLE ─────────────────────────────────── */}
-      <section className="space-y-8">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <Badge variant="golden" className="mx-auto">Full Comparison</Badge>
-          <h2 className="text-3xl font-black text-navy-950">Compare Capabilities Across Tiers</h2>
-        </div>
+      {/* ============================================================ */}
+      {/* 4. THE CORE DIFFERENCE (We Architect. You Own.)              */}
+      {/* ============================================================ */}
+      <section className="bg-[#101D3D] text-white py-20 border-t border-b border-[#1B2D5B]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10">
+          <Badge variant="golden" className="mx-auto font-mono">Independence Guarantee</Badge>
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden text-xs sm:text-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-navy-950 text-white border-b border-navy-800">
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider">Dimension / Feature</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-emerald-400">Spark (₹1.5L)</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Nisol One (₹4.5L)</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-golden-400 bg-navy-900/80">Nisol Pro (₹8.5L ★)</th>
-                  <th className="py-4 px-6 font-bold uppercase tracking-wider text-slate-300">Enterprise (₹18.5L+)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {TABLE_COMPARISON.map((row, idx) => (
-                  <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}>
-                    <td className="py-3.5 px-6 font-bold text-navy-950">{row.feature}</td>
-                    <td className="py-3.5 px-6 font-medium text-emerald-800 bg-emerald-50/40">{row.spark}</td>
-                    <td className="py-3.5 px-6 text-navy-700">{row.one}</td>
-                    <td className="py-3.5 px-6 font-bold text-navy-900 bg-golden-500/5">{row.pro}</td>
-                    <td className="py-3.5 px-6 text-navy-700">{row.enterprise}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            We Architect. You Own. Anyone Can Build.
+          </h2>
 
-      {/* ── 10. INTERACTIVE INVESTMENT ESTIMATOR ──────────────────────────── */}
-      <section className="space-y-6">
-        <InvestmentEstimator />
-      </section>
-
-      {/* ── 11. DATA SECURITY HIGHLIGHTS ─────────────────────────────────── */}
-      <section className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 border border-slate-800 space-y-8">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <Badge variant="golden">Data Sovereignty</Badge>
-          <h2 className="text-3xl font-black text-white">Enterprise Security & Zero Public Training</h2>
-          <p className="text-xs sm:text-sm text-slate-300">
-            Your intelligence belongs inside your perimeter. Strict tenant isolation on every engagement.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-          <div className="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-3">
-            <div className="p-3 rounded-xl bg-slate-900 text-emerald-400 w-fit border border-slate-700">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-white">Zero Public Model Training</h3>
-            <p className="text-slate-300 leading-relaxed">
-              Your internal data, workshop responses, and transcript logs are completely isolated and never used to train external LLMs.
+          <div className="space-y-6 text-base sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
+            <p>
+              Discovery is code-free. We write zero lines of code in this phase.
+            </p>
+            <p className="text-sm sm:text-base text-slate-300">
+              That&apos;s intentional. You get the complete 30/60/90/180/360 architecture, data lakehouse blueprint, financial model, staff upskilling plan, and 4 Go-Live Audit Gates.
             </p>
           </div>
 
-          <div className="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-3">
-            <div className="p-3 rounded-xl bg-slate-900 text-golden-400 w-fit border border-slate-700">
-              <Lock className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-white">Enterprise Tenant Security</h3>
-            <p className="text-slate-300 leading-relaxed">
-              All discovery data is stored in isolated, encrypted cloud databases with strict Role-Based Access Control (RBAC).
-            </p>
-          </div>
-
-          <div className="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-3">
-            <div className="p-3 rounded-xl bg-slate-900 text-blue-400 w-fit border border-slate-700">
-              <Building2 className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-white">Read-Only Client Portal</h3>
-            <p className="text-slate-300 leading-relaxed">
-              Clients receive secure portal credentials to monitor progress, review responses, and download approved deliverables.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 12. FREQUENTLY ASKED QUESTIONS ───────────────────────────────── */}
-      <section className="space-y-8 max-w-4xl mx-auto">
-        <SectionHeader
-          badgeText="Questions & Answers"
-          title="Frequently Asked Questions"
-          subtitle="Everything You Need to Know About Nisol Discovery™"
-        />
-
-        <div className="space-y-4">
-          {FAQS_LIST.map((faq, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
-              <h3 className="text-base font-bold text-navy-950 flex items-start gap-2">
-                <HelpCircle className="w-4 h-4 text-golden-600 shrink-0 mt-1" />
-                <span>{faq.q}</span>
-              </h3>
-              <p className="text-xs text-navy-700 leading-relaxed pl-6">
-                {faq.a}
+          {/* The 3 Options */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left pt-2">
+            <div className="bg-[#0C1731] p-6 rounded-2xl border border-[#1B2D5B] space-y-2">
+              <div className="text-xs font-mono font-bold text-[#D4A24E]">OPTION A</div>
+              <h3 className="text-lg font-bold text-white">Build with Nisol</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Hire Nisol AI engineering to build what we architected. Milestone delivery with zero-lock-in handover.
               </p>
             </div>
-          ))}
+
+            <div className="bg-[#0C1731] p-6 rounded-2xl border border-[#1B2D5B] space-y-2">
+              <div className="text-xs font-mono font-bold text-[#D4A24E]">OPTION B</div>
+              <h3 className="text-lg font-bold text-white">Nisol Manages &amp; Audits</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Your internal team builds. Our master architects audit every sprint against the 4 Go-Live decision gates.
+              </p>
+            </div>
+
+            <div className="bg-[#0C1731] p-6 rounded-2xl border border-[#1B2D5B] space-y-2">
+              <div className="text-xs font-mono font-bold text-[#D4A24E]">OPTION C</div>
+              <h3 className="text-lg font-bold text-white">Build with Anyone</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Hand the Blueprint to any systems integrator or internal team. The Blueprint is yours. No strings attached.
+              </p>
+            </div>
+          </div>
+
+          {/* 4 Go-Live Audit Decision Gates */}
+          <div className="pt-8 border-t border-white/10 space-y-4">
+            <div className="text-xs uppercase tracking-widest font-mono font-bold text-[#D4A24E]">
+              THE 4 GO-LIVE AUDIT DECISION GATES INCLUDED
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+              {FOUR_GATES.map((g, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-[#1B2D5B]/50 border border-white/10 space-y-1">
+                  <div className="text-xs font-mono font-bold text-[#D4A24E]">{g.gate}</div>
+                  <div className="text-sm font-bold text-white">{g.title}</div>
+                  <div className="text-xs text-slate-400">{g.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-xs text-slate-400 font-mono">
+            Client Infrastructure Pass-Through: You pay AWS, GCP, or Azure directly. We never touch or markup your data.
+          </p>
+
         </div>
       </section>
 
-      {/* ── 13. FINAL CONTROLLED SCARCITY CLOSE ───────────────────────────── */}
-      <section className="bg-navy-950 text-white rounded-3xl p-10 text-center space-y-6 border border-golden-500/30 shadow-2xl max-w-4xl mx-auto">
-        <Badge variant="golden" className="mx-auto">Controlled Scarcity</Badge>
-        <h2 className="text-3xl sm:text-4xl font-black text-white">
-          We Partner With Only 5 New Enterprises Each Month.
+      {/* ============================================================ */}
+      {/* 5. THE 4 BLUEPRINTS — FIXED-PRICE. ZERO AMBIGUITY.           */}
+      {/* ============================================================ */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-12">
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <Badge variant="golden" className="mx-auto font-mono">Pricing Architecture</Badge>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#1B2D5B] tracking-tight">
+            Four Blueprints. Zero Ambiguity.
+          </h2>
+          <p className="text-base text-slate-600">
+            Fixed-price SOW. Code-free discovery. You own the architecture.
+          </p>
+
+          {/* Currency Switcher */}
+          <div className="inline-flex items-center p-1 rounded-xl bg-white border border-slate-300 shadow-xs">
+            <button
+              onClick={() => setCurrency("INR")}
+              className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                currency === "INR" ? "bg-[#1B2D5B] text-white shadow-xs" : "text-slate-600 hover:text-[#1B2D5B]"
+              }`}
+            >
+              India (INR ₹)
+            </button>
+            <button
+              onClick={() => setCurrency("USD")}
+              className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                currency === "USD" ? "bg-[#1B2D5B] text-white shadow-xs" : "text-slate-600 hover:text-[#1B2D5B]"
+              }`}
+            >
+              Global (USD $)
+            </button>
+          </div>
+        </div>
+
+        {/* 4 Blueprint Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {BLUEPRINTS.map((bp) => (
+            <div
+              key={bp.id}
+              className={`rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 ${
+                bp.popular
+                  ? "bg-[#101D3D] text-white shadow-2xl ring-2 ring-[#D4A24E] relative lg:-translate-y-2"
+                  : "bg-white text-[#1B2D5B] border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1"
+              }`}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+                    bp.popular ? "bg-[#D4A24E] text-[#101D3D] font-black" : "bg-slate-100 text-slate-700"
+                  }`}>
+                    {bp.popular ? "MOST POPULAR" : "FIXED SOW"}
+                  </span>
+                  <span className={`text-xs font-medium ${bp.popular ? "text-slate-300" : "text-slate-500"}`}>
+                    {bp.duration}
+                  </span>
+                </div>
+
+                <h3 className="text-2xl font-black mb-1">{bp.name}</h3>
+                <div className="text-xs font-bold text-[#D4A24E] mb-4">{bp.subtitle}</div>
+
+                <div className="mb-4">
+                  <div className="text-3xl font-black">
+                    {currency === "INR" ? bp.inr : bp.usd}
+                  </div>
+                  <div className={`text-xs ${bp.popular ? "text-slate-400" : "text-slate-500"}`}>
+                    Fixed SOW • Outcome-based
+                  </div>
+                </div>
+
+                <p className={`text-xs leading-relaxed mb-6 ${bp.popular ? "text-slate-200" : "text-slate-600"}`}>
+                  {bp.summary}
+                </p>
+
+                <div className="space-y-2 pt-2 border-t border-slate-200/20 mb-6">
+                  <span className={`text-[10px] uppercase font-bold tracking-wider block ${bp.popular ? "text-[#D4A24E]" : "text-slate-400"}`}>
+                    What&apos;s Included:
+                  </span>
+                  <ul className="space-y-2 text-xs">
+                    {bp.details.map((detail, dIdx) => (
+                      <li key={dIdx} className="flex items-start gap-2">
+                        <Check className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${bp.popular ? "text-[#D4A24E]" : "text-emerald-600"}`} />
+                        <span className={bp.popular ? "text-slate-300" : "text-slate-700"}>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-200/20">
+                <Link
+                  href="/contact"
+                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+                    bp.popular
+                      ? "bg-[#D4A24E] text-[#101D3D] hover:bg-[#E5B25B] shadow-md"
+                      : "bg-[#1B2D5B] text-white hover:bg-[#2A4275]"
+                  }`}
+                >
+                  <span>{bp.ctaText}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center text-xs text-slate-500 font-mono">
+          All Blueprints: You own the architecture. No code in discovery. No dependency on us.
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 6. SECURITY & DATA SOVEREIGNTY                                */}
+      {/* ============================================================ */}
+      <section className="bg-[#101D3D] text-white py-20 border-t border-b border-[#1B2D5B]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-center">
+          <div className="space-y-2">
+            <span className="text-xs uppercase tracking-widest text-[#D4A24E] font-mono font-bold">
+              Data Sovereignty
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white">
+              Enterprise Security &amp; Zero Public Training
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+            <div className="bg-[#0C1731] p-8 rounded-3xl border border-[#1B2D5B] space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-[#1B2D5B] flex items-center justify-center text-[#D4A24E]">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white">Zero Public Model Training</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Your workshop responses, internal metrics, and raw architecture data are never used to train external LLMs. Every audit is tenant-isolated, encrypted at rest and in transit.
+              </p>
+            </div>
+
+            <div className="bg-[#0C1731] p-8 rounded-3xl border border-[#1B2D5B] space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-[#1B2D5B] flex items-center justify-center text-[#D4A24E]">
+                <Database className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white">Enterprise Tenant &amp; Portal</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Isolated cloud databases with strict Role-Based Access Control (RBAC). Leadership receives a secure, read-only client portal to inspect progress and download signed blueprints.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 7. FINAL CONTROLLED SCARCITY CLOSE                            */}
+      {/* ============================================================ */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-6">
+        <Badge variant="golden" className="mx-auto font-mono">Controlled Scarcity</Badge>
+
+        <h2 className="text-3xl sm:text-5xl font-black text-[#1B2D5B] tracking-tight">
+          We Architect Only 5 Blueprints Per Month.
         </h2>
-        <p className="text-sm text-navy-200 max-w-2xl mx-auto leading-relaxed">
-          Our senior systems architects dedicate their undivided attention to every engagement. Apply now to secure your transformation sprint.
+
+        <div className="space-y-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p>
+            Master enterprise architects. 62 dimensions. 15 capabilities. One board-ready 30-360 architecture in 7 days. Zero code in discovery. Zero vendor lock-in. You own it.
+          </p>
+          <p className="text-sm text-slate-500">
+            Applications are reviewed directly by master enterprise architects within 48 hours. Mutual NDA provided prior to any technical review.
+          </p>
+          <div className="text-xl font-black text-[#D4A24E] pt-2">
+            Current Cohort: 2/5 left.
+          </div>
+        </div>
+
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href="/contact"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-[#D4A24E] hover:bg-[#E5B25B] text-[#101D3D] font-black text-base shadow-xl hover:shadow-2xl transition-all duration-200 active:scale-[0.98] group gap-2.5"
+          >
+            <span>Apply for Nisol 360™ — 48h Response</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        <p className="text-xs text-slate-400 pt-2 font-mono">
+          Strict Non-Disclosure Guarantee • No spam • Only architects.
         </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-          <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-            Apply for Discovery Session →
-          </Button>
-          <Button href="/assessment" variant="navy" size="lg">
-            Take 2-Min Readiness Quiz
-          </Button>
-        </div>
-
-        <div className="pt-6 border-t border-navy-800 text-xs text-slate-400">
-          Mutual NDA Guaranteed • Applications Reviewed Within 48 Hours
-        </div>
       </section>
     </div>
   );

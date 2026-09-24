@@ -76,7 +76,7 @@ const THREE_DAY_TIMELINE = [
   {
     day: "Day 2",
     title: "Synthesis & Architectural Modeling",
-    desc: "Our senior architect synthesizes findings, benchmarks against industry peers, and models unit economics."
+    desc: "Our master architect synthesizes findings, benchmarks against industry peers, and models unit economics."
   },
   {
     day: "Day 3",
@@ -246,7 +246,7 @@ export default function SparkPage() {
           Ready for Your First Look?
         </h2>
         <p className="text-base text-navy-700/85 max-w-xl mx-auto">
-          We accept a maximum of 4 Spark Sprints per month to ensure senior architect dedication.
+          We accept a maximum of 4 Spark Sprints per month to ensure master architect dedication.
         </p>
         <div className="pt-2">
           <Button href="/contact?package=Spark" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>

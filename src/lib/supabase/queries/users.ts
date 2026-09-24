@@ -1,4 +1,4 @@
-import { createBrowserClient } from '@supabase/ssr';
+import { db } from '@/lib/db/client';
 
 export interface UserProfile {
   id: string;
@@ -21,18 +21,15 @@ export interface UserFilters {
   search?: string;
 }
 
-function getSupabaseClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+function getDatabaseClient() {
+  return db;
 }
 
 /**
  * Fetch all user profiles with tenant organization information.
  */
 export async function getUsers(filters?: UserFilters, client?: any): Promise<UserProfile[]> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
 
   let query = supabase
     .from('profiles')
@@ -90,7 +87,7 @@ export async function updateUserProfile(
   updates: { role?: string; tenant_id?: string | null; full_name?: string },
   client?: any
 ): Promise<UserProfile> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
 
   const { data, error } = await supabase
     .from('profiles')

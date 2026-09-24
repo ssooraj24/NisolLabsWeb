@@ -1,15 +1,12 @@
-import { createBrowserClient } from '@supabase/ssr';
+import { db } from '@/lib/db/client';
 import { RevenueRangeDefault } from '@/types/database';
 
-function getSupabaseClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+function getDatabaseClient() {
+  return db;
 }
 
 export async function getRevenueRangeDefaults(client?: any): Promise<RevenueRangeDefault[]> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
   const { data, error } = await supabase
     .from('revenue_range_defaults')
     .select('*')
@@ -20,7 +17,7 @@ export async function getRevenueRangeDefaults(client?: any): Promise<RevenueRang
 }
 
 export async function getRevenueRangeDefault(label: string, client?: any): Promise<RevenueRangeDefault | null> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
   const { data, error } = await supabase
     .from('revenue_range_defaults')
     .select('*')

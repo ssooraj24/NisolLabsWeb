@@ -115,7 +115,7 @@ export default function ServicesPage() {
 
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-            Apply for Discovery →
+            Apply for Nisol 360™ →
           </Button>
           <Button href="/pricing" variant="navy" size="lg">
             View Engagement Pricing
@@ -193,7 +193,7 @@ export default function ServicesPage() {
                 Not Sure Which System You Need First?
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                That is exactly what <strong>Nisol Discovery™</strong> solves. In 7 days, our architects audit your capabilities and tell you precisely which systems deliver maximum ROI.
+                That is exactly what <strong>Nisol 360™</strong> solves. In 7 days, our architects audit your capabilities and tell you precisely which systems deliver maximum ROI.
               </p>
             </div>
 
@@ -230,7 +230,7 @@ export default function ServicesPage() {
         </p>
         <div className="pt-2">
           <Button href="/contact" variant="primary" size="lg" icon={<ArrowRight className="w-4 h-4" />}>
-            Apply for Discovery Session →
+            Apply for Nisol 360™ →
           </Button>
         </div>
       </section>

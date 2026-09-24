@@ -1,21 +1,37 @@
-"use client"
+"use client";
+
 import { useState } from "react";
-import { supabase } from "@/lib/supabase/client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      alert(error.message);
-    } else {
-      const redirect = new URLSearchParams(window.location.search).get("redirect_to") || "/dashboard";
-      router.push(redirect);
+    setLoading(true);
+    setErrorMsg(null);
+
+    try {
+      const res = await authClient.signIn.email({
+        email,
+        password,
+      });
+
+      if (res.error) {
+        setErrorMsg(res.error.message || "Invalid credentials. Please verify your email and password.");
+      } else {
+        const redirect = new URLSearchParams(window.location.search).get("redirect_to") || "/dashboard";
+        router.push(redirect);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || "Sign in failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -27,7 +43,7 @@ export default function LoginPage() {
             N
           </div>
           <h1 className="text-3xl font-extrabold text-[#0A1E3C] tracking-tight">
-            Nisol Discovery
+            Nisol 360™
           </h1>
           <p className="text-sm text-slate-500 mt-2">
             Enterprise AI Maturity & Assessment Portal
@@ -36,7 +52,13 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
           <h2 className="text-xl font-bold mb-6 text-slate-800 text-center">Sign In to Your Account</h2>
-          
+
+          {errorMsg && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg">
+              {errorMsg}
+            </div>
+          )}
+
           <div className="mb-4">
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">Email Address</label>
             <input 
@@ -63,9 +85,10 @@ export default function LoginPage() {
 
           <button 
             type="submit" 
-            className="w-full bg-[#0A1E3C] text-white py-3 rounded-lg font-semibold text-sm hover:bg-[#162B4D] active:scale-[0.99] transition-all shadow-md hover:shadow-lg"
+            disabled={loading}
+            className="w-full bg-[#0A1E3C] text-white py-3 rounded-lg font-semibold text-sm hover:bg-[#162B4D] active:scale-[0.99] transition-all shadow-md hover:shadow-lg disabled:opacity-50"
           >
-            Sign In
+            {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
       </div>

@@ -3,12 +3,12 @@ import { Metadata } from "next";
 import FaqsClient from "@/components/discovery/FaqsClient";
 
 export const metadata: Metadata = {
-  title: "FAQs — Nisol Discovery™ AI Transformation Engagement",
-  description: "Get answers to frequently asked questions about Nisol Discovery™. Learn about the engagement process, deliverables, pricing, timeline, and more.",
+  title: "FAQs — Nisol 360™ AI Transformation Engagement",
+  description: "Get answers to frequently asked questions about Nisol 360™. Learn about the engagement process, deliverables, pricing, timeline, and more.",
   keywords: [
     "AI Discovery FAQs",
     "AI transformation consulting FAQs",
-    "Nisol Discovery questions",
+    "Nisol 360™ questions",
     "AI readiness assessment FAQs"
   ]
 };

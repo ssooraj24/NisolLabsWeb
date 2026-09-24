@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Login – Nisol Discovery",
+  title: "Login – Nisol 360™",
   description: "Sign in to access the Nisol AI Discovery Portal",
 };
 

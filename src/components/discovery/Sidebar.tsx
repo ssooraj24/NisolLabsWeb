@@ -72,7 +72,7 @@ export const Sidebar = () => {
     },
     {
       id: "discovery",
-      title: "📋 NISOL DISCOVERY & CLIENTS",
+      title: "📋 NISOL 360™ & CLIENTS",
       items: [
         { label: "Discovery Dashboard", href: "/dashboard" },
         { label: "Tenants / Clients", href: "/clients" },

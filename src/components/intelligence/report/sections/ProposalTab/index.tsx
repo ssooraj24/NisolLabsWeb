@@ -6,7 +6,7 @@ import { PricingForm, PricingData } from "./PricingForm";
 import { ExportButtons } from "./ExportButtons";
 import { EditableContent } from "@/components/intelligence/EditableContent";
 import { replacePlaceholders } from "@/lib/pricing/pricingEngine";
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from "@/lib/supabase/client";
 import { calculateROICalculations } from "@/lib/utils/roiCalculator";
 
 interface ProposalTabProps {

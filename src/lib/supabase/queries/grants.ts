@@ -1,11 +1,8 @@
-import { createBrowserClient } from '@supabase/ssr';
+import { db } from '@/lib/db/client';
 import { GrantApplication, GrantStatus, GrantApplicationFormData, GrantRubricScores } from '@/types/grants';
 
-function getSupabaseClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+function getDatabaseClient() {
+  return db;
 }
 
 export interface GrantFilters {
@@ -19,7 +16,7 @@ export interface GrantFilters {
  * Fetch all grant applications with optional filters and text search.
  */
 export async function getGrantApplications(filters?: GrantFilters, client?: any): Promise<GrantApplication[]> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
   let query = supabase.from('grant_applications').select('*').order('created_at', { ascending: false });
 
   if (filters?.status && filters.status !== 'all') {
@@ -55,7 +52,7 @@ export async function getGrantApplications(filters?: GrantFilters, client?: any)
  * Fetch a single grant application by ID.
  */
 export async function getGrantApplicationById(id: string, client?: any): Promise<GrantApplication | null> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
   const { data, error } = await supabase.from('grant_applications').select('*').eq('id', id).single();
   if (error) {
     if (error.code === 'PGRST116') return null;
@@ -71,7 +68,7 @@ export async function createGrantApplication(
   formData: GrantApplicationFormData,
   client?: any
 ): Promise<GrantApplication> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
 
   const payload = {
     ...formData,
@@ -98,7 +95,7 @@ export async function updateGrantApplication(
   updates: Partial<GrantApplication>,
   client?: any
 ): Promise<GrantApplication> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
 
   const payload = {
     ...updates,
@@ -147,7 +144,7 @@ export async function updateGrantRubricScores(
  * Delete a grant application record.
  */
 export async function deleteGrantApplication(id: string, client?: any): Promise<boolean> {
-  const supabase = client || getSupabaseClient();
+  const supabase = client || getDatabaseClient();
   const { error } = await supabase.from('grant_applications').delete().eq('id', id);
   if (error) throw error;
   return true;

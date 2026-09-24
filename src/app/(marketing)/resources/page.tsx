@@ -35,6 +35,56 @@ export default function ResourcesHubPage() {
         </p>
       </div>
 
+      {/* Featured Flagship Executive Guide Banner */}
+      <div className="rounded-3xl bg-gradient-to-br from-[#0C1731] via-[#101D3D] to-[#1B2D5B] border border-[#D4A24E]/40 p-8 sm:p-10 text-white shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-[#D4A24E]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div className="lg:col-span-8 space-y-4 text-left">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D4A24E]/20 text-[#D4A24E] border border-[#D4A24E]/30 text-xs font-mono font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5" />
+              Flagship Transformation Framework • Executive Guide
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#FBF8F3] tracking-tight">
+              AI Opportunity Mapping & Transformation Strategy
+            </h2>
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+              The executive blueprint designed for C-suite leaders and enterprise architects. Learn how to diagnose enterprise AI maturity, map high-impact use cases, eliminate pilot purgatory, and operationalize autonomous agent meshes with strict ROI governance.
+            </p>
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 pt-1">
+              <span className="flex items-center gap-1.5 text-white">
+                <CheckCircle2 className="w-4 h-4 text-[#D4A24E]" /> CXO Decision Frameworks
+              </span>
+              <span className="flex items-center gap-1.5 text-white">
+                <CheckCircle2 className="w-4 h-4 text-[#D4A24E]" /> Opportunity Prioritization Matrix
+              </span>
+              <span className="flex items-center gap-1.5 text-white">
+                <CheckCircle2 className="w-4 h-4 text-[#D4A24E]" /> Risk Containment Protocols
+              </span>
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-stretch justify-center gap-3">
+            <a
+              href="/reports/AI-Opportunity-Mapping-&-Transformation-Strategy-Executive-Guide.pdf"
+              download="AI-Opportunity-Mapping-and-Transformation-Strategy-Executive-Guide.pdf"
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-[#D4A24E] hover:bg-[#b88937] text-[#0C1731] font-bold text-sm font-mono uppercase tracking-wider transition-all shadow-xl active:scale-95 text-center"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Executive Guide</span>
+            </a>
+            <a
+              href="/reports/AI-Opportunity-Mapping-&-Transformation-Strategy-Executive-Guide.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-mono transition-colors text-center"
+            >
+              <span>Preview PDF in Browser</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Interactive Tabs */}
       <div className="flex flex-wrap justify-center gap-2 border-b border-slate-200 pb-4">
         <button

@@ -83,7 +83,7 @@ export function InvestmentEstimator() {
             <Calculator className="w-4 h-4" />
             <span>Interactive Engagement Estimator</span>
           </div>
-          <h3 className="text-2xl font-black text-white">Estimate Your Nisol Discovery™ Investment</h3>
+          <h3 className="text-2xl font-black text-white">Estimate Your Nisol 360™ Investment</h3>
         </div>
         <Badge variant="golden" className="self-start sm:self-center">Dynamic Lead Estimator</Badge>
       </div>
@@ -221,7 +221,7 @@ export function InvestmentEstimator() {
               className="w-full justify-center text-xs font-bold"
               icon={<ArrowRight className="w-3.5 h-3.5" />}
             >
-              Apply for Discovery with Estimate →
+              Apply for Nisol 360™ with Estimate →
             </Button>
           </div>
         </div>

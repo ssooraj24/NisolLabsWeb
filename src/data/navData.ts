@@ -6,6 +6,7 @@ import {
   Calculator, 
   HelpCircle, 
   Send,
+  Clock,
   Cpu,
   Bot,
   Zap,
@@ -44,14 +45,28 @@ export interface NavSection {
 }
 
 export const DISCOVERY_MENU: NavSection = {
-  title: "Nisol Discovery™",
+  title: "NISOL 360™",
   items: [
     { 
-      name: "AI Transformation Discovery", 
-      href: "/discovery", 
+      name: "NISOL 360™: The 30-360 Architecture", 
+      href: "/blueprint", 
       badge: "FLAGSHIP",
-      description: "Our 62-question, 15-capability engineering audit in 7-11 days.",
+      description: "7-day code-free architecture spec, 15-capability radar & 4 Go-Live gates.",
       icon: Compass 
+    },
+    { 
+      name: "How It Works (7-Day Sprint)", 
+      href: "/how-it-works", 
+      badge: "PROCESS",
+      description: "From kickoff to board memo in 7-11 days. Master enterprise architects.",
+      icon: Clock 
+    },
+    { 
+      name: "NISOL 360™ Methodology & Gates", 
+      href: "/discovery", 
+      badge: "METHODOLOGY",
+      description: "Our 62-question, 15-capability engineering audit in 7-11 days.",
+      icon: Layers 
     },
     { 
       name: "Nisol Spark (3-Day Sprint)", 
@@ -78,7 +93,7 @@ export const DISCOVERY_MENU: NavSection = {
       name: "3 Flexible Delivery Models", 
       href: "/services#delivery-models", 
       badge: "CLIENT CHOICE",
-      description: "Full freedom to Build, Manage, or Monitor post-discovery.",
+      description: "Full freedom to Build, Manage, or Monitor post-360.",
       icon: Layers 
     },
     { 
@@ -88,10 +103,17 @@ export const DISCOVERY_MENU: NavSection = {
       icon: FileText 
     },
     { 
-      name: "Discovery Methodology", 
+      name: "NISOL 360™ Methodology", 
       href: "/discovery/methodology", 
       description: "Data readiness, workflow analysis, and security stance mapping.",
       icon: Search 
+    },
+    { 
+      name: "NISOL SCORE™ Benchmark", 
+      href: "/score", 
+      badge: "BENCHMARK",
+      description: "Architect-validated 15-capability, 62-dimension benchmark included in Nisol 360™.",
+      icon: CheckCircle2 
     },
     { 
       name: "2-Min AI Readiness Quiz", 
@@ -114,7 +136,7 @@ export const DISCOVERY_MENU: NavSection = {
       icon: Calculator 
     },
     { 
-      name: "Discovery FAQs", 
+      name: "NISOL 360™ FAQs", 
       href: "/discovery/faqs", 
       description: "Answers to common timeline, data privacy, and engagement questions.",
       icon: HelpCircle 
@@ -124,7 +146,7 @@ export const DISCOVERY_MENU: NavSection = {
       href: "/contact?type=proposal", 
       description: "Get a tailored engagement plan and timeline from our architects.",
       icon: Send 
-    }
+    },
   ]
 };
 

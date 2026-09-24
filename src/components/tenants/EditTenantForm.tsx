@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { IndustrySector, RevenueRangeOption, Tenant, TenantStatus, TenantType, PricingPlan } from "@/types/database";
 import { updateTenant } from "@/lib/supabase/queries/tenants";
 import { PRICING_PLAN_OPTIONS } from "./CreateTenantForm";
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from "@/lib/supabase/client";
 
 const INDUSTRY_SECTORS: IndustrySector[] = [
   "Technology",

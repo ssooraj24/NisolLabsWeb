@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { IndustrySector, RevenueRangeOption, TenantStatus, TenantType, PricingPlan } from "@/types/database";
 import { createTenant } from "@/lib/supabase/queries/tenants";
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from "@/lib/supabase/client";
 
 const INDUSTRY_SECTORS: IndustrySector[] = [
   "Technology",

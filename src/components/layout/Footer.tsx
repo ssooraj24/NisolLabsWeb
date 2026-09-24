@@ -6,255 +6,104 @@ import { LinkedinIcon } from "@/components/icons/LinkedinIcon";
 
 export function Footer() {
   return (
-    <footer className="bg-navy-950 text-slate-300 border-t border-navy-800/80 pt-16 pb-12 relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-golden-500/5 rounded-full blur-3xl pointer-events-none" />
+    <footer className="bg-[#101D3D] text-slate-300 border-t border-[#1B2D5B] pt-16 pb-12 relative overflow-hidden">
+      {/* Subtle Glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#D4A24E]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-navy-800/80">
-
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+        {/* Main Footer Row */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-10 border-b border-white/10">
+          
           {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2">
+          <div className="space-y-3">
+            <Link href="/" className="inline-flex items-center gap-2">
               <img
-                src="/NisolAI-Logo-R.png"
-                alt="Nisol AI Logo"
-                className="h-14 md:h-16 w-auto object-contain rounded"
+                src="/images/nisol-core-logo.png"
+                alt="nisolai - The Core of Intelligence"
+                className="h-12 md:h-14 w-auto object-contain"
               />
             </Link>
-
-            <p className="text-sm text-navy-200/80 leading-relaxed max-w-sm">
-              Nisol AI — Founded August 2026. Enterprise Intelligence Systems. Intelligence. Delivered. Zero vendor lock-in.
-            </p>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-golden-500/10 border border-golden-500/30 text-golden-300 text-[11px] font-bold uppercase tracking-wider">
-              <span>Guaranteed Zero Vendor Lock-in</span>
-            </div>
-
-            <div className="pt-2">
-              <a
-                href={COMPANY.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Nisol AI on LinkedIn"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-navy-900/90 border border-navy-800 hover:border-golden-500/40 text-xs font-medium text-slate-300 hover:text-golden-300 transition-colors group"
-              >
-                <LinkedinIcon className="w-3.5 h-3.5 text-golden-400 group-hover:text-golden-300 transition-colors shrink-0" />
-                <span>Follow on LinkedIn</span>
-              </a>
+            <div className="space-y-1 text-xs text-slate-300 font-mono">
+              <div className="text-white font-bold text-sm">Enterprise Intelligence System Architect</div>
+              <div className="text-slate-400">Pune • Mumbai • Remote — India &amp; Global</div>
+              <div className="text-[#D4A24E] font-medium pt-1">
+                Zero Vendor Lock-in • You Own Every Line of Architecture
+              </div>
             </div>
           </div>
 
-          {/* Quick Links: Services */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-golden-400 mb-4">
-              Core Services
-            </h4>
-            <ul className="space-y-2.5 text-xs font-medium text-slate-300">
-              <li>
-                <Link href="/spark" className="hover:text-golden-300 transition-colors flex items-center gap-1 font-semibold text-golden-400">
-                  <span>Nisol Spark (3-Day Sprint)</span>
-                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">₹1.5L</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/transformation-framework" className="hover:text-golden-300 transition-colors flex items-center gap-1">
-                  <span>9-Stage Transformation Lifecycle</span>
-                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">FRAMEWORK</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#delivery-models" className="hover:text-golden-300 transition-colors flex items-center gap-1">
-                  <span>3 Delivery Models (Build/Manage/Monitor)</span>
-                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">CHOICE</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/agents" className="hover:text-golden-300 transition-colors flex items-center gap-1">
-                  <span>Autonomous AI Agents</span>
-                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">FLAGSHIP</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/discovery#pricing" className="hover:text-golden-300 transition-colors flex items-center gap-1">
-                  <span>Engagement Pricing</span>
-                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">FIXED-PRICE</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/discovery#deliverables" className="hover:text-golden-300 transition-colors">
-                  15 Board-Ready Deliverables
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/engineering" className="hover:text-golden-300 transition-colors">
-                  AI Engineering & LLMOps
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/strategy" className="hover:text-golden-300 transition-colors">
-                  AI Strategy & Discovery
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/assistants" className="hover:text-golden-300 transition-colors">
-                  Enterprise AI Assistants
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/automation" className="hover:text-golden-300 transition-colors">
-                  AI-Powered Automation
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Quick Links: Resources & Tools */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-golden-400 mb-4">
-              Resources & Tools
-            </h4>
-            <ul className="space-y-2.5 text-xs font-medium text-slate-300">
-              <li>
-                <Link href="/assessment" className="text-golden-400 hover:text-golden-300 transition-colors font-bold flex items-center gap-1.5">
-                  <span>2-Min AI Readiness Quiz</span>
-                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 rounded">INSTANT</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/resources/roi-calculator" className="hover:text-golden-300 transition-colors">
-                  Interactive AI ROI Calculator
-                </Link>
-              </li>
-              <li>
-                <Link href="/resources#blueprints" className="hover:text-golden-300 transition-colors">
-                  Solution Blueprints (5)
-                </Link>
-              </li>
-              <li>
-                <Link href="/resources#playbooks" className="hover:text-golden-300 transition-colors">
-                  Enterprise AI Playbooks (6)
-                </Link>
-              </li>
-              <li>
-                <Link href="/resources#case-studies" className="hover:text-golden-300 transition-colors">
-                  Illustrative Case Studies (7)
-                </Link>
-              </li>
-              <li>
-                <Link href="/resources#architecture" className="hover:text-golden-300 transition-colors">
-                  Enterprise Reference Architecture
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company & Contact */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-golden-400 mb-4">
-              Organization
-            </h4>
-            <ul className="space-y-2.5 text-xs font-medium text-slate-300 mb-6">
-              <li>
-                <Link href="/about" className="hover:text-golden-300 transition-colors">
-                  About & Leadership
-                </Link>
-              </li>
-              <li>
-                <Link href="/dubai" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-emerald-400">
-                  <span>Dubai & Gulf Hub</span>
-                  <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1 py-0.5 rounded border border-emerald-500/30">UAE</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/grants" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-blue-400">
-                  <span>Intelligence Grants</span>
-                  <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1 py-0.5 rounded border border-blue-500/30">₹4.5L AWARD</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/partner" className="hover:text-golden-300 transition-colors flex items-center gap-1.5 font-semibold text-golden-400">
-                  <span>Partner Program</span>
-                  <span className="text-[9px] bg-golden-500/20 text-golden-300 px-1 py-0.5 rounded border border-golden-500/30">30% RECURRING</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/industries" className="hover:text-golden-300 transition-colors">
-                  Industries We Serve
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-golden-300 transition-colors font-bold text-golden-400">
-                  Apply for Discovery →
-                </Link>
-              </li>
-            </ul>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-golden-400 mb-4">
-              CLIENT PORTAL
-            </h4>
-            <ul className="space-y-2.5 text-xs font-medium text-slate-300 mb-6">
-              <li>
-                <Link href="/login" className="hover:text-golden-300 transition-colors">
-                  Nisol Discovery
-                </Link>
-              </li>
-            </ul>
-            <div className="space-y-2 text-xs text-navy-200/80">
-              <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-golden-400 shrink-0" />
-                <a href="mailto:contact@nisolai.com" className="hover:text-golden-300 transition-colors">
-                  contact@nisolai.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Globe className="w-3.5 h-3.5 text-golden-400 shrink-0" />
-                <a href="https://www.nisolai.com" target="_blank" rel="noopener noreferrer" className="hover:text-golden-300 transition-colors">
-                  www.nisolai.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <LinkedinIcon className="w-3.5 h-3.5 text-golden-400 shrink-0" />
-                <a
-                  href={COMPANY.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-golden-300 transition-colors"
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </div>
+          {/* Quick Connect & Apply */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs font-mono">
+            <a
+              href="mailto:contact@nisolai.com"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1B2D5B]/70 border border-white/10 text-slate-200 hover:text-white hover:border-[#D4A24E]/50 transition-all"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#D4A24E]" />
+              <span>contact@nisolai.com</span>
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-[#D4A24E] text-[#101D3D] font-bold hover:bg-[#E5B25B] transition-all shadow-md"
+            >
+              <span>Apply for Nisol 360™</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-navy-300">
-          <div>
-            © {new Date().getFullYear()} Nisol AI (Founded August 2026). All rights reserved. The Core of Intelligence.
+        {/* 8 Essential Curated Navigation Links */}
+        <div className="flex flex-wrap items-center justify-between gap-6 text-xs sm:text-sm font-semibold text-slate-300">
+          <div className="flex flex-wrap items-center gap-6 sm:gap-8">
+            <Link href="/how-it-works" className="hover:text-[#D4A24E] transition-colors">
+              How It Works
+            </Link>
+            <Link href="/blueprint" className="hover:text-[#D4A24E] transition-colors">
+              NISOL 360™
+            </Link>
+            <Link href="/score" className="hover:text-[#D4A24E] transition-colors">
+              NISOL SCORE™
+            </Link>
+            <Link href="/about" className="hover:text-[#D4A24E] transition-colors">
+              About
+            </Link>
+            <Link href="/contact" className="hover:text-[#D4A24E] transition-colors text-[#D4A24E]">
+              Apply
+            </Link>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 font-medium">
+          <div className="flex flex-wrap items-center gap-6 text-xs text-slate-400 font-normal">
+            <Link href="/pricing" className="hover:text-white transition-colors">
+              Pricing
+            </Link>
+            <Link href="/login" className="hover:text-white transition-colors">
+              Client Portal
+            </Link>
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <Link href="/grants/terms" className="hover:text-white transition-colors text-golden-400 font-semibold">
-              Grant Terms & Conditions
-            </Link>
-            <Link href="/security" className="hover:text-white transition-colors">
-              Security & Compliance
-            </Link>
             <a
               href={COMPANY.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-golden-300 transition-colors"
+              className="inline-flex items-center gap-1.5 hover:text-[#D4A24E] transition-colors"
             >
-              <LinkedinIcon className="w-3.5 h-3.5 text-golden-400" />
+              <LinkedinIcon className="w-3.5 h-3.5 text-[#D4A24E]" />
               <span>LinkedIn</span>
             </a>
+          </div>
+        </div>
+
+        {/* Bottom Copyright Strip */}
+        <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
+          <div>
+            © {new Date().getFullYear()} Nisolai • Own Your Intelligence • Intelligence. Delivered.
+          </div>
+          <div className="text-slate-400 text-[11px]">
+            Discovery is 100% code-free. No vendor dependency.
           </div>
         </div>
 

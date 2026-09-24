@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo, memo } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { createBrowserClient } from "@supabase/ssr"
+import { createBrowserClient } from "@/lib/supabase/client";
 import Link from "next/link"
 import { INITIAL_62_QUESTIONS, QuestionItem } from "@/data/questionsData"
 

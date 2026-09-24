@@ -31,7 +31,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 
 export const metadata: Metadata = {
-  title: "Nisol Discovery™ Methodology | AI Transformation Framework",
+  title: "Nisol 360™ Methodology | AI Transformation Framework",
   description: "A proprietary, AI-powered framework to identify, prioritize, and plan your AI transformation across 15 capabilities.",
 };
 
@@ -214,17 +214,17 @@ export default function DiscoveryMethodologyPage() {
       <div className="relative text-center max-w-4xl mx-auto space-y-6 pt-8 pb-4">
         <Badge variant="golden" className="animate-pulse">Proprietary Framework</Badge>
         <h1 id="page-title" className="text-4xl sm:text-6xl font-black text-navy-950 tracking-tight leading-none">
-          The Nisol Discovery™ <span className="golden-gradient-text">Methodology</span>
+          The Nisol 360™ <span className="golden-gradient-text">Methodology</span>
         </h1>
         <p className="text-lg sm:text-xl text-navy-800 font-semibold max-w-3xl mx-auto leading-relaxed">
           A proprietary, AI-powered framework to identify, prioritize, and plan your enterprise AI transformation.
         </p>
         <p className="text-sm sm:text-base text-navy-600 max-w-2xl mx-auto">
-          Unlike generic advisory assessments, Nisol Discovery™ is a structured, data-driven methodology designed to deliver absolute executive clarity and measurable business outcomes.
+          Unlike generic advisory assessments, Nisol 360™ is a structured, data-driven methodology designed to deliver absolute executive clarity and measurable business outcomes.
         </p>
         <div className="flex flex-wrap justify-center gap-4 pt-4">
           <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Apply for Discovery →
+            Apply for Nisol 360™ →
           </Button>
           <Button href="/transformation-framework" variant="secondary" size="lg">
             Explore 9-Stage Transformation Lifecycle →
@@ -347,7 +347,7 @@ export default function DiscoveryMethodologyPage() {
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-950">A New Paradigm in AI Transformation</h2>
           <p className="text-sm sm:text-base text-navy-700">
-            How Nisol Discovery™ compares to traditional advisory firms.
+            How Nisol 360™ compares to traditional advisory firms.
           </p>
         </div>
 
@@ -391,7 +391,7 @@ export default function DiscoveryMethodologyPage() {
             </div>
             <h3 className="text-xl font-bold text-navy-950">Sample Methodology Report</h3>
             <p className="text-xs text-navy-700 leading-relaxed">
-              Examine the depth and granularity of our analysis. Download a sanitized Nisol Discovery™ report detailing sample architectures and readiness scores.
+              Examine the depth and granularity of our analysis. Download a sanitized Nisol 360™ report detailing sample architectures and readiness scores.
             </p>
           </div>
           <Button href="/assets/documents/sample-discovery-report.pdf" variant="secondary" size="md">
@@ -419,14 +419,14 @@ export default function DiscoveryMethodologyPage() {
       <div className="bg-navy-950 text-white rounded-3xl p-10 sm:p-12 text-center space-y-6 border border-golden-500/20 max-w-5xl mx-auto">
         <Badge variant="golden">Ready to Transform?</Badge>
         <h2 className="text-2xl sm:text-4xl font-black text-white">
-          Ready to apply the Nisol Discovery™ methodology to your business?
+          Ready to apply the Nisol 360™ methodology to your business?
         </h2>
         <p className="text-xs sm:text-sm text-navy-200 max-w-xl mx-auto">
           We partner with only 5 new enterprises each month. Apply for a Discovery Session to establish your transformation roadmap.
         </p>
         <div className="pt-2">
           <Button href="/contact?package=One" variant="primary" size="lg" icon={<ArrowRight className="w-5 h-5" />}>
-            Apply for Discovery Session →
+            Apply for Nisol 360™ →
           </Button>
         </div>
       </div>

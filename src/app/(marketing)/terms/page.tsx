@@ -91,7 +91,7 @@ export default function TermsOfServicePage() {
                   <div>
                     <h3 className="text-sm font-bold text-white">7-11 Day Speed Guarantee</h3>
                     <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                      Nisol Discovery™ delivers 15 board-ready deliverables in 7 to 11 business days with fixed-price transparency.
+                      Nisol 360™ delivers 15 board-ready deliverables in 7 to 11 business days with fixed-price transparency.
                     </p>
                   </div>
                 </div>
@@ -260,7 +260,7 @@ export default function TermsOfServicePage() {
                 Service Levels & Engagement Timelines
               </h2>
               <p className="text-sm text-slate-700 leading-relaxed">
-                For Nisol Discovery™ fixed-price executive packages:
+                For Nisol 360™ fixed-price executive packages:
               </p>
               <div className="p-4 bg-golden-50 border border-golden-200 rounded-xl text-xs space-y-2 text-navy-950">
                 <div className="flex items-center gap-2 font-bold text-golden-700">
@@ -301,7 +301,7 @@ export default function TermsOfServicePage() {
                 Payment Terms & Invoicing
               </h2>
               <p className="text-sm text-slate-700 leading-relaxed">
-                Fees for Nisol Discovery™ and AI Implementation statements of work are specified in the applicable ordering document. Unless stated otherwise:
+                Fees for Nisol 360™ and AI Implementation statements of work are specified in the applicable ordering document. Unless stated otherwise:
               </p>
               <ul className="text-xs text-slate-600 space-y-2 list-disc pl-5">
                 <li>Fixed-price packages require upfront invoice settlement prior to deliverable handoff.</li>

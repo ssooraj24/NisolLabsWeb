@@ -15,7 +15,7 @@ export const DELIVERY_MODELS: DeliveryModel[] = [
     title: "MODEL 1: BUILD",
     badge: "FULL-SERVICE IMPLEMENTATION",
     tagline: "End-to-End Production Engineering",
-    description: "After the Nisol Discovery™ engagement, our elite engineering team handles the complete build, integration, production deployment, and LLMOps optimization.",
+    description: "After the Nisol 360™ engagement, our elite engineering team handles the complete build, integration, production deployment, and LLMOps optimization.",
     bestFor: "Organizations that want a single, accountable partner to take them from strategy to live production deployment.",
     deliverables: [
       "Custom Multi-Agent & RAG Production Architecture",
@@ -77,7 +77,7 @@ export const COMPARISON_MATRIX: ComparisonRow[] = [
     category: "Methodology",
     traditionalConsultancy: "Ad-hoc Interviews",
     pureStrategyFirm: "Generic Frameworks",
-    nisolAI: "Nisol Discovery™ (62 Qs, 15 Capabilities)"
+    nisolAI: "Nisol 360™ (62 Qs, 15 Capabilities)"
   },
   {
     category: "Board-Ready Deliverables",

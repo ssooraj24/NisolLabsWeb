@@ -1,6 +1,8 @@
-import { createBrowserClient } from "@supabase/ssr";
+import { db, createDatabaseClient } from "@/lib/db/client";
 
-export const supabase = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Seamless migration adapter from Supabase to native PostgreSQL + Better Auth
+export const createBrowserClient = (_url?: string, _anonKey?: string) => {
+  return createDatabaseClient();
+};
+
+export const supabase = db;

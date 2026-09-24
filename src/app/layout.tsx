@@ -9,28 +9,53 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.nisolai.com"),
   title: {
-    default: "Nisol AI | Intelligence. Delivered. — Enterprise AI Strategy & Engineering",
-    template: "%s | Nisol AI"
+    default: "nisolai — Enterprise AI Maturity Audit & AI Transformation Architecture | Nisol Score™ + Nisol 360™",
+    template: "%s | nisolai"
   },
-  description: "Founded in August 2026, Nisol AI helps businesses become AI-First organizations through practical, scalable, outcome-driven AI solutions. Autonomous Agents, AI Engineering, LLMOps, Strategy, and RAG.",
+  description: "Master enterprise architects. Nisol Score™ audits your enterprise AI maturity across 15 capabilities vs 8 industries. Nisol 360™ delivers your board-ready AI transformation architecture in 7 days. Zero code in discovery. Zero vendor lock-in. You own it.",
   keywords: [
-    "Enterprise AI Consulting",
-    "Autonomous AI Agents",
-    "LLMOps",
-    "AI Strategy",
-    "Multi-Agent Systems",
-    "AI Engineering",
-    "Intelligent Document Processing",
-    "Nisol AI"
+    "Enterprise AI Maturity Audit",
+    "AI Maturity Assessment",
+    "Enterprise AI Transformation",
+    "AI Transformation Architecture",
+    "AI Readiness Audit",
+    "AI Transformation Partner",
+    "Nisol Score",
+    "NISOL 360",
+    "Zero Vendor Lock-in",
+    "Board-Ready AI Roadmap",
+    "Vector Lakehouse Architecture",
+    "nisolai"
   ],
-  authors: [{ name: "Nisol AI Engineering Team" }],
+  authors: [{ name: "nisolai Enterprise Architecture Practice" }],
+  icons: {
+    icon: "/images/nisol-core-logo.png",
+    shortcut: "/images/nisol-core-logo.png",
+    apple: "/images/nisol-core-logo.png"
+  },
   openGraph: {
-    title: "Nisol AI — Intelligence. Delivered.",
-    description: "Founded in August 2026. Enterprise-grade AI Strategy, Autonomous Multi-Agent Orchestration, LLMOps, and Intelligent Document Automation.",
-    siteName: "Nisol AI",
+    title: "nisolai — Enterprise AI Maturity Audit & AI Transformation Architecture",
+    description: "Master enterprise architects. Nisol Score™ audits your enterprise AI maturity across 15 capabilities vs 8 industries. Nisol 360™ delivers your board-ready AI transformation architecture in 7 days. Zero code in discovery. Zero vendor lock-in. You own it.",
+    url: "https://www.nisolai.com",
+    siteName: "nisolai",
     locale: "en_US",
-    type: "website"
+    type: "website",
+    images: [
+      {
+        url: "/images/nisol-core-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "nisolai — Enterprise AI Maturity Audit & AI Transformation Architecture"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "nisolai — Enterprise AI Maturity Audit & AI Transformation Architecture",
+    description: "Master enterprise architects. Nisol Score™ audits your enterprise AI maturity across 15 capabilities vs 8 industries. Nisol 360™ delivers your board-ready AI transformation architecture in 7 days. Zero code in discovery. Zero vendor lock-in. You own it.",
+    images: ["/images/nisol-core-logo.png"]
   }
 };
 

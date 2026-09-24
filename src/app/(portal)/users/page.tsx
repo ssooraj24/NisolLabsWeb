@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from "@/lib/supabase/client";
 import { UserProfile, getUsers, updateUserProfile } from "@/lib/supabase/queries/users";
 import { Tenant } from "@/types/database";
 import { getTenants } from "@/lib/supabase/queries/tenants";

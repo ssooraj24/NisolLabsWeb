@@ -20,7 +20,7 @@ export function BoardDeliverablesGrid() {
             15 Board-Ready <span className="gradient-text-gold">Executive Deliverables</span>
           </h2>
           <p className="text-navy-200 text-base sm:text-lg leading-relaxed">
-            Our Nisol Discovery™ framework delivers 15 comprehensive, executive-ready reports across 3 strategic packs—ready for boardroom review and immediate technical execution.
+            Our Nisol 360™ framework delivers 15 comprehensive, executive-ready reports across 3 strategic packs—ready for boardroom review and immediate technical execution.
           </p>
         </div>
 

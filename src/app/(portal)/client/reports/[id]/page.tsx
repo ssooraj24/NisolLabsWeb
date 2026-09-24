@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { createBrowserClient } from "@supabase/ssr";
+import { createBrowserClient } from "@/lib/supabase/client";
 import { ReportTabs, ReportTabId } from "@/components/intelligence/ReportTabs";
 import { StatusBadge } from "@/components/intelligence/StatusBadge";
 import { PDFExporter } from "@/components/intelligence/PDFExporter";

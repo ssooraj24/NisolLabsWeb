@@ -141,7 +141,7 @@ export default function PrivacyPolicyPage() {
                   <h3 className="text-xs font-bold text-navy-950 uppercase tracking-wider">A. Information Provided Directly by You</h3>
                   <ul className="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
                     <li><strong>Contact & Account Details:</strong> Name, work email address, company name, job title, phone number, and discovery call bookings.</li>
-                    <li><strong>Diagnostic Inputs & Questionnaires:</strong> Enterprise AI readiness inputs, cloud infrastructure parameters, token usage metrics, and business process automation requirements submitted via Nisol Discovery™.</li>
+                    <li><strong>Diagnostic Inputs & Questionnaires:</strong> Enterprise AI readiness inputs, cloud infrastructure parameters, token usage metrics, and business process automation requirements submitted via Nisol 360™.</li>
                     <li><strong>Billing & Contractual Information:</strong> Corporate invoicing details, enterprise agreement terms, and payment transaction metadata.</li>
                   </ul>
                 </div>

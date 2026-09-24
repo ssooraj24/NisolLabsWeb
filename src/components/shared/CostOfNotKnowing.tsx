@@ -56,7 +56,7 @@ export function CostOfNotKnowing() {
             <div>
               <h3 className="text-xl font-bold text-white mb-1">Prevent Bad AI Investments</h3>
               <p className="text-xs text-navy-200 max-w-xl">
-                A Nisol Discovery™ engagement validates technical feasibility, data readiness, and ROI upfront—protecting your capital before you write a single line of code.
+                A Nisol 360™ engagement validates technical feasibility, data readiness, and ROI upfront—protecting your capital before you write a single line of code.
               </p>
             </div>
           </div>
