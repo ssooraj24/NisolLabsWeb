@@ -118,7 +118,7 @@ export default function ObservabilityPage() {
 
   const metrics = data?.metrics;
   const isConfigured = data?.config?.isConfigured;
-  const langfuseUrl = data?.config?.baseUrl || "https://cloud.langfuse.com";
+  const langfuseUrl = data?.config?.baseUrl || "https://langfuse.nisolai.com";
 
   return (
     <div className="min-h-screen bg-[#071324] text-slate-100 p-6 md:p-8 font-sans">

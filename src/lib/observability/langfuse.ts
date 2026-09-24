@@ -19,7 +19,7 @@ let traceRingBuffer: TraceRecord[] = [];
 export function getLangfuseConfig(): LangfuseConfig {
   const publicKey = process.env.LANGFUSE_PUBLIC_KEY || process.env.NEXT_PUBLIC_LANGFUSE_PUBLIC_KEY;
   const secretKey = process.env.LANGFUSE_SECRET_KEY;
-  const baseUrl = (process.env.LANGFUSE_HOST || process.env.LANGFUSE_BASEURL || "https://cloud.langfuse.com").replace(/\/$/, "");
+  const baseUrl = (process.env.LANGFUSE_HOST || process.env.LANGFUSE_BASEURL || "https://langfuse.nisolai.com").replace(/\/$/, "");
 
   const isConfigured = Boolean(publicKey && secretKey);
 

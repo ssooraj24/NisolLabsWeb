@@ -85,6 +85,10 @@ services:
       Gemini_NisolLabs_API_Key: ${Gemini_NisolLabs_API_Key}
       OpenAI_NisolLabs_API_Key: ${OpenAI_NisolLabs_API_Key}
       Claude_NisolLab_API_Key: ${Claude_NisolLab_API_Key}
+      LANGFUSE_HOST: ${LANGFUSE_HOST:-http://langfuse:3000}
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
+      NEXT_PUBLIC_LANGFUSE_HOST: "https://langfuse.nisolai.com"
     depends_on:
       postgres:
         condition: service_healthy
@@ -96,6 +100,28 @@ services:
       resources:
         limits:
           memory: 1024M
+
+  langfuse:
+    image: ghcr.io/langfuse/langfuse:2
+    container_name: nisol-langfuse
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres:5432/langfuse"
+      NEXTAUTH_URL: "https://langfuse.nisolai.com"
+      NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855}
+      SALT: ${LANGFUSE_SALT:-a1b2c3d4e5f60718}
+      ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY:-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef}
+      TELEMETRY_ENABLED: "false"
+      PORT: "3000"
+    networks:
+      - nisol-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   trypost:
     image: ghcr.io/trypostit/trypost:latest

@@ -13,6 +13,16 @@ app.nisolai.com {
     }
 }
 
+# Centralized LLM Observability Console
+langfuse.nisolai.com {
+    reverse_proxy langfuse:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
 # (Optional) TryPost Subdomain if needed
 # trypost.nisolai.com {
 #     reverse_proxy trypost:80
@@ -22,3 +32,4 @@ app.nisolai.com {
 # waha.nisolai.com {
 #     reverse_proxy waha:3000
 # }
+
