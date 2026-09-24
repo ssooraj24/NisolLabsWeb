@@ -10,91 +10,8 @@ import {
 } from "./types";
 
 // In-memory buffer of traces for portal inspection
-let traceRingBuffer: TraceRecord[] = [
-  {
-    id: "tr-nisol-001",
-    traceName: "Audit Synthesis: AI Maturity Score",
-    model: "gemini-flash-latest",
-    provider: "google",
-    tenantName: "Apex Manufacturing Ltd.",
-    userId: "admin_sooraj",
-    inputPrompt: "Analyze the operational readiness of apex manufacturing with 14 automated assembly nodes. Return maturity tier 1-5 with gap analysis...",
-    outputResponse: "Maturity Tier 3: Operational Foundation. Primary bottlenecks identified in legacy ERP synchronization and distributed sensor telemetry...",
-    usage: {
-      promptTokens: 1420,
-      completionTokens: 840,
-      totalTokens: 2260,
-    },
-    latencyMs: 1240,
-    estimatedCostUsd: 0.00035,
-    status: "SUCCESS",
-    createdAt: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
-    tags: ["audit", "enterprise", "maturity-v2"],
-    metadata: { auditId: "aud_902", section: "maturity_score" },
-  },
-  {
-    id: "tr-nisol-002",
-    traceName: "Blueprint Generation: Predictive Maintenance Agent",
-    model: "gpt-4o",
-    provider: "openai",
-    tenantName: "Global Logistics Hub",
-    userId: "admin_sooraj",
-    inputPrompt: "Synthesize an AI Architecture blueprint for predictive fleet maintenance utilizing edge sensors and LangChain agentic routing...",
-    outputResponse: "Architecture Blueprint: Node telemetry ingestion through Kafka, vector retrieval via Supabase pgvector, and dynamic dispatch to specialized repair agents...",
-    usage: {
-      promptTokens: 2850,
-      completionTokens: 1490,
-      totalTokens: 4340,
-    },
-    latencyMs: 2890,
-    estimatedCostUsd: 0.02202,
-    status: "SUCCESS",
-    createdAt: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
-    tags: ["blueprint", "gpt-4o", "architecture"],
-    metadata: { blueprintId: "bp_401", tier: "enterprise" },
-  },
-  {
-    id: "tr-nisol-003",
-    traceName: "Grant Feasibility Evaluation",
-    model: "claude-3-5-sonnet-20241022",
-    provider: "anthropic",
-    tenantName: "BioGen Innovations",
-    userId: "consultant_01",
-    inputPrompt: "Evaluate the R&D feasibility of BioGen's drug discovery pipeline acceleration under the Nisol Enterprise AI Grant Criteria...",
-    outputResponse: "Evaluation Score 88/100: High commercial viability. The proposed Bayesian neural surrogate models meet all technical milestones for Tier-1 grant allocation...",
-    usage: {
-      promptTokens: 3100,
-      completionTokens: 920,
-      totalTokens: 4020,
-    },
-    latencyMs: 3410,
-    estimatedCostUsd: 0.0231,
-    status: "SUCCESS",
-    createdAt: new Date(Date.now() - 1000 * 60 * 110).toISOString(),
-    tags: ["grants", "claude-3-5", "feasibility"],
-    metadata: { grantAppId: "grt_112" },
-  },
-  {
-    id: "tr-nisol-004",
-    traceName: "ROI Calculator Estimation",
-    model: "gemini-flash-latest",
-    provider: "google",
-    tenantName: "FinTech Vantage",
-    userId: "system",
-    inputPrompt: "Calculate cost savings over 36 months for automated invoice reconciliation replacing 12 FTE manual processors...",
-    outputResponse: "Estimated 3-Year Net Savings: $412,000. Payback period: 4.8 months. Internal Rate of Return (IRR): 245%...",
-    usage: {
-      promptTokens: 890,
-      completionTokens: 420,
-      totalTokens: 1310,
-    },
-    latencyMs: 980,
-    estimatedCostUsd: 0.00019,
-    status: "SUCCESS",
-    createdAt: new Date(Date.now() - 1000 * 60 * 190).toISOString(),
-    tags: ["roi", "financial-model"],
-  },
-];
+let traceRingBuffer: TraceRecord[] = [];
+
 
 /**
  * Retrieves the Langfuse Configuration from environment variables
@@ -326,7 +243,7 @@ export function getAggregatedMetrics(): ObservabilityMetrics {
     totalTokens: totalPromptTokens + totalCompletionTokens,
     estimatedCostUsd: Number(totalCost.toFixed(5)),
     avgLatencyMs: totalGenerations > 0 ? Math.round(totalLatency / totalGenerations) : 0,
-    successRate: totalGenerations > 0 ? Math.round((successCount / totalGenerations) * 100) : 100,
+    successRate: totalGenerations > 0 ? Math.round((successCount / totalGenerations) * 100) : 0,
     providerBreakdown: providerCounts,
   };
 }

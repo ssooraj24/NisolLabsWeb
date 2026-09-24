@@ -47,12 +47,6 @@ const TENANT_TYPE_OPTIONS: { label: string; value: TenantType }[] = [
   { label: "Internal", value: "internal" },
 ];
 
-const MOCK_ACTIVE_PARTNERS = [
-  { id: "p-101", company_name: "Apex Tech Solutions", full_name: "Vikram Mehta" },
-  { id: "p-102", company_name: "Atlas Advisory Group", full_name: "Sarah Jenkins" },
-  { id: "p-103", company_name: "NextGen Cloud Systems", full_name: "Rahul Sharma" }
-];
-
 interface EditTenantFormProps {
   tenant: Tenant | null;
   isOpen: boolean;
@@ -70,7 +64,7 @@ export default function EditTenantForm({
 }: EditTenantFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [partners, setPartners] = useState<{ id: string; company_name: string; full_name: string }[]>(MOCK_ACTIVE_PARTNERS);
+  const [partners, setPartners] = useState<{ id: string; company_name: string; full_name: string }[]>([]);
 
   const [formData, setFormData] = useState({
     name: "",

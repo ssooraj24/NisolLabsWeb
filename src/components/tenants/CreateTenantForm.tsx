@@ -54,13 +54,6 @@ export const PRICING_PLAN_OPTIONS: { label: string; value: PricingPlan; badge: s
   { label: "Custom Scope", value: "custom", badge: "Custom", desc: "Custom tailored enterprise engagement" },
 ];
 
-// Fallback active partners list if database is initializing
-const MOCK_ACTIVE_PARTNERS = [
-  { id: "p-101", company_name: "Apex Tech Solutions", full_name: "Vikram Mehta" },
-  { id: "p-102", company_name: "Atlas Advisory Group", full_name: "Sarah Jenkins" },
-  { id: "p-103", company_name: "NextGen Cloud Systems", full_name: "Rahul Sharma" }
-];
-
 interface CreateTenantFormProps {
   isOpen: boolean;
   onClose: () => void;
@@ -76,7 +69,7 @@ export default function CreateTenantForm({
 }: CreateTenantFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [partners, setPartners] = useState<{ id: string; company_name: string; full_name: string }[]>(MOCK_ACTIVE_PARTNERS);
+  const [partners, setPartners] = useState<{ id: string; company_name: string; full_name: string }[]>([]);
 
   const [formData, setFormData] = useState({
     name: "",

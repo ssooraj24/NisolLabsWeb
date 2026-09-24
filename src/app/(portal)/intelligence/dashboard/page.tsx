@@ -468,17 +468,23 @@ export default function IntelligenceDashboardPage() {
             ⏱ Recent Audit Activity Stream
           </h3>
           <div className="space-y-3">
-            {recentActivities.map((act) => (
-              <div key={act.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs">
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-600 font-bold">✓</span>
-                  <span className="font-semibold text-slate-800">{act.title}</span>
+            {recentActivities.length === 0 ? (
+              <p className="text-xs text-slate-500 py-3 italic">
+                No recent activity recorded yet.
+              </p>
+            ) : (
+              recentActivities.map((act) => (
+                <div key={act.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-emerald-600 font-bold">✓</span>
+                    <span className="font-semibold text-slate-800">{act.title}</span>
+                  </div>
+                  <span className="text-[10px] text-slate-400 font-mono">
+                    {new Date(act.timestamp).toLocaleDateString()}
+                  </span>
                 </div>
-                <span className="text-[10px] text-slate-400 font-mono">
-                  {new Date(act.timestamp).toLocaleDateString()}
-                </span>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
 
