@@ -1,0 +1,206 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: nisol-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - nisol-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: nisol-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-conductos}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_MULTIPLE_DATABASES: ${POSTGRES_MULTIPLE_DATABASES}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-multiple-dbs.sh:/docker-entrypoint-initdb.d/init-multiple-dbs.sh:ro
+    ports:
+      - "127.0.0.1:5432:5432"
+    networks:
+      - nisol-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-conductos}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+
+  redis:
+    image: redis:7-alpine
+    container_name: nisol-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+    networks:
+      - nisol-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 384M
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nisol-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      NEXT_PUBLIC_APP_URL: "https://app.nisolai.com"
+      BETTER_AUTH_URL: "https://app.nisolai.com"
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-conductos}"
+      REDIS_URL: "redis://:${REDIS_PASSWORD}@redis:6379"
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      EMAIL_FROM: ${EMAIL_FROM:-Nisol AI <grants@nisolai.com>}
+      TO_EMAIL: ${TO_EMAIL:-contact@nisolai.com}
+      Gemini_NisolLabs_API_Key: ${Gemini_NisolLabs_API_Key}
+      OpenAI_NisolLabs_API_Key: ${OpenAI_NisolLabs_API_Key}
+      Claude_NisolLab_API_Key: ${Claude_NisolLab_API_Key}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - nisol-network
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+
+  trypost:
+    image: ghcr.io/trypostit/trypost:latest
+    container_name: nisol-trypost
+    restart: unless-stopped
+    environment:
+      APP_NAME: TryPost
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: ${TRYPOST_APP_KEY}
+      APP_URL: ${TRYPOST_APP_URL}
+      SELF_HOSTED: "true"
+      TRYPOST_TARGET: production
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_DATABASE: trypost
+      DB_USERNAME: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      QUEUE_CONNECTION: redis
+      CACHE_STORE: redis
+      SESSION_DRIVER: database
+      BROADCAST_CONNECTION: reverb
+      REVERB_APP_ID: "1001"
+      REVERB_APP_KEY: trypost-reverb-key
+      REVERB_APP_SECRET: ${TRYPOST_REVERB_SECRET}
+      REVERB_HOST: localhost
+      REVERB_PORT: "8080"
+      REVERB_SCHEME: http
+    volumes:
+      - trypost_storage:/var/www/html/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - nisol-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  waha:
+    image: devlikeappro/waha:latest
+    container_name: nisol-waha
+    restart: unless-stopped
+    environment:
+      WAHA_DASHBOARD_ENABLED: "true"
+      WAHA_DASHBOARD_USERNAME: ${WAHA_USER}
+      WAHA_DASHBOARD_PASSWORD: ${WAHA_PASSWORD}
+    volumes:
+      - waha_data:/app/.sessions
+    networks:
+      - nisol-network
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: nisol-portainer
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - nisol-network
+    deploy:
+      resources:
+        limits:
+          memory: 150M
+
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: nisol-dozzle
+    restart: unless-stopped
+    ports:
+      - "8888:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      DOZZLE_NO_ANALYTICS: "true"
+    networks:
+      - nisol-network
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+
+volumes:
+  postgres_data:
+  redis_data:
+  caddy_data:
+  caddy_config:
+  trypost_storage:
+  waha_data:
+  portainer_data:
+
+networks:
+  nisol-network:
+    driver: bridge

@@ -76,7 +76,10 @@ export function Footer() {
             <Link href="/pricing" className="hover:text-white transition-colors">
               Pricing
             </Link>
-            <Link href="/login" className="hover:text-white transition-colors">
+            <Link
+              href={process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}/login` : "/login"}
+              className="hover:text-white transition-colors"
+            >
               Client Portal
             </Link>
             <Link href="/privacy" className="hover:text-white transition-colors">

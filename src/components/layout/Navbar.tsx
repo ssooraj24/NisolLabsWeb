@@ -122,7 +122,7 @@ export function Navbar() {
           {/* Action CTAs: Log In (Secondary) & Apply for Nisol 360™ (Primary CTA) */}
           <div className="hidden sm:flex items-center gap-3">
             <Link
-              href="/login"
+              href={process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}/login` : "/login"}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-navy-900/80 hover:bg-navy-800 border border-navy-700/80 hover:border-golden-500/40 rounded-lg transition-all shadow-sm active:scale-[0.98]"
             >
               <LogIn className="w-3.5 h-3.5 text-golden-400" />
@@ -212,7 +212,7 @@ export function Navbar() {
 
             <div className="pt-4 mt-2 border-t border-navy-800 flex flex-col gap-3">
               <Link
-                href="/login"
+                href={process.env.NEXT_PUBLIC_APP_URL ? `${process.env.NEXT_PUBLIC_APP_URL}/login` : "/login"}
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full py-3 px-4 rounded-xl text-xs font-semibold text-center text-slate-300 hover:text-white bg-navy-900 border border-navy-800"
               >

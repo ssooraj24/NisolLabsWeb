@@ -1,0 +1,24 @@
+# Caddyfile configuration for Nisol AI AWS VM
+{
+    email admin@nisolai.com
+}
+
+# Main Application & API Portal
+app.nisolai.com {
+    reverse_proxy app:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+# (Optional) TryPost Subdomain if needed
+# trypost.nisolai.com {
+#     reverse_proxy trypost:80
+# }
+
+# (Optional) WAHA Dashboard if needed
+# waha.nisolai.com {
+#     reverse_proxy waha:3000
+# }

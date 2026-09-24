@@ -1,0 +1,13 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+.gitignore
+.vscode
+Documents
+*.html
+scratch_*.txt
+discovery-feedback.txt

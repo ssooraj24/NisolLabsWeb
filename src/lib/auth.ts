@@ -5,6 +5,12 @@ export const auth = betterAuth({
   database: getPool(),
   secret: process.env.BETTER_AUTH_SECRET || "nisol_enterprise_secret_key_8f1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d",
   baseURL: process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  trustedOrigins: [
+    "https://nisolai.com",
+    "https://www.nisolai.com",
+    "https://app.nisolai.com",
+    "http://localhost:3000",
+  ],
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
