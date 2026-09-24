@@ -1,6 +1,6 @@
 # Caddyfile configuration for Nisol AI AWS VM
 {
-    email admin@nisolai.com
+    email superadmin@nisolai.com
 }
 
 # Main Application & API Portal
