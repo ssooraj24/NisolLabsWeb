@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createPartnerApplication } from "@/lib/supabase/queries/partners";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "dummy_key_for_dev");
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function POST(req: Request) {
   try {
@@ -26,11 +27,27 @@ export async function POST(req: Request) {
       );
     }
 
+    // Save to PostgreSQL database
+    try {
+      await createPartnerApplication({
+        fullName,
+        workEmail,
+        companyName,
+        phone,
+        website,
+        partnerTrack: partnerType,
+        primaryMarket,
+        estimatedReferrals,
+      });
+    } catch (dbErr) {
+      console.error("Database save error for partner application:", dbErr);
+    }
+
     const recipientEmail = process.env.TO_EMAIL || "partners@nisolai.com";
     const senderEmail = process.env.EMAIL_FROM || "Nisol AI Partners <contact@nisolai.com>";
 
     // If Resend API key is provided, send email notification
-    if (process.env.RESEND_API_KEY) {
+    if (resend) {
       const { data, error } = await resend.emails.send({
         from: senderEmail,
         to: [recipientEmail],

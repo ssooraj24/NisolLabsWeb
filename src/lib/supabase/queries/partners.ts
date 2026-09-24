@@ -225,8 +225,8 @@ export async function registerPartnerDeal(data: {
  */
 export async function getSuperadminPartnerData() {
   const { data: partners } = await supabase.from("partners").select("*").order("created_at", { ascending: false });
-  const { data: deals } = await supabase.from("partner_deals").select("*, partner:partners(full_name, company_name, work_email)").order("created_at", { ascending: false });
-  const { data: commissions } = await supabase.from("partner_commissions").select("*, partner:partners(full_name, company_name), deal:partner_deals(target_company_name)").order("created_at", { ascending: false });
+  const { data: deals } = await supabase.from("partner_deals").select("*").order("created_at", { ascending: false });
+  const { data: commissions } = await supabase.from("partner_commissions").select("*").order("created_at", { ascending: false });
 
   return {
     partners: partners || [],
