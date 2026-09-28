@@ -57,7 +57,10 @@ Return ONLY a JSON object formatted as:
 }`;
 
   try {
-    const res = await aiClient.generateWithFallback("top_use_cases", prompt);
+    const res = await aiClient.generateWithFallback("top_use_cases", prompt, {
+      feature: "top_use_cases",
+      tenantName: context.companyName,
+    });
     const cleanedText = res.text.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
     const parsed = JSON.parse(cleanedText);
 

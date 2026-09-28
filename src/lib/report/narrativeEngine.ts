@@ -25,7 +25,10 @@ STRUCTURE:
 Style: Direct, professional, authoritative, no jargon. Avoid fluff.`;
 
   try {
-    const res = await aiClient.generateWithFallback("executive_summary", prompt);
+    const res = await aiClient.generateWithFallback("executive_summary", prompt, {
+      feature: "executive_summary",
+      tenantName: context.companyName,
+    });
     if (res.text && res.text.trim().length > 100) {
       return res.text.trim();
     }
@@ -74,7 +77,10 @@ Write a compelling commercial proposal draft covering:
 Style: Professional consulting proposal format.`;
 
   try {
-    const res = await aiClient.generateWithFallback("proposal_draft", prompt);
+    const res = await aiClient.generateWithFallback("proposal_draft", prompt, {
+      feature: "proposal_draft",
+      tenantName: context.companyName,
+    });
     if (res.text && res.text.trim().length > 100) {
       return res.text.trim();
     }

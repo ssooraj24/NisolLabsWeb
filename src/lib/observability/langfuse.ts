@@ -12,7 +12,6 @@ import {
 // In-memory buffer of traces for portal inspection
 let traceRingBuffer: TraceRecord[] = [];
 
-
 /**
  * Retrieves the Langfuse Configuration from environment variables
  */
@@ -32,11 +31,26 @@ export function getLangfuseConfig(): LangfuseConfig {
 }
 
 /**
- * Calculates estimated cost for standard LLM models
+ * Calculates estimated cost for Central Gateway and standard LLM models
  */
 export function calculateCost(model: string, promptTokens: number, completionTokens: number): number {
   const m = model.toLowerCase();
 
+  // Central AI Gateway LiteLLM Aliases
+  if (m.includes("nisol-fast")) {
+    // Ultra-low latency tier (Groq 8B / Cerebras / Gemini Flash)
+    return (promptTokens * 0.03 + completionTokens * 0.08) / 1_000_000;
+  }
+  if (m.includes("nisol-smart")) {
+    // Default Workhorse waterfall (Cerebras 70B -> Groq 70B -> Gemini 2.0 Flash -> GPT-4o-mini)
+    return (promptTokens * 0.05 + completionTokens * 0.15) / 1_000_000;
+  }
+  if (m.includes("nisol-client-premium")) {
+    // Paid/Client Tier (Claude 3.5 Sonnet -> GPT-4o -> Gemini 2.0 Flash)
+    return (promptTokens * 2.5 + completionTokens * 10.0) / 1_000_000;
+  }
+
+  // Direct vendor fallbacks
   // Gemini pricing (approx $0.075 / 1M prompt, $0.30 / 1M completion)
   if (m.includes("gemini")) {
     return (promptTokens * 0.075 + completionTokens * 0.3) / 1_000_000;
@@ -59,6 +73,7 @@ export function calculateCost(model: string, promptTokens: number, completionTok
  */
 export function resolveProvider(model: string): ModelProvider {
   const m = model.toLowerCase();
+  if (m.startsWith("nisol-") || m.includes("gateway")) return "gateway";
   if (m.includes("gemini") || m.includes("google")) return "google";
   if (m.includes("gpt") || m.includes("openai")) return "openai";
   if (m.includes("claude") || m.includes("anthropic")) return "anthropic";
@@ -87,13 +102,14 @@ async function dispatchToLangfuseCloud(record: TraceRecord): Promise<{ success: 
           body: {
             id: record.id,
             name: record.traceName,
-            userId: record.userId,
+            userId: record.userId || "nisollabs",
             sessionId: record.sessionId,
             metadata: {
+              app_name: "nisollabs",
               tenantName: record.tenantName,
               ...record.metadata,
             },
-            tags: record.tags || ["nisol-discovery"],
+            tags: record.tags || ["nisol-ai-gateway", "nisollabs"],
           },
         },
         {
@@ -117,6 +133,10 @@ async function dispatchToLangfuseCloud(record: TraceRecord): Promise<{ success: 
             },
             level: record.status === "ERROR" ? "ERROR" : "DEFAULT",
             statusMessage: record.errorMessage,
+            metadata: {
+              app_name: "nisollabs",
+              ...record.metadata,
+            },
           },
         },
       ],
@@ -163,8 +183,8 @@ export async function recordTrace(params: {
   metadata?: Record<string, any>;
   tags?: string[];
 }): Promise<TraceRecord> {
-  const pTokens = params.promptTokens ?? Math.round(params.inputPrompt.length / 4);
-  const cTokens = params.completionTokens ?? Math.round(params.outputResponse.length / 4);
+  const pTokens = params.promptTokens ?? Math.max(1, Math.round(params.inputPrompt.length / 4));
+  const cTokens = params.completionTokens ?? Math.max(1, Math.round(params.outputResponse.length / 4));
   const provider = resolveProvider(params.model);
   const cost = calculateCost(params.model, pTokens, cTokens);
 
@@ -185,11 +205,14 @@ export async function recordTrace(params: {
     status: params.status || "SUCCESS",
     errorMessage: params.errorMessage,
     createdAt: new Date().toISOString(),
-    userId: params.userId || "nisol_admin",
+    userId: params.userId || "nisollabs",
     tenantName: params.tenantName,
     sessionId: params.sessionId,
-    metadata: params.metadata,
-    tags: params.tags,
+    metadata: {
+      app_name: "nisollabs",
+      ...(params.metadata || {}),
+    },
+    tags: params.tags || ["nisol-ai-gateway", "production-inference"],
   };
 
   // Add to local ring buffer (keep last 50)
@@ -219,10 +242,14 @@ export function getAggregatedMetrics(): ObservabilityMetrics {
   let successCount = 0;
 
   const providerCounts = {
+    gateway: 0,
     google: 0,
     openai: 0,
     anthropic: 0,
+    custom: 0,
   };
+
+  const modelCounts: Record<string, number> = {};
 
   for (const t of traceRingBuffer) {
     totalPromptTokens += t.usage.promptTokens;
@@ -231,9 +258,13 @@ export function getAggregatedMetrics(): ObservabilityMetrics {
     totalLatency += t.latencyMs;
     if (t.status === "SUCCESS") successCount++;
 
-    if (t.provider === "google") providerCounts.google++;
-    else if (t.provider === "openai") providerCounts.openai++;
-    else if (t.provider === "anthropic") providerCounts.anthropic++;
+    if (t.provider in providerCounts) {
+      (providerCounts as any)[t.provider]++;
+    } else {
+      providerCounts.custom++;
+    }
+
+    modelCounts[t.model] = (modelCounts[t.model] || 0) + 1;
   }
 
   return {
@@ -245,6 +276,7 @@ export function getAggregatedMetrics(): ObservabilityMetrics {
     avgLatencyMs: totalGenerations > 0 ? Math.round(totalLatency / totalGenerations) : 0,
     successRate: totalGenerations > 0 ? Math.round((successCount / totalGenerations) * 100) : 0,
     providerBreakdown: providerCounts,
+    modelBreakdown: modelCounts,
   };
 }
 

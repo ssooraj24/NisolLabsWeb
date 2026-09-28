@@ -43,7 +43,10 @@ Return ONLY a JSON array inside a wrapper object:
 }`;
 
   try {
-    const res = await aiClient.generateWithFallback("solution_blueprints", prompt);
+    const res = await aiClient.generateWithFallback("solution_blueprints", prompt, {
+      feature: "solution_blueprints",
+      tenantName: context.companyName,
+    });
     const cleanedText = res.text.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
     const parsed = JSON.parse(cleanedText);
 

@@ -87,7 +87,14 @@ export async function POST(req: NextRequest) {
 
     // 2. Generate customized AI use cases
     const useCasesPrompt = PROMPTS.buildTopUseCasesPrompt(companyName, industry, rawResponses);
-    const useCasesRes = await aiClient.generateWithFallback("top_use_cases", useCasesPrompt);
+    const useCasesRes = await aiClient.generateWithFallback("top_use_cases", useCasesPrompt, {
+      feature: "generate_use_cases_api",
+      tenantName: companyName,
+      metadata: {
+        report_id: targetReportId,
+        industry,
+      },
+    });
 
     const parsedJSON: any = parseAIJson(useCasesRes.text, { use_cases: [] });
     let useCasesList: any[] =

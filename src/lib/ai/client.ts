@@ -1,241 +1,288 @@
 // lib/ai/client.ts
 
-import { MODEL_ROUTING, ReportOutputType } from "./modelConfig";
+import { MODEL_ROUTING, MODEL_ALIASES, ReportOutputType, ModelAlias } from "./modelConfig";
 import { recordTrace } from "@/lib/observability/langfuse";
 
+export interface AICallMetadata {
+  app_name?: string;
+  feature?: string;
+  tenant_name?: string;
+  tenant_id?: string;
+  user_id?: string;
+  audit_id?: string;
+  [key: string]: any;
+}
+
+export interface AICallParams {
+  model?: ModelAlias;
+  messages?: Array<{ role: "system" | "user" | "assistant"; content: string }>;
+  prompt?: string;
+  maxTokens?: number;
+  temperature?: number;
+  responseFormat?: { type: "json_object" | "text" } | Record<string, any>;
+  tools?: any[];
+  toolChoice?: any;
+  stream?: boolean;
+  userId?: string;
+  tenantName?: string;
+  feature?: string;
+  metadata?: AICallMetadata;
+  tags?: string[];
+}
+
+export interface AICallResult {
+  text: string;
+  modelUsed: string;
+  usage?: {
+    promptTokens: number;
+    completionTokens: number;
+    totalTokens: number;
+  };
+  rawResponse?: any;
+}
+
 export class AIClient {
-  private getGeminiKey(): string | undefined {
-    return (
-      process.env["Gemini_NisolLabs_API_Key"] ||
-      process.env["Gemini-NisolLabs-API-Key"] ||
-      process.env.GEMINI_API_KEY ||
-      process.env.GOOGLE_API_KEY
-    );
+  private readonly appName = "nisollabs";
+
+  /**
+   * Resolves the Central AI Gateway Base URL (LiteLLM)
+   * Internal Docker fallback: http://ai-gateway:4000/v1
+   * External fallback: https://llm.nisolai.com/v1 or http://localhost:4000/v1
+   */
+  public getGatewayUrl(): string {
+    const raw = process.env.AI_GATEWAY_URL || "http://ai-gateway:4000/v1";
+    return raw.replace(/\/+$/, "");
   }
 
-  private getOpenAIKey(): string | undefined {
+  /**
+   * Resolves the Central AI Gateway master/auth token
+   */
+  public getGatewayKey(): string {
     return (
-      process.env["OpenAI_NisolLabs_API_Key"] ||
-      process.env["OpenAI-NisolLabs-API-Key"] ||
-      process.env.OPENAI_API_KEY
-    );
-  }
-
-  private getClaudeKey(): string | undefined {
-    return (
-      process.env["Claude_NisolLab_API_Key"] ||
-      process.env["Claude_NisolLab_Key"] ||
-      process.env["Claude-NisolLab-Key"] ||
-      process.env["Claude-NisolLab-API-Key"] ||
-      process.env.ANTHROPIC_API_KEY
+      process.env.LITELLM_MASTER_KEY ||
+      process.env.AI_GATEWAY_KEY ||
+      "nisol-internal-ai-master-key"
     );
   }
 
   /**
-   * Calls a specific model by provider and model identifier.
+   * Normalizes legacy model specs (e.g. "google/gemini-flash-latest" -> "nisol-smart")
+   * into gateway aliases when applicable, or preserves custom model spec.
    */
-  async callModel(modelSpec: string, prompt: string, maxTokens = 4000, temperature = 0.7): Promise<string> {
-    const [provider, modelName] = modelSpec.split("/");
-    const targetModel = modelName || modelSpec;
+  private normalizeModel(modelSpec: string): string {
+    const trimmed = modelSpec.trim();
+    if (
+      trimmed === MODEL_ALIASES.SMART ||
+      trimmed === MODEL_ALIASES.FAST ||
+      trimmed === MODEL_ALIASES.CLIENT_PREMIUM
+    ) {
+      return trimmed;
+    }
+
+    // Strip provider prefix if present (e.g., "openai/gpt-4o" -> "gpt-4o")
+    if (trimmed.includes("/")) {
+      const parts = trimmed.split("/");
+      return parts[1] || parts[0];
+    }
+
+    return trimmed;
+  }
+
+  /**
+   * Core invocation method for Central AI Gateway (LiteLLM OpenAI-compatible endpoint)
+   * Automatically attaches application-level metadata and Langfuse telemetry tracking.
+   */
+  async chatCompletion(params: AICallParams): Promise<AICallResult> {
+    const gatewayUrl = this.getGatewayUrl();
+    const apiKey = this.getGatewayKey();
+    const targetModel = this.normalizeModel(params.model || MODEL_ALIASES.SMART);
+    const featureName = params.feature || "chat_completion";
     const startTime = Date.now();
 
+    const messages = params.messages || [
+      { role: "user" as const, content: params.prompt || "" },
+    ];
+    const promptString = params.prompt || messages.map((m) => `${m.role}: ${m.content}`).join("\n\n");
+
+    const mergedMetadata: AICallMetadata = {
+      app_name: this.appName,
+      feature: featureName,
+      tenant_name: params.tenantName,
+      ...(params.metadata || {}),
+    };
+
+    const payload: Record<string, any> = {
+      model: targetModel,
+      messages,
+      max_tokens: params.maxTokens ?? 4000,
+      temperature: params.temperature ?? 0.7,
+      user: params.userId || this.appName,
+      metadata: mergedMetadata,
+    };
+
+    if (params.responseFormat) {
+      payload.response_format = params.responseFormat;
+    }
+    if (params.tools) {
+      payload.tools = params.tools;
+    }
+    if (params.toolChoice) {
+      payload.tool_choice = params.toolChoice;
+    }
+    if (params.stream !== undefined) {
+      payload.stream = params.stream;
+    }
+
+    const endpoint = `${gatewayUrl}/chat/completions`;
+
     try {
-      let output = "";
-      if (provider === "google") {
-        output = await this.callGemini(targetModel, prompt, maxTokens, temperature);
-      } else if (provider === "openai") {
-        output = await this.callOpenAI(targetModel, prompt, maxTokens, temperature);
-      } else if (provider === "anthropic") {
-        output = await this.callAnthropic(targetModel, prompt, maxTokens, temperature);
-      } else {
-        throw new Error(`Unsupported model provider: ${provider}`);
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const latencyMs = Date.now() - startTime;
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error(`[AI GATEWAY ERROR ${response.status}] Endpoint: ${endpoint}`, errText);
+        throw new Error(`AI Gateway error (${response.status}): ${errText}`);
       }
 
-      // Fire-and-forget Langfuse telemetry logging
+      const data = await response.json();
+      const outputText = data.choices?.[0]?.message?.content || "";
+
+      const promptTokens = data.usage?.prompt_tokens ?? Math.max(1, Math.round(promptString.length / 4));
+      const completionTokens = data.usage?.completion_tokens ?? Math.max(1, Math.round(outputText.length / 4));
+      const totalTokens = data.usage?.total_tokens ?? promptTokens + completionTokens;
+
+      // Telemetry trace logging for Langfuse
       recordTrace({
-        traceName: `AI Generation: ${modelSpec}`,
+        traceName: `Gateway [${targetModel}]: ${featureName}`,
         model: targetModel,
-        inputPrompt: prompt,
-        outputResponse: output,
-        latencyMs: Date.now() - startTime,
+        inputPrompt: promptString,
+        outputResponse: outputText,
+        promptTokens,
+        completionTokens,
+        latencyMs,
         status: "SUCCESS",
-        tags: ["production-inference", provider],
+        userId: params.userId || this.appName,
+        tenantName: params.tenantName,
+        metadata: mergedMetadata,
+        tags: [
+          "nisol-ai-gateway",
+          `model:${targetModel}`,
+          `feature:${featureName}`,
+          ...(params.tags || []),
+        ],
       }).catch((traceErr) => console.warn("[Langfuse Trace Warning]:", traceErr));
 
-      return output;
+      return {
+        text: outputText,
+        modelUsed: targetModel,
+        usage: { promptTokens, completionTokens, totalTokens },
+        rawResponse: data,
+      };
     } catch (err: any) {
-      // Record failure telemetry
+      const latencyMs = Date.now() - startTime;
+
+      // Telemetry failure record
       recordTrace({
-        traceName: `AI Generation Failed: ${modelSpec}`,
+        traceName: `Gateway Failure [${targetModel}]: ${featureName}`,
         model: targetModel,
-        inputPrompt: prompt,
+        inputPrompt: promptString,
         outputResponse: `[FAILED]: ${err.message}`,
-        latencyMs: Date.now() - startTime,
+        latencyMs,
         status: "ERROR",
         errorMessage: err.message,
-        tags: ["production-inference", "error", provider],
+        userId: params.userId || this.appName,
+        tenantName: params.tenantName,
+        metadata: mergedMetadata,
+        tags: [
+          "nisol-ai-gateway",
+          "error",
+          `model:${targetModel}`,
+          `feature:${featureName}`,
+          ...(params.tags || []),
+        ],
       }).catch((traceErr) => console.warn("[Langfuse Trace Warning]:", traceErr));
 
       throw err;
     }
   }
 
-  private async callGemini(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
-    const apiKey = this.getGeminiKey();
-    if (!apiKey) {
-      throw new Error("Gemini API key is missing or not loaded in environment variables");
-    }
-
-    const targetModel = modelName || "gemini-flash-latest";
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${targetModel}:generateContent?key=${apiKey}`;
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature,
-          maxOutputTokens: maxTokens,
-        },
-      }),
+  /**
+   * Direct model invocation helper matching legacy signature
+   */
+  async callModel(
+    modelSpec: string,
+    prompt: string,
+    maxTokens = 4000,
+    temperature = 0.7,
+    options: Partial<AICallParams> = {}
+  ): Promise<string> {
+    const result = await this.chatCompletion({
+      model: modelSpec,
+      prompt,
+      maxTokens,
+      temperature,
+      ...options,
     });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error(`[GEMINI ERROR ${response.status}]`, errText);
-      throw new Error(`Gemini API error (${response.status}): ${errText}`);
-    }
-
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) {
-      throw new Error("Gemini returned empty response content");
-    }
-    return text;
-  }
-
-  private async callOpenAI(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
-    const apiKey = this.getOpenAIKey();
-    if (!apiKey) {
-      throw new Error("OpenAI API key is missing or not loaded in environment variables");
-    }
-
-    const url = "https://api.openai.com/v1/chat/completions";
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: modelName || "gpt-4o-mini",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: maxTokens,
-        temperature,
-      }),
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error(`[OPENAI ERROR ${response.status}]`, errText);
-      throw new Error(`OpenAI API error (${response.status}): ${errText}`);
-    }
-
-    const data = await response.json();
-    const text = data.choices?.[0]?.message?.content;
-    if (!text) {
-      throw new Error("OpenAI returned empty response content");
-    }
-    return text;
-  }
-
-  private async callAnthropic(modelName: string, prompt: string, maxTokens: number, temperature: number): Promise<string> {
-    const apiKey = this.getClaudeKey();
-    if (!apiKey) {
-      throw new Error("Anthropic API key is missing or not loaded in environment variables");
-    }
-
-    let anthropicModel = modelName;
-    if (modelName === "claude-3-7-sonnet" || modelName === "claude-3.7-sonnet") {
-      anthropicModel = "claude-3-7-sonnet-20250219";
-    } else if (modelName === "claude-3-5-sonnet" || modelName === "claude-3.5-sonnet") {
-      anthropicModel = "claude-3-5-sonnet-20241022";
-    } else if (modelName === "claude-3-5-haiku" || modelName === "claude-3.5-haiku") {
-      anthropicModel = "claude-3-5-haiku-20241022";
-    }
-
-    const url = "https://api.anthropic.com/v1/messages";
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: anthropicModel,
-        max_tokens: maxTokens,
-        temperature,
-        messages: [{ role: "user", content: prompt }],
-      }),
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error(`[ANTHROPIC ERROR ${response.status}]`, errText);
-      throw new Error(`Anthropic API error (${response.status}): ${errText}`);
-    }
-
-    const data = await response.json();
-    const text = data.content?.[0]?.text;
-    if (!text) {
-      throw new Error("Anthropic returned empty response content");
-    }
-    return text;
+    return result.text;
   }
 
   /**
-   * Generates output with automatic provider fallback routing based on output type configuration.
+   * Generates output using Central AI Gateway with automatic waterfall model fallback.
+   * Central AI Gateway LiteLLM handles fallbacks natively, but client-level fallback is also
+   * preserved across configured tier aliases.
    */
   async generateWithFallback(
     outputType: ReportOutputType,
-    prompt: string
+    prompt: string,
+    options: Partial<AICallParams> = {}
   ): Promise<{ text: string; modelUsed: string }> {
     const config = MODEL_ROUTING[outputType] || {
-      primary: "google/gemini-flash-latest",
-      fallbacks: ["google/gemini-3.5-flash", "openai/gpt-4o", "anthropic/claude-3-5-sonnet-20241022"],
+      primary: MODEL_ALIASES.SMART,
+      fallbacks: [MODEL_ALIASES.CLIENT_PREMIUM, MODEL_ALIASES.FAST],
       maxTokens: 4000,
       temperature: 0.7,
     };
-    
+
     const candidateModels = [config.primary, ...config.fallbacks];
     const errors: { modelSpec: string; error: string }[] = [];
 
-    console.log("=== AI Key Verification ===");
-    console.log("Gemini Key Loaded:", !!this.getGeminiKey());
-    console.log("OpenAI Key Loaded:", !!this.getOpenAIKey());
-    console.log("Claude Key Loaded:", !!this.getClaudeKey());
-    console.log("===========================");
+    console.log("=== Central AI Gateway Invocation ===");
+    console.log("Gateway Endpoint:", this.getGatewayUrl());
+    console.log("Output Type:", outputType);
+    console.log("Candidate Models:", candidateModels.join(" -> "));
+    console.log("=====================================");
 
     for (const modelSpec of candidateModels) {
       try {
-        console.log(`[AIClient] Attempting generation for ${outputType} using model: ${modelSpec}`);
-        const result = await this.callModel(modelSpec, prompt, config.maxTokens, config.temperature);
-        console.log(`[AIClient] Successfully generated ${outputType} using model: ${modelSpec}`);
-        return { text: result, modelUsed: modelSpec };
+        console.log(`[AIClient] Attempting generation for ${outputType} using model alias: ${modelSpec}`);
+        const result = await this.chatCompletion({
+          model: modelSpec,
+          prompt,
+          maxTokens: options.maxTokens ?? config.maxTokens,
+          temperature: options.temperature ?? config.temperature,
+          feature: options.feature || outputType,
+          ...options,
+        });
+
+        console.log(`[AIClient] Successfully generated ${outputType} using model: ${result.modelUsed}`);
+        return { text: result.text, modelUsed: result.modelUsed };
       } catch (err: any) {
-        console.error("================================");
-        console.error("Provider Failed:", modelSpec);
-        console.error("Message:", err.message);
-        console.error("Stack:", err.stack);
-        console.error("================================");
+        console.error(`[AIClient] Model alias ${modelSpec} failed:`, err.message);
         errors.push({ modelSpec, error: err.message });
       }
     }
 
     const failureSummary = errors.map((e) => `${e.modelSpec}: ${e.error}`).join(" | ");
-    throw new Error(`All AI models failed for ${outputType}. Summary of all providers: ${failureSummary}`);
+    throw new Error(`All Central AI Gateway models failed for ${outputType}. Summary: ${failureSummary}`);
   }
 }
 

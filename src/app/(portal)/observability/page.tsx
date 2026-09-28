@@ -37,7 +37,7 @@ export default function ObservabilityPage() {
   const [selectedStatusFilter, setSelectedStatusFilter] = useState("ALL");
 
   // Interactive Test State
-  const [testModel, setTestModel] = useState("gemini-flash-latest");
+  const [testModel, setTestModel] = useState("nisol-smart");
   const [testPrompt, setTestPrompt] = useState(
     "Analyze enterprise AI governance risks and produce a 3-bullet executive summary."
   );
@@ -106,6 +106,7 @@ export default function ObservabilityPage() {
 
     const matchesModel =
       selectedModelFilter === "ALL" ||
+      (selectedModelFilter === "gateway" && t.provider === "gateway") ||
       (selectedModelFilter === "google" && t.provider === "google") ||
       (selectedModelFilter === "openai" && t.provider === "openai") ||
       (selectedModelFilter === "anthropic" && t.provider === "anthropic");
@@ -278,16 +279,39 @@ export default function ObservabilityPage() {
           <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800">
             <h2 className="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
               <Layers className="w-4 h-4 text-golden-400" />
-              Multi-Model Usage Distribution
+              Gateway & Model Distribution
             </h2>
             <div className="space-y-3 text-xs">
+              <div>
+                <div className="flex justify-between font-semibold mb-1">
+                  <span className="text-golden-400 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-golden-400" /> Central AI Gateway (LiteLLM)
+                  </span>
+                  <span className="text-slate-300">
+                    {metrics?.providerBreakdown?.gateway || 0} traces
+                  </span>
+                </div>
+                <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-golden-500 to-amber-500 rounded-full transition-all"
+                    style={{
+                      width: `${
+                        metrics?.totalGenerations
+                          ? ((metrics.providerBreakdown?.gateway || 0) / metrics.totalGenerations) * 100
+                          : 0
+                      }%`,
+                    }}
+                  />
+                </div>
+              </div>
+
               <div>
                 <div className="flex justify-between font-semibold mb-1">
                   <span className="text-blue-400 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-blue-400" /> Google Gemini (Flash / Pro)
                   </span>
                   <span className="text-slate-300">
-                    {metrics?.providerBreakdown.google || 0} traces
+                    {metrics?.providerBreakdown?.google || 0} traces
                   </span>
                 </div>
                 <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -296,7 +320,7 @@ export default function ObservabilityPage() {
                     style={{
                       width: `${
                         metrics?.totalGenerations
-                          ? ((metrics.providerBreakdown.google || 0) / metrics.totalGenerations) * 100
+                          ? ((metrics.providerBreakdown?.google || 0) / metrics.totalGenerations) * 100
                           : 0
                       }%`,
                     }}
@@ -310,7 +334,7 @@ export default function ObservabilityPage() {
                     <span className="w-2 h-2 rounded-full bg-emerald-400" /> OpenAI (GPT-4o / Mini)
                   </span>
                   <span className="text-slate-300">
-                    {metrics?.providerBreakdown.openai || 0} traces
+                    {metrics?.providerBreakdown?.openai || 0} traces
                   </span>
                 </div>
                 <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -319,7 +343,7 @@ export default function ObservabilityPage() {
                     style={{
                       width: `${
                         metrics?.totalGenerations
-                          ? ((metrics.providerBreakdown.openai || 0) / metrics.totalGenerations) * 100
+                          ? ((metrics.providerBreakdown?.openai || 0) / metrics.totalGenerations) * 100
                           : 0
                       }%`,
                     }}
@@ -333,7 +357,7 @@ export default function ObservabilityPage() {
                     <span className="w-2 h-2 rounded-full bg-amber-400" /> Anthropic (Claude 3.5 Sonnet)
                   </span>
                   <span className="text-slate-300">
-                    {metrics?.providerBreakdown.anthropic || 0} traces
+                    {metrics?.providerBreakdown?.anthropic || 0} traces
                   </span>
                 </div>
                 <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -342,7 +366,7 @@ export default function ObservabilityPage() {
                     style={{
                       width: `${
                         metrics?.totalGenerations
-                          ? ((metrics.providerBreakdown.anthropic || 0) / metrics.totalGenerations) * 100
+                          ? ((metrics.providerBreakdown?.anthropic || 0) / metrics.totalGenerations) * 100
                           : 0
                       }%`,
                     }}
@@ -437,6 +461,9 @@ export default function ObservabilityPage() {
                   onChange={(e) => setTestModel(e.target.value)}
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-golden-400"
                 >
+                  <option value="nisol-smart">nisol-smart (Default Workhorse: Llama 70B / Gemini / GPT-4o-mini)</option>
+                  <option value="nisol-fast">nisol-fast (Ultra-Low Latency: Llama 8B / Cerebras / Flash)</option>
+                  <option value="nisol-client-premium">nisol-client-premium (Premium: Claude 3.5 Sonnet / GPT-4o)</option>
                   <option value="gemini-flash-latest">Google Gemini Flash Latest</option>
                   <option value="gpt-4o">OpenAI GPT-4o</option>
                   <option value="claude-3-5-sonnet-20241022">Anthropic Claude 3.5 Sonnet</option>
@@ -531,7 +558,8 @@ export default function ObservabilityPage() {
                 onChange={(e) => setSelectedModelFilter(e.target.value)}
                 className="bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-golden-400"
               >
-                <option value="ALL">All Models</option>
+                <option value="ALL">All Providers</option>
+                <option value="gateway">Central AI Gateway (LiteLLM)</option>
                 <option value="google">Google Gemini</option>
                 <option value="openai">OpenAI</option>
                 <option value="anthropic">Anthropic Claude</option>
@@ -575,6 +603,7 @@ export default function ObservabilityPage() {
                     </tr>
                   ) : (
                     filteredTraces.map((trace) => {
+                      const isGateway = trace.provider === "gateway" || trace.model.startsWith("nisol-");
                       const isGoogle = trace.provider === "google";
                       const isOpenAI = trace.provider === "openai";
                       const isAnthropic = trace.provider === "anthropic";
@@ -619,7 +648,9 @@ export default function ObservabilityPage() {
                           <td className="p-3.5">
                             <span
                               className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-mono text-[11px] font-semibold ${
-                                isGoogle
+                                isGateway
+                                  ? "bg-golden-500/20 text-golden-300 border border-golden-400/40"
+                                  : isGoogle
                                   ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
                                   : isOpenAI
                                   ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"

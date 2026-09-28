@@ -1,6 +1,6 @@
 // src/lib/observability/types.ts
 
-export type ModelProvider = "google" | "openai" | "anthropic" | "custom";
+export type ModelProvider = "gateway" | "google" | "openai" | "anthropic" | "custom";
 
 export interface LangfuseConfig {
   publicKey?: string;
@@ -44,10 +44,13 @@ export interface ObservabilityMetrics {
   avgLatencyMs: number;
   successRate: number;
   providerBreakdown: {
+    gateway: number;
     google: number;
     openai: number;
     anthropic: number;
+    [key: string]: number;
   };
+  modelBreakdown?: Record<string, number>;
 }
 
 export interface ObservabilityStatusResponse {
