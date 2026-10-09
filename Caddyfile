@@ -3,9 +3,9 @@
     email superadmin@nisolai.com
 }
 
-# Main Application & API Portal (Nisol AI & ConductOS)
-app.nisolai.com, conductos.nisolai.com {
-    reverse_proxy app:3000 {
+# 1. Main Nisol AI Application & Discovery Portal
+app.nisolai.com {
+    reverse_proxy nisol-app:3000 {
         header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
@@ -13,9 +13,29 @@ app.nisolai.com, conductos.nisolai.com {
     }
 }
 
-# Centralized LLM Observability Console
+# 2. ConductOS Frontend
+conductos.nisolai.com {
+    reverse_proxy conductos-frontend:4020 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+# 3. RoOption Institutional Algorithmic Trading Platform
+rooption.nisolai.com {
+    reverse_proxy nisol-rooption-frontend:5000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+# 4. Centralized LLM Observability Console (Langfuse)
 langfuse.nisolai.com {
-    reverse_proxy langfuse:3000 {
+    reverse_proxy nisol-langfuse:3000 {
         header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
@@ -23,9 +43,9 @@ langfuse.nisolai.com {
     }
 }
 
-# Social Media Scheduler: TryPost
+# 5. Social Media Scheduler (TryPost)
 social.nisolai.com, trypost.nisolai.com, post.nisolai.com {
-    reverse_proxy trypost:80 {
+    reverse_proxy nisol-trypost:80 {
         header_up Host {host}
         header_up X-Real-IP {remote_host}
         header_up X-Forwarded-For {remote_host}
