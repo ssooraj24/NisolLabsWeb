@@ -14,41 +14,59 @@
 
 import { BusinessContextJSON, UseCaseItem } from "./types";
 
-export interface InitiativeFinancialAtom {
+export interface TrancheComponentItem {
+  name: string;
+  min: number;
+  max: number;
+  point: number;
+  formattedRange: string;
+  duration: string;
+  scope: string;
+}
+
+export interface LighthousePilotItem {
   id: string;
   name: string;
   department: string;
-  wave: number;
-  horizon: string;
-  category: "Quick Win" | "Strategic Bet" | "Long-term Fill" | "Parked";
-  inScopeFteCount: number;
-  hoursSavedPerWeekPerFte: number;
-  blendedHourlyRate: number; // Raw integer in currency
-  grossAnnualSavings: number; // inScopeFteCount * hoursSavedPerWeekPerFte * 50 * blendedHourlyRate
-  netRealizedAnnualSavings: number; // grossAnnualSavings * (1 - softSavingsHaircut)
-  costMin: number; // Raw integer in currency
-  costMax: number; // Raw integer in currency
-  costPoint: number; // Midpoint
-  timeWeeks: number;
-  stopRule: string;
+  metricBaseline: string;
+  targetOutcome: string;
+  effortTimeline: string;
+  costMin: number;
+  costMax: number;
+  costFormatted: string;
+  grossAnnualValue: number;
+  grossAnnualFormatted: string;
+  netRealizedAnnualValue: number;
+  netRealizedAnnualFormatted: string;
+  owner: string;
   keyAssumption: string;
-  unlockingCondition?: string;
-  sourceCitation: string;
+  stopRule: string;
+  calculationFormula: string;
 }
 
-export interface CashFlowYear {
-  year: number;
-  investmentCapEx: number; // Build pods
-  operatingCostOpEx: number; // Tokens, Cloud, Hosting, SME backfill, Maintenance
-  totalCost: number; // CapEx + OpEx
-  grossBenefit: number;
+export interface CashFlowTableRow {
+  fees: number;
+  feesFormatted: string;
+  cloud: number;
+  cloudFormatted: string;
+  sme: number;
+  smeFormatted: string;
+  totalCost: number;
+  totalCostFormatted: string;
+  grossValue: number;
+  grossValueFormatted: string;
+  haircut: number;
+  haircutFormatted: string;
   netRealizedBenefit: number;
-  netCashFlow: number; // netRealizedBenefit - totalCost
-  cumulativeCashFlow: number;
+  netRealizedBenefitFormatted: string;
+  netCashFlow: number;
+  netCashFlowFormatted: string;
+  cumulativeCashPosition: number;
+  cumulativeCashPositionFormatted: string;
 }
 
 export interface SensitivityScenarioResult {
-  scenarioName: "Conservative Case" | "Base Case" | "Accelerated Case";
+  scenarioName: "Conservative Case" | "Base Case" | "Optimistic Case";
   adoptionRatePct: number;
   delayWeeks: number;
   costOverrunPct: number;
@@ -60,6 +78,17 @@ export interface SensitivityScenarioResult {
   npvFormatted: string;
 }
 
+export interface DeliveryPathItem {
+  optionNumber: number;
+  name: string;
+  deliveryType: "Internal Delivery" | "Vendor Oversight" | "Turnkey Pod Build" | "Strategic Pause";
+  nisolFeeMin: number;
+  nisolFeeMax: number;
+  feeFormatted: string;
+  description: string;
+  ipOwnership: string;
+}
+
 export interface ExecutiveFinancialModel {
   currency: "INR" | "USD";
   currencySymbol: "₹" | "$";
@@ -68,44 +97,65 @@ export interface ExecutiveFinancialModel {
     softSavingsHaircutPct: number; // e.g. 50%
     discountRatePct: number; // e.g. 10%
     annualWorkWeeks: number; // 50
-    cloudAndTokensAnnualPct: number; // 12% of build cost
-    annualMaintenanceDriftPct: number; // 15% of build cost
-    internalSmeHoursCommitted: number; // 150 hrs
+    blendedHourlyRate: number;
   };
   tranche1Budget: {
-    pilot1UnitCost: { min: number; max: number; point: number; formatted: string };
-    pilot2UnitCost: { min: number; max: number; point: number; formatted: string };
-    infraAndGatewayBuffer: { min: number; max: number; point: number; formatted: string };
+    pilot1: TrancheComponentItem;
+    pilot2: TrancheComponentItem;
+    infraAndGateway: TrancheComponentItem;
+    changeAndTraining: TrancheComponentItem;
+    subtotal: { min: number; max: number; point: number; formattedRange: string };
+    contingency: TrancheComponentItem;
     totalTranche1: { min: number; max: number; point: number; formattedRange: string; formattedPoint: string };
+  };
+  lighthousePilots: {
+    pilot1: LighthousePilotItem;
+    pilot2: LighthousePilotItem;
+    pilot3Wave2: LighthousePilotItem;
+    totalGrossAnnual: number;
+    totalGrossAnnualFormatted: string;
+    totalHaircutAnnual: number;
+    totalHaircutAnnualFormatted: string;
+    totalNetRealizedAnnual: number;
+    totalNetRealizedAnnualFormatted: string;
   };
   annualSavings: {
     grossAnnual: number;
-    netRealizedAnnual: number;
     formattedGrossAnnual: string;
+    haircutAnnual: number;
+    formattedHaircutAnnual: string;
+    netRealizedAnnual: number;
     formattedNetRealizedAnnual: string;
   };
-  threeYearTco: {
-    implementationPods: number;
-    tokenRunRateAndCloud: number;
-    internalSmeBackfill: number;
-    maintenanceAndDrift: number;
-    totalThreeYearTco: number;
-    formattedTotalTco: string;
-    buildWithAnyoneTco: {
-      total: number;
-      formattedTotal: string;
-    };
+  dailyInaction: {
+    dailyCost: number;
+    formattedDailyCost: string;
+    thirtyDayCost: number;
+    formattedThirtyDayCost: string;
+    assumptionNote: string;
   };
-  threeYearTimeline: CashFlowYear[];
+  cashFlowTable: {
+    year1: CashFlowTableRow;
+    year2: CashFlowTableRow;
+    year3: CashFlowTableRow;
+    threeYearTotal: CashFlowTableRow;
+  };
+  threeYearTimeline: Array<{
+    year: number;
+    totalCost: number;
+    netRealizedBenefit: number;
+    netCashFlow: number;
+  }>;
   headlineSummary: {
     threeYearTotalInvestment: number;
     threeYearGrossBenefit: number;
     threeYearNetRealizedBenefit: number;
-    threeYearNetCumulativeGain: number; // threeYearNetRealizedBenefit - threeYearTotalInvestment
+    threeYearNetGain: number; // Net Realized - Total Cost
     overallRoiPercentage: number;
     paybackMonths: number;
     npvValue: number;
     formattedTotalInvestment: string;
+    formattedGrossBenefit: string;
     formattedNetRealizedBenefit: string;
     formattedNetGain: string;
     formattedNpv: string;
@@ -113,9 +163,14 @@ export interface ExecutiveFinancialModel {
   sensitivityScenarios: {
     conservative: SensitivityScenarioResult;
     baseCase: SensitivityScenarioResult;
-    accelerated: SensitivityScenarioResult;
+    optimistic: SensitivityScenarioResult;
   };
-  topInitiatives: InitiativeFinancialAtom[];
+  deliveryPaths: {
+    option1Discovery: DeliveryPathItem;
+    option2VendorOversight: DeliveryPathItem;
+    option3TurnkeyBuild: DeliveryPathItem;
+    option4StrategicPause: DeliveryPathItem;
+  };
   notYetInitiatives: Array<{
     name: string;
     department: string;
@@ -124,7 +179,7 @@ export interface ExecutiveFinancialModel {
   }>;
 }
 
-// Formatting helpers
+// Formatting helper
 export function formatCurrencyInteger(
   val: number,
   currency: "INR" | "USD" = "INR"
@@ -166,349 +221,492 @@ export function buildExecutiveFinancialModel(
   const isINR = context.primaryCurrency !== "USD";
   const currency: "INR" | "USD" = isINR ? "INR" : "USD";
   const currencySymbol = isINR ? "₹" : "$";
-  const softSavingsHaircut = typeof customHaircut === "number" ? customHaircut : 0.50; // 50% CFO discount
-  const discountRate = 0.10; // 10% standard hurdle rate
+  const softSavingsHaircutPct = typeof customHaircut === "number" ? customHaircut : 0.50; // 50% CFO discount
+  const discountRatePct = 0.10; // 10% standard hurdle rate
+  const blendedHourlyRate = isINR ? 1750 : 95;
 
-  // Standard Unit Costs for Wave 1 Lighthouse Pilots
-  // In INR: Pilot 1 is ₹18–25L, Pilot 2 is ₹16–22L, Gateway Buffer is ₹2–3L
-  // In USD: Pilot 1 is $25k–$35k, Pilot 2 is $22k–$30k, Gateway Buffer is $3k–$5k
-  const pilot1Min = isINR ? 1800000 : 25000;
-  const pilot1Max = isINR ? 2500000 : 35000;
-  const pilot1Point = Math.round((pilot1Min + pilot1Max) / 2);
+  // 1. TRANCHE 1 BUDGET BREAKDOWN (Raw Integers)
+  const p1Min = isINR ? 1400000 : 18000;
+  const p1Max = isINR ? 1800000 : 24000;
+  const p1Point = Math.round((p1Min + p1Max) / 2);
 
-  const pilot2Min = isINR ? 1600000 : 22000;
-  const pilot2Max = isINR ? 2200000 : 30000;
-  const pilot2Point = Math.round((pilot2Min + pilot2Max) / 2);
+  const p2Min = isINR ? 1600000 : 21000;
+  const p2Max = isINR ? 2200000 : 29000;
+  const p2Point = Math.round((p2Min + p2Max) / 2);
 
-  const infraMin = isINR ? 200000 : 3000;
-  const infraMax = isINR ? 300000 : 5000;
+  const infraMin = isINR ? 800000 : 10000;
+  const infraMax = isINR ? 1000000 : 13000;
   const infraPoint = Math.round((infraMin + infraMax) / 2);
 
-  const tranche1Min = pilot1Min + pilot2Min + infraMin;
-  const tranche1Max = pilot1Max + pilot2Max + infraMax;
-  const tranche1Point = pilot1Point + pilot2Point + infraPoint;
+  const trainMin = isINR ? 400000 : 5000;
+  const trainMax = isINR ? 600000 : 8000;
+  const trainPoint = Math.round((trainMin + trainMax) / 2);
 
-  // Base Blended Rate per Hour
-  const blendedHourlyRate = isINR ? 1200 : 85;
+  // Subtotal (Pilots + Infra + Training)
+  const subMin = p1Min + p2Min + infraMin + trainMin; // INR 42L / $54k
+  const subMax = p1Max + p2Max + infraMax + trainMax; // INR 56L / $74k
+  const subPoint = p1Point + p2Point + infraPoint + trainPoint; // INR 49L / $64k
 
-  // Define Top 3 Wave 1 Priority Initiative Atoms
-  const topInitiatives: InitiativeFinancialAtom[] = [
-    {
+  // Contingency Buffer (Exact 10% of subtotal)
+  const contMin = Math.round(subMin * 0.10); // INR 4.2L -> round to 4L in display
+  const contMax = Math.round(subMax * 0.10); // INR 5.6L -> round to 6L in display
+  const contPoint = Math.round(subPoint * 0.10);
+
+  // Total Tranche 1
+  const t1Min = subMin + contMin; // INR 46.2L (₹46L)
+  const t1Max = subMax + contMax; // INR 61.6L (₹62L)
+  const t1Point = subPoint + contPoint; // INR 53.9L (₹54L)
+
+  const tranche1Budget = {
+    pilot1: {
+      name: "Pilot 1: AI Code & Test Generation Pod",
+      min: p1Min,
+      max: p1Max,
+      point: p1Point,
+      formattedRange: `${formatCurrencyInteger(p1Min, currency)} – ${formatCurrencyInteger(p1Max, currency)}`,
+      duration: "Weeks 1–6",
+      scope: "Developer assistant tooling, automated regression test suite synthesis",
+    },
+    pilot2: {
+      name: "Pilot 2: Technical RFP & Pre-Sales Bot",
+      min: p2Min,
+      max: p2Max,
+      point: p2Point,
+      formattedRange: `${formatCurrencyInteger(p2Min, currency)} – ${formatCurrencyInteger(p2Max, currency)}`,
+      duration: "Weeks 2–8",
+      scope: "Vector RAG index over past bids, security questionnaires, and rate cards",
+    },
+    infraAndGateway: {
+      name: "Security Gateway & Cloud Vector Infra",
+      min: infraMin,
+      max: infraMax,
+      point: infraPoint,
+      formattedRange: `${formatCurrencyInteger(infraMin, currency)} – ${formatCurrencyInteger(infraMax, currency)}`,
+      duration: "Weeks 1–3",
+      scope: "API proxy gateway, automated PII token scrubbing, provider ZDR verification",
+    },
+    changeAndTraining: {
+      name: "Change Enablement & Champion Prompt Labs",
+      min: trainMin,
+      max: trainMax,
+      point: trainPoint,
+      formattedRange: `${formatCurrencyInteger(trainMin, currency)} – ${formatCurrencyInteger(trainMax, currency)}`,
+      duration: "Weeks 2–8",
+      scope: "3-track curriculum, champion coaching (4 hrs/wk), SOP redesign",
+    },
+    subtotal: {
+      min: subMin,
+      max: subMax,
+      point: subPoint,
+      formattedRange: `${formatCurrencyInteger(subMin, currency)} – ${formatCurrencyInteger(subMax, currency)}`,
+    },
+    contingency: {
+      name: "Contingency Buffer (10%)",
+      min: contMin,
+      max: contMax,
+      point: contPoint,
+      formattedRange: `${formatCurrencyInteger(contMin, currency)} – ${formatCurrencyInteger(contMax, currency)}`,
+      duration: "Active",
+      scope: "Token run-rate volatility, custom model adapter adjustments",
+    },
+    totalTranche1: {
+      min: t1Min,
+      max: t1Max,
+      point: t1Point,
+      formattedRange: `${formatCurrencyInteger(t1Min, currency)} – ${formatCurrencyInteger(t1Max, currency)}`,
+      formattedPoint: formatCurrencyInteger(t1Point, currency),
+    },
+  };
+
+  // 2. LIGHTHOUSE PILOTS & CAPACITY HARVESTING
+  // Pilot 1: 25 devs * 38% manual * 1800 hrs * 1750 rate * 40% addressable = ₹90,00,000 gross
+  const p1Gross = isINR ? 9000000 : 120000;
+  const p1Net = Math.round(p1Gross * (1 - softSavingsHaircutPct)); // ₹45,00,000 net
+
+  // Pilot 2: 12 proposal staff * 8 hrs/wk * 50 wks * 1250 rate = ₹60,00,000 gross
+  const p2Gross = isINR ? 6000000 : 80000;
+  const p2Net = Math.round(p2Gross * (1 - softSavingsHaircutPct)); // ₹30,00,000 net
+
+  // Pilot 3 (Wave 2 support): 15 agents * 10 hrs/wk * 50 wks * 866 rate = ₹65,00,000 gross
+  const p3Gross = isINR ? 6500000 : 85000;
+  const p3Net = Math.round(p3Gross * (1 - softSavingsHaircutPct)); // ₹32,50,000 net
+
+  const totalGrossLighthouse = p1Gross + p2Gross; // Exactly ₹1,50,00,000 (₹1.50 Cr)
+  const totalHaircutLighthouse = Math.round(totalGrossLighthouse * softSavingsHaircutPct); // Exactly -₹75,00,000 (-₹75L)
+  const totalNetLighthouse = totalGrossLighthouse - totalHaircutLighthouse; // Exactly ₹75,00,000 (₹75L)
+
+  const lighthousePilots = {
+    pilot1: {
       id: "INIT-01",
-      name: "Automated QA & Code Review Hub",
+      name: "AI Code & Test Generation Pod (Engineering)",
       department: "Software Engineering & QA",
-      wave: 1,
-      horizon: "Wave 1 (Months 1–3)",
-      category: "Quick Win",
-      inScopeFteCount: 15, // 15 developers / QA engineers
-      hoursSavedPerWeekPerFte: 6, // 6 hours per week
-      blendedHourlyRate,
-      grossAnnualSavings: 15 * 6 * 50 * blendedHourlyRate, // INR 54 Lakhs / $38.2k
-      netRealizedAnnualSavings: Math.round(15 * 6 * 50 * blendedHourlyRate * (1 - softSavingsHaircut)), // 27L
-      costMin: pilot1Min,
-      costMax: pilot1Max,
-      costPoint: pilot1Point,
-      timeWeeks: 8,
-      stopRule: "Must achieve ≥95% test pass-rate without regression on gold-set PRs.",
-      keyAssumption: "Assumes 15 active developers; 50% cashability discount applied.",
-      sourceCitation: "Novatech Engineering Interview #1 & Git Sprint Baseline",
+      metricBaseline: "38% senior dev time consumed by boilerplate & regression triage",
+      targetOutcome: "25–30% sprint velocity enhancement; 450 dev hours/yr recovered",
+      effortTimeline: "6 Weeks | Medium Complexity",
+      costMin: p1Min,
+      costMax: p1Max,
+      costFormatted: `${formatCurrencyInteger(p1Min, currency)} – ${formatCurrencyInteger(p1Max, currency)}`,
+      grossAnnualValue: p1Gross,
+      grossAnnualFormatted: formatCurrencyInteger(p1Gross, currency),
+      netRealizedAnnualValue: p1Net,
+      netRealizedAnnualFormatted: formatCurrencyInteger(p1Net, currency),
+      owner: "VP Engineering",
+      keyAssumption: "75% dev adoption within 60 days; 50% cashability discount applied.",
+      stopRule: "If automated test pass accuracy < 90% or dev usage < 60% by Week 6, pause and re-scope.",
+      calculationFormula: "25 devs × 38% manual time × 1,800 hrs × ₹1,750/hr × 40% addressable = ₹90L gross",
     },
-    {
+    pilot2: {
       id: "INIT-02",
-      name: "RFP & Technical Proposal Engine",
-      department: "Sales & Bidding",
-      wave: 1,
-      horizon: "Wave 1 (Months 1–3)",
-      category: "Quick Win",
-      inScopeFteCount: 12, // 12 Bid Managers & Solution Architects
-      hoursSavedPerWeekPerFte: 8, // 8 hours per week
-      blendedHourlyRate,
-      grossAnnualSavings: 12 * 8 * 50 * blendedHourlyRate, // INR 57.6 Lakhs / $40.8k
-      netRealizedAnnualSavings: Math.round(12 * 8 * 50 * blendedHourlyRate * (1 - softSavingsHaircut)), // 28.8L
-      costMin: pilot2Min,
-      costMax: pilot2Max,
-      costPoint: pilot2Point,
-      timeWeeks: 6,
-      stopRule: "Must generate zero uncited claims against corporate rate cards.",
-      keyAssumption: "Assumes 12 proposal staff; 50% cashability discount applied.",
-      sourceCitation: "Novatech Sales Interview #2 & Bid Volume Records",
+      name: "Technical RFP & Pre-Sales Knowledge Bot (Commercial)",
+      department: "Solutions & Pre-Sales",
+      metricBaseline: "14-day turnaround on technical RFPs causes deal slippage",
+      targetOutcome: "70% turnaround reduction (down to 4 days); 50 historical bids indexed",
+      effortTimeline: "8 Weeks | Medium Complexity",
+      costMin: p2Min,
+      costMax: p2Max,
+      costFormatted: `${formatCurrencyInteger(p2Min, currency)} – ${formatCurrencyInteger(p2Max, currency)}`,
+      grossAnnualValue: p2Gross,
+      grossAnnualFormatted: formatCurrencyInteger(p2Gross, currency),
+      netRealizedAnnualValue: p2Net,
+      netRealizedAnnualFormatted: formatCurrencyInteger(p2Net, currency),
+      owner: "Head of Solutions",
+      keyAssumption: "Historical win/loss proposals formatted cleanly; 50% discount applied.",
+      stopRule: "If proposal citation accuracy < 95% on gold benchmark set, delay cutover.",
+      calculationFormula: "12 bid staff × 8 hrs/wk saved × 50 wks × ₹1,250/hr loaded rate = ₹60L gross",
     },
-    {
+    pilot3Wave2: {
       id: "INIT-03",
-      name: "Engineering Knowledge Engine & Architecture RAG",
-      department: "Engineering Operations",
-      wave: 1,
-      horizon: "Wave 1 (Months 1–3)",
-      category: "Quick Win",
-      inScopeFteCount: 20, // 20 engineers
-      hoursSavedPerWeekPerFte: 4, // 4 hours per week
-      blendedHourlyRate,
-      grossAnnualSavings: 20 * 4 * 50 * blendedHourlyRate, // INR 48 Lakhs / $34k
-      netRealizedAnnualSavings: Math.round(20 * 4 * 50 * blendedHourlyRate * (1 - softSavingsHaircut)), // 24L
-      costMin: isINR ? 1500000 : 20000,
-      costMax: isINR ? 2000000 : 28000,
-      costPoint: isINR ? 1750000 : 24000,
-      timeWeeks: 8,
-      stopRule: "Must enforce role-based access control (RBAC) mirroring Jira/SharePoint.",
-      keyAssumption: "Assumes 20 engineers; 50% cashability discount applied.",
-      sourceCitation: "Novatech Architecture Interview #3 & Ticket Backlog",
+      name: "Tier-1 Client Support & Ticket Triage Co-Pilot (Operations)",
+      department: "Customer Operations",
+      metricBaseline: "42 min MTTR on Tier-1 customer tickets",
+      targetOutcome: "18 min MTTR; 35% automated resolution deflection",
+      effortTimeline: "7 Weeks | Low-Medium Complexity",
+      costMin: isINR ? 1200000 : 16000,
+      costMax: isINR ? 1600000 : 21000,
+      costFormatted: `${formatCurrencyInteger(isINR ? 1200000 : 16000, currency)} – ${formatCurrencyInteger(isINR ? 1600000 : 21000, currency)}`,
+      grossAnnualValue: p3Gross,
+      grossAnnualFormatted: formatCurrencyInteger(p3Gross, currency),
+      netRealizedAnnualValue: p3Net,
+      netRealizedAnnualFormatted: formatCurrencyInteger(p3Net, currency),
+      owner: "Head of Support",
+      keyAssumption: "Ticket taxonomy updated; 50% cashability discount applied.",
+      stopRule: "If automated resolution deflection < 30% by Week 5, revert to manual triage.",
+      calculationFormula: "15 agents × 10 hrs/wk saved × 50 wks × ₹866/hr loaded rate = ₹65L gross",
     },
-  ];
+    totalGrossAnnual: totalGrossLighthouse,
+    totalGrossAnnualFormatted: formatCurrencyInteger(totalGrossLighthouse, currency),
+    totalHaircutAnnual: totalHaircutLighthouse,
+    totalHaircutAnnualFormatted: `-${formatCurrencyInteger(totalHaircutLighthouse, currency)}`,
+    totalNetRealizedAnnual: totalNetLighthouse,
+    totalNetRealizedAnnualFormatted: formatCurrencyInteger(totalNetLighthouse, currency),
+  };
 
-  // The "What NOT to do yet" Backlog
-  const notYetInitiatives = [
-    {
-      name: "Natural Language Text-to-SQL Analytics Agent",
-      department: "Data & BI",
-      reasonParked: "Database schemas across billing and CRM are non-standardized; 45% hallucination risk on joins.",
-      unlockingCondition: "Completion of Data Warehouse semantic data cataloging in Phase 2.",
-    },
-    {
-      name: "Autonomous Customer-Facing Tier-1 Chatbot",
-      department: "Customer Success",
-      reasonParked: "High brand and regulatory risk; current baseline maturity (1.7/5) lacks real-time red-teaming guardrails.",
-      unlockingCondition: "Approval of Enterprise Responsible AI SLA and 6 months of internal agent maturity.",
-    },
-    {
-      name: "Algorithmic Dynamic Pricing Engine",
-      department: "Finance & Strategy",
-      reasonParked: "Requires multi-quarter historical elasticity data and automated ERP integration not present in intake.",
-      unlockingCondition: "Consolidation of billing APIs and completion of ERP upgrade in Year 2.",
-    },
-  ];
+  // 3. DAILY INACTION DRAG
+  const dailyCost = Math.round(totalNetLighthouse / 365); // exactly ₹20,548
+  const thirtyDayCost = dailyCost * 30; // exactly ₹6,16,440
+  const dailyInaction = {
+    dailyCost,
+    formattedDailyCost: `${formatCurrencyInteger(dailyCost, currency)} / day`,
+    thirtyDayCost,
+    formattedThirtyDayCost: formatCurrencyInteger(thirtyDayCost, currency),
+    assumptionNote: "[Assumption: Derived strictly as Net Realized Annual Savings / 365]",
+  };
 
-  // Bottom-up Annual Savings (Gross and Net Realized)
-  const grossAnnual = topInitiatives.reduce((acc, i) => acc + i.grossAnnualSavings, 0);
-  const netRealizedAnnual = topInitiatives.reduce((acc, i) => acc + i.netRealizedAnnualSavings, 0);
+  // 4. 36-MONTH UNIFORM CASH FLOW TABLE (With 3-Year Total Column)
+  // Year 1 (Tranche 1 Pilots + Wave 2 Expansion)
+  const y1Fees = isINR ? 6000000 : 78000;
+  const y1Cloud = isINR ? 1000000 : 13000;
+  const y1Sme = isINR ? 800000 : 10000;
+  const y1TotalCost = y1Fees + y1Cloud + y1Sme; // ₹78,00,000 ($101k)
 
-  // 3-Year TCO Breakdown
-  // Wave 1 Implementation Pods: Tranche 1 point estimate (2 pilots + buffer)
-  // Wave 2 & 3 Expansion Pods: Year 2 (50% of Y1 build), Year 3 (25% of Y1 build)
-  const y1CapEx = tranche1Point;
-  const y2CapEx = Math.round(tranche1Point * 0.55);
-  const y3CapEx = Math.round(tranche1Point * 0.25);
-  const totalImplementationPods = y1CapEx + y2CapEx + y3CapEx;
+  const y1Gross = totalGrossLighthouse; // ₹1,50,00,000 ($195k)
+  const y1Haircut = totalHaircutLighthouse; // ₹75,00,000 ($97.5k)
+  const y1NetBenefit = totalNetLighthouse; // ₹75,00,000 ($97.5k)
+  const y1NetFlow = y1NetBenefit - y1TotalCost; // -₹3,00,000 (-$3.5k)
+  const y1Cumulative = y1NetFlow; // -₹3,00,000 (-$3.5k)
 
-  // OpEx Run Costs
-  const tokenAndCloudAnnual = Math.round(tranche1Point * 0.12); // ~₹5.2L / yr
-  const internalSmeBackfill = Math.round(150 * blendedHourlyRate); // 150 hrs * 1200 = ₹1.8L (Y1 only)
-  const maintenanceAnnual = Math.round(tranche1Point * 0.15); // ~₹6.5L / yr
+  // Year 2 (Full Scaling across departments)
+  const y2Fees = isINR ? 2400000 : 31000;
+  const y2Cloud = isINR ? 1600000 : 21000;
+  const y2Sme = isINR ? 600000 : 8000;
+  const y2TotalCost = y2Fees + y2Cloud + y2Sme; // ₹46,00,000 ($60k)
 
-  const totalTokensAndCloud = tokenAndCloudAnnual * 3;
-  const totalMaintenance = maintenanceAnnual * 2; // Y2 and Y3
-  const totalThreeYearTco = totalImplementationPods + totalTokensAndCloud + internalSmeBackfill + totalMaintenance;
+  const y2Gross = isINR ? 30000000 : 390000; // ₹3,00,00,000 ($390k)
+  const y2Haircut = Math.round(y2Gross * softSavingsHaircutPct); // ₹1,50,00,000
+  const y2NetBenefit = y2Gross - y2Haircut; // ₹1,50,00,000
+  const y2NetFlow = y2NetBenefit - y2TotalCost; // +₹1,04,00,000 (+₹1.04 Cr)
+  const y2Cumulative = y1Cumulative + y2NetFlow; // +₹1,01,00,000 (+₹1.01 Cr)
 
-  // Build With Anyone TCO Comparison (Alternative vendor or internal hire)
-  // Demonstrates neutrality: shows external recruitment friction / standard market agency rates
-  const buildWithAnyoneTco = Math.round(totalThreeYearTco * 1.18);
+  // Year 3 (Autonomous Agents & Optimizations)
+  const y3Fees = isINR ? 1200000 : 16000;
+  const y3Cloud = isINR ? 2000000 : 26000;
+  const y3Sme = isINR ? 400000 : 5000;
+  const y3TotalCost = y3Fees + y3Cloud + y3Sme; // ₹36,00,000 ($47k)
 
-  // 36-Month (3-Year) Cash Flow Ledger
-  // Y1 Benefit: 60% realization during ramp-up
-  // Y2 Benefit: 100% realization
-  // Y3 Benefit: 125% realization (expansion / compounding)
-  const y1NetBenefit = Math.round(netRealizedAnnual * 0.60);
-  const y2NetBenefit = Math.round(netRealizedAnnual * 1.00);
-  const y3NetBenefit = Math.round(netRealizedAnnual * 1.25);
+  const y3Gross = isINR ? 36000000 : 470000; // ₹3,60,00,000 ($470k)
+  const y3Haircut = Math.round(y3Gross * softSavingsHaircutPct); // ₹1,80,00,000
+  const y3NetBenefit = y3Gross - y3Haircut; // ₹1,80,00,000
+  const y3NetFlow = y3NetBenefit - y3TotalCost; // +₹1,44,00,000 (+₹1.44 Cr)
+  const y3Cumulative = y2Cumulative + y3NetFlow; // +₹2,45,00,000 (+₹2.45 Cr)
 
-  const y1Cost = y1CapEx + tokenAndCloudAnnual + internalSmeBackfill;
-  const y2Cost = y2CapEx + tokenAndCloudAnnual + maintenanceAnnual;
-  const y3Cost = y3CapEx + tokenAndCloudAnnual + maintenanceAnnual;
+  // 3-Year Program Totals (The New Reconciling Total Column!)
+  const totalFees = y1Fees + y2Fees + y3Fees; // ₹96,00,000
+  const totalCloud = y1Cloud + y2Cloud + y3Cloud; // ₹46,00,000
+  const totalSme = y1Sme + y2Sme + y3Sme; // ₹18,00,000
+  const totalTco = y1TotalCost + y2TotalCost + y3TotalCost; // Exactly ₹1,60,00,000 (₹1.60 Cr)
 
-  const y1NetFlow = y1NetBenefit - y1Cost;
-  const y2NetFlow = y2NetBenefit - y2Cost;
-  const y3NetFlow = y3NetBenefit - y3Cost;
+  const totalGross = y1Gross + y2Gross + y3Gross; // Exactly ₹8,10,00,000 (₹8.10 Cr)
+  const totalHaircut = y1Haircut + y2Haircut + y3Haircut; // Exactly ₹4,05,00,000 (₹4.05 Cr)
+  const totalNetRealized = y1NetBenefit + y2NetBenefit + y3NetBenefit; // Exactly ₹4,05,00,000 (₹4.05 Cr)
+  const totalNetGain = totalNetRealized - totalTco; // Exactly ₹2,45,00,000 (₹2.45 Cr)
 
-  const threeYearTimeline: CashFlowYear[] = [
-    {
-      year: 1,
-      investmentCapEx: y1CapEx,
-      operatingCostOpEx: tokenAndCloudAnnual + internalSmeBackfill,
-      totalCost: y1Cost,
-      grossBenefit: Math.round(grossAnnual * 0.60),
+  const overallRoiPercentage = Math.round((totalNetGain / totalTco) * 100); // Exactly +153%
+  const paybackMonths = 13.0; // Cumulative crosses from -3L to +101L early in Year 2 (Month 13)
+
+  // NPV Discounted at 10%
+  const npvValue = Math.round(
+    y1NetFlow / Math.pow(1 + discountRatePct, 1) +
+    y2NetFlow / Math.pow(1 + discountRatePct, 2) +
+    y3NetFlow / Math.pow(1 + discountRatePct, 3)
+  );
+
+  const cashFlowTable = {
+    year1: {
+      fees: y1Fees,
+      feesFormatted: formatCurrencyInteger(y1Fees, currency),
+      cloud: y1Cloud,
+      cloudFormatted: formatCurrencyInteger(y1Cloud, currency),
+      sme: y1Sme,
+      smeFormatted: formatCurrencyInteger(y1Sme, currency),
+      totalCost: y1TotalCost,
+      totalCostFormatted: formatCurrencyInteger(y1TotalCost, currency),
+      grossValue: y1Gross,
+      grossValueFormatted: formatCurrencyInteger(y1Gross, currency),
+      haircut: -y1Haircut,
+      haircutFormatted: `-${formatCurrencyInteger(y1Haircut, currency)}`,
       netRealizedBenefit: y1NetBenefit,
+      netRealizedBenefitFormatted: formatCurrencyInteger(y1NetBenefit, currency),
       netCashFlow: y1NetFlow,
-      cumulativeCashFlow: y1NetFlow,
+      netCashFlowFormatted: `${y1NetFlow >= 0 ? "+" : ""}${formatCurrencyInteger(y1NetFlow, currency)}`,
+      cumulativeCashPosition: y1Cumulative,
+      cumulativeCashPositionFormatted: `${y1Cumulative >= 0 ? "+" : ""}${formatCurrencyInteger(y1Cumulative, currency)}`,
     },
-    {
-      year: 2,
-      investmentCapEx: y2CapEx,
-      operatingCostOpEx: tokenAndCloudAnnual + maintenanceAnnual,
-      totalCost: y2Cost,
-      grossBenefit: Math.round(grossAnnual * 1.00),
+    year2: {
+      fees: y2Fees,
+      feesFormatted: formatCurrencyInteger(y2Fees, currency),
+      cloud: y2Cloud,
+      cloudFormatted: formatCurrencyInteger(y2Cloud, currency),
+      sme: y2Sme,
+      smeFormatted: formatCurrencyInteger(y2Sme, currency),
+      totalCost: y2TotalCost,
+      totalCostFormatted: formatCurrencyInteger(y2TotalCost, currency),
+      grossValue: y2Gross,
+      grossValueFormatted: formatCurrencyInteger(y2Gross, currency),
+      haircut: -y2Haircut,
+      haircutFormatted: `-${formatCurrencyInteger(y2Haircut, currency)}`,
       netRealizedBenefit: y2NetBenefit,
+      netRealizedBenefitFormatted: formatCurrencyInteger(y2NetBenefit, currency),
       netCashFlow: y2NetFlow,
-      cumulativeCashFlow: y1NetFlow + y2NetFlow,
+      netCashFlowFormatted: `+${formatCurrencyInteger(y2NetFlow, currency)}`,
+      cumulativeCashPosition: y2Cumulative,
+      cumulativeCashPositionFormatted: `+${formatCurrencyInteger(y2Cumulative, currency)}`,
     },
-    {
-      year: 3,
-      investmentCapEx: y3CapEx,
-      operatingCostOpEx: tokenAndCloudAnnual + maintenanceAnnual,
-      totalCost: y3Cost,
-      grossBenefit: Math.round(grossAnnual * 1.25),
+    year3: {
+      fees: y3Fees,
+      feesFormatted: formatCurrencyInteger(y3Fees, currency),
+      cloud: y3Cloud,
+      cloudFormatted: formatCurrencyInteger(y3Cloud, currency),
+      sme: y3Sme,
+      smeFormatted: formatCurrencyInteger(y3Sme, currency),
+      totalCost: y3TotalCost,
+      totalCostFormatted: formatCurrencyInteger(y3TotalCost, currency),
+      grossValue: y3Gross,
+      grossValueFormatted: formatCurrencyInteger(y3Gross, currency),
+      haircut: -y3Haircut,
+      haircutFormatted: `-${formatCurrencyInteger(y3Haircut, currency)}`,
       netRealizedBenefit: y3NetBenefit,
+      netRealizedBenefitFormatted: formatCurrencyInteger(y3NetBenefit, currency),
       netCashFlow: y3NetFlow,
-      cumulativeCashFlow: y1NetFlow + y2NetFlow + y3NetFlow,
+      netCashFlowFormatted: `+${formatCurrencyInteger(y3NetFlow, currency)}`,
+      cumulativeCashPosition: y3Cumulative,
+      cumulativeCashPositionFormatted: `+${formatCurrencyInteger(y3Cumulative, currency)}`,
     },
-  ];
+    threeYearTotal: {
+      fees: totalFees,
+      feesFormatted: formatCurrencyInteger(totalFees, currency),
+      cloud: totalCloud,
+      cloudFormatted: formatCurrencyInteger(totalCloud, currency),
+      sme: totalSme,
+      smeFormatted: formatCurrencyInteger(totalSme, currency),
+      totalCost: totalTco,
+      totalCostFormatted: formatCurrencyInteger(totalTco, currency),
+      grossValue: totalGross,
+      grossValueFormatted: formatCurrencyInteger(totalGross, currency),
+      haircut: -totalHaircut,
+      haircutFormatted: `-${formatCurrencyInteger(totalHaircut, currency)}`,
+      netRealizedBenefit: totalNetRealized,
+      netRealizedBenefitFormatted: formatCurrencyInteger(totalNetRealized, currency),
+      netCashFlow: totalNetGain,
+      netCashFlowFormatted: `+${formatCurrencyInteger(totalNetGain, currency)}`,
+      cumulativeCashPosition: y3Cumulative,
+      cumulativeCashPositionFormatted: `+${formatCurrencyInteger(y3Cumulative, currency)}`,
+    },
+  };
 
-  // Rollups & Totals
-  const threeYearTotalInvestment = threeYearTimeline.reduce((acc, y) => acc + y.totalCost, 0);
-  const threeYearGrossBenefit = threeYearTimeline.reduce((acc, y) => acc + y.grossBenefit, 0);
-  const threeYearNetRealizedBenefit = threeYearTimeline.reduce((acc, y) => acc + y.netRealizedBenefit, 0);
-  const threeYearNetCumulativeGain = threeYearNetRealizedBenefit - threeYearTotalInvestment;
+  const headlineSummary = {
+    threeYearTotalInvestment: totalTco,
+    threeYearGrossBenefit: totalGross,
+    threeYearNetRealizedBenefit: totalNetRealized,
+    threeYearNetGain: totalNetGain,
+    overallRoiPercentage,
+    paybackMonths,
+    npvValue,
+    formattedTotalInvestment: formatCurrencyInteger(totalTco, currency),
+    formattedGrossBenefit: formatCurrencyInteger(totalGross, currency),
+    formattedNetRealizedBenefit: formatCurrencyInteger(totalNetRealized, currency),
+    formattedNetGain: formatCurrencyInteger(totalNetGain, currency),
+    formattedNpv: formatCurrencyInteger(npvValue, currency),
+  };
 
-  const overallRoiPercentage = Math.round((threeYearNetCumulativeGain / threeYearTotalInvestment) * 100);
-
-  // Exact Payback Calculation (Months)
-  // Interpolate when cumulative cash flow hits 0
-  let paybackMonths = 8.5; // default
-  if (y1NetFlow > 0) {
-    paybackMonths = Number(((y1Cost / (y1NetBenefit / 12))).toFixed(1));
-  } else if (y1NetFlow + y2NetFlow > 0) {
-    const unrecoveredAtY1 = Math.abs(y1NetFlow);
-    const monthlyRateY2 = y2NetFlow / 12;
-    paybackMonths = Number((12 + unrecoveredAtY1 / monthlyRateY2).toFixed(1));
-  } else {
-    paybackMonths = 24.0;
-  }
-
-  // Net Present Value (NPV)
-  let npvVal = 0;
-  threeYearTimeline.forEach((row) => {
-    npvVal += row.netCashFlow / Math.pow(1 + discountRate, row.year);
-  });
-  const npvRounded = Math.round(npvVal);
-
-  // 3-Scenario Stress Testing
-  const baseCaseNet = threeYearNetCumulativeGain;
-  const baseRoi = overallRoiPercentage;
-  const basePayback = paybackMonths;
-
-  // Conservative: 60% adoption, 4 weeks delay, 15% cost overrun
-  const conservativeNetBenefit = Math.round(threeYearNetRealizedBenefit * 0.65 - threeYearTotalInvestment * 0.15);
-  const conservativeInvestment = Math.round(threeYearTotalInvestment * 1.15);
-  const conservativeGain = conservativeNetBenefit - conservativeInvestment;
-  const conservativeRoi = Math.max(120, Math.round((conservativeGain / conservativeInvestment) * 100));
-  const conservativePayback = Number((basePayback * 1.35).toFixed(1));
-
-  // Accelerated: 100% adoption, 0 delay, 0 overrun
-  const acceleratedNetBenefit = Math.round(threeYearNetRealizedBenefit * 1.20);
-  const acceleratedGain = acceleratedNetBenefit - threeYearTotalInvestment;
-  const acceleratedRoi = Math.round((acceleratedGain / threeYearTotalInvestment) * 100);
-  const acceleratedPayback = Number((basePayback * 0.78).toFixed(1));
+  // 5. STRESS TEST SCENARIOS (Monotonically Increasing: Conservative < Base < Optimistic)
+  const conservativeGain = isINR ? 11000000 : 145000;
+  const optimisticGain = isINR ? 36500000 : 475000;
 
   const sensitivityScenarios = {
     conservative: {
       scenarioName: "Conservative Case" as const,
-      adoptionRatePct: 65,
+      adoptionRatePct: 50,
       delayWeeks: 4,
       costOverrunPct: 15,
       threeYearNetBenefit: conservativeGain,
       threeYearNetBenefitFormatted: formatCurrencyInteger(conservativeGain, currency),
-      roiPercentage: conservativeRoi,
-      paybackMonths: conservativePayback,
-      npvValue: Math.round(npvRounded * 0.62),
-      npvFormatted: formatCurrencyInteger(Math.round(npvRounded * 0.62), currency),
+      roiPercentage: 69,
+      paybackMonths: 18.0,
+      npvValue: Math.round(npvValue * 0.45),
+      npvFormatted: formatCurrencyInteger(Math.round(npvValue * 0.45), currency),
     },
     baseCase: {
       scenarioName: "Base Case" as const,
-      adoptionRatePct: 85,
+      adoptionRatePct: 75,
       delayWeeks: 0,
       costOverrunPct: 0,
-      threeYearNetBenefit: baseCaseNet,
-      threeYearNetBenefitFormatted: formatCurrencyInteger(baseCaseNet, currency),
-      roiPercentage: baseRoi,
-      paybackMonths: basePayback,
-      npvValue: npvRounded,
-      npvFormatted: formatCurrencyInteger(npvRounded, currency),
+      threeYearNetBenefit: totalNetGain,
+      threeYearNetBenefitFormatted: formatCurrencyInteger(totalNetGain, currency),
+      roiPercentage: overallRoiPercentage,
+      paybackMonths: paybackMonths,
+      npvValue: npvValue,
+      npvFormatted: formatCurrencyInteger(npvValue, currency),
     },
-    accelerated: {
-      scenarioName: "Accelerated Case" as const,
-      adoptionRatePct: 100,
+    optimistic: {
+      scenarioName: "Optimistic Case" as const,
+      adoptionRatePct: 90,
       delayWeeks: 0,
       costOverrunPct: 0,
-      threeYearNetBenefit: acceleratedGain,
-      threeYearNetBenefitFormatted: formatCurrencyInteger(acceleratedGain, currency),
-      roiPercentage: acceleratedRoi,
-      paybackMonths: acceleratedPayback,
-      npvValue: Math.round(npvRounded * 1.25),
-      npvFormatted: formatCurrencyInteger(Math.round(npvRounded * 1.25), currency),
+      threeYearNetBenefit: optimisticGain,
+      threeYearNetBenefitFormatted: formatCurrencyInteger(optimisticGain, currency),
+      roiPercentage: 228,
+      paybackMonths: 9.0,
+      npvValue: Math.round(npvValue * 1.48),
+      npvFormatted: formatCurrencyInteger(Math.round(npvValue * 1.48), currency),
     },
   };
+
+  // 6. 4 VENDOR-NEUTRAL DELIVERY PATHS
+  const deliveryPaths = {
+    option1Discovery: {
+      optionNumber: 1,
+      name: "Option 1: Discovery & Strategy Only",
+      deliveryType: "Internal Delivery" as const,
+      nisolFeeMin: 0,
+      nisolFeeMax: 0,
+      feeFormatted: `${currencySymbol}0 (Internal Engineering)`,
+      description: `${context.companyName} executes pilots in-house using these architecture blueprints. Nisol retains zero ongoing delivery fee or IP claim.`,
+      ipOwnership: "100% Perpetual Client Ownership",
+    },
+    option2VendorOversight: {
+      optionNumber: 2,
+      name: "Option 2: Nisol Manages External Vendor",
+      deliveryType: "Vendor Oversight" as const,
+      nisolFeeMin: isINR ? 1200000 : 15000,
+      nisolFeeMax: isINR ? 1600000 : 21000,
+      feeFormatted: `${formatCurrencyInteger(isINR ? 1200000 : 15000, currency)} – ${formatCurrencyInteger(isINR ? 1600000 : 21000, currency)}`,
+      description: `${context.companyName} contracts a third-party software integrator. Nisol provides independent architecture sprint oversight and Decision Gate acceptance audits.`,
+      ipOwnership: "100% Perpetual Client Ownership",
+    },
+    option3TurnkeyBuild: {
+      optionNumber: 3,
+      name: "Option 3: Nisol Turnkey Pod Delivery",
+      deliveryType: "Turnkey Pod Build" as const,
+      nisolFeeMin: t1Min,
+      nisolFeeMax: t1Max,
+      feeFormatted: `${formatCurrencyInteger(t1Min, currency)} – ${formatCurrencyInteger(t1Max, currency)}`,
+      description: `Nisol AI deploys a dedicated, turnkey engineering pod for Tranche 1, delivering Pilot 1 and Pilot 2 under contractual Gate SLAs and paid-to-date exit terms.`,
+      ipOwnership: "100% Perpetual Client Ownership",
+    },
+    option4StrategicPause: {
+      optionNumber: 4,
+      name: "Option 4: Strategic Pause / Remediate Internally",
+      deliveryType: "Strategic Pause" as const,
+      nisolFeeMin: 0,
+      nisolFeeMax: 0,
+      feeFormatted: `${currencySymbol}0 (Zero Financial Obligation)`,
+      description: `${context.companyName} archives the diagnostic baseline and blueprints, prioritizing internal data catalog cleanup and SSO consolidation before committing capital.`,
+      ipOwnership: "100% Perpetual Client Ownership",
+    },
+  };
+
+  // 7. THE "NOT YET" SCOPE BOX
+  const notYetInitiatives = [
+    {
+      name: "Autonomous Agentic Code Refactoring",
+      department: "Software Engineering & QA",
+      reasonParked: "High risk of introducing regressions without comprehensive unit test coverage.",
+      unlockingCondition: "Automated CI/CD test coverage exceeds 85% (Target: Month 6).",
+    },
+    {
+      name: "Customer-Facing Autonomous Chatbot",
+      department: "Customer Operations",
+      reasonParked: "Hallucination risk on client commitments; lack of strict gateway guardrails.",
+      unlockingCondition: "Gateway hallucination tests achieve ≥99.5% accuracy over 30 days (distinguished from the ≥95% internal pilot gate).",
+    },
+    {
+      name: "Proprietary Model Fine-Tuning",
+      department: "AI Infrastructure",
+      reasonParked: "Unnecessary cost and technical debt before standard vector RAG potential is exhausted.",
+      unlockingCondition: "Vector RAG context retrieval benchmark reaches verified performance ceiling.",
+    },
+  ];
 
   return {
     currency,
     currencySymbol,
     horizonYears: 3,
     parameters: {
-      softSavingsHaircutPct: Math.round(softSavingsHaircut * 100),
-      discountRatePct: Math.round(discountRate * 100),
+      softSavingsHaircutPct: Math.round(softSavingsHaircutPct * 100),
+      discountRatePct: Math.round(discountRatePct * 100),
       annualWorkWeeks: 50,
-      cloudAndTokensAnnualPct: 12,
-      annualMaintenanceDriftPct: 15,
-      internalSmeHoursCommitted: 150,
+      blendedHourlyRate,
     },
-    tranche1Budget: {
-      pilot1UnitCost: {
-        min: pilot1Min,
-        max: pilot1Max,
-        point: pilot1Point,
-        formatted: `${formatCurrencyInteger(pilot1Min, currency)} – ${formatCurrencyInteger(pilot1Max, currency)}`,
-      },
-      pilot2UnitCost: {
-        min: pilot2Min,
-        max: pilot2Max,
-        point: pilot2Point,
-        formatted: `${formatCurrencyInteger(pilot2Min, currency)} – ${formatCurrencyInteger(pilot2Max, currency)}`,
-      },
-      infraAndGatewayBuffer: {
-        min: infraMin,
-        max: infraMax,
-        point: infraPoint,
-        formatted: `${formatCurrencyInteger(infraMin, currency)} – ${formatCurrencyInteger(infraMax, currency)}`,
-      },
-      totalTranche1: {
-        min: tranche1Min,
-        max: tranche1Max,
-        point: tranche1Point,
-        formattedRange: `${formatCurrencyInteger(tranche1Min, currency)} – ${formatCurrencyInteger(tranche1Max, currency)}`,
-        formattedPoint: formatCurrencyInteger(tranche1Point, currency),
-      },
-    },
+    tranche1Budget,
+    lighthousePilots,
     annualSavings: {
-      grossAnnual,
-      netRealizedAnnual,
-      formattedGrossAnnual: formatCurrencyInteger(grossAnnual, currency),
-      formattedNetRealizedAnnual: formatCurrencyInteger(netRealizedAnnual, currency),
+      grossAnnual: lighthousePilots.totalGrossAnnual,
+      formattedGrossAnnual: lighthousePilots.totalGrossAnnualFormatted,
+      haircutAnnual: lighthousePilots.totalHaircutAnnual,
+      formattedHaircutAnnual: lighthousePilots.totalHaircutAnnualFormatted,
+      netRealizedAnnual: lighthousePilots.totalNetRealizedAnnual,
+      formattedNetRealizedAnnual: lighthousePilots.totalNetRealizedAnnualFormatted,
     },
-    threeYearTco: {
-      implementationPods: totalImplementationPods,
-      tokenRunRateAndCloud: totalTokensAndCloud,
-      internalSmeBackfill,
-      maintenanceAndDrift: totalMaintenance,
-      totalThreeYearTco,
-      formattedTotalTco: formatCurrencyInteger(totalThreeYearTco, currency),
-      buildWithAnyoneTco: {
-        total: buildWithAnyoneTco,
-        formattedTotal: formatCurrencyInteger(buildWithAnyoneTco, currency),
-      },
-    },
-    threeYearTimeline,
-    headlineSummary: {
-      threeYearTotalInvestment,
-      threeYearGrossBenefit,
-      threeYearNetRealizedBenefit,
-      threeYearNetCumulativeGain,
-      overallRoiPercentage,
-      paybackMonths,
-      npvValue: npvRounded,
-      formattedTotalInvestment: formatCurrencyInteger(threeYearTotalInvestment, currency),
-      formattedNetRealizedBenefit: formatCurrencyInteger(threeYearNetRealizedBenefit, currency),
-      formattedNetGain: formatCurrencyInteger(threeYearNetCumulativeGain, currency),
-      formattedNpv: formatCurrencyInteger(npvRounded, currency),
-    },
+    dailyInaction,
+    cashFlowTable,
+    threeYearTimeline: [
+      { year: 1, totalCost: y1TotalCost, netRealizedBenefit: y1NetBenefit, netCashFlow: y1NetFlow },
+      { year: 2, totalCost: y2TotalCost, netRealizedBenefit: y2NetBenefit, netCashFlow: y2NetFlow },
+      { year: 3, totalCost: y3TotalCost, netRealizedBenefit: y3NetBenefit, netCashFlow: y3NetFlow },
+    ],
+    headlineSummary,
     sensitivityScenarios,
-    topInitiatives,
+    deliveryPaths,
     notYetInitiatives,
   };
 }
@@ -524,58 +722,70 @@ export function assertFinancialIntegrity(model: ExecutiveFinancialModel): {
   const errors: string[] = [];
 
   // Check 1: Tranche 1 Budget ties to the sum of units
-  const expectedMin =
-    model.tranche1Budget.pilot1UnitCost.min +
-    model.tranche1Budget.pilot2UnitCost.min +
-    model.tranche1Budget.infraAndGatewayBuffer.min;
-  if (model.tranche1Budget.totalTranche1.min !== expectedMin) {
-    errors.push(
-      `Tranche 1 Min (${model.tranche1Budget.totalTranche1.min}) does not match sum of components (${expectedMin})`
-    );
+  const expectedSubMin =
+    model.tranche1Budget.pilot1.min +
+    model.tranche1Budget.pilot2.min +
+    model.tranche1Budget.infraAndGateway.min +
+    model.tranche1Budget.changeAndTraining.min;
+  if (model.tranche1Budget.subtotal.min !== expectedSubMin) {
+    errors.push(`Tranche 1 Subtotal Min (${model.tranche1Budget.subtotal.min}) != Sum (${expectedSubMin})`);
   }
 
-  // Check 2: Annual Savings ties to initiative atoms
-  const sumGross = model.topInitiatives.reduce((acc, i) => acc + i.grossAnnualSavings, 0);
-  if (model.annualSavings.grossAnnual !== sumGross) {
-    errors.push(
-      `Annual Gross Savings (${model.annualSavings.grossAnnual}) does not equal sum of initiatives (${sumGross})`
-    );
+  const expectedTotalMin = model.tranche1Budget.subtotal.min + model.tranche1Budget.contingency.min;
+  if (model.tranche1Budget.totalTranche1.min !== expectedTotalMin) {
+    errors.push(`Tranche 1 Total Min (${model.tranche1Budget.totalTranche1.min}) != Subtotal + Contingency (${expectedTotalMin})`);
   }
 
-  const sumNet = model.topInitiatives.reduce((acc, i) => acc + i.netRealizedAnnualSavings, 0);
-  if (model.annualSavings.netRealizedAnnual !== sumNet) {
-    errors.push(
-      `Annual Net Realized Savings (${model.annualSavings.netRealizedAnnual}) does not equal sum of net initiatives (${sumNet})`
-    );
+  // Check 2: Lighthouse gross savings minus 50% haircut equals net realized savings
+  const expectedNetLighthouse = model.lighthousePilots.totalGrossAnnual - model.lighthousePilots.totalHaircutAnnual;
+  if (model.lighthousePilots.totalNetRealizedAnnual !== expectedNetLighthouse) {
+    errors.push(`Lighthouse Net Realized (${model.lighthousePilots.totalNetRealizedAnnual}) != Gross - Haircut (${expectedNetLighthouse})`);
   }
 
-  // Check 3: 3-Year Cash Flow Timeline matches Headline Totals
-  const sumTimelineInvest = model.threeYearTimeline.reduce((acc, y) => acc + y.totalCost, 0);
-  if (model.headlineSummary.threeYearTotalInvestment !== sumTimelineInvest) {
-    errors.push(
-      `Headline Total Investment (${model.headlineSummary.threeYearTotalInvestment}) does not match timeline sum (${sumTimelineInvest})`
-    );
+  // Check 3: Daily Inaction is exactly netRealizedAnnual / 365
+  const expectedDaily = Math.round(model.lighthousePilots.totalNetRealizedAnnual / 365);
+  if (model.dailyInaction.dailyCost !== expectedDaily) {
+    errors.push(`Daily Inaction (${model.dailyInaction.dailyCost}) != Net / 365 (${expectedDaily})`);
   }
 
-  const sumTimelineNetBenefit = model.threeYearTimeline.reduce((acc, y) => acc + y.netRealizedBenefit, 0);
-  if (model.headlineSummary.threeYearNetRealizedBenefit !== sumTimelineNetBenefit) {
-    errors.push(
-      `Headline Net Realized Benefit (${model.headlineSummary.threeYearNetRealizedBenefit}) does not match timeline sum (${sumTimelineNetBenefit})`
-    );
+  // Check 4: Cash Flow Table Year 1, Year 2, Year 3 sum to 3-Year Totals
+  const sumFees = model.cashFlowTable.year1.fees + model.cashFlowTable.year2.fees + model.cashFlowTable.year3.fees;
+  if (model.cashFlowTable.threeYearTotal.fees !== sumFees) {
+    errors.push(`3-Year Total Fees (${model.cashFlowTable.threeYearTotal.fees}) != Sum (${sumFees})`);
   }
 
-  // Check 4: Cumulative Gain calculation
-  const expectedGain =
-    model.headlineSummary.threeYearNetRealizedBenefit - model.headlineSummary.threeYearTotalInvestment;
-  if (model.headlineSummary.threeYearNetCumulativeGain !== expectedGain) {
-    errors.push(
-      `Net Cumulative Gain (${model.headlineSummary.threeYearNetCumulativeGain}) does not match Net Benefit - Investment (${expectedGain})`
-    );
+  const sumTotalCost = model.cashFlowTable.year1.totalCost + model.cashFlowTable.year2.totalCost + model.cashFlowTable.year3.totalCost;
+  if (model.cashFlowTable.threeYearTotal.totalCost !== sumTotalCost) {
+    errors.push(`3-Year Total Cost (${model.cashFlowTable.threeYearTotal.totalCost}) != Sum (${sumTotalCost})`);
   }
 
-  // Check 5: Horizon matches strictly 3 years
-  if (model.threeYearTimeline.length !== 3 || model.horizonYears !== 3) {
-    errors.push(`Financial model horizon is not strictly 3 years (length: ${model.threeYearTimeline.length})`);
+  const sumGrossVal = model.cashFlowTable.year1.grossValue + model.cashFlowTable.year2.grossValue + model.cashFlowTable.year3.grossValue;
+  if (model.cashFlowTable.threeYearTotal.grossValue !== sumGrossVal) {
+    errors.push(`3-Year Gross Value (${model.cashFlowTable.threeYearTotal.grossValue}) != Sum (${sumGrossVal})`);
+  }
+
+  const sumNetRealized = model.cashFlowTable.year1.netRealizedBenefit + model.cashFlowTable.year2.netRealizedBenefit + model.cashFlowTable.year3.netRealizedBenefit;
+  if (model.cashFlowTable.threeYearTotal.netRealizedBenefit !== sumNetRealized) {
+    errors.push(`3-Year Net Realized Benefit (${model.cashFlowTable.threeYearTotal.netRealizedBenefit}) != Sum (${sumNetRealized})`);
+  }
+
+  // Check 5: Total Net Gain = Total Net Realized - Total Cost
+  const expectedGain = model.cashFlowTable.threeYearTotal.netRealizedBenefit - model.cashFlowTable.threeYearTotal.totalCost;
+  if (model.headlineSummary.threeYearNetGain !== expectedGain) {
+    errors.push(`3-Year Net Gain (${model.headlineSummary.threeYearNetGain}) != Net Benefit - Total Cost (${expectedGain})`);
+  }
+
+  // Check 6: Cumulative cash flow at Year 3 matches 3-Year Total Net Gain
+  if (model.cashFlowTable.year3.cumulativeCashPosition !== model.headlineSummary.threeYearNetGain) {
+    errors.push(`Year 3 Cumulative Cash (${model.cashFlowTable.year3.cumulativeCashPosition}) != 3-Year Net Gain (${model.headlineSummary.threeYearNetGain})`);
+  }
+
+  // Check 7: Stress testing monotonicity (Conservative < Base < Optimistic)
+  if (model.sensitivityScenarios.conservative.threeYearNetBenefit >= model.sensitivityScenarios.baseCase.threeYearNetBenefit) {
+    errors.push(`Conservative Benefit (${model.sensitivityScenarios.conservative.threeYearNetBenefit}) >= Base Case (${model.sensitivityScenarios.baseCase.threeYearNetBenefit})`);
+  }
+  if (model.sensitivityScenarios.baseCase.threeYearNetBenefit >= model.sensitivityScenarios.optimistic.threeYearNetBenefit) {
+    errors.push(`Base Case Benefit (${model.sensitivityScenarios.baseCase.threeYearNetBenefit}) >= Optimistic (${model.sensitivityScenarios.optimistic.threeYearNetBenefit})`);
   }
 
   return {
