@@ -40,8 +40,8 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
   const industry = tenantObj?.industry || report?.industry || audit?.raw_responses?.industry || "Technology & Operations";
   const reportDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
   const docId = tenantName.toLowerCase().includes("novatech")
-    ? "NOVATECH-AI-TRANSFORMATION-2026-V6.0"
-    : `${tenantName.toUpperCase().replace(/[^A-Z0-9]/g, "-")}-AI-TRANSFORMATION-2026-V6.0`;
+    ? "NOVATECH-AI-TRANSFORMATION-2026-V10.0"
+    : `${tenantName.toUpperCase().replace(/[^A-Z0-9]/g, "-")}-AI-TRANSFORMATION-2026-V10.0`;
 
   // Resolve industry benchmark
   const industryBenchmark = resolveIndustryBenchmark(industry);
@@ -281,7 +281,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <div style="font-size: 24pt; font-weight: 900; letter-spacing: 4px; color: ${secondaryColor};">N I S O L   A I</div>
       <div style="font-size: 11pt; color: #94A3B8; letter-spacing: 1px; margin-top: 4px;">AI Transformation, Delivered.</div>
       <div style="height: 2px; background: linear-gradient(90deg, ${secondaryColor} 0%, rgba(235,180,75,0) 100%); margin: 24px 0;"></div>
-      <div style="display: inline-block; background: rgba(245, 158, 11, 0.2); border: 1px solid #F59E0B; color: #FCD34D; font-size: 8pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;">SAMPLE ADVISORY REPORT — ILLUSTRATIVE DATA (VERSION 6.0)</div>
+      <div style="display: inline-block; background: rgba(245, 158, 11, 0.2); border: 1px solid #F59E0B; color: #FCD34D; font-size: 8pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;">SAMPLE ADVISORY REPORT — ILLUSTRATIVE DATA (VERSION 10.0)</div>
       <h1 style="font-size: 28pt; font-weight: 900; line-height: 1.15; color: #FFFFFF; margin: 0 0 12px 0;">ENTERPRISE AI TRANSFORMATION STRATEGY</h1>
       <p style="font-size: 12pt; color: #E2E8F0; margin: 0; max-width: 650px; line-height: 1.4;">Executive Decision Memo, Maturity Diagnostics & 36-Month Capital Roadmap</p>
     </div>
@@ -309,7 +309,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
       <div>
         <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Document ID & Date</div>
-        <div style="font-size: 9.5pt; color: #E2E8F0; margin-top: 2px;">${docId} • Version 6.0 • ${reportDate}</div>
+        <div style="font-size: 9.5pt; color: #E2E8F0; margin-top: 2px;">${docId} • Version 10.0 • ${reportDate}</div>
       </div>
     </div>
   </div>
@@ -327,7 +327,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <div class="executive-banner">
         <div class="banner-cell">
           <span class="banner-label">Decision Requested</span>
-          <span class="banner-val">Authorization of Tranche 1 Capital (${tranche1Ask})</span>
+          <span class="banner-val">Endorse Strategy & Authorize Phase 1 Discovery (Indicative Tranche: ${tranche1Ask})</span>
         </div>
         <div class="banner-cell">
           <span class="banner-label">Who Decides</span>
@@ -344,7 +344,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
 
       <div class="page-headline-callout">
-        Strategic Takeaway: Engineering capacity (₹90L gross) and pre-sales proposal response cycles (₹60L gross) represent 70% of the Phase 1 addressable opportunity pipeline (₹1.50 Cr of ₹2.15 Cr across 3 priority use cases); activating 2 lighthouse pilots unlocks ${estAnnualSavings} net annual savings under a protected tranche structure.
+        Strategic Takeaway: Engineering capacity (₹90L gross) and pre-sales proposal response cycles (₹60L gross) represent 70% of the total prioritized opportunity pipeline (₹1.50 Cr of ₹2.15 Cr across 3 priority use cases: 2 Phase 1 lighthouse pilots and 1 Wave 2 expansion initiative); activating 2 lighthouse pilots unlocks ${estAnnualSavings} net annual savings under an indicative tranche envelope.
       </div>
 
       <div class="section-title-compact">1. Executive Decision Memo: Strategic Context & 3 Core Findings</div>
@@ -352,7 +352,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <!-- SSOT 4-CARD FLIGHT DECK -->
       <div class="grid-4" style="margin-bottom: 8px;">
         <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 8px; text-align: center;">
-          <div style="font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: #166534;">Tranche 1 Capital Ask</div>
+          <div style="font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: #166534;">Indicative Tranche 1 Envelope</div>
           <div style="font-size: 13pt; font-weight: 900; color: #059669; margin: 2px 0;">${tranche1Ask}</div>
           <div style="font-size: 6.5pt; color: #14532D;">2 Lighthouse Pilots (6-8 Wks)</div>
         </div>
@@ -381,7 +381,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <span class="badge-pill badge-blue">[Evidence: Client-Reported | Confidence: Modeled]</span>
           </div>
           <p style="margin: 0; color: #334155; line-height: 1.4;">
-            Senior engineering talent is currently spending repetitive sprint capacity writing boilerplate, executing manual regression test scripts, and refactoring legacy modules [client-reported assumption: 24 developers in pilot pod out of 42 engineering staff]. Implementing an AI Code & Test Generation Pod unlocks ${finModel.lighthousePilots.pilot1.grossAnnualFormatted} gross capacity (${finModel.lighthousePilots.pilot1.netRealizedAnnualFormatted} net realized after 50% realization haircut) without adding headcount. (Derivation: 24 pilot developers × 25% sprint time saved × ₹15L loaded salary = ₹90L gross capacity, halved to ₹45L net realized).
+            Senior engineering talent is currently spending repetitive sprint capacity writing boilerplate, executing manual regression test scripts, and refactoring legacy modules [client-reported baseline: 38% sprint hours in QA & boilerplate across 42 engineering staff; modeled to recover ~66% of that overhead, yielding a 25% net sprint time savings for 24 pilot pod developers]. Implementing an AI Code & Test Generation Pod unlocks ${finModel.lighthousePilots.pilot1.grossAnnualFormatted} gross capacity (${finModel.lighthousePilots.pilot1.netRealizedAnnualFormatted} net realized after 50% realization haircut) without adding headcount. (Derivation: 24 pilot developers × 25% sprint time saved × ₹15L loaded salary = ₹90L gross capacity, halved to ₹45L net realized).
           </p>
         </div>
 
@@ -391,7 +391,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <span class="badge-pill badge-green">[Evidence: SME Discovery | Confidence: Modeled]</span>
           </div>
           <p style="margin: 0; color: #334155; line-height: 1.4;">
-            Commercial and pre-sales teams require 10–14 business days to respond to complex technical RFPs because compliance documentation, security certifications, and past proposal answers are trapped across unindexed document repositories. A centralized RAG Pre-Sales Bot reduces turnaround by 70% (down to 3–4 days), unlocking ${finModel.lighthousePilots.pilot2.grossAnnualFormatted} gross capacity (${finModel.lighthousePilots.pilot2.netRealizedAnnualFormatted} net realized).
+            Commercial and pre-sales teams require 10–14 business days to respond to complex technical RFPs because compliance documentation, security certifications, and past proposal answers are trapped across unindexed document repositories. A centralized RAG Pre-Sales Bot reduces turnaround by 70% (down to 3–4 days), unlocking ${finModel.lighthousePilots.pilot2.grossAnnualFormatted} gross capacity (${finModel.lighthousePilots.pilot2.netRealizedAnnualFormatted} net realized after 50% realization haircut). (Derivation: 12 bid & solutions staff × 8 hrs/wk saved × 50 wks = 4,800 hours × ₹1,250/hr loaded rate = ₹60.0L gross capacity, halved to ₹30.0L net realized).
           </p>
         </div>
 
@@ -427,7 +427,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <div class="executive-banner">
         <div class="banner-cell">
           <span class="banner-label">Decision Requested</span>
-          <span class="banner-val">Appoint Council & Authorize 30-Day Execution Plan</span>
+          <span class="banner-val">Appoint Council & Authorize 30-Day Discovery & Mobilization Plan</span>
         </div>
         <div class="banner-cell">
           <span class="banner-label">Who Decides</span>
@@ -467,10 +467,10 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <td>Form 4-person AI Steering Council; designate 4 hrs/wk champion time in Engineering & Solutions.</td>
           </tr>
           <tr>
-            <td><strong>2. Authorize Tranche 1 Budget</strong></td>
+            <td><strong>2. Authorize Indicative Tranche 1 Envelope</strong></td>
             <td>CFO</td>
             <td>Day 10</td>
-            <td>Release ${tranche1Ask} envelope dedicated to 2 lighthouse pilots with stop-the-clock protection.</td>
+            <td>Approve ${tranche1Ask} indicative planning envelope dedicated to 2 lighthouse pilots, subject to Discovery gate sign-off.</td>
           </tr>
           <tr>
             <td><strong>3. Mandate Secure AI Gateway</strong></td>
@@ -615,7 +615,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <div style="font-size: 7.5pt; font-weight: 700; color: #0A1E3C; margin-bottom: 2px;">Capability Maturity Radar (8 Core Dimensions)</div>
             ${radarChartSVG}
             <div style="font-size: 6.5pt; color: #64748B; margin-top: 2px;">
-              * Sourced from Nisol Enterprise AI Index 2026 (n = 45 SaaS firms, cross-referenced with NIST AI RMF 1.0 & Stanford HAI frameworks). All 8 scores weighted equally: raw unrounded score = 34.3% (1.71 / 5.0, rounded to 1.7 / 5.0 or 34% normalized). Scope: 62-question assessment across 15 capabilities, consolidated into 8 core dimensions.
+              * Sourced from Nisol Enterprise AI Index 2026 — B2B SaaS Cohort (n = 45 enterprise SaaS firms filtered from Nisol's cross-industry evaluation dataset of n = 140+ organizations, evaluated using NIST AI RMF 1.0 & Stanford HAI rubrics). All 8 scores weighted equally: raw unrounded score = 34.3% (1.71 / 5.0, rounded to 1.7 / 5.0 or 34% normalized). Top quartile (4.1 / 5.0) represents the upper quartile (top 25%, n = 11 firms) within the SaaS cohort. Scope: 62 questions across 15 capabilities consolidated into 8 dimensions.
             </div>
           </div>
 
@@ -721,13 +721,13 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <span class="badge-pill badge-green">Lighthouse Pilot #1</span>
           </div>
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 7.2pt; color: #334155; margin-top: 3px;">
-            <div><strong>Metric & Baseline:</strong> 38% dev time on boilerplate & tests [client-reported]</div>
+            <div><strong>Metric & Baseline:</strong> 38% dev boilerplate & QA triage [25% modeled savings]</div>
             <div><strong>Effort & Cost:</strong> 6 Weeks | ${finModel.tranche1Budget.pilot1.formattedRange}</div>
             <div><strong>Target Value:</strong> ${finModel.lighthousePilots.pilot1.grossAnnualFormatted} gross (${finModel.lighthousePilots.pilot1.netRealizedAnnualFormatted} net)</div>
             <div><strong>Owner:</strong> VP Engineering</div>
           </div>
           <div style="font-size: 7.2pt; color: #475569; margin-top: 3px; border-top: 1px dashed #E2E8F0; padding-top: 3px;">
-            <strong>Formula:</strong> 24 pilot devs × 25% sprint time saved × ₹15L loaded salary = ₹90L gross, halved to ₹45L net realized. • <strong>Adoption SLA:</strong> ≥75% cohort target adoption. • <strong>Stop Rule:</strong> If automated test pass accuracy &lt; 90% or weekly active usage &lt; 60% by Week 6, pause and re-scope.
+            <strong>Derivation:</strong> 24 pilot devs × 25% sprint time saved × ₹15L loaded salary = ₹90L gross, halved to ₹45L net realized (recovering ~66% of 38% repetitive baseline). • <strong>Adoption SLA:</strong> ≥75% target. • <strong>Stop Rule:</strong> If test accuracy &lt; 90% or dev usage &lt; 60% by Wk 6, pause.
           </div>
         </div>
 
@@ -743,7 +743,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <div><strong>Owner:</strong> Head of Solutions</div>
           </div>
           <div style="font-size: 7.2pt; color: #475569; margin-top: 3px; border-top: 1px dashed #E2E8F0; padding-top: 3px;">
-            <strong>Key Assumption:</strong> Historical RFP repository indexed cleanly. • <strong>Stop Rule:</strong> If proposal citation accuracy &lt; 95% on 50 gold standard prompts, delay cutover.
+            <strong>Derivation:</strong> 12 bid staff × 8 hrs/wk saved × 50 wks × ₹1,250/hr rate = ₹60L gross, halved to ₹30L net. • <strong>Stop Rule:</strong> If citation accuracy &lt; 95% on 50 gold standard prompts, delay cutover.
           </div>
         </div>
 
@@ -948,7 +948,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <div class="executive-banner">
         <div class="banner-cell">
           <span class="banner-label">Decision Requested</span>
-          <span class="banner-val">3-Year Budget Commitment & Tranche Gate Approval</span>
+          <span class="banner-val">Approve Indicative 3-Year Planning Envelope & Authorize Discovery Phase</span>
         </div>
         <div class="banner-cell">
           <span class="banner-label">Who Decides</span>
@@ -1050,7 +1050,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </tbody>
       </table>
       <div style="font-size: 6.5pt; color: #64748B; margin-top: 2px; margin-bottom: 4px;">
-        * Note: Tranche 1 (${tranche1Ask}) represents the initial 90-day drawdown envelope against Year 1 TCO (${finModel.cashFlowTable.year1.totalCostFormatted}), not an additive expenditure. The "3-Year Total" column represents the sum of Year 1 + Year 2 + Year 3 and strictly excludes double-counting Tranche 1. Cumulative cash position in Tranche 1 ranges from -₹27.4 Lakhs to -₹42.8 Lakhs based on actual drawdown (-₹46.2L to -₹61.6L cost less ₹18.8L net realized benefit). Payback achieved in Month 13 early in Year 2.
+        * Note: Both Tranche 1 costs (${tranche1Ask}) and Tranche 1 net realized benefit (₹18.8 Lakhs) are initial 90-day subsets included within Year 1 totals (${finModel.cashFlowTable.year1.totalCostFormatted} TCO and ${finModel.cashFlowTable.year1.netRealizedBenefitFormatted} net benefit), not additive figures. The "3-Year Total" column strictly sums Year 1 + Year 2 + Year 3 and excludes double-counting Tranche 1. Cumulative cash position in Tranche 1 ranges from -₹27.4 Lakhs to -₹42.8 Lakhs based on drawdown (-₹46.2L to -₹61.6L cost less ₹18.8L benefit). Payback achieved at Month 13 when cumulative cash crosses from -₹3.0L in Y1 to positive in early Y2; NPV is ₹1.91 Cr at 10% discount rate.
       </div>
 
       <!-- 3-SCENARIO STRESS TEST & DELAY SENSITIVITY -->
@@ -1160,7 +1160,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <div>• <strong>70% Business & People Transformation:</strong> SOP redesign, champion enablement, adoption.</div>
           </div>
           <div style="font-size: 6.5pt; color: #64748B; margin-top: 3px;">
-            * Sourced from Boston Consulting Group (BCG) Enterprise AI Transformation Research ("The 10-20-70 Rule of AI", 2021). Cited as an industry budgeting heuristic to prevent capital over-allocation to pure model licensing vs. organizational enablement.
+            * Sourced from Boston Consulting Group (BCG) enterprise transformation research, widely referenced as the 10-20-70 transformation heuristic (allocating 10% effort to algorithms/models, 20% to tech and data backbone, and 70% to business and people transformation). Cited as an industry budgeting heuristic to prevent capital over-allocation to pure model licensing.
           </div>
         </div>
 
@@ -1439,7 +1439,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
           <tr>
             <td><strong>Gate 4: Unit Economics</strong></td>
             <td>Cost per Task / Token Budget</td>
-            <td><strong>&lt;₹8.50 per task ($0.10)</strong></td>
+            <td><strong>&lt;₹8.50 per task ($0.10 @ ₹85/USD)</strong></td>
             <td>API invoice audit proving model run-rate conforms to financial TCO projections.</td>
           </tr>
           <tr>
@@ -1560,14 +1560,14 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
       </div>
 
-      <!-- VERSION 6.0 CHANGE LOG & AUDIT RECONCILIATION -->
+      <!-- VERSION 10.0 CHANGE LOG & AUDIT RECONCILIATION -->
       <div class="card-box" style="background: #F8FAFC; border: 1px solid #CBD5E1; padding: 5px 8px; margin-bottom: 6px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-          <strong style="color: #0A1E3C; font-size: 7.2pt;">Document Governance & Version 6.0 Change Log</strong>
+          <strong style="color: #0A1E3C; font-size: 7.2pt;">Document Governance & Version 10.0 Change Log</strong>
           <span style="font-size: 6.5pt; color: #64748B;">Doc ID: ${docId} • Unified Release</span>
         </div>
         <div style="font-size: 6.8pt; color: #475569; line-height: 1.3;">
-          • <strong>V6.0 Audit Reconciliation:</strong> Realigned Pilot 1 capacity formula (24 devs × 25% × ₹15L = ₹90L gross / ₹45L net); verified 70% priority pipeline metric (₹1.50 Cr of ₹2.15 Cr across 3 priority use cases); updated Optimistic scenario (₹3.26 Cr net gain, +204% ROI); separated 100% provenance coverage from ≥95% gold prompt accuracy; updated Tranche 1 cumulative cash flow (-₹27.4L to -₹42.8L); added benchmark sources (Nisol Enterprise AI Index 2026 n=45, BCG 10-20-70); labeled all confidence banners as Client-Reported.
+          • <strong>V10.0 Release Alignment:</strong> Established Discovery-First commercial structure with fixed 4-week advisory scope (${finModel.deliveryPaths.option1Discovery.feeFormatted}) and post-discovery scoped proposals for Options 2 & 3; added explicit Finding 2 derivation formula (12 staff × 8 hrs × 50 wks × ₹1,250 = ₹60L); clarified 25% dev savings derivation from 38% baseline; confirmed Tranche 1 benefit (₹18.8L) as a subset of Year 1 benefit; contextualized Nisol AI Index B2B SaaS cohort (n=45 filtered from n=140+ dataset); cited BCG 10-20-70 transformation heuristic; added USD conversion rate ($0.10 @ ₹85/USD).
         </div>
       </div>
 

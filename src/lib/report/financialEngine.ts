@@ -611,16 +611,17 @@ export function buildExecutiveFinancialModel(
     },
   };
 
-  // 6. 4 VENDOR-NEUTRAL DELIVERY PATHS
+  // 6. 4 VENDOR-NEUTRAL DELIVERY PATHS (Discovery-First Commercial Framework)
+  const discoveryFee = isINR ? 950000 : 12000;
   const deliveryPaths = {
     option1Discovery: {
       optionNumber: 1,
-      name: "Option 1: Discovery & Strategy Only",
+      name: "Option 1: Discovery & Strategy Advisory Only",
       deliveryType: "Internal Delivery" as const,
-      nisolFeeMin: 0,
-      nisolFeeMax: 0,
-      feeFormatted: `${currencySymbol}0 (Internal Engineering)`,
-      description: `${context.companyName} executes pilots in-house using these architecture blueprints. Nisol retains zero ongoing delivery fee or IP claim.`,
+      nisolFeeMin: discoveryFee,
+      nisolFeeMax: discoveryFee,
+      feeFormatted: `${formatCurrencyInteger(discoveryFee, currency)} (Fixed Discovery Fee, 4 Wks)`,
+      description: `${context.companyName} engages Nisol for a 4-week fixed-scope discovery: complete technical blueprints, security audit, prompt evaluation set, and vendor delivery RFP. Client may execute internally with zero ongoing advisory fee or IP claim.`,
       ipOwnership: "100% Perpetual Client Ownership",
     },
     option2VendorOversight: {
@@ -629,8 +630,8 @@ export function buildExecutiveFinancialModel(
       deliveryType: "Vendor Oversight" as const,
       nisolFeeMin: isINR ? 1200000 : 15000,
       nisolFeeMax: isINR ? 1600000 : 21000,
-      feeFormatted: `${formatCurrencyInteger(isINR ? 1200000 : 15000, currency)} – ${formatCurrencyInteger(isINR ? 1600000 : 21000, currency)}`,
-      description: `${context.companyName} contracts a third-party software integrator. Nisol provides independent architecture sprint oversight and Decision Gate acceptance audits.`,
+      feeFormatted: "Priced post-discovery, per scoped proposal (Indicative: ₹12L – ₹16L)",
+      description: `${context.companyName} contracts an external software integrator for development. Nisol provides independent architecture sprint governance, prompt evaluation gold sets, and Gate cutover acceptance audits.`,
       ipOwnership: "100% Perpetual Client Ownership",
     },
     option3TurnkeyBuild: {
@@ -639,8 +640,8 @@ export function buildExecutiveFinancialModel(
       deliveryType: "Turnkey Pod Build" as const,
       nisolFeeMin: t1Min,
       nisolFeeMax: t1Max,
-      feeFormatted: `${formatCurrencyInteger(t1Min, currency)} – ${formatCurrencyInteger(t1Max, currency)}`,
-      description: `Nisol AI deploys a dedicated, turnkey engineering pod for Tranche 1, delivering Pilot 1 and Pilot 2 under contractual Gate SLAs and paid-to-date exit terms.`,
+      feeFormatted: `Priced post-discovery, per scoped proposal (Indicative Tranche 1: ${formatCurrencyInteger(t1Min, currency)} – ${formatCurrencyInteger(t1Max, currency)})`,
+      description: `Following Discovery validation, Nisol AI deploys a dedicated, turnkey engineering pod for Tranche 1 (Pilots 1 & 2) under contractual Gate SLAs and paid-to-date exit terms.`,
       ipOwnership: "100% Perpetual Client Ownership",
     },
     option4StrategicPause: {
@@ -650,7 +651,7 @@ export function buildExecutiveFinancialModel(
       nisolFeeMin: 0,
       nisolFeeMax: 0,
       feeFormatted: `${currencySymbol}0 (Zero Financial Obligation)`,
-      description: `${context.companyName} archives the diagnostic baseline and blueprints, prioritizing internal data catalog cleanup and SSO consolidation before committing capital.`,
+      description: `${context.companyName} archives the diagnostic baseline and blueprints, prioritizing internal data catalog cleanup and SSO consolidation before committing capital. Client retains all diagnostic models.`,
       ipOwnership: "100% Perpetual Client Ownership",
     },
   };
