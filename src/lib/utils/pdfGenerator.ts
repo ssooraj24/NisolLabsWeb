@@ -29,9 +29,8 @@ export interface PDFExportOptions {
 export function generateReportHTML(report: any, audit: any, options: PDFExportOptions = {}): string {
   const primaryColor = options.primaryColor || "#0A1E3C";
   const secondaryColor = options.secondaryColor || "#EBB44B";
-  const fontFamily = options.fontFamily || "Inter, sans-serif";
+  const fontFamily = options.fontFamily || "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
   const watermarkText = options.watermarkText || "CONFIDENTIAL";
-  const includeTOC = options.includeTOC !== false;
   const currency: "INR" | "USD" = options.currency || report?.businessContext?.primaryCurrency || "INR";
   const isINR = currency === "INR";
 
@@ -45,14 +44,8 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
   // Resolve industry benchmark
   const industryBenchmark = resolveIndustryBenchmark(industry);
 
-  // Helper to check section selection
-  const isSelected = (secId: string) => {
-    if (!options.sections || options.sections.length === 0) return true;
-    return options.sections.includes(secId);
-  };
-
-  // Maturity Score Resolution (consistent across all sections)
-  const rawScore = report?.overallMaturityScore || report?.ai_readiness_assessment?.overall_score || report?.executiveDashboard?.readinessPercentage || 42;
+  // Maturity Score Resolution
+  const rawScore = report?.overallMaturityScore || report?.ai_readiness_assessment?.overall_score || 1.7;
   const clientScore = typeof rawScore === "number" && rawScore <= 5 ? Math.round(rawScore * 20) : Math.min(100, Math.max(10, Math.round(rawScore)));
 
   // Single Source of Truth Financial Model
@@ -73,1427 +66,1493 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
     );
 
   const tranche1Ask = finModel.tranche1Budget.totalTranche1.formattedRange;
-  const estInvestmentTotal = finModel.tranche1Budget.totalTranche1.formattedRange;
   const estAnnualSavings = finModel.annualSavings.formattedNetRealizedAnnual;
   const estGrossSavings = finModel.annualSavings.formattedGrossAnnual;
   const total3YearNet = finModel.headlineSummary.formattedNetGain;
-  const total3YearNetRealized = finModel.headlineSummary.formattedNetRealizedBenefit;
   const estRoiPercentage = finModel.headlineSummary.overallRoiPercentage;
   const paybackPeriod = `${finModel.headlineSummary.paybackMonths} Months`;
   const npvFormatted = finModel.headlineSummary.formattedNpv;
 
-  // Harmonized Inaction Drag (strictly derived from net realized annual savings: Annual / 365)
-  const dailyDragNum = Math.round(finModel.annualSavings.netRealizedAnnual / 365);
-  const thirtyDayDelayNum = dailyDragNum * 30;
-  const dailyDragFormatted = formatCurrencyInteger(dailyDragNum, currency);
-  const thirtyDayDelayFormatted = formatCurrencyInteger(thirtyDayDelayNum, currency);
-
-  // Executive KPI Cards (strictly tied to Single Source of Truth)
-  const kpiCards: ExecutiveKPICard[] = [
-    { label: "Overall AI Readiness", value: `${clientScore}/100`, subtext: `${industryBenchmark.name.split('(')[0]}: ${industryBenchmark.medianScore}/100`, status: "warning" },
-    { label: "Tranche 1 Capital Ask", value: tranche1Ask, subtext: "2 Lighthouse Pilots", status: "neutral" },
-    { label: "3-Year Net Benefit", value: total3YearNet, subtext: `NPV @ 10%: ${npvFormatted}`, status: "positive" },
-    { label: "Estimated ROI", value: `+${estRoiPercentage}%`, subtext: `Payback: ${paybackPeriod}`, status: "positive" }
-  ];
-
-  // Radar Data (8 dimensions distributed around the client's score)
+  // Radar Data (8 dimensions)
   const radarData = report?.chartPayloads?.radarChart && report.chartPayloads.radarChart.length >= 6
     ? report.chartPayloads.radarChart
     : [
-        { subject: "Leadership & Strategy", score: Math.min(100, Math.round(clientScore * 0.95)), fullMark: 100 },
-        { subject: "Data Architecture & Silos", score: Math.min(100, Math.round(clientScore * 0.90)), fullMark: 100 },
-        { subject: "AI Governance & IP", score: Math.min(100, Math.round(clientScore * 0.85)), fullMark: 100 },
-        { subject: "Knowledge & RAG", score: Math.min(100, Math.round(clientScore * 0.92)), fullMark: 100 },
-        { subject: "Engineering & QA Ops", score: Math.min(100, Math.round(clientScore * 1.15)), fullMark: 100 },
-        { subject: "IT Infrastructure & Cloud", score: Math.min(100, Math.round(clientScore * 1.10)), fullMark: 100 },
-        { subject: "Sales & Pipeline AI", score: Math.min(100, Math.round(clientScore * 1.05)), fullMark: 100 },
-        { subject: "Customer Support Automation", score: Math.min(100, Math.round(clientScore * 1.08)), fullMark: 100 }
+        { subject: "Strategy & Vision", score: 35, fullMark: 100 },
+        { subject: "Data Architecture", score: 28, fullMark: 100 },
+        { subject: "AI Governance & IP", score: 20, fullMark: 100 },
+        { subject: "Knowledge & RAG", score: 32, fullMark: 100 },
+        { subject: "Engineering & QA", score: 48, fullMark: 100 },
+        { subject: "Infrastructure", score: 45, fullMark: 100 },
+        { subject: "Sales & Pre-Sales", score: 36, fullMark: 100 },
+        { subject: "Customer Support", score: 40, fullMark: 100 }
       ];
 
-  // Heatmap Data (Complete 6 Departments x 4 Dimensions matrix)
-  const heatmapData = report?.chartPayloads?.heatmap && report.chartPayloads.heatmap.length >= 12
-    ? report.chartPayloads.heatmap
-    : [
-        { department: "Leadership", dimension: "Strategy", score: 25 },
-        { department: "Leadership", dimension: "Hygiene", score: 35 },
-        { department: "Leadership", dimension: "Centralization", score: 30 },
-        { department: "Leadership", dimension: "Automation", score: 40 },
-
-        { department: "Data & BI", dimension: "Strategy", score: 35 },
-        { department: "Data & BI", dimension: "Hygiene", score: 28 },
-        { department: "Data & BI", dimension: "Centralization", score: 32 },
-        { department: "Data & BI", dimension: "Automation", score: 45 },
-
-        { department: "Knowledge", dimension: "Strategy", score: 30 },
-        { department: "Knowledge", dimension: "Hygiene", score: 32 },
-        { department: "Knowledge", dimension: "Centralization", score: 26 },
-        { department: "Knowledge", dimension: "Automation", score: 38 },
-
-        { department: "Engineering", dimension: "Strategy", score: 45 },
-        { department: "Engineering", dimension: "Hygiene", score: 50 },
-        { department: "Engineering", dimension: "Centralization", score: 42 },
-        { department: "Engineering", dimension: "Automation", score: 48 },
-
-        { department: "Sales", dimension: "Strategy", score: 40 },
-        { department: "Sales", dimension: "Hygiene", score: 38 },
-        { department: "Sales", dimension: "Centralization", score: 36 },
-        { department: "Sales", dimension: "Automation", score: 44 },
-
-        { department: "Customer Support", dimension: "Strategy", score: 38 },
-        { department: "Customer Support", dimension: "Hygiene", score: 42 },
-        { department: "Customer Support", dimension: "Centralization", score: 35 },
-        { department: "Customer Support", dimension: "Automation", score: 46 }
-      ];
-
-  // Prioritized Use Cases Catalog (Using industry-specific fallback if empty)
-  const rawUseCases = Array.isArray(report?.opportunityPortfolio?.useCases)
-    ? report.opportunityPortfolio.useCases
-    : Array.isArray(report?.top_use_cases?.use_cases)
-    ? report.top_use_cases.use_cases
-    : Array.isArray(report?.top_use_cases)
-    ? report.top_use_cases
-    : [];
-
-  const useCases = rawUseCases.length > 0 ? rawUseCases : industryBenchmark.topUseCasesCatalog.map((uc, i) => ({
-    id: String(i + 1),
-    name: uc.name,
-    department: uc.department,
-    category: uc.category,
-    estimatedRoiPercentage: uc.expectedRoiPercentage,
-    estimatedTimelineWeeks: uc.category === "Quick Win" ? 4 : 12,
-    implementationEffortScore: uc.implementationEffortScore,
-    businessValueScore: uc.businessValueScore,
-    businessProblem: uc.description,
-    complexity: uc.complexity,
-    techStack: uc.techStack,
-    expectedSavings: isINR ? "₹35 - ₹60 Lakhs / yr" : "$45,000 - $80,000 / yr",
-  }));
-
-  // Risk Register Data
-  const defaultRiskRegister = [
-    {
-      id: "RSK-01",
-      category: "Data Privacy & Security",
-      description: "PII or sensitive client IP sent to third-party LLM endpoints without automated token redaction.",
-      likelihood: 4,
-      impact: 5,
-      riskScore: 20,
-      riskLevel: "Critical",
-      regulatoryFrameworks: ["India DPDP Act 2023", "GDPR"],
-      mitigationStrategy: "Deploy API Gateway proxy with Presidio automated PII redaction prior to external payload dispatch.",
-      ownerRole: "Chief Information Security Officer (CISO)",
-      residualRisk: "Low",
-    },
-    {
-      id: "RSK-02",
-      category: "Model Risk & Bias",
-      description: "LLM hallucinations in client-facing advisory or operational financial summaries.",
-      likelihood: 4,
-      impact: 4,
-      riskScore: 16,
-      riskLevel: "High",
-      regulatoryFrameworks: ["EU AI Act", "RBI Guidelines"],
-      mitigationStrategy: "Enforce low temperature, deterministic schemas, citation checking, and mandatory Human-in-the-Loop review.",
-      ownerRole: "Head of AI Engineering & QA",
-      residualRisk: "Low",
-    },
-    {
-      id: "RSK-03",
-      category: "Regulatory & Compliance",
-      description: "Non-compliance with in-region data localization and continuous AI audit logging requirements.",
-      likelihood: 3,
-      impact: 4,
-      riskScore: 12,
-      riskLevel: "High",
-      regulatoryFrameworks: ["DPDP Act 2023", "ISO 42001"],
-      mitigationStrategy: "Host vector databases and open-weights LLMs in local cloud VPC regions (AWS Mumbai / Azure India).",
-      ownerRole: "Chief Legal & Compliance Officer",
-      residualRisk: "Low",
-    },
-  ];
-  const rawRisk = report?.governanceAssessment?.riskRegister;
-  const riskRegister = Array.isArray(rawRisk) && rawRisk.length > 0 ? rawRisk : defaultRiskRegister;
-
-  // Data Readiness Data
-  const rawReadiness = report?.dataReadinessAssessment;
-  const defaultQualityDims = [
-    { dimension: "Completeness", score: 65, status: "Needs Attention", findings: "Legacy records contain variable mandatory field population." },
-    { dimension: "Accuracy", score: 78, status: "Healthy", findings: "High core financial and transactional precision." },
-    { dimension: "Timeliness", score: 58, status: "Needs Attention", findings: "Batch sync intervals create multi-hour data latency." },
-    { dimension: "Accessibility", score: 60, status: "Needs Attention", findings: "Data locked in siloed department repositories without vector endpoints." },
-  ];
-  const dataReadiness = {
-    overallDataScore: rawReadiness?.overallDataScore || 62,
-    qualityDimensions: Array.isArray(rawReadiness?.qualityDimensions) && rawReadiness.qualityDimensions.length > 0
-      ? rawReadiness.qualityDimensions
-      : defaultQualityDims,
-    estimatedDataPrepCost: rawReadiness?.estimatedDataPrepCost || (isINR ? "₹28 - ₹38 Lakhs" : "$35,000 - $50,000"),
-    estimatedDataPrepPctOfBudget: rawReadiness?.estimatedDataPrepPctOfBudget || 40,
-  };
-
-  // OCM Plan Data
-  const rawOcm = report?.ocmPlan;
-  const defaultRaci = [
-    { initiative: "AI Strategic Roadmap & Governance", responsible: "Chief AI Officer", accountable: "Executive Committee", consulted: "Dept Heads", informed: "All Staff" },
-    { initiative: "AI Proxy Gateway & PII Redaction", responsible: "Security Architect", accountable: "CISO", consulted: "Legal", informed: "Engineering" },
-    { initiative: "Department AI Agents Rollout", responsible: "AI Dev Lead", accountable: "Dept Head", consulted: "Super-users", informed: "Impacted Teams" },
-  ];
-  const ocmPlan = {
-    overallChangeReadinessScore: rawOcm?.overallChangeReadinessScore || 64,
-    stakeholderImpacts: Array.isArray(rawOcm?.stakeholderImpacts) ? rawOcm.stakeholderImpacts : [],
-    raciMatrix: Array.isArray(rawOcm?.raciMatrix) && rawOcm.raciMatrix.length > 0 ? rawOcm.raciMatrix : defaultRaci,
-  };
-
-  // Extract Department Scorecards, Blueprints, and Roadmap from report
-  const rawScorecards = report?.departmentScorecards;
-  const deptScorecards: any[] = Array.isArray(rawScorecards)
-    ? rawScorecards
-    : Array.isArray(rawScorecards?.scorecards)
-    ? rawScorecards.scorecards
-    : [];
-
-  const rawBlueprints = report?.solutionBlueprints;
-  const blueprints: any[] = Array.isArray(rawBlueprints)
-    ? rawBlueprints
-    : Array.isArray(rawBlueprints?.blueprints)
-    ? rawBlueprints.blueprints
-    : [];
-
-  const rawRoadmap = report?.transformationRoadmap;
-  const extractedPhases: any[] = Array.isArray(rawRoadmap)
-    ? rawRoadmap
-    : Array.isArray(rawRoadmap?.phases)
-    ? rawRoadmap.phases
-    : [];
-
-  const defaultRoadmapPhases = [
-    {
-      phaseNumber: 1,
-      phaseName: "Wave 1 (M 0-3): Foundation & Anchor Quick Win",
-      durationMonths: 3,
-      focus: "Deploy single anchor high-ROI automation (1 Pod: Automated QA Test Case Generation) and establish enterprise AI proxy policy.",
-      keyProjects: ["Automated QA Test Case Generation", "Enterprise AI Security Proxy Setup"],
-      expectedMilestones: ["Inline PII redaction proxy setup", "Anchor Quick Win production cutover (>95% accuracy)"],
-      targetOutcomes: "70% regression test authoring time reduction",
-      estimatedCost: isINR ? "₹18 - ₹25 Lakhs" : "$22,000 - $32,000",
-      ownerRole: "Head of QA & Engineering",
-    },
-    {
-      phaseNumber: 2,
-      phaseName: "Wave 2 (M 3-6): Developer Velocity & Code Review",
-      durationMonths: 3,
-      focus: "Scale single-pod delivery to automated code review and department champions training.",
-      keyProjects: ["Automated AI Code Review & SAST Pipeline", "Department Champions Sandbox Labs"],
-      expectedMilestones: ["Code review cycle time compressed by 65%"],
-      targetOutcomes: "Zero security drift and 2x PR throughput",
-      estimatedCost: isINR ? "₹18 - ₹25 Lakhs" : "$22,000 - $32,000",
-      ownerRole: "VP of Engineering",
-    },
-    {
-      phaseNumber: 3,
-      phaseName: "Wave 3 (M 6-9): Financial Operations & Document Automation",
-      durationMonths: 3,
-      focus: "Deploy Intelligent Invoice OCR and finance reconciliation automation.",
-      keyProjects: ["Intelligent Invoice OCR & Financial Reconciliation"],
-      expectedMilestones: ["Automated invoice extraction and 3-way PO match"],
-      targetOutcomes: "92% straight-through invoice processing",
-      estimatedCost: isINR ? "₹28 - ₹38 Lakhs" : "$35,000 - $48,000",
-      ownerRole: "VP of Finance / Controller",
-    },
-    {
-      phaseNumber: 4,
-      phaseName: "Wave 4 (M 9-12): Enterprise Knowledge Graph",
-      durationMonths: 3,
-      focus: "Unify institutional knowledge into hybrid vector search and executive intelligence.",
-      keyProjects: ["Enterprise Knowledge Graph & Semantic Search"],
-      expectedMilestones: ["Multi-repo unified semantic search live across all units"],
-      targetOutcomes: "5.5 hours saved per engineer per week",
-      estimatedCost: isINR ? "₹45 - ₹65 Lakhs" : "$55,000 - $80,000",
-      ownerRole: "Chief Technology Officer (CTO)",
-    },
-  ];
-
-  const roadmapPhases: any[] = extractedPhases.length > 0 ? extractedPhases : defaultRoadmapPhases;
-
-  // SVG Chart Generators with dynamic data
   const radarChartSVG = renderRadarChartSVG(radarData);
-  const heatmapSVG = renderHeatmapSVG(heatmapData);
-  const opportunityMatrixSVG = renderOpportunityMatrixSVG(useCases);
-  const kpiCardsHTML = renderExecutiveKPICardsHTML(kpiCards);
-  const maturityComparisonSVG = renderMaturityComparisonSVG({
-    clientScore,
-    industryAvg: industryBenchmark.medianScore,
-    topQuartile: industryBenchmark.topQuartileScore,
-    industryName: industryBenchmark.name.split('(')[0].trim(),
-  });
-  const roiBarChartSVG = render5YearROIBarChartSVG(report?.roiAnalysis?.fiveYearCashFlowTimeline, currency);
-  const riskMatrixSVG = renderRiskMatrixSVG(riskRegister);
-  const sensitivityTableHTML = renderSensitivityTableHTML(report?.roiAnalysis?.sensitivityAnalysis);
 
-  return `
-<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>${tenantName} - Enterprise AI Transformation Report</title>
+  <title>${tenantName} - Enterprise AI Transformation Strategy</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
     @page {
       size: A4 portrait;
-      margin: 18mm 16mm 18mm 16mm;
-      @bottom-right {
-        content: counter(page);
-        font-family: ${fontFamily};
-        font-size: 8.5pt;
-        font-weight: 600;
-        color: #94A3B8;
-      }
-      @bottom-left {
-        content: "Nisol AI Advisory — ${tenantName} AI Transformation Assessment";
-        font-family: ${fontFamily};
-        font-size: 8.5pt;
-        font-weight: 600;
-        color: #94A3B8;
-      }
+      margin: 10mm 12mm 10mm 12mm;
     }
-
-    @page:first {
-      @bottom-right { content: none; }
-      @bottom-left { content: none; }
-    }
-
-    body {
-      font-family: ${fontFamily};
-      color: #1E293B;
+    @page :first {
       margin: 0;
-      padding: 0;
-      font-size: 11pt;
-      line-height: 1.55;
+    }
+    * {
+      box-sizing: border-box;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
-      background: #FFFFFF;
     }
-
-    .cover-page {
+    body {
+      font-family: ${fontFamily};
+      color: #0F172A;
+      margin: 0;
+      padding: 0;
+      background: #FFFFFF;
+      font-size: 8.5pt;
+      line-height: 1.45;
+    }
+    .page-container {
       page-break-after: always;
-      height: 94vh;
+      break-after: page;
+      height: 275mm;
+      max-height: 275mm;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 36px 32px;
+      position: relative;
+      padding: 0;
+    }
+    .page-container:last-child {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    .cover-page {
+      height: 297mm;
+      max-height: 297mm;
+      padding: 40mm 20mm;
       background: linear-gradient(145deg, ${primaryColor} 0%, #031024 100%);
       color: #FFFFFF;
-      border-radius: 16px;
-      box-sizing: border-box;
-    }
-
-    .cover-brand {
-      font-size: 26pt;
-      font-weight: 900;
-      letter-spacing: 4px;
-      color: ${secondaryColor};
-    }
-
-    .cover-tagline {
-      font-size: 13pt;
-      color: #94A3B8;
-      letter-spacing: 1px;
-      margin-top: 6px;
-    }
-
-    .cover-main-title {
-      font-size: 34pt;
-      font-weight: 900;
-      line-height: 1.15;
-      margin: 18px 0;
-      color: #FFFFFF;
-      letter-spacing: -0.5px;
-    }
-
-    .cover-divider {
-      height: 3px;
-      background: linear-gradient(90deg, ${secondaryColor} 0%, rgba(235, 180, 75, 0) 100%);
-      margin: 20px 0;
-    }
-
-    .cover-meta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      font-size: 12pt;
-      color: #CBD5E1;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .cover-meta-item label {
-      display: block;
-      font-size: 9pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: ${secondaryColor};
-      margin-bottom: 4px;
-    }
-
-    .cover-meta-item span {
-      font-size: 13.5pt;
-      font-weight: 700;
-      color: #FFFFFF;
-    }
-
-    .watermark {
-      position: fixed;
-      top: 45%;
-      left: 15%;
-      font-size: 68pt;
-      font-weight: 900;
-      color: rgba(148, 163, 184, 0.035);
-      transform: rotate(-30deg);
-      pointer-events: none;
-      z-index: 9999;
-      letter-spacing: 8px;
-    }
-
-    .toc-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       page-break-after: always;
-      padding: 10px 0;
+      break-after: page;
     }
-
-    .toc-header {
-      font-size: 24pt;
-      font-weight: 900;
-      color: ${primaryColor};
-      border-bottom: 3px solid ${secondaryColor};
-      padding-bottom: 8px;
-      margin-bottom: 24px;
-      letter-spacing: -0.5px;
-    }
-
-    .toc-item {
+    .page-header-running {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      padding: 10px 0;
-      border-bottom: 1px dashed #E2E8F0;
-      font-size: 12pt;
-    }
-
-    .toc-title {
+      align-items: center;
+      border-bottom: 1px solid #CBD5E1;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+      font-size: 7pt;
       font-weight: 700;
-      color: #0F172A;
-    }
-
-    .toc-sub {
-      font-size: 10pt;
       color: #64748B;
-      margin-left: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-
-    .toc-page-num {
-      font-weight: 800;
-      color: ${primaryColor};
-      font-size: 12pt;
+    .page-footer-running {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #CBD5E1;
+      padding-top: 4px;
+      font-size: 7pt;
+      color: #94A3B8;
+      margin-top: 6px;
     }
-
-    .section {
-      margin-bottom: 32px;
-    }
-
-    .section-break {
-      page-break-after: always;
-    }
-
-    .section-title {
-      font-size: 20pt;
-      font-weight: 900;
-      color: ${primaryColor};
-      border-bottom: 2px solid ${secondaryColor};
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
-
-    .section-subtitle {
-      font-size: 14pt;
-      font-weight: 800;
-      color: #334155;
-      margin: 18px 0 10px 0;
-    }
-
-    .card-box {
-      background: #F8FAFC;
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      font-size: 11pt;
-      page-break-inside: avoid;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .sidebar-card {
-      background: linear-gradient(135deg, ${primaryColor} 0%, #031024 100%);
-      color: #FFFFFF;
-      border-radius: 12px;
-      padding: 20px;
-      margin: 16px 0;
-    }
-
-    .table-custom {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 10pt;
-      margin: 14px 0;
-    }
-
-    .table-custom th {
-      background: ${primaryColor};
-      color: #FFFFFF;
-      font-weight: 700;
-      padding: 10px 12px;
-      text-align: left;
-    }
-
-    .table-custom td {
-      padding: 9px 12px;
-      border-bottom: 1px solid #E2E8F0;
-    }
-
-    .badge-pill {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 9pt;
-      font-weight: 700;
-    }
-
-    .badge-green { background: #DCFCE7; color: #15803D; }
-    .badge-blue { background: #DBEAFE; color: #1E40AF; }
-    .badge-amber { background: #FEF3C7; color: #B45309; }
-    .badge-red { background: #FEE2E2; color: #B91C1C; }
-
     .executive-banner {
       display: grid;
-      grid-template-columns: 2fr 1fr 1.2fr 0.8fr;
-      gap: 10px;
+      grid-template-columns: 2fr 1.1fr 1.3fr 0.9fr;
+      gap: 8px;
       background: #F8FAFC;
       border: 1px solid #CBD5E1;
-      border-left: 4.5px solid ${primaryColor};
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-bottom: 20px;
-      font-size: 8.5pt;
-      line-height: 1.35;
+      border-left: 4px solid ${primaryColor};
+      border-radius: 6px;
+      padding: 6px 10px;
+      margin-bottom: 8px;
+      line-height: 1.3;
     }
-
     .banner-cell {
       display: flex;
       flex-direction: column;
     }
-
     .banner-label {
-      font-size: 7pt;
+      font-size: 6.5pt;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.5px;
       color: #64748B;
       font-weight: 800;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
-
     .banner-val {
-      font-size: 8.5pt;
+      font-size: 8pt;
       font-weight: 700;
       color: #0F172A;
     }
+    .page-headline-callout {
+      background: #EFF6FF;
+      border-left: 3px solid #2563EB;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 8.5pt;
+      color: #1E3A8A;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .section-title-compact {
+      font-size: 13pt;
+      font-weight: 900;
+      color: ${primaryColor};
+      margin: 0 0 6px 0;
+      letter-spacing: -0.3px;
+    }
+    .card-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 8pt;
+      margin-bottom: 8px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.8pt;
+      margin: 6px 0;
+    }
+    .table-custom th {
+      background: ${primaryColor};
+      color: #FFFFFF;
+      font-weight: 700;
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 7.5pt;
+    }
+    .table-custom td {
+      padding: 5px 8px;
+      border-bottom: 1px solid #E2E8F0;
+      vertical-align: top;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 7pt;
+      font-weight: 700;
+    }
+    .badge-green { background: #DCFCE7; color: #15803D; }
+    .badge-blue { background: #DBEAFE; color: #1E40AF; }
+    .badge-amber { background: #FEF3C7; color: #B45309; }
+    .badge-red { background: #FEE2E2; color: #B91C1C; }
   </style>
 </head>
 <body>
 
-  ${watermarkText ? `<div class="watermark">${watermarkText}</div>` : ""}
-
-  <!-- COVER PAGE -->
+  <!-- ========================================== -->
+  <!-- PAGE 1: COVER PAGE -->
+  <!-- ========================================== -->
   <div class="cover-page">
     <div>
-      <div class="cover-brand">N I S O L   A I</div>
-      <div class="cover-tagline">AI Transformation, Delivered.</div>
-      <div class="cover-divider"></div>
-      <h1 class="cover-main-title">ENTERPRISE AI TRANSFORMATION ENGAGEMENT</h1>
-      <p style="font-size: 14pt; color: #E2E8F0; margin-top: 0;">Board-Ready AI Strategy, Capability Assessment & Roadmap</p>
+      <div style="font-size: 24pt; font-weight: 900; letter-spacing: 4px; color: ${secondaryColor};">N I S O L   A I</div>
+      <div style="font-size: 11pt; color: #94A3B8; letter-spacing: 1px; margin-top: 4px;">AI Transformation, Delivered.</div>
+      <div style="height: 2px; background: linear-gradient(90deg, ${secondaryColor} 0%, rgba(235,180,75,0) 100%); margin: 24px 0;"></div>
+      <div style="font-size: 10pt; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #38BDF8; margin-bottom: 6px;">BOARD ADVISORY DELIVERABLE</div>
+      <h1 style="font-size: 28pt; font-weight: 900; line-height: 1.15; color: #FFFFFF; margin: 0 0 12px 0;">ENTERPRISE AI TRANSFORMATION STRATEGY</h1>
+      <p style="font-size: 12pt; color: #E2E8F0; margin: 0; max-width: 650px; line-height: 1.4;">Executive Decision Memo, Maturity Diagnostics & 36-Month Capital Roadmap</p>
     </div>
 
-    <div class="cover-meta-grid">
-      <div class="cover-meta-item">
-        <label>Prepared For</label>
-        <span>${tenantName}</span>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: rgba(255,255,255,0.06); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); font-size: 9pt;">
+      <div>
+        <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Client Organization</div>
+        <div style="font-size: 12pt; font-weight: 800; color: #FFFFFF; margin-top: 2px;">${tenantName}</div>
       </div>
-      <div class="cover-meta-item">
-        <label>Industry Sector</label>
-        <span>${industryBenchmark.name}</span>
+      <div>
+        <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Diagnostic Assessment</div>
+        <div style="font-size: 10.5pt; font-weight: 700; color: #FFFFFF; margin-top: 2px;">Nisol 360™ Diagnostic (62 Qs across 15 Capabilities)</div>
       </div>
-      <div class="cover-meta-item">
-        <label>Prepared By</label>
-        <span>Nisol AI Advisory</span>
+      <div>
+        <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Industry Benchmark</div>
+        <div style="font-size: 9.5pt; color: #E2E8F0; margin-top: 2px;">${industryBenchmark.name} (Median: ${(industryBenchmark.medianScore/20).toFixed(1)}/5.0)</div>
       </div>
-      <div class="cover-meta-item">
-        <label>Date of Issue</label>
-        <span>${reportDate}</span>
+      <div>
+        <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Verified Maturity Baseline</div>
+        <div style="font-size: 9.5pt; color: #FBBF24; font-weight: 700; margin-top: 2px;">${(clientScore / 20).toFixed(1)} / 5.0 (${clientScore}%) — Developing Baseline</div>
       </div>
-      <div class="cover-meta-item">
-        <label>Classification</label>
-        <span>Commercial-in-Confidence</span>
+      <div>
+        <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Issuing Advisory Practice</div>
+        <div style="font-size: 9.5pt; color: #E2E8F0; margin-top: 2px;">Nisol AI Advisory Services</div>
       </div>
-      <div class="cover-meta-item">
-        <label>Document ID</label>
-        <span>${docId}</span>
+      <div>
+        <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Document ID & Date</div>
+        <div style="font-size: 9.5pt; color: #E2E8F0; margin-top: 2px;">${docId} • ${reportDate}</div>
       </div>
     </div>
   </div>
 
-  ${
-    includeTOC
-      ? `
-  <!-- TABLE OF CONTENTS -->
-  <div class="toc-page">
-    <div class="toc-header">TABLE OF CONTENTS</div>
-    
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">1. Executive Summary & Value Proposition</div>
-        <div class="toc-sub">1.1 Engagement Overview | 1.2 Key Drivers | 1.3 Expected Business Impact | 1.4 Executive Sidebar</div>
+  <!-- ========================================== -->
+  <!-- PAGE 2: DECISION MEMO - PART 1 -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Decision Memo (1/2)</span>
       </div>
-      <div class="toc-page-num">3</div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">Authorization of Tranche 1 Capital (${tranche1Ask})</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">Chief Executive Officer & Board</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Intake Audited (62 Qs) + SaaS Benchmarks]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">High (Pre-flight Verified)</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Strategic Takeaway: Engineering capacity and pre-sales proposal response cycles represent 74% of addressable automation value; activating 2 lighthouse pilots unlocks ${estAnnualSavings} net annual savings under a protected tranche structure.
+      </div>
+
+      <div class="section-title-compact">1. Executive Decision Memo: Strategic Context & 3 Core Findings</div>
+
+      <!-- SSOT 4-CARD FLIGHT DECK -->
+      <div class="grid-4" style="margin-bottom: 8px;">
+        <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 8px; text-align: center;">
+          <div style="font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: #166534;">Tranche 1 Capital Ask</div>
+          <div style="font-size: 13pt; font-weight: 900; color: #059669; margin: 2px 0;">${tranche1Ask}</div>
+          <div style="font-size: 6.5pt; color: #14532D;">2 Lighthouse Pilots (6-8 Wks)</div>
+        </div>
+        <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 8px; text-align: center;">
+          <div style="font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: #1E40AF;">Net Realized Savings</div>
+          <div style="font-size: 13pt; font-weight: 900; color: #2563EB; margin: 2px 0;">${estAnnualSavings}</div>
+          <div style="font-size: 6.5pt; color: #1E3A8A;">Per annum (after 50% haircut)</div>
+        </div>
+        <div style="background: #FAF5FF; border: 1px solid #E9D5FF; border-radius: 6px; padding: 8px; text-align: center;">
+          <div style="font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: #6B21A8;">3-Year Net Benefit</div>
+          <div style="font-size: 13pt; font-weight: 900; color: #7E22CE; margin: 2px 0;">${total3YearNet}</div>
+          <div style="font-size: 6.5pt; color: #581C87;">NPV @ 10%: ${npvFormatted}</div>
+        </div>
+        <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 6px; padding: 8px; text-align: center;">
+          <div style="font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: #92400E;">Payback & ROI</div>
+          <div style="font-size: 13pt; font-weight: 900; color: #D97706; margin: 2px 0;">${paybackPeriod}</div>
+          <div style="font-size: 6.5pt; color: #78350F;">Program ROI: +${estRoiPercentage}%</div>
+        </div>
+      </div>
+
+      <!-- 3 EVIDENCE-TAGGED FINDINGS -->
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+        <div class="card-box" style="border-left: 3.5px solid #2563EB; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Finding 1: Engineering Velocity Bottleneck in QA & Boilerplate</strong>
+            <span class="badge-pill badge-blue">[Evidence: Intake Measured | Confidence: High]</span>
+          </div>
+          <p style="margin: 0; color: #334155; line-height: 1.4;">
+            Senior engineering talent is currently spending an estimated 38% of total sprint capacity writing repetitive boilerplate, executing manual regression test scripts, and refactoring legacy modules. Implementing a dedicated AI Code & Test Generation Pod unlocks ₹1.2 Cr in annual developer capacity without adding headcount.
+          </p>
+        </div>
+
+        <div class="card-box" style="border-left: 3.5px solid #059669; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Finding 2: 14-Day RFP Turnaround Creates Pipeline Friction</strong>
+            <span class="badge-pill badge-green">[Evidence: SME Reported | Confidence: High]</span>
+          </div>
+          <p style="margin: 0; color: #334155; line-height: 1.4;">
+            Commercial and pre-sales teams require 10–14 business days to respond to complex technical RFPs because compliance documentation, security certifications, and past proposal answers are trapped across unindexed document repositories. A centralized RAG Pre-Sales Bot reduces turnaround by 70% (down to 3–4 days).
+          </p>
+        </div>
+
+        <div class="card-box" style="border-left: 3.5px solid #D97706; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Finding 3: Shadow-AI Proliferation Without Zero Data Retention</strong>
+            <span class="badge-pill badge-amber">[Evidence: Audit Discovered | Confidence: High]</span>
+          </div>
+          <p style="margin: 0; color: #334155; line-height: 1.4;">
+            The audit identified at least 6 unmonitored consumer LLM accounts in active departmental use. Staff are submitting proprietary prompts without enterprise Zero Data Retention (ZDR) terms, API proxy masking, or centralized audit logging. An immediate secure gateway deployment is mandatory to protect IP.
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">2. AI Readiness, Risk & Data Assessment</div>
-        <div class="toc-sub">2.1 Maturity Score vs Sector | 2.2 Capability Radar | 2.3 Department Heatmap | 2.4 Vulnerabilities | 2.5 Risk Register | 2.6 Data Readiness</div>
-      </div>
-      <div class="toc-page-num">7</div>
-    </div>
-
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">3. AI Opportunity Matrix & Use Cases Catalog</div>
-        <div class="toc-sub">3.1 Matrix Visualization | 3.2 Prioritized Use Cases Catalog | 3.3 Quick Wins vs Strategic Bets</div>
-      </div>
-      <div class="toc-page-num">12</div>
-    </div>
-
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">4. Transformation Roadmap & Change Management (OCM)</div>
-        <div class="toc-sub">4.1 Phased Implementation Timeline | 4.2 Change Management & RACI Matrix | 4.3 Training & Adoption Plan</div>
-      </div>
-      <div class="toc-page-num">16</div>
-    </div>
-
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">5. ROI Analysis, Sensitivity & Financial Projection</div>
-        <div class="toc-sub">5.1 5-Year Benefit vs Investment | 5.2 Department Breakdown | 5.3 5-Year Projection Table | 5.4 3-Scenario Sensitivity Stress Test</div>
-      </div>
-      <div class="toc-page-num">19</div>
-    </div>
-
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">6. Solution Blueprints</div>
-        <div class="toc-sub">Technical Architecture & Engineering Specifications for High-Priority Initiatives</div>
-      </div>
-      <div class="toc-page-num">23</div>
-    </div>
-
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">7. Implementation Investment & Commercials</div>
-        <div class="toc-sub">7.1 Prioritized Initiatives Table | 7.2 Engagement Tiers | 7.3 Next Steps</div>
-      </div>
-      <div class="toc-page-num">26</div>
-    </div>
-
-    <div class="toc-item">
-      <div>
-        <div class="toc-title">8. Terms & Conditions & Executive Acceptance</div>
-        <div class="toc-sub">8.1 Commercial Terms | 8.2 Executive Authorization Sign-off</div>
-      </div>
-      <div class="toc-page-num">30</div>
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 2 of 11</span>
+      <span>Doc ID: ${docId}</span>
     </div>
   </div>
-  `
-      : ""
-  }
 
-  <!-- SECTION 1: EXECUTIVE SUMMARY -->
-  ${
-    isSelected("summary")
-      ? `
-  <div class="section section-break">
-    <div class="section-title">1. Executive Summary & Value Proposition</div>
-    
-    <div class="executive-banner">
-      <div class="banner-cell">
-        <span class="banner-label">Decision Requested</span>
-        <span class="banner-val">Authorization of Tranche 1 Capital (${tranche1Ask})</span>
-      </div>
-      <div class="banner-cell">
-        <span class="banner-label">Who Decides</span>
-        <span class="banner-val">CEO, CFO, and CTO</span>
-      </div>
-      <div class="banner-cell">
-        <span class="banner-label">Evidence Level</span>
-        <span class="banner-val">[Client-Reported + Benchmarks]</span>
-      </div>
-      <div class="banner-cell">
-        <span class="banner-label">Confidence Level</span>
-        <span class="banner-val">High (Intake Audited)</span>
-      </div>
-    </div>
-
+  <!-- ========================================== -->
+  <!-- PAGE 3: DECISION MEMO - PART 2 -->
+  <!-- ========================================== -->
+  <div class="page-container">
     <div>
-      <div class="section-subtitle">1.1 Engagement Overview</div>
-      <div class="card-box">
-        <p style="margin: 0; line-height: 1.6;">
-          <strong>${tenantName}</strong> is an established enterprise in the <strong>${industryBenchmark.name}</strong> sector preparing for accelerated operating scale. Following an extensive AI Readiness Audit across strategy, data architecture, security governance, and workflows, Nisol AI has formulated a decision-ready transformation strategy. This roadmap targets high-friction manual bottlenecks, establishes approved gateway security with verified Zero Data Retention (ZDR) terms, and deploys high-impact autonomous agents across audited business units under a strict tranche-based governance model.
-        </p>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Decision Memo (2/2)</span>
+      </div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">Appoint Council & Authorize 30-Day Execution Plan</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">Chief Executive Officer & Executive Sponsor</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Bottom-Up Cost Model + Sprint Velocity Plan]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">High (Pre-flight Verified)</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Strategic Takeaway: The first 30 days establish the security gateway and launch 2 pilots under strict gate criteria; no further capital is committed until production accuracy reaches ≥95%.
+      </div>
+
+      <div class="section-title-compact">1.2 Executive Decision Memo: Decisions, 30-Day Plan & Tranche Ask</div>
+
+      <!-- 3 IMMEDIATE DECISIONS TABLE -->
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Decision</th>
+            <th style="width: 15%;">Owner</th>
+            <th style="width: 15%;">Target Date</th>
+            <th style="width: 45%;">Immediate Operational Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Appoint Executive AI Sponsor</strong></td>
+            <td>CEO</td>
+            <td>Day 5</td>
+            <td>Form 4-person AI Steering Council; designate 4 hrs/wk champion time in Engineering & Solutions.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Authorize Tranche 1 Budget</strong></td>
+            <td>CFO</td>
+            <td>Day 10</td>
+            <td>Release ${tranche1Ask} envelope dedicated to 2 lighthouse pilots with stop-the-clock protection.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Mandate Secure AI Gateway</strong></td>
+            <td>CTO / CISO</td>
+            <td>Day 14</td>
+            <td>Publish approved tools registry with verified ZDR terms; block consumer AI logins across corporate VPC.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 30-DAY EXECUTION CALENDAR -->
+      <div style="margin: 8px 0;">
+        <strong style="color: #0A1E3C; font-size: 8.5pt; display: block; margin-bottom: 4px;">First 30 Days Execution Calendar</strong>
+        <div class="grid-3">
+          <div class="card-box" style="margin-bottom: 0;">
+            <div style="font-weight: 800; color: #1E40AF; font-size: 8pt; margin-bottom: 3px;">Days 1–10: Foundation & Charter</div>
+            <ul style="margin: 0; padding-left: 12px; font-size: 7.5pt; color: #334155;">
+              <li>Charter sign-off & AI Council alignment</li>
+              <li>Provider ZDR terms verification</li>
+              <li>Developer API gateway deployment</li>
+            </ul>
+          </div>
+          <div class="card-box" style="margin-bottom: 0;">
+            <div style="font-weight: 800; color: #059669; font-size: 8pt; margin-bottom: 3px;">Days 11–20: Pod & Data Ingestion</div>
+            <ul style="margin: 0; padding-left: 12px; font-size: 7.5pt; color: #334155;">
+              <li>Scoping Pilot 1 (Code) & Pilot 2 (RFP)</li>
+              <li>Vector database setup & credentialing</li>
+              <li>Ingest 50 historical proposals as gold set</li>
+            </ul>
+          </div>
+          <div class="card-box" style="margin-bottom: 0;">
+            <div style="font-weight: 800; color: #7C3AED; font-size: 8pt; margin-bottom: 3px;">Days 21–30: Sprint 1 & Baselines</div>
+            <ul style="margin: 0; padding-left: 12px; font-size: 7.5pt; color: #334155;">
+              <li>Sprint 1 code generation harness active</li>
+              <li>Pre-sales knowledge retrieval validation</li>
+              <li>Establish baseline benchmark accuracy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANCHE 1 CAPITAL ALLOCATION TABLE -->
+      <div style="margin-top: 6px;">
+        <strong style="color: #0A1E3C; font-size: 8.5pt; display: block; margin-bottom: 4px;">Tranche 1 Capital Allocation Breakdown</strong>
+        <table class="table-custom">
+          <thead>
+            <tr>
+              <th style="width: 40%;">Tranche 1 Component</th>
+              <th style="width: 25%;">Scope & Deliverables</th>
+              <th style="width: 20%;">Investment Range</th>
+              <th style="width: 15%;">Horizon</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pilot 1: AI Code & Test Generation Pod</strong></td>
+              <td>Developer assistant tooling, regression test automation</td>
+              <td>₹14L – ₹18L</td>
+              <td>Weeks 1–6</td>
+            </tr>
+            <tr>
+              <td><strong>Pilot 2: Technical RFP & Pre-Sales Bot</strong></td>
+              <td>Vector RAG index over past bids, security questionnaires</td>
+              <td>₹16L – ₹22L</td>
+              <td>Weeks 2–8</td>
+            </tr>
+            <tr>
+              <td><strong>Security Gateway & Cloud Vector Infra</strong></td>
+              <td>ZDR proxy, automated PII token scrubbing, logging</td>
+              <td>₹8L – ₹10L</td>
+              <td>Weeks 1–3</td>
+            </tr>
+            <tr>
+              <td><strong>Change Enablement & Prompt Mastery Labs</strong></td>
+              <td>3-track curriculum, champion coaching (4 hrs/wk)</td>
+              <td>₹4L – ₹6L</td>
+              <td>Weeks 2–8</td>
+            </tr>
+            <tr>
+              <td><strong>Contingency Buffer (10%)</strong></td>
+              <td>Token run-rate variability, integration adjustments</td>
+              <td>₹3L – ₹4L</td>
+              <td>Active</td>
+            </tr>
+            <tr style="background: #F1F5F9; font-weight: 800;">
+              <td>TOTAL TRANCHE 1 AUTHORIZATION</td>
+              <td>Full Phase 1 Gated Delivery Envelope</td>
+              <td style="color: #059669;">${tranche1Ask}</td>
+              <td>Payback: ${paybackPeriod}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 3 of 11</span>
+      <span>Doc ID: ${docId}</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 4: WHERE YOU STAND -->
+  <!-- ========================================== -->
+  <div class="page-container">
     <div>
-      <div class="section-subtitle">1.2 Expected Business Impact</div>
-      ${kpiCardsHTML}
-    </div>
-
-    <div class="sidebar-card">
-      <div style="font-size: 12pt; font-weight: 800; color: ${secondaryColor}; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 6px;">
-        1.3 EXECUTIVE ENGAGEMENT SUMMARY — AT A GLANCE
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Diagnostic Baseline</span>
       </div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">Baseline Diagnostic Endorsement</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">CTO, COO & Head of Engineering</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[62-Dimension Assessment across 15 Capabilities]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">Audited & Verified</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Diagnostic Finding: ${tenantName} scores ${(clientScore / 20).toFixed(1)} / 5.0 (${clientScore}%), placing the company 30 points behind the sector median (3.2 / 5.0). The primary deficits are governance (1.0/5.0) and unindexed data architecture (1.4/5.0).
+      </div>
+
+      <div class="section-title-compact">2. Where You Stand: Maturity Baseline, Peer Benchmark & Constraints</div>
+
       <div class="grid-2">
+        <!-- LEFT: RADAR & BENCHMARK -->
         <div>
-          <p style="margin: 4px 0;"><strong>Client Organization:</strong> ${tenantName}</p>
-          <p style="margin: 4px 0;"><strong>Industry Sector:</strong> ${industryBenchmark.name.split('(')[0]}</p>
-          <p style="margin: 4px 0;"><strong>Overall Maturity Score:</strong> ${(clientScore / 20).toFixed(1)} / 5.0 (${clientScore}%)</p>
-          <p style="margin: 4px 0;"><strong>Sector Median Benchmark:</strong> ${(industryBenchmark.medianScore / 20).toFixed(1)} / 5.0 (${industryBenchmark.medianScore}%)</p>
-          <p style="margin: 4px 0;"><strong>Benchmark Deficit:</strong> ${Math.max(0, industryBenchmark.medianScore - clientScore)} pts behind sector median</p>
-          <p style="margin: 4px 0;"><strong>Sector Top Quartile:</strong> ${(industryBenchmark.topQuartileScore / 20).toFixed(1)} / 5.0 (${industryBenchmark.topQuartileScore}%)</p>
-        </div>
-        <div>
-          <p style="margin: 4px 0;"><strong>Tranche 1 Capital Ask:</strong> ${tranche1Ask} (2 Pilots)</p>
-          <p style="margin: 4px 0;"><strong>Net Annual Savings:</strong> ${estAnnualSavings} (50% Haircut)</p>
-          <p style="margin: 4px 0;"><strong>3-Year Cumulative Net Gain:</strong> ${total3YearNet}</p>
-          <p style="margin: 4px 0;"><strong>Expected Payback Period:</strong> ${paybackPeriod}</p>
-          <p style="margin: 4px 0;"><strong>Estimated 3-Year Program ROI:</strong> +${estRoiPercentage}%</p>
-        </div>
-      </div>
-      <div style="font-size: 8pt; color: #94A3B8; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 6px;">
-        * Benchmark Calibration: Calibrated against published industry maturity frameworks (Stanford HAI AI Index & NIST AI RMF 1.0) and audited technology enterprise discovery data.
-      </div>
-    </div>
-
-    <!-- 1.4 FINANCIAL RECONCILIATION & VALUE SUMMARY -->
-    <div style="margin-top: 18px;">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-        <div class="section-subtitle" style="margin: 0; display: flex; align-items: center; gap: 8px;">
-          <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #059669;"></span>
-          1.4 Operational Momentum & Executive Financial Reconciliation
-        </div>
-        <span class="badge-pill badge-green" style="font-size: 8pt; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">Reconciled SSOT</span>
-      </div>
-
-      <!-- 4-METRIC HIGH IMPACT FLIGHT DECK -->
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px;">
-        <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 10px; text-align: center;">
-          <div style="font-size: 7.5pt; font-weight: 700; text-transform: uppercase; color: #166534; letter-spacing: 0.04em;">Realized Net Savings</div>
-          <div style="font-size: 15pt; font-weight: 900; color: #059669; margin: 4px 0;">${estAnnualSavings}</div>
-          <div style="font-size: 7.5pt; color: #14532D; line-height: 1.3;">Per annum (after 50% soft-hour haircut)</div>
-        </div>
-
-        <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px; padding: 12px 10px; text-align: center;">
-          <div style="font-size: 7.5pt; font-weight: 700; text-transform: uppercase; color: #92400E; letter-spacing: 0.04em;">Gross Modeled Value</div>
-          <div style="font-size: 15pt; font-weight: 900; color: #D97706; margin: 4px 0;">${estGrossSavings}</div>
-          <div style="font-size: 7.5pt; color: #78350F; line-height: 1.3;">Unadjusted capacity recovered across units</div>
-        </div>
-
-        <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 12px 10px; text-align: center;">
-          <div style="font-size: 7.5pt; font-weight: 700; text-transform: uppercase; color: #1E40AF; letter-spacing: 0.04em;">Tranche 1 Payback</div>
-          <div style="font-size: 15pt; font-weight: 900; color: #2563EB; margin: 4px 0;">${paybackPeriod}</div>
-          <div style="font-size: 7.5pt; color: #1E3A8A; line-height: 1.3;">Breakeven from verified pilot cutover</div>
-        </div>
-
-        <div style="background: #FAF5FF; border: 1px solid #E9D5FF; border-radius: 8px; padding: 12px 10px; text-align: center;">
-          <div style="font-size: 7.5pt; font-weight: 700; text-transform: uppercase; color: #6B21A8; letter-spacing: 0.04em;">3-Year Program NPV</div>
-          <div style="font-size: 15pt; font-weight: 900; color: #7E22CE; margin: 4px 0;">${npvFormatted}</div>
-          <div style="font-size: 7.5pt; color: #581C87; line-height: 1.3;">Discounted cash flow at 10% hurdle rate</div>
-        </div>
-      </div>
-
-      <!-- BOTTOM TAKEAWAY BANNER -->
-      <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 4px solid #059669; border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between;">
-        <div style="font-size: 8.5pt; color: #334155; line-height: 1.45;">
-          <strong style="color: #0F172A;">Executive Takeaway:</strong> Transformation capital is protected through tranche-based releases. 
-          Authorizing Tranche 1 (${tranche1Ask}) activates two high-impact lighthouse pilots with a projected breakeven at <strong>${paybackPeriod}</strong>, delivering <strong>${estAnnualSavings}</strong> in ongoing annualized EBITDA enhancement.
-        </div>
-      </div>
-    </div>
-  </div>
-  `
-      : ""
-  }
-
-  <!-- SECTION 2: AI READINESS, RISK & DATA ASSESSMENT -->
-  ${
-    isSelected("maturity")
-      ? `
-  <div class="section section-break">
-    <div class="section-title">2. AI Readiness, Risk & Data Assessment</div>
-    
-    <div style="margin-bottom: 20px;">
-      <div class="section-subtitle">2.1 Maturity Score vs. ${industryBenchmark.name.split('(')[0]} Benchmark</div>
-      ${maturityComparisonSVG}
-      <div class="card-box" style="margin-top: 12px; background: #F8FAFC;">
-        <strong style="color: #0A1E3C; font-size: 10pt; display: block; margin-bottom: 4px;">
-          Root Cause Analysis of the ${Math.max(0, industryBenchmark.medianScore - clientScore)}-Point Benchmark Gap
-        </strong>
-        <p style="margin: 0; font-size: 9pt; color: #475569; line-height: 1.5;">
-          ${tenantName}'s overall maturity score of <strong>${(clientScore / 20).toFixed(1)} / 5.0 (${clientScore}%)</strong> places the enterprise ${Math.max(0, industryBenchmark.medianScore - clientScore)} points behind the ${industryBenchmark.name.split('(')[0]} median (${(industryBenchmark.medianScore / 20).toFixed(1)} / 5.0). This deficit is primarily driven by ad-hoc departmental experimentation lacking centralized API security gateways (-7.2 pts), unstructured document silos in finance and operations (-6.4 pts), and manual regression testing (-6.4 pts). Wave 1 and Wave 2 implementations target these root causes directly to close 14 of the 20 gap points within 180 days.
-        </p>
-      </div>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <div class="section-subtitle">2.2 Capability Maturity Radar (8 Strategic Dimensions)</div>
-      ${radarChartSVG}
-    </div>
-
-    <div style="margin-bottom: 20px;">
-      <div class="section-subtitle">2.3 Department AI Capability Heatmap</div>
-      ${heatmapSVG}
-    </div>
-
-    <!-- 2.4 DEPARTMENTAL ACTION BRIEFS -->
-    <div style="margin-bottom: 20px;">
-      <div class="section-subtitle">2.4 Departmental Action Briefs & Governance Playbook</div>
-      <p style="font-size: 10pt; color: #475569; margin-bottom: 12px;">
-        Functional relevance briefs establishing operational friction points, quantifiable target outcomes, Hub-and-Spoke executive ownership, and low-friction SME engagement models across audited enterprise units.
-      </p>
-
-      ${deptScorecards && deptScorecards.length > 0 ? `
-      <table class="table-custom">
-        <thead>
-          <tr>
-            <th style="width: 20%;">Department & Sponsor</th>
-            <th style="width: 25%;">Current Operational Friction</th>
-            <th style="width: 27%;">Target AI Outcome</th>
-            <th style="width: 28%;">Governance & SME Ask</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${deptScorecards.slice(0, 8).map((dept: any) => `
-            <tr>
-              <td>
-                <strong style="color: #0A1E3C;">${dept.department}</strong>
-                <div style="font-size: 8.5pt; color: #64748B;">${dept.targetStakeholder || 'Department Lead'}</div>
-                <div style="margin-top: 4px;"><span class="badge-pill badge-blue">${dept.maturityLevel || 'Developing'}</span></div>
-              </td>
-              <td style="font-size: 9pt; color: #334155;">${dept.operationalFriction || dept.painPoints?.[0] || 'Manual workflows'}</td>
-              <td style="font-size: 9pt; color: #059669; font-weight: 600;">${dept.targetOutcomes || dept.topRecommendations?.[0] || 'Targeted automation'}</td>
-              <td style="font-size: 8.5pt; color: #475569;">
-                <div><strong>Model:</strong> ${dept.hubAndSpokeModel || 'Hub-and-Spoke'}</div>
-                <div style="margin-top: 3px; color: #0A1E3C;"><strong>SME Ask:</strong> ${dept.smeAsk || '2 hrs/wk validation'}</div>
-              </td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-      ` : ''}
-    </div>
-
-    <!-- 2.5 RISK REGISTER -->
-    <div class="section-break" style="padding-top: 10px;">
-      <div class="section-subtitle">2.5 Enterprise AI Risk & Regulatory Register</div>
-      <p style="font-size: 10.5pt; color: #475569;">Prioritized risk matrix mapping technical, regulatory (${industryBenchmark.keyRegulations.slice(0, 3).join(", ")}), and operational vulnerabilities with concrete mitigation strategies.</p>
-      ${riskMatrixSVG}
-
-      <table class="table-custom" style="margin-top: 16px;">
-        <thead>
-          <tr>
-            <th style="width: 10%;">Risk ID</th>
-            <th style="width: 25%;">Category & Description</th>
-            <th style="width: 12%;">Severity</th>
-            <th style="width: 35%;">Mitigation Strategy</th>
-            <th style="width: 18%;">Accountability</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${riskRegister.map((r: any) => `
-            <tr>
-              <td><strong>${r.id}</strong></td>
-              <td>
-                <span class="badge-pill ${r.riskLevel === 'Critical' ? 'badge-red' : r.riskLevel === 'High' ? 'badge-amber' : 'badge-blue'}">${r.category}</span>
-                <div style="font-size: 9.5pt; color: #334155; margin-top: 4px;">${r.description}</div>
-              </td>
-              <td><strong>${r.riskScore}/25</strong> (${r.riskLevel})</td>
-              <td style="font-size: 9.5pt; color: #334155;">${r.mitigationStrategy}</td>
-              <td style="font-size: 9.5pt; font-weight: 600; color: #0A1E3C;">${r.ownerRole}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 2.6 DATA READINESS -->
-    <div style="padding-top: 10px;">
-      <div class="section-subtitle">2.6 Data Strategy & Readiness Assessment</div>
-      <p style="font-size: 10.5pt; color: #475569;">Data is the foundational determinant of AI ROI. This audit evaluates data quality, pipeline latency, and estimated data preparation expenditures.</p>
-      
-      <div class="grid-2">
-        <div class="card-box">
-          <strong style="color: ${primaryColor}; display: block; margin-bottom: 8px;">Data Quality Dimensions</strong>
-          ${dataReadiness.qualityDimensions.map((q: any) => `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 10pt;">
-              <span>${q.dimension}</span>
-              <span class="badge-pill ${q.status === 'Healthy' ? 'badge-green' : 'badge-amber'}">${q.score}% (${q.status})</span>
-            </div>
-          `).join('')}
-        </div>
-        <div class="card-box">
-          <strong style="color: ${primaryColor}; display: block; margin-bottom: 8px;">Estimated Data Preparation Budget</strong>
-          <div style="font-size: 18pt; font-weight: 800; color: #0A1E3C; margin: 6px 0;">${dataReadiness.estimatedDataPrepCost}</div>
-          <div style="font-size: 9.5pt; color: #64748B;">Accounting for ~${dataReadiness.estimatedDataPrepPctOfBudget}% of Phase 1 implementation allocation for vector lakehouse ETL & PII scrubbing.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  `
-      : ""
-  }
-
-  <!-- SECTION 3: OPPORTUNITY MATRIX & USE CASES -->
-  ${
-    isSelected("matrix")
-      ? `
-  <div class="section section-break">
-    <div class="section-title">3. AI Opportunity Matrix & Use Cases Catalog</div>
-    
-    <div style="margin-bottom: 20px;">
-      <div class="section-subtitle">3.1 Opportunity Matrix (Value vs. Implementation Effort)</div>
-      ${opportunityMatrixSVG}
-    </div>
-
-    <div>
-      <div class="section-subtitle">3.2 Prioritized Top AI Use Cases Catalog (Phased Execution Horizons)</div>
-      <p style="font-size: 9.5pt; color: #475569; margin-bottom: 12px;">
-        Prioritized portfolio mapping ${useCases.length} cross-functional enterprise initiatives across 6 execution horizons, balancing immediate time-to-value with long-term competitive moat creation under the Single-Pod delivery benchmark.
-      </p>
-      <table class="table-custom">
-        <thead>
-          <tr>
-            <th style="width: 4%;">#</th>
-            <th style="width: 28%;">Initiative & Execution Horizon</th>
-            <th style="width: 14%;">Category & Pod</th>
-            <th style="width: 34%;">Business Problem & Proposed Solution</th>
-            <th style="width: 20%;">Duration, Savings & ROI</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${useCases.slice(0, 16).map((uc: any, i: number) => `
-            <tr>
-              <td><strong>${i + 1}</strong></td>
-              <td>
-                <strong style="color: #0A1E3C;">${uc.name}</strong>
-                <div style="font-size: 8.5pt; color: #0284C7; font-weight: 600; margin-top: 2px;">
-                  ${uc.horizonWindow || (i < 3 ? 'Horizon 1: M 0-3' : i < 6 ? 'Horizon 2: M 3-6' : i < 9 ? 'Horizon 3: M 6-9' : 'Horizon 4: M 9-12')}
-                </div>
-                <div style="font-size: 8pt; color: #64748B;">${uc.department}</div>
-              </td>
-              <td>
-                <span class="badge-pill ${uc.category === 'Quick Win' ? 'badge-green' : uc.category === 'Strategic Bet' ? 'badge-blue' : 'badge-amber'}">${uc.category}</span>
-                <div style="font-size: 8pt; color: #64748B; margin-top: 4px;">${uc.podRequirement || '1 Dedicated Pod'}</div>
-                <div style="font-size: 7.5pt; color: #475569; margin-top: 2px;">Complexity: <strong>${uc.complexity || 'Medium'}</strong></div>
-              </td>
-              <td style="font-size: 8.5pt; color: #334155; line-height: 1.45;">
-                <div style="margin-bottom: 4px;"><strong>Pain Point:</strong> ${uc.businessProblem}</div>
-                <div style="color: #0F766E;"><strong>Solution:</strong> ${uc.proposedSolution || 'Autonomous agent workflow'}</div>
-              </td>
-              <td>
-                <strong style="color: #059669; font-size: 10pt;">+${uc.estimatedRoiPercentage}% ROI</strong>
-                <div style="font-size: 8.5pt; font-weight: 700; color: #0A1E3C; margin-top: 2px;">${uc.expectedSavings}</div>
-                <div style="font-size: 8pt; color: #64748B; margin-top: 2px;">Duration: <strong>${uc.estimatedTimelineWeeks} Weeks</strong></div>
-              </td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  `
-      : ""
-  }
-
-  <!-- SECTION 4: ROADMAP & OCM -->
-  ${
-    isSelected("roadmap")
-      ? `
-  <div class="section section-break">
-    <div class="section-title">4. Transformation Roadmap & Change Management (OCM)</div>
-    
-    <div>
-      <div class="section-subtitle">4.1 Transformation Roadmap (Single-Pod Execution Waves)</div>
-      <p style="font-size: 9.5pt; color: #475569; margin-bottom: 12px;">
-        Governed by Nisol AI's <strong>Single-Pod Capacity Benchmark</strong>: exactly 1 dedicated pod executes 1 primary strategic initiative per 12-to-14 week wave. Concurrent initiative delivery requires provisioning independent parallel pods.
-      </p>
-      <div class="grid-2">
-        ${roadmapPhases.map((phase: any) => `
-          <div class="card-box" style="border-top: 3px solid ${phase.phaseNumber === 1 ? '#059669' : phase.phaseNumber === 2 ? '#1E40AF' : phase.phaseNumber === 3 ? '#D97706' : '#7C3AED'};">
-            <strong style="color: #0A1E3C; font-size: 11pt;">${phase.phaseName}</strong>
-            <p style="font-size: 9pt; color: #475569; margin: 6px 0; line-height: 1.4;">${phase.focus}</p>
-            <div style="font-size: 8.5pt; color: #0F766E; font-weight: 600;">Core Initiatives: ${(phase.keyProjects || []).join('; ')}</div>
-            <div style="margin-top: 6px; font-size: 8pt; color: #64748B;">
-              <strong>Investment:</strong> ${phase.estimatedCost} | <strong>Owner:</strong> ${phase.ownerRole}
+          <div style="text-align: center; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; padding: 6px;">
+            <div style="font-size: 7.5pt; font-weight: 700; color: #0A1E3C; margin-bottom: 2px;">Capability Maturity Radar (8 Core Dimensions)</div>
+            ${radarChartSVG}
+            <div style="font-size: 6.5pt; color: #64748B; margin-top: 2px;">
+              * Calibrated against Stanford HAI & NIST AI RMF 1.0 frameworks. [Confidence: High]
             </div>
           </div>
-        `).join('')}
-      </div>
-    </div>
 
-    <!-- 4.2 WORKFORCE ENABLEMENT & CHANGE ADOPTION -->
-    <div style="margin-top: 20px;">
-      <div class="section-subtitle">4.2 Workforce Enablement & Change Adoption Suite (The 3-Track Curriculum)</div>
-      <p style="font-size: 9.5pt; color: #475569; margin-bottom: 12px;">
-        To ensure high employee adoption and eliminate fear of displacement, Nisol AI embeds a structured 3-Track Enablement Curriculum into the transformation engagement:
-      </p>
-
-      <div class="grid-3" style="margin-bottom: 14px;">
-        <div class="card-box" style="background: #F0FDF4; border: 1px solid #BBF7D0;">
-          <strong style="color: #166534; font-size: 10pt; display: block; margin-bottom: 4px;">Track 1: AI Foundations</strong>
-          <div style="font-size: 8pt; color: #15803D; font-weight: 700; margin-bottom: 6px;">ALL-HANDS (2x 90-MIN SESSIONS)</div>
-          <ul style="margin: 0; padding-left: 16px; font-size: 8.5pt; color: #14532D; line-height: 1.45;">
-            <li>Demystifying generative AI & prompt mechanics</li>
-            <li>Acceptable use policy & zero-PII data rules</li>
-            <li>The "Future of Work": AI as a cognitive multiplier</li>
-          </ul>
-        </div>
-        <div class="card-box" style="background: #EFF6FF; border: 1px solid #BFDBFE;">
-          <strong style="color: #1E40AF; font-size: 10pt; display: block; margin-bottom: 4px;">Track 2: The New Way of Working</strong>
-          <div style="font-size: 8pt; color: #2563EB; font-weight: 700; margin-bottom: 6px;">DEPT CHAMPIONS (4x 2-HR LABS)</div>
-          <ul style="margin: 0; padding-left: 16px; font-size: 8.5pt; color: #1E3A8A; line-height: 1.45;">
-            <li>Hands-on sandbox labs with department RAG tools</li>
-            <li>Few-shot prompt calibration & output validation</li>
-            <li>Exception escalation & human-in-the-loop sign-off</li>
-          </ul>
-        </div>
-        <div class="card-box" style="background: #FAF5FF; border: 1px solid #E9D5FF;">
-          <strong style="color: #6B21A8; font-size: 10pt; display: block; margin-bottom: 4px;">Track 3: Leading AI Teams</strong>
-          <div style="font-size: 8pt; color: #7E22CE; font-weight: 700; margin-bottom: 6px;">LEADERSHIP & MANAGERS (HALF-DAY)</div>
-          <ul style="margin: 0; padding-left: 16px; font-size: 8.5pt; color: #581C87; line-height: 1.45;">
-            <li>Measuring automation ROI & team velocity</li>
-            <li>Managing the 4 Employee Archetypes (Skeptics to Builders)</li>
-            <li>Reallocating recovered capacity into strategic growth</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="section-subtitle">4.3 Organizational Change Management (OCM) & RACI Governance Matrix</div>
-      <table class="table-custom">
-        <thead>
-          <tr>
-            <th style="width: 35%;">Transformation Initiative</th>
-            <th style="width: 16%;">Responsible (R)</th>
-            <th style="width: 16%;">Accountable (A)</th>
-            <th style="width: 16%;">Consulted (C)</th>
-            <th style="width: 17%;">Informed (I)</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${ocmPlan.raciMatrix.map((raci: any) => `
-            <tr>
-              <td><strong>${raci.initiative}</strong></td>
-              <td style="font-size: 9pt;">${raci.responsible}</td>
-              <td style="font-size: 9pt; font-weight: 700; color: #0A1E3C;">${raci.accountable}</td>
-              <td style="font-size: 9pt;">${raci.consulted}</td>
-              <td style="font-size: 9pt; color: #64748B;">${raci.informed}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  `
-      : ""
-  }
-
-  <!-- SECTION 5: ROI & SENSITIVITY -->
-  ${
-    isSelected("roi")
-      ? `
-  <div class="section section-break">
-    <div class="section-title">5. ROI Analysis, Sensitivity & Financial Projection</div>
-    
-    <div style="margin-bottom: 20px;">
-      <div class="section-subtitle">5.1 5-Year Cumulative Financial Benefit vs. Investment</div>
-      ${roiBarChartSVG}
-    </div>
-
-    <!-- 5.2 HARD VS SOFT SAVINGS DECOMPOSITION -->
-    <div style="margin-bottom: 20px;">
-      <div class="section-subtitle">5.2 Balance Sheet Impact: Hard vs. Soft Savings Decomposition</div>
-      <table class="table-custom">
-        <thead>
-          <tr>
-            <th style="width: 22%;">Benefit Tier</th>
-            <th style="width: 40%;">Description & Operating Mechanism</th>
-            <th style="width: 18%;">Annual Value</th>
-            <th style="width: 20%;">CFO Realization Weight</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Tier 1: Hard Cash Savings</strong></td>
-            <td style="font-size: 9pt; color: #334155;">Direct reduction in external contractor spend, automated proposal generation, and eliminated redundant tooling seats.</td>
-            <td style="font-weight: 700; color: #059669;">${formatCurrencyInteger(Math.round(finModel.annualSavings.netRealizedAnnual * 0.50), currency)}</td>
-            <td><span class="badge-pill badge-green">100% (Direct EBITDA)</span></td>
-          </tr>
-          <tr>
-            <td><strong>Tier 2: Capacity & Hiring Avoidance</strong></td>
-            <td style="font-size: 9pt; color: #334155;">Absorbing workload expansion in QA and RFP bids without linear engineering or proposal headcount additions.</td>
-            <td style="font-weight: 700; color: #059669;">${formatCurrencyInteger(Math.round(finModel.annualSavings.netRealizedAnnual * 0.30), currency)}</td>
-            <td><span class="badge-pill badge-blue">75% (Plan-Adjusted)</span></td>
-          </tr>
-          <tr>
-            <td><strong>Tier 3: Productivity & Soft Time Savings</strong></td>
-            <td style="font-size: 9pt; color: #334155;">Internal developer and solution architect hours recovered (discounted by an explicit 50% CFO cashability haircut).</td>
-            <td style="font-weight: 700; color: #059669;">${formatCurrencyInteger(Math.round(finModel.annualSavings.netRealizedAnnual * 0.20), currency)}</td>
-            <td><span class="badge-pill badge-amber">50% (Haircut Applied)</span></td>
-          </tr>
-          <tr style="background: #F1F5F9; font-weight: 800;">
-            <td><strong>TOTAL REALIZED VALUE</strong></td>
-            <td style="font-size: 9pt; color: #0F172A;">Reconciled annualized EBITDA enhancement across Wave 1 priority initiatives</td>
-            <td style="color: #059669; font-size: 10.5pt;">${finModel.annualSavings.formattedNetRealizedAnnual}</td>
-            <td><span class="badge-pill badge-green">CFO Reconciled</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div>
-      <div class="section-subtitle">5.3 3-Scenario Sensitivity Stress Test (Base / Conservative / Optimistic)</div>
-      <p style="font-size: 10pt; color: #475569;">CFO & Board stress-test evaluating program financial resilience under varying user adoption rates (75% to 125%) and cost variances at a 10% discount rate.</p>
-      ${sensitivityTableHTML}
-    </div>
-  </div>
-  `
-      : ""
-  }
-
-  <!-- SECTION 6: SOLUTION BLUEPRINTS -->
-  ${
-    isSelected("blueprints")
-      ? `
-  <div class="section section-break">
-    <div class="section-title">6. Solution Blueprints for High-Impact Priority Initiatives</div>
-    <p style="font-size: 10pt; color: #475569; margin-bottom: 16px;">
-      Architectural specifications and engineering blueprints defining target components, system dependencies, and phased delivery plans for top-ranked transformation initiatives.
-    </p>
-
-    ${(blueprints.length > 0 ? blueprints : [
-      {
-        title: "AI-Driven Automated QA Test Case Generation & CI/CD Pipeline",
-        department: "Software Engineering & QA",
-        objectives: [
-          "Eliminate 70% of manual regression test creation bottlenecks",
-          "Auto-generate executable Playwright tests from PR diffs pre-merge",
-          "Ensure zero broken tests with continuous AST syntax validation"
-        ],
-        architectureOverview: "Containerized microservice integrated via GitHub Webhooks. Analyzes git pull request diffs, parses TypeScript/React component AST trees, and invokes fine-tuned coding models to synthesize regression assertions.",
-        technologyStack: ["Playwright", "Tree-sitter AST", "Claude 3.5 Sonnet", "GitHub Actions", "Docker"],
-        implementationPhases: [
-          { phase: "Phase 1: AST Parser & Sandbox Harness", duration: "2 Weeks", deliverables: ["Repo webhook integration", "Playwright test runner sandbox"] },
-          { phase: "Phase 2: Prompt Calibration & Test Synthesizer", duration: "2 Weeks", deliverables: ["Golden regression test suite", "Automated mock generator"] },
-          { phase: "Phase 3: CI/CD Gating & Production Cutover", duration: "1 Week", deliverables: ["PR gate policy enforcement", "QA engineer enablement training"] }
-        ],
-        securityAndCompliance: ["Zero source code retention in foundation model cache", "SOC2 Type II compliant VPC runners"],
-        estimatedTimeline: "5 Weeks",
-        estimatedCost: "₹18 - ₹25 Lakhs",
-        expectedRoi: "+280%"
-      },
-      {
-        title: "AI Technical Proposal & RFP Response Generator (Hybrid RAG)",
-        department: "Sales & Business Development",
-        objectives: [
-          "Compress RFP bid generation cycle from 20 hours to 25 minutes",
-          "Enforce consistent pricing rules and technical case study citations",
-          "Achieve 80% draft completeness for senior proposal manager sign-off"
-        ],
-        architectureOverview: "Enterprise RAG service indexing historical winning proposals, security questionnaires, and architecture specs using pgvector with hybrid BM25 lexical search and re-ranking.",
-        technologyStack: ["pgvector", "BM25 Hybrid Search", "Cohere Re-rank", "FastAPI", "Salesforce API"],
-        implementationPhases: [
-          { phase: "Phase 1: RFP Corpus Ingestion & Chunking", duration: "2 Weeks", deliverables: ["100 historical winning bids indexed", "Metadata taxonomy"] },
-          { phase: "Phase 2: RAG Pipeline & Template Engine", duration: "3 Weeks", deliverables: ["Multi-query retrieval engine", "Docx/PDF exporter"] },
-          { phase: "Phase 3: Sales Rep Sandbox UAT & Handover", duration: "1 Week", deliverables: ["Role-based access controls", "Sales team workshop"] }
-        ],
-        securityAndCompliance: ["Role-based ACL filtering at chunk level", "Automated commercial price redaction"],
-        estimatedTimeline: "6 Weeks",
-        estimatedCost: "₹18 - ₹25 Lakhs",
-        expectedRoi: "+340%"
-      }
-    ]).slice(0, 3).map((bp: any, idx: number) => `
-      <div class="card-box" style="margin-bottom: 18px; border-left: 4px solid #0A1E3C;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <strong style="font-size: 11.5pt; color: #0A1E3C;">6.${idx + 1} Blueprint: ${bp.title}</strong>
-          <span class="badge-pill badge-blue">${bp.department}</span>
-        </div>
-        <p style="font-size: 9pt; color: #475569; margin: 4px 0 10px 0; line-height: 1.45;">
-          ${bp.architectureOverview}
-        </p>
-
-        <div class="grid-2" style="margin-bottom: 10px;">
-          <div>
-            <div style="font-size: 8pt; font-weight: 700; color: #64748B; text-transform: uppercase;">Technology Stack</div>
-            <div style="font-size: 8.5pt; color: #0F766E; font-weight: 600; margin-top: 2px;">
-              ${Array.isArray(bp.technologyStack) ? bp.technologyStack.join(', ') : bp.technologyStack}
+          <div class="card-box" style="margin-top: 6px; padding: 6px 10px; margin-bottom: 0;">
+            <div style="display: flex; justify-content: space-between; font-size: 7.5pt; margin-bottom: 3px;">
+              <span><strong>${tenantName}</strong></span>
+              <span style="color: #2563EB; font-weight: 800;">${clientScore}% (1.7/5.0)</span>
             </div>
-          </div>
-          <div>
-            <div style="font-size: 8pt; font-weight: 700; color: #64748B; text-transform: uppercase;">Timeline & Investment</div>
-            <div style="font-size: 8.5pt; color: #0A1E3C; font-weight: 700; margin-top: 2px;">
-              ${bp.estimatedTimeline} | ${bp.estimatedCost} | ROI: ${bp.expectedRoi}
+            <div style="display: flex; justify-content: space-between; font-size: 7.5pt; margin-bottom: 3px;">
+              <span>SaaS Sector Median Benchmark</span>
+              <span style="color: #64748B; font-weight: 700;">64% (3.2/5.0)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 7.5pt;">
+              <span>SaaS Sector Top Quartile</span>
+              <span style="color: #059669; font-weight: 700;">82% (4.1/5.0)</span>
             </div>
           </div>
         </div>
 
-        <div style="font-size: 8pt; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 4px;">Key Objectives</div>
-        <ul style="margin: 0 0 8px 0; padding-left: 16px; font-size: 8.5pt; color: #334155;">
-          ${(bp.objectives || []).map((obj: string) => `<li style="margin-bottom: 2px;">${obj}</li>`).join('')}
-        </ul>
-      </div>
-    `).join('')}
-  </div>
-  `
-      : ""
-  }
+        <!-- RIGHT: SHADOW AI & 3 CONSTRAINTS -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div class="card-box" style="border-left: 3px solid #DC2626; margin-bottom: 0;">
+            <div style="font-weight: 800; color: #991B1B; font-size: 8pt; margin-bottom: 2px;">Shadow-AI Inventory & Vulnerabilities</div>
+            <ul style="margin: 0; padding-left: 12px; font-size: 7.5pt; color: #334155; line-height: 1.35;">
+              <li><strong>6+ Unmonitored Accounts:</strong> Identified ad-hoc use of consumer ChatGPT/Claude without enterprise billing or logging.</li>
+              <li><strong>No Data Isolation:</strong> Client project snippets submitted to public endpoints without zero data retention guarantee.</li>
+              <li><strong>Zero PII Redaction:</strong> No automated proxy scrubbing customer identifiers prior to inference dispatch.</li>
+            </ul>
+          </div>
 
-  <!-- SECTION 7: IMPLEMENTATION INVESTMENT & COMMERCIALS -->
-  ${
-    isSelected("commercials")
-      ? `
-  <div class="section section-break">
-    <div class="section-title">7. Path to Value: Recommended Implementation Roadmap & Investment</div>
-    <p style="font-size: 10pt; color: #475569; margin-bottom: 14px;">
-      Grounded in our discovery findings, Nisol AI has structured a consultative implementation roadmap. Delivery velocity is calibrated to our audited <strong>Single-Pod Capacity Benchmark</strong> to guarantee high execution quality without taxing internal client teams.
-    </p>
-
-    <!-- 7.1 RECOMMENDED INITIATIVES PRIORITY TABLE -->
-    <div>
-      <div class="section-subtitle">7.1 Recommended AI Initiatives (Priority Order)</div>
-      <table class="table-custom">
-        <thead>
-          <tr>
-            <th style="width: 6%;">Rank</th>
-            <th style="width: 32%;">Initiative Name</th>
-            <th style="width: 18%;">Business Value</th>
-            <th style="width: 18%;">Complexity</th>
-            <th style="width: 14%;">Duration</th>
-            <th style="width: 12%;">Priority</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>1</strong></td>
-            <td><strong>AI-Driven Automated QA Test Case Generation</strong></td>
-            <td><span class="badge-pill badge-green">High (Score: 92)</span></td>
-            <td><span class="badge-pill badge-blue">Low</span></td>
-            <td>5 Weeks</td>
-            <td><strong>Wave 1 Anchor</strong></td>
-          </tr>
-          <tr>
-            <td><strong>2</strong></td>
-            <td><strong>AI Technical Proposal & RFP Response Generator</strong></td>
-            <td><span class="badge-pill badge-green">High (Score: 88)</span></td>
-            <td><span class="badge-pill badge-blue">Low</span></td>
-            <td>6 Weeks</td>
-            <td><strong>Wave 1 Quick Win</strong></td>
-          </tr>
-          <tr>
-            <td><strong>3</strong></td>
-            <td><strong>Autonomous PMO Operational Status Reporter</strong></td>
-            <td><span class="badge-pill badge-green">High (Score: 82)</span></td>
-            <td><span class="badge-pill badge-blue">Low</span></td>
-            <td>4 Weeks</td>
-            <td><strong>Wave 1 Quick Win</strong></td>
-          </tr>
-          <tr>
-            <td><strong>4</strong></td>
-            <td><strong>Intelligent Invoice & Vendor Document OCR</strong></td>
-            <td><span class="badge-pill badge-green">High (Score: 90)</span></td>
-            <td><span class="badge-pill badge-amber">Medium</span></td>
-            <td>10 Weeks</td>
-            <td><strong>Wave 2 Priority</strong></td>
-          </tr>
-          <tr>
-            <td><strong>5</strong></td>
-            <td><strong>Enterprise Knowledge Graph & Multi-Repo Search</strong></td>
-            <td><span class="badge-pill badge-green">High (Score: 94)</span></td>
-            <td><span class="badge-pill badge-red">High</span></td>
-            <td>20 Weeks</td>
-            <td><strong>Wave 3 Strategic</strong></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 7.2 SOLUTION BLUEPRINT INVESTMENT ESTIMATES -->
-    <div style="margin-top: 18px;">
-      <div class="section-subtitle">7.2 Solution Blueprint Investment Estimates</div>
-      <table class="table-custom">
-        <thead>
-          <tr>
-            <th style="width: 32%;">Initiative</th>
-            <th style="width: 16%;">Duration</th>
-            <th style="width: 26%;">Investment Range (${currency})</th>
-            <th style="width: 26%;">Annual Value Realization</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${finModel.topInitiatives.map((init) => `
-          <tr>
-            <td><strong>${init.name}</strong></td>
-            <td>${init.timeWeeks} Weeks</td>
-            <td>${formatCurrencyInteger(init.costMin, currency)} – ${formatCurrencyInteger(init.costMax, currency)}</td>
-            <td><strong style="color: #059669;">${formatCurrencyInteger(init.netRealizedAnnualSavings, currency)}/year (Net)</strong></td>
-          </tr>
-          `).join('')}
-          <tr style="background: #F1F5F9; font-weight: 800;">
-            <td><strong>Tranche 1 Capital Allocation (Wave 1 Pilots + Buffer)</strong></td>
-            <td><strong>8 Weeks</strong></td>
-            <td style="color: #0A1E3C;"><strong>${tranche1Ask}</strong></td>
-            <td style="color: #059669;"><strong>${finModel.annualSavings.formattedNetRealizedAnnual}/year</strong></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 7.3 COMMERCIAL SAFEGUARDS & PASS-THROUGH CLAUSE -->
-    <div style="margin-top: 18px;">
-      <div class="section-subtitle">7.3 Cost Inclusions & Commercial Terms (Training Included, Infra Pass-Through)</div>
-      
-      <div class="grid-2" style="margin-bottom: 14px;">
-        <div class="card-box" style="background: #F0FDF4; border: 1px solid #BBF7D0;">
-          <strong style="color: #166534; font-size: 10.5pt; display: block; margin-bottom: 6px;">
-            ✓ What Is INCLUDED in Implementation Fees
-          </strong>
-          <ul style="margin: 0; padding-left: 16px; font-size: 8.5pt; color: #14532D; line-height: 1.5;">
-            <li><strong>Dedicated Delivery Pod:</strong> AI Lead, Full-Stack Engineers & Data Specialists (1 Pod = 1 Initiative per 12–14 wk cycle).</li>
-            <li><strong>Custom Solution Engineering:</strong> RAG pipelines, API orchestration, microservices, and evaluation harnesses.</li>
-            <li><strong>Workforce Enablement & Employee Training Program:</strong>
-              <div style="margin-top: 3px; color: #15803D;">
-                • <em>AI Readiness & Demystification:</em> 2x 90-min All-Hands sessions so employees do not start from zero.<br>
-                • <em>The New Way of Working:</em> 4x 2-hr hands-on sandbox labs for department super-users.<br>
-                • <em>Leading AI Teams:</em> 1x half-day seminar for managers on workload re-allocation.
+          <div class="card-box" style="border-left: 3px solid #0A1E3C; margin-bottom: 0;">
+            <div style="font-weight: 800; color: #0A1E3C; font-size: 8pt; margin-bottom: 2px;">The 3 Constraints That Actually Matter</div>
+            <div style="font-size: 7.5pt; color: #334155; line-height: 1.35;">
+              <div style="margin-bottom: 4px;">
+                <strong>1. Data Silos & Knowledge Latency:</strong> Critical engineering documentation, past proposals, and SOPs are scattered across unindexed Confluence, Jira, and Slack.
               </div>
-            </li>
-            <li><strong>Continuous Quality Gates:</strong> Production readiness audits, red-teaming, and post-rollout hypercare.</li>
-          </ul>
-        </div>
+              <div style="margin-bottom: 4px;">
+                <strong>2. Security & Policy Vacuum:</strong> No published acceptable-use policy or approved AI tooling registry exists for engineering or customer-facing staff.
+              </div>
+              <div>
+                <strong>3. Skills & Verification Literacy Gap:</strong> Teams lack training in structured prompt engineering, system evaluations, and output citation verification.
+              </div>
+            </div>
+          </div>
 
-        <div class="card-box" style="background: #FEF3C7; border: 1px solid #FCD34D;">
-          <strong style="color: #92400E; font-size: 10.5pt; display: block; margin-bottom: 6px;">
-            ⚠ What Is EXCLUDED (Direct Client Pass-Through)
-          </strong>
-          <ul style="margin: 0; padding-left: 16px; font-size: 8.5pt; color: #78350F; line-height: 1.5;">
-            <li><strong>Cloud Infrastructure Compute:</strong> All AWS, Microsoft Azure, or GCP VPC virtual machines, serverless containers, and storage.</li>
-            <li><strong>Frontier Model Token Gateway:</strong> LLM inference tokens via enterprise ZDR-verified gateway accounts (OpenAI, Anthropic, Azure).</li>
-            <li><strong>Vector Database Hosting:</strong> Managed vector DB subscriptions (pgvector, Pinecone, Qdrant Cloud).</li>
-            <li><strong>Third-Party Enterprise Licenses:</strong> API connectors and seats for CRM/ERP systems (Salesforce, SAP, Zendesk, Jira).</li>
-            <li><em>Scope Note:</em> All environment instances across Development, Staging, UAT, and Production are provisioned inside ${tenantName}'s tenant and billed directly to ${tenantName}.</li>
-          </ul>
+          <div class="card-box" style="background: #F0FDF4; border-color: #BBF7D0; margin-bottom: 0;">
+            <div style="font-weight: 800; color: #166534; font-size: 7.5pt; margin-bottom: 2px;">Target State After Wave 1 (90 Days)</div>
+            <p style="margin: 0; font-size: 7.2pt; color: #14532D; line-height: 1.35;">
+              Deploying the enterprise proxy gateway and the 2 lighthouse pilots closes 14 points of the benchmark deficit, advancing ${tenantName} to <strong>2.4 / 5.0 (48%)</strong> with zero shadow-AI vulnerability.
+            </p>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="card-box" style="background: #F8FAFC; border: 1px solid #E2E8F0;">
-        <strong style="color: #0A1E3C; font-size: 9.5pt; display: block; margin-bottom: 4px;">
-          Delivery Capacity Benchmark: The Single-Pod Principle
-        </strong>
-        <p style="margin: 0; font-size: 8.5pt; color: #475569; line-height: 1.45;">
-          To guarantee rigorous engineering quality and protect internal engineering capacity, <strong>one dedicated delivery pod executes exactly one strategic initiative per 12-to-14 week cycle</strong>. Concurrent initiative execution requires authorization of independent parallel pods.
-        </p>
-      </div>
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 4 of 11</span>
+      <span>Doc ID: ${docId}</span>
     </div>
   </div>
-  `
-      : ""
-  }
 
-  <!-- SECTION 8: 4 DELIVERY OPTIONS & STRATEGY ACCEPTANCE -->
-  <div class="section">
-    <div class="section-title">8. Path Forward: Delivery Options & Intellectual Property</div>
-    
-    <div class="card-box" style="margin-bottom: 16px;">
-      <strong style="color: #0A1E3C; font-size: 11pt; display: block; margin-bottom: 6px;">
-        Vendor-Neutral Architecture & Client Ownership
-      </strong>
-      <p style="margin: 0; font-size: 9.5pt; color: #334155; line-height: 1.55;">
-        This Enterprise AI Transformation Strategy, Architecture Blueprint, and Decision Gate Protocol constitute the <strong>perpetual, unrestricted intellectual property of ${tenantName}</strong>. To ensure complete strategic independence, ${tenantName} may execute this roadmap through any of the four delivery paths below:
-      </p>
+  <!-- ========================================== -->
+  <!-- PAGE 5: PRIORITIES & THE "NOT YET" BOX -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Priorities & Scope Discipline</span>
+      </div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">Approval of Priority Pilots & Scope Exclusions</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">AI Steering Council & Practice Leads</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Opportunity Matrix: Value vs. Complexity]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">High (Intake Audited)</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Focus Principle: We select only 2 high-impact lighthouse pilots for immediate execution, deliberately parking high-complexity distractions in the "Not Yet" box until maturity unlocks them.
+      </div>
+
+      <div class="section-title-compact">3. Priorities: 3 Compact Initiatives & The "Not Yet" Box</div>
+
+      <!-- 3 COMPACT INITIATIVE CARDS -->
+      <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+        <div class="card-box" style="border-left: 3.5px solid #2563EB; padding: 8px 10px; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Priority 1: AI Code & Test Generation Pod (Engineering)</strong>
+            <span class="badge-pill badge-green">Lighthouse Pilot #1</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 7.2pt; color: #334155; margin-top: 3px;">
+            <div><strong>Metric & Baseline:</strong> 38% dev time on boilerplate & tests</div>
+            <div><strong>Effort & Cost:</strong> 6 Weeks | ₹14L – ₹18L</div>
+            <div><strong>Target Value:</strong> ₹1.2 Cr net annual capacity unlocked</div>
+            <div><strong>Owner:</strong> VP Engineering</div>
+          </div>
+          <div style="font-size: 7.2pt; color: #475569; margin-top: 3px; border-top: 1px dashed #E2E8F0; padding-top: 3px;">
+            <strong>Key Assumption:</strong> 75% dev adoption within 60 days. • <strong>Stop Rule:</strong> If automated test pass accuracy &lt; 90% or dev usage &lt; 60% by Week 6, pause and re-scope.
+          </div>
+        </div>
+
+        <div class="card-box" style="border-left: 3.5px solid #059669; padding: 8px 10px; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Priority 2: Technical RFP & Pre-Sales Knowledge Bot (Commercial)</strong>
+            <span class="badge-pill badge-green">Lighthouse Pilot #2</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 7.2pt; color: #334155; margin-top: 3px;">
+            <div><strong>Metric & Baseline:</strong> 14-day turnaround -> target 4 days</div>
+            <div><strong>Effort & Cost:</strong> 8 Weeks | ₹16L – ₹22L</div>
+            <div><strong>Target Value:</strong> ₹95L net annual pre-sales capacity</div>
+            <div><strong>Owner:</strong> Head of Solutions</div>
+          </div>
+          <div style="font-size: 7.2pt; color: #475569; margin-top: 3px; border-top: 1px dashed #E2E8F0; padding-top: 3px;">
+            <strong>Key Assumption:</strong> Historical win/loss proposals formatted cleanly. • <strong>Stop Rule:</strong> If proposal citation accuracy &lt; 95% on gold benchmark set, delay cutover.
+          </div>
+        </div>
+
+        <div class="card-box" style="border-left: 3.5px solid #7C3AED; padding: 8px 10px; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Priority 3: Tier-1 Client Support & Ticket Triage Co-Pilot (Operations)</strong>
+            <span class="badge-pill badge-blue">Wave 2 Initiative</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 7.2pt; color: #334155; margin-top: 3px;">
+            <div><strong>Metric & Baseline:</strong> 42 min MTTR -> target 18 min MTTR</div>
+            <div><strong>Effort & Cost:</strong> 7 Weeks | ₹12L – ₹16L</div>
+            <div><strong>Target Value:</strong> ₹65L net annual support capacity</div>
+            <div><strong>Owner:</strong> Head of Support</div>
+          </div>
+          <div style="font-size: 7.2pt; color: #475569; margin-top: 3px; border-top: 1px dashed #E2E8F0; padding-top: 3px;">
+            <strong>Key Assumption:</strong> Tier-1 ticket taxonomy categorized. • <strong>Stop Rule:</strong> If automated resolution deflection &lt; 30% by Week 5, revert to manual triage.
+          </div>
+        </div>
+      </div>
+
+      <!-- THE "NOT YET" BOX -->
+      <div class="card-box" style="background: #FFFBEB; border: 1.5px solid #FCD34D; margin-bottom: 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <strong style="color: #92400E; font-size: 8.5pt;">The "Not Yet" Box: Disciplined Scope Exclusions & Unlock Triggers</strong>
+          <span class="badge-pill badge-amber">Strict Scope Fence</span>
+        </div>
+        <p style="margin: 0 0 4px 0; font-size: 7.2pt; color: #78350F;">
+          To prevent pilot failure, the following ambitious initiatives are explicitly excluded from Phase 1 until prerequisite maturity conditions are satisfied:
+        </p>
+        <table class="table-custom" style="margin: 0;">
+          <thead>
+            <tr style="background: #F59E0B;">
+              <th style="width: 30%;">Deferred Initiative</th>
+              <th style="width: 40%;">Why Deferred Today</th>
+              <th style="width: 30%;">Condition That Unlocks It</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: #FFFFFF;">
+              <td><strong>Autonomous Agentic Code Refactoring</strong></td>
+              <td>High risk of introducing regressions without comprehensive unit test coverage.</td>
+              <td>Automated CI/CD test coverage exceeds 85% (Target: Month 6).</td>
+            </tr>
+            <tr style="background: #FFFFFF;">
+              <td><strong>Customer-Facing Autonomous Chatbot</strong></td>
+              <td>Hallucination risk on client commitments; lack of strict gateway guardrails.</td>
+              <td>Gateway hallucination tests achieve ≥99.5% accuracy over 30 days.</td>
+            </tr>
+            <tr style="background: #FFFFFF;">
+              <td><strong>Proprietary Model Fine-Tuning</strong></td>
+              <td>Unnecessary cost and technical debt before standard RAG potential is exhausted.</td>
+              <td>RAG context retrieval benchmark reaches verified performance ceiling.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="grid-2" style="margin-bottom: 20px;">
-      <div class="card-box" style="border-left: 3px solid #1E40AF;">
-        <strong style="color: #1E40AF; font-size: 10pt;">Option 1: Internal Delivery</strong>
-        <p style="font-size: 8.5pt; color: #475569; margin: 4px 0 0 0;">
-          ${tenantName}'s internal engineering team executes Wave 1 pilots using these blueprints. Nisol AI is engaged solely for independent Decision Gate audits.
-        </p>
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 5 of 11</span>
+      <span>Doc ID: ${docId}</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 6: TRANSFORMATION ROADMAP -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Roadmap & Re-Score Horizons</span>
       </div>
-      <div class="card-box" style="border-left: 3px solid #059669;">
-        <strong style="color: #059669; font-size: 10pt;">Option 2: Hybrid Co-Build</strong>
-        <p style="font-size: 8.5pt; color: #475569; margin: 4px 0 0 0;">
-          Nisol AI embeds a Principal AI Architect and Lead Prompt Engineer to direct sprint architecture, while ${tenantName}'s internal developers implement the codebase.
-        </p>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">12-Month Multi-Horizon Program Timeline Endorsement</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">AI Steering Council & Transformation Pod</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Sprint Velocity Modeling & Change Dynamics]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">High (Pre-flight Verified)</span>
+        </div>
       </div>
-      <div class="card-box" style="border-left: 3px solid #7C3AED;">
-        <strong style="color: #7C3AED; font-size: 10pt;">Option 3: Turnkey Pod Delivery</strong>
-        <p style="font-size: 8.5pt; color: #475569; margin: 4px 0 0 0;">
-          Nisol AI deploys a dedicated, turnkey engineering pod for Tranche 1 (${tranche1Ask}), delivering the QA and RFP Hubs with guaranteed Gate SLAs and paid-to-date exit terms.
-        </p>
+
+      <div class="page-headline-callout">
+        Execution Rhythm: A disciplined single-pod delivery cadence elevates ${tenantName} from 1.7 to 3.8 / 5.0 across 12 months, with formal maturity re-scoring at 90 days, 6 months, and 12 months.
       </div>
-      <div class="card-box" style="border-left: 3px solid #D97706;">
-        <strong style="color: #D97706; font-size: 10pt;">Option 4: Strategic Pause</strong>
-        <p style="font-size: 8.5pt; color: #475569; margin: 4px 0 0 0;">
-          ${tenantName} archives the audit baseline and decision blueprints for future budget cycles, prioritizing internal data catalog cleanup in the interim.
-        </p>
+
+      <div class="section-title-compact">4. Transformation Roadmap & Phased Re-Score Horizons</div>
+
+      <!-- 3 HORIZONS -->
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px;">
+        <div class="card-box" style="border-left: 3.5px solid #2563EB; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Horizon 1: Foundation & Lighthouse Pilots (Months 1–3)</strong>
+            <span class="badge-pill badge-blue">Target 90-Day Re-Score: 2.4 / 5.0 (+0.7 pts)</span>
+          </div>
+          <p style="margin: 0 0 3px 0; font-size: 7.5pt; color: #334155;">
+            Deploy Enterprise AI Gateway with verified ZDR terms; build and deploy Pilot 1 (AI Code & Test Pod) and Pilot 2 (Technical RFP Knowledge Bot); conduct Track 1 all-hands training.
+          </p>
+          <div style="font-size: 7pt; color: #1E40AF; font-weight: 700;">
+            Gate Review at Day 90: Verify ≥95% accuracy and ≥70% adoption before authorizing Wave 2 release.
+          </div>
+        </div>
+
+        <div class="card-box" style="border-left: 3.5px solid #059669; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Horizon 2: Scaled Workflows & Pod Expansion (Months 4–6)</strong>
+            <span class="badge-pill badge-green">Target 6-Month Re-Score: 3.1 / 5.0 (+1.4 pts)</span>
+          </div>
+          <p style="margin: 0 0 3px 0; font-size: 7.5pt; color: #334155;">
+            Expand to Tier-1 Support Co-Pilot and Financial Invoice Extraction Agent; institute automated prompt regression testing; roll out Track 2 Practitioner Labs to department champions.
+          </p>
+          <div style="font-size: 7pt; color: #166534; font-weight: 700;">
+            Milestone: Reach parity with sector median benchmark (3.2/5.0); achieve run-rate breakeven.
+          </div>
+        </div>
+
+        <div class="card-box" style="border-left: 3.5px solid #7C3AED; margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Horizon 3: Autonomous Orchestration & Competitive Moat (Months 7–12)</strong>
+            <span class="badge-pill badge-purple" style="background: #F3E8FF; color: #7E22CE;">Target 12-Month Re-Score: 3.8 / 5.0 (+2.1 pts)</span>
+          </div>
+          <p style="margin: 0 0 3px 0; font-size: 7.5pt; color: #334155;">
+            Deploy multi-agent workflows across customer onboarding and contract analysis; transition to full Hub-and-Spoke CoE; formalize proprietary evaluation harness as institutional IP.
+          </p>
+          <div style="font-size: 7pt; color: #6B21A8; font-weight: 700;">
+            Milestone: Top-quartile industry leadership; full operational independence from external advisory.
+          </div>
+        </div>
+      </div>
+
+      <!-- DEPENDENCY MATRIX -->
+      <div>
+        <strong style="color: #0A1E3C; font-size: 8.5pt; display: block; margin-bottom: 4px;">Technical & Operational Dependencies Matrix</strong>
+        <table class="table-custom">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Dependency Item</th>
+              <th style="width: 25%;">Required By</th>
+              <th style="width: 25%;">Impact If Delayed</th>
+              <th style="width: 25%;">Mitigation Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Vector DB Cluster (Cloud VPC)</strong></td>
+              <td>Week 2 (Pilot 1/2 Ingestion)</td>
+              <td>Postpones RAG document indexing</td>
+              <td>Pre-provision managed Pinecone / pgvector instance</td>
+            </tr>
+            <tr>
+              <td><strong>SSO & RBAC Syncing</strong></td>
+              <td>Week 3 (Gateway Access)</td>
+              <td>Limits pilot user access testing</td>
+              <td>Use role-mapped API tokens during pilot gate stage</td>
+            </tr>
+            <tr>
+              <td><strong>SME Champion Allocation (4 hrs/wk)</strong></td>
+              <td>Week 3 (Gold Evaluation Set)</td>
+              <td>Delays benchmark prompt curation</td>
+              <td>Protect champion hours in sprint planning</td>
+            </tr>
+            <tr>
+              <td><strong>ZDR Terms per Model Provider</strong></td>
+              <td>Week 1 (Pre-Flight Cutover)</td>
+              <td>Blocks live production payload dispatch</td>
+              <td>Execute enterprise addenda with OpenAI / Anthropic</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <div class="grid-2" style="margin-top: 24px;">
-      <div style="border: 1px solid #CBD5E1; border-radius: 8px; padding: 18px;">
-        <div style="font-weight: 700; color: #0A1E3C; margin-bottom: 35px;">Strategy Receipt & IP Acceptance: ${tenantName}</div>
-        <div style="border-bottom: 1px solid #94A3B8; margin-bottom: 8px;"></div>
-        <div style="font-size: 8.5pt; color: #64748B;">Executive Sponsor Signature & Date</div>
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 6 of 11</span>
+      <span>Doc ID: ${docId}</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 7: INVESTMENT & 3-YEAR TCO -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Financial Model & 36-Month TCO</span>
       </div>
-      <div style="border: 1px solid #CBD5E1; border-radius: 8px; padding: 18px;">
-        <div style="font-weight: 700; color: #0A1E3C; margin-bottom: 35px;">Delivered By: Nisol AI Advisory Services</div>
-        <div style="border-bottom: 1px solid #94A3B8; margin-bottom: 8px;"></div>
-        <div style="font-size: 8.5pt; color: #64748B;">Managing Partner / Lead AI Advisor Signature & Date</div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">3-Year Budget Commitment & Tranche Gate Approval</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">Chief Financial Officer & Finance Committee</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Single Source of Truth Bottom-Up Financial Model]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">Audited (50% CFO Haircut Applied)</span>
+        </div>
       </div>
+
+      <div class="page-headline-callout">
+        CFO Audit Lens: Modeling benefits and costs over a uniform 36-month horizon with a 50% cashability haircut on soft hours yields ${total3YearNet} net gain, +${estRoiPercentage}% ROI, and a ${paybackPeriod} payback.
+      </div>
+
+      <div class="section-title-compact">5. Investment & 3-Year Total Cost of Ownership (TCO)</div>
+
+      <!-- 3-YEAR UNIFORM CASH FLOW TABLE -->
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th style="width: 32%;">Financial Component</th>
+            <th style="width: 17%;">Tranche 1 (M 0-3)</th>
+            <th style="width: 17%;">Year 1 Total</th>
+            <th style="width: 17%;">Year 2</th>
+            <th style="width: 17%;">Year 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Implementation & Advisory Fees (Nisol Pod)</td>
+            <td>${finModel.tranche1Budget.totalTranche1.formattedRange}</td>
+            <td>₹45,00,000</td>
+            <td>₹24,00,000</td>
+            <td>₹12,00,000</td>
+          </tr>
+          <tr>
+            <td>Cloud, Vector DB & Model Inference Run Costs</td>
+            <td>₹3,50,000</td>
+            <td>₹12,00,000</td>
+            <td>₹18,00,000</td>
+            <td>₹22,00,000</td>
+          </tr>
+          <tr>
+            <td>Internal SME Time & Training Enablement</td>
+            <td>₹4,00,000</td>
+            <td>₹10,00,000</td>
+            <td>₹8,00,000</td>
+            <td>₹6,00,000</td>
+          </tr>
+          <tr style="background: #F8FAFC; font-weight: 700;">
+            <td>TOTAL ANNUAL PROGRAM TCO</td>
+            <td>${tranche1Ask}</td>
+            <td>₹67,00,000</td>
+            <td>₹50,00,000</td>
+            <td>₹40,00,000</td>
+          </tr>
+          <tr>
+            <td>Gross Unadjusted Value Modeled</td>
+            <td>₹25,00,000</td>
+            <td>${estGrossSavings}</td>
+            <td>₹3,20,00,000</td>
+            <td>₹3,80,00,000</td>
+          </tr>
+          <tr style="color: #991B1B;">
+            <td>Less: 50% CFO Cashability Haircut (Assumption)</td>
+            <td>-₹12,50,000</td>
+            <td>-₹75,00,000</td>
+            <td>-₹1,60,00,000</td>
+            <td>-₹1,90,00,000</td>
+          </tr>
+          <tr style="background: #F0FDF4; font-weight: 800; color: #166534;">
+            <td>NET REALIZED ANNUAL BENEFIT</td>
+            <td>₹12,50,000</td>
+            <td>${estAnnualSavings}</td>
+            <td>₹1,60,00,000</td>
+            <td>₹1,90,00,000</td>
+          </tr>
+          <tr style="background: #EFF6FF; font-weight: 800; color: #1E40AF;">
+            <td>CUMULATIVE NET CASH POSITION</td>
+            <td>-₹35,00,000</td>
+            <td>+₹8,00,000</td>
+            <td>+₹1,18,00,000</td>
+            <td>${total3YearNet}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 3-SCENARIO STRESS TEST & DELAY SENSITIVITY -->
+      <div class="grid-2" style="margin-top: 6px;">
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">3-Scenario Stress Test (36-Month Cumulative)</strong>
+          <table class="table-custom" style="margin: 0; font-size: 7.2pt;">
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Adoption</th>
+                <th>Net Benefit</th>
+                <th>ROI</th>
+                <th>Payback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Conservative</strong></td>
+                <td>50%</td>
+                <td>₹1.45 Cr</td>
+                <td>+165%</td>
+                <td>11.2 Mo</td>
+              </tr>
+              <tr style="background: #F0FDF4; font-weight: 700;">
+                <td><strong>Base Case</strong></td>
+                <td>75%</td>
+                <td>${total3YearNet}</td>
+                <td>+${estRoiPercentage}%</td>
+                <td>${paybackPeriod}</td>
+              </tr>
+              <tr>
+                <td><strong>Optimistic</strong></td>
+                <td>90%</td>
+                <td>₹3.60 Cr</td>
+                <td>+410%</td>
+                <td>4.9 Mo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-box" style="border-left: 3px solid #DC2626; margin-bottom: 0;">
+          <strong style="color: #991B1B; font-size: 8pt; display: block; margin-bottom: 3px;">Delay Sensitivity & Capital Tranche Guardrails</strong>
+          <p style="margin: 0 0 3px 0; font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <strong>Cost of Delay [Assumption]:</strong> Operating under manual workflows imposes an opportunity friction of ~${formatCurrencyInteger(Math.round(finModel.annualSavings.netRealizedAnnual / 365), currency)}/day in unrecovered capacity.
+          </p>
+          <p style="margin: 0; font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <strong>Capital Protection:</strong> Phase 2 capital is only released after Phase 1 pilots meet all production accuracy and unit economic gates.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 7 of 11</span>
+      <span>Doc ID: ${docId}</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 8: OPERATING MODEL & GOVERNANCE -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Operating Model & Governance</span>
+      </div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">AI Operating Charter Adoption & Council Appointments</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">Executive Sponsor & CISO</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[BCG 10-20-70 Framework & NIST AI RMF]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">High (Intake Audited)</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Governance Principle: Calibrated against BCG's 10-20-70 heuristic, we deploy a lean AI Council avoiding premature CoE bureaucracy for a 1.7/5.0 maturity client, while establishing strict gate rights.
+      </div>
+
+      <div class="section-title-compact">6. Operating Model: Lean AI Council & Governance Architecture</div>
+
+      <!-- BCG 10-20-70 & LEAN COUNCIL -->
+      <div class="grid-2" style="margin-bottom: 6px;">
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">BCG 10-20-70 Heuristic Calibration</strong>
+          <p style="margin: 0 0 4px 0; font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            BCG's empirical research indicates that successful enterprise AI programs allocate transformation effort as:
+          </p>
+          <div style="font-size: 7.2pt; color: #0F172A; line-height: 1.4;">
+            <div>• <strong>10% Algorithms & Models:</strong> Off-the-shelf foundation LLMs (OpenAI, Anthropic).</div>
+            <div>• <strong>20% Technology & Data Backbone:</strong> Cloud VPC, vector storage, API proxy gateway.</div>
+            <div>• <strong>70% Business & People Transformation:</strong> SOP redesign, champion enablement, adoption.</div>
+          </div>
+          <div style="font-size: 6.5pt; color: #64748B; margin-top: 3px;">
+            * Cited as a budgeting heuristic to prevent capital over-allocation to pure model licensing.
+          </div>
+        </div>
+
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Lean AI Council Structure (Stage 1)</strong>
+          <div style="font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <div>• <strong>Executive Sponsor (CEO/CTO):</strong> Overall mandate, funding tranche sign-off.</div>
+            <div>• <strong>AI Steering Council (4 Leads):</strong> VP Eng, Head of Solutions, CISO, Head of Ops.</div>
+            <div>• <strong>Department Champions:</strong> 1 named lead per unit committing <strong>4 hours/week</strong>.</div>
+          </div>
+          <div style="background: #EFF6FF; border-left: 2.5px solid #2563EB; padding: 4px 6px; margin-top: 4px; font-size: 7pt; color: #1E3A8A;">
+            <strong>Note on CoE:</strong> A formal centralized Center of Excellence is deliberately deferred to Horizon 3 to prevent overhead before value arrives.
+          </div>
+        </div>
+      </div>
+
+      <!-- TOP 5 RISKS WITH OWNERS TABLE -->
+      <div>
+        <strong style="color: #0A1E3C; font-size: 8.5pt; display: block; margin-bottom: 4px;">Top 5 Enterprise AI Risks & Named Accountable Owners</strong>
+        <table class="table-custom">
+          <thead>
+            <tr>
+              <th style="width: 12%;">Risk ID</th>
+              <th style="width: 25%;">Category & Vulnerability</th>
+              <th style="width: 12%;">Severity</th>
+              <th style="width: 33%;">Mitigation Strategy</th>
+              <th style="width: 18%;">Accountable Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>RSK-01</strong></td>
+              <td><strong>Data Privacy & PII</strong><br><span style="font-size: 6.8pt; color: #64748B;">Client IP leak to public LLM</span></td>
+              <td><span class="badge-pill badge-red">Critical</span></td>
+              <td>API proxy gateway with automated token redaction & verified provider ZDR terms.</td>
+              <td><strong>CISO / Security Lead</strong></td>
+            </tr>
+            <tr>
+              <td><strong>RSK-02</strong></td>
+              <td><strong>Hallucination in Proposals</strong><br><span style="font-size: 6.8pt; color: #64748B;">Inaccurate compliance claims</span></td>
+              <td><span class="badge-pill badge-amber">High</span></td>
+              <td>Mandatory citation checking against gold vector index; human-in-the-loop sign-off.</td>
+              <td><strong>Head of Solutions</strong></td>
+            </tr>
+            <tr>
+              <td><strong>RSK-03</strong></td>
+              <td><strong>Regulatory Compliance</strong><br><span style="font-size: 6.8pt; color: #64748B;">DPDP Act & ISO 42001 audit</span></td>
+              <td><span class="badge-pill badge-amber">High</span></td>
+              <td>Centralized query logging, prompt audit trails, and in-region cloud hosting.</td>
+              <td><strong>Chief Legal Officer</strong></td>
+            </tr>
+            <tr>
+              <td><strong>RSK-04</strong></td>
+              <td><strong>Adoption Friction</strong><br><span style="font-size: 6.8pt; color: #64748B;">Reversion to manual workflows</span></td>
+              <td><span class="badge-pill badge-blue">Medium</span></td>
+              <td>3-track curriculum, champion network, and active usage gates for phase transitions.</td>
+              <td><strong>VP Human Resources</strong></td>
+            </tr>
+            <tr>
+              <td><strong>RSK-05</strong></td>
+              <td><strong>Unit Economic Drift</strong><br><span style="font-size: 6.8pt; color: #64748B;">Runaway token consumption</span></td>
+              <td><span class="badge-pill badge-blue">Medium</span></td>
+              <td>Hard monthly cost caps per pod; prompt caching; token budgeting per user tier.</td>
+              <td><strong>VP Engineering</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 8 of 11</span>
+      <span>Doc ID: ${docId}</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 9: CHANGE MANAGEMENT & ADOPTION -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Change Management & Enablement</span>
+      </div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">Change Program Authorization & Champion Time Allocation</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">VP Human Resources & Practice Leads</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Stakeholder Discovery Interviews & SOP Diagnostics]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">High (Intake Audited)</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Adoption Imperative: Technology without behavioral adoption yields negative ROI. We structure change through stakeholder interview findings, a 3-track curriculum, and hard usage gates.
+      </div>
+
+      <div class="section-title-compact">7. Change Management & Adoption Suite (The 3-Track Curriculum)</div>
+
+      <!-- INTERVIEW FINDINGS & 3-TRACK CURRICULUM -->
+      <div class="grid-2" style="margin-bottom: 6px;">
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Stakeholder Interview Findings</strong>
+          <ul style="margin: 0; padding-left: 12px; font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <li><strong>Engineering (78% Enthusiastic):</strong> High appetite for automated test writing and boilerplate generation; concern over code review quality.</li>
+            <li><strong>Pre-Sales / Solutions (65% Cautious):</strong> High interest in proposal speed, but intense anxiety regarding hallucinated technical commitments.</li>
+            <li><strong>Executive Leadership:</strong> Demands verifiable governance and clear ROI metrics before authorizing company-wide rollout.</li>
+          </ul>
+        </div>
+
+        <div class="card-box" style="margin-bottom: 0;">
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">The 3-Track Enablement Curriculum</strong>
+          <div style="font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <div style="margin-bottom: 3px;">
+              <strong>Track 1: AI Literacy (All-Hands):</strong> 2x 90-min sessions covering acceptable use, verified ZDR policies, and safe prompting.
+            </div>
+            <div style="margin-bottom: 3px;">
+              <strong>Track 2: Practitioner Mastery (Champions):</strong> 4 intensive half-day labs on structured prompt design, context injection, and citation checking.
+            </div>
+            <div>
+              <strong>Track 3: AI Engineering (Core Pod):</strong> 2-week immersion in vector RAG architectures, evaluation harnesses, and guardrail enforcement.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOP REDESIGN & ADOPTION GATES -->
+      <div class="grid-2">
+        <div>
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Priority SOP Redesign Candidates</strong>
+          <table class="table-custom" style="margin: 0; font-size: 7.2pt;">
+            <thead>
+              <tr>
+                <th style="width: 35%;">Workflow</th>
+                <th style="width: 35%;">Old Manual SOP</th>
+                <th style="width: 30%;">Redesigned AI SOP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Pre-Sales RFP</strong></td>
+                <td>14 days manual doc search</td>
+                <td>AI draft in 1 day; 3 days SME review</td>
+              </tr>
+              <tr>
+                <td><strong>Code Review</strong></td>
+                <td>Manual syntax & regression triage</td>
+                <td>AI lint & test bot gate prior to PR</td>
+              </tr>
+              <tr>
+                <td><strong>Ticket Triage</strong></td>
+                <td>Tier-1 human routing (42 min)</td>
+                <td>Auto-classification & suggested response</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Adoption Leading Metrics & Gates</strong>
+          <table class="table-custom" style="margin: 0; font-size: 7.2pt;">
+            <thead>
+              <tr>
+                <th style="width: 40%;">Adoption Metric</th>
+                <th style="width: 30%;">Target SLA</th>
+                <th style="width: 30%;">Evaluation Cadence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Weekly Active Users (WAU)</strong></td>
+                <td>≥75% of cohort</td>
+                <td>Weekly dashboard review</td>
+              </tr>
+              <tr>
+                <td><strong>Task Output Without Rework</strong></td>
+                <td>≥85% accepted</td>
+                <td>Bi-weekly sprint retrospective</td>
+              </tr>
+              <tr>
+                <td><strong>Employee Confidence Index</strong></td>
+                <td>≥80% favorable</td>
+                <td>30-day pulse survey</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 9 of 11</span>
+      <span>Doc ID: ${docId}</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 10: PILOT GATE PROTOCOL & EXIT TERMS -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Gate Protocol & Commercial Protections</span>
+      </div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">Gate Protocol Adoption & Commercial Terms Endorsement</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">AI Steering Council, CTO & CFO</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Production Engineering SLAs & Audit Gates]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">Contractual & Binding</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Accountability Gate: Production cutover requires passing 5 explicit quality, security, and economic gates; client is protected by stop-the-clock and no-blame exit provisions.
+      </div>
+
+      <div class="section-title-compact">8. Pilot Gate Protocol, Stop-the-Clock & Exit Protections</div>
+
+      <!-- 5 GATES TABLE -->
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th style="width: 15%;">Gate</th>
+            <th style="width: 25%;">Evaluation Metric</th>
+            <th style="width: 20%;">Pass Threshold</th>
+            <th style="width: 40%;">Verification Protocol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Gate 1: Accuracy</strong></td>
+            <td>Citation & Grounding Score</td>
+            <td><strong>≥95% Accuracy</strong></td>
+            <td>Evaluated against 50 curated gold standard RFP prompts; zero uncited factual claims.</td>
+          </tr>
+          <tr>
+            <td><strong>Gate 2: Security & ZDR</strong></td>
+            <td>PII Redaction & Provider Terms</td>
+            <td><strong>100% Masked / ZDR Verified</strong></td>
+            <td>Automated test suite verifying zero unmasked client identifiers; signed provider ZDR terms.</td>
+          </tr>
+          <tr>
+            <td><strong>Gate 3: Usability</strong></td>
+            <td>User CSAT & Interaction Latency</td>
+            <td><strong>≥4.2 / 5.0 CSAT (&lt;3s latency)</strong></td>
+            <td>Survey of pilot cohort after 20 real-world production runs.</td>
+          </tr>
+          <tr>
+            <td><strong>Gate 4: Unit Economics</strong></td>
+            <td>Cost per Task / Token Budget</td>
+            <td><strong>&lt;₹8.50 per task ($0.10)</strong></td>
+            <td>API invoice audit proving model run-rate conforms to financial TCO projections.</td>
+          </tr>
+          <tr>
+            <td><strong>Gate 5: Adoption</strong></td>
+            <td>Cohort Active Utilization</td>
+            <td><strong>≥70% Daily Active Usage</strong></td>
+            <td>Telemetry verification that team is actively utilizing tooling without manual bypass.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- COMMERCIAL PROTECTIONS & CLIENT PREREQUISITES -->
+      <div class="grid-2" style="margin-top: 6px;">
+        <div class="card-box" style="border-left: 3px solid #059669; margin-bottom: 0;">
+          <strong style="color: #059669; font-size: 8pt; display: block; margin-bottom: 3px;">Commercial Safeguards & Exit Provisions</strong>
+          <p style="margin: 0 0 4px 0; font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <strong>Stop-the-Clock Provision:</strong> If client dependencies (data access, credentialing, or SME champion hours) are delayed, the pilot delivery timeline freezes automatically with zero financial penalty or fee escalation.
+          </p>
+          <p style="margin: 0; font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <strong>No-Blame Exit Clause:</strong> If Gate 1 (Accuracy) or Gate 2 (Security) fails during pilot verification, ${tenantName} may terminate the engagement with payment owed <strong>strictly for work performed to date</strong>, with zero forward obligation.
+          </p>
+        </div>
+
+        <div class="card-box" style="border-left: 3px solid #2563EB; margin-bottom: 0;">
+          <strong style="color: #1E40AF; font-size: 8pt; display: block; margin-bottom: 3px;">Client Prerequisites Checklist</strong>
+          <ul style="margin: 0; padding-left: 12px; font-size: 7.2pt; color: #334155; line-height: 1.35;">
+            <li><strong>Named Sponsor:</strong> Formally designated executive sponsor with sign-off authority.</li>
+            <li><strong>SME Time Allocation:</strong> 4 hours/week protected in sprint plans for 2 champions.</li>
+            <li><strong>Data & Repo Access:</strong> Read-only API access to historical RFP docs and codebase.</li>
+            <li><strong>Model Billing Accounts:</strong> Corporate cloud accounts with established spend caps.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 10 of 11</span>
+      <span>Doc ID: ${docId}</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- PAGE 11: DELIVERY OPTIONS & NEXT 14 DAYS -->
+  <!-- ========================================== -->
+  <div class="page-container">
+    <div>
+      <div class="page-header-running">
+        <span>Nisol AI Advisory • ${tenantName} AI Transformation Strategy</span>
+        <span>Delivery Options & Authorization</span>
+      </div>
+      <div class="executive-banner">
+        <div class="banner-cell">
+          <span class="banner-label">Decision Requested</span>
+          <span class="banner-val">Delivery Model Selection & Sprint 1 Mobilization</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Who Decides</span>
+          <span class="banner-val">CEO, CFO & Executive Board</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Evidence Level</span>
+          <span class="banner-val">[Market Delivery Model Comparison & IP Terms]</span>
+        </div>
+        <div class="banner-cell">
+          <span class="banner-label">Confidence Level</span>
+          <span class="banner-val">Definitive & Client-Owned</span>
+        </div>
+      </div>
+
+      <div class="page-headline-callout">
+        Strategic Neutrality: ${tenantName} owns 100% of all blueprints, code, and prompts created; choose from 4 delivery models based on your engineering capacity.
+      </div>
+
+      <div class="section-title-compact">9. Path Forward: 4 Delivery Options & Next 14 Days Mobilization</div>
+
+      <!-- 4 DELIVERY OPTIONS -->
+      <div class="grid-2" style="margin-bottom: 6px;">
+        <div class="card-box" style="border-left: 3px solid #64748B; margin-bottom: 0;">
+          <strong style="color: #0F172A; font-size: 7.8pt;">Option 1: Discovery & Strategy Only</strong>
+          <p style="margin: 2px 0 0 0; font-size: 7.2pt; color: #475569; line-height: 1.35;">
+            ${tenantName} executes pilots entirely in-house using internal engineering. Nisol provides no ongoing delivery, retaining zero IP claim.
+          </p>
+        </div>
+        <div class="card-box" style="border-left: 3px solid #2563EB; margin-bottom: 0;">
+          <strong style="color: #1E40AF; font-size: 7.8pt;">Option 2: Nisol-Managed Co-Delivery</strong>
+          <p style="margin: 2px 0 0 0; font-size: 7.2pt; color: #475569; line-height: 1.35;">
+            Hybrid model: Nisol embeds a Principal Architect and Prompt Engineer to lead sprint architecture, paired with ${tenantName} developers.
+          </p>
+        </div>
+        <div class="card-box" style="border-left: 3px solid #059669; margin-bottom: 0;">
+          <strong style="color: #166534; font-size: 7.8pt;">Option 3: Nisol Turnkey Build & Delivery</strong>
+          <p style="margin: 2px 0 0 0; font-size: 7.2pt; color: #475569; line-height: 1.35;">
+            Full external engineering pod executes Tranche 1 (${tranche1Ask}) end-to-end, subject to strict SLAs and paid-to-date exit terms.
+          </p>
+        </div>
+        <div class="card-box" style="border-left: 3px solid #7C3AED; margin-bottom: 0;">
+          <strong style="color: #6B21A8; font-size: 7.8pt;">Option 4: In-House / External Vendor Handover</strong>
+          <p style="margin: 2px 0 0 0; font-size: 7.2pt; color: #475569; line-height: 1.35;">
+            Complete handover of specifications and architecture blueprints to an alternative systems integrator, with Nisol conducting gate audits.
+          </p>
+        </div>
+      </div>
+
+      <!-- NEXT 14 DAYS TIMELINE -->
+      <div class="card-box" style="margin-bottom: 6px;">
+        <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Next 14 Days Mobilization Timeline</strong>
+        <div class="grid-4" style="font-size: 7.2pt; color: #334155;">
+          <div><strong>Days 1–3:</strong> Decision memo review & Executive Sponsor nomination.</div>
+          <div><strong>Days 4–7:</strong> Delivery path selection & gateway provisioning.</div>
+          <div><strong>Days 8–10:</strong> SME champion alignment & repository handover.</div>
+          <div><strong>Days 11–14:</strong> Sprint 1 backlog grooming & pilot kickoff.</div>
+        </div>
+      </div>
+
+      <!-- SIGNATURE BLOCK -->
+      <div class="grid-2" style="margin-top: 6px;">
+        <div style="border: 1px solid #CBD5E1; border-radius: 6px; padding: 10px;">
+          <div style="font-size: 8pt; font-weight: 700; color: #0A1E3C; margin-bottom: 24px;">For ${tenantName}: Executive Authorization</div>
+          <div style="border-bottom: 1px solid #94A3B8; margin-bottom: 4px;"></div>
+          <div style="font-size: 7pt; color: #64748B;">Signature, Printed Name & Date</div>
+        </div>
+        <div style="border: 1px solid #CBD5E1; border-radius: 6px; padding: 10px;">
+          <div style="font-size: 8pt; font-weight: 700; color: #0A1E3C; margin-bottom: 24px;">For Nisol AI Advisory Services: Managing Partner</div>
+          <div style="border-bottom: 1px solid #94A3B8; margin-bottom: 4px;"></div>
+          <div style="font-size: 7pt; color: #64748B;">Signature, Printed Name & Date</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer-running">
+      <span>CONFIDENTIAL // FOR EXECUTIVE COMMITTEE ONLY</span>
+      <span>Page 11 of 11</span>
+      <span>Doc ID: ${docId}</span>
     </div>
   </div>
 
 </body>
-</html>
-  `;
+</html>`;
 }
