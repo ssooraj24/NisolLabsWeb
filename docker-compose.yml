@@ -12,7 +12,8 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     networks:
-      - nisol-network
+      - app-tier
+      - api-tier
     deploy:
       resources:
         limits:
@@ -33,7 +34,9 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
     networks:
-      - nisol-network
+      db-tier:
+        aliases:
+          - postgres
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-nisolai}"]
       interval: 10s
@@ -54,7 +57,12 @@ services:
     ports:
       - "127.0.0.1:6379:6379"
     networks:
-      - nisol-network
+      db-tier:
+        aliases:
+          - redis
+      app-tier:
+        aliases:
+          - redis
     healthcheck:
       test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
@@ -95,7 +103,8 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - nisol-network
+      - app-tier
+      - db-tier
     deploy:
       resources:
         limits:
@@ -117,7 +126,8 @@ services:
       TELEMETRY_ENABLED: "false"
       PORT: "3000"
     networks:
-      - nisol-network
+      - app-tier
+      - db-tier
     deploy:
       resources:
         limits:
@@ -132,7 +142,7 @@ services:
       APP_ENV: production
       APP_DEBUG: "false"
       APP_KEY: ${TRYPOST_APP_KEY}
-      APP_URL: ${TRYPOST_APP_URL}
+      APP_URL: ${TRYPOST_APP_URL:-https://social.nisolai.com}
       SELF_HOSTED: "true"
       TRYPOST_TARGET: production
       DB_CONNECTION: pgsql
@@ -162,7 +172,8 @@ services:
       redis:
         condition: service_healthy
     networks:
-      - nisol-network
+      - app-tier
+      - db-tier
     deploy:
       resources:
         limits:
@@ -179,7 +190,8 @@ services:
     volumes:
       - waha_data:/app/.sessions
     networks:
-      - nisol-network
+      - app-tier
+      - api-tier
     deploy:
       resources:
         limits:
@@ -195,7 +207,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     networks:
-      - nisol-network
+      - app-tier
     deploy:
       resources:
         limits:
@@ -212,7 +224,7 @@ services:
     environment:
       DOZZLE_NO_ANALYTICS: "true"
     networks:
-      - nisol-network
+      - app-tier
     deploy:
       resources:
         limits:
@@ -228,5 +240,12 @@ volumes:
   portainer_data:
 
 networks:
-  nisol-network:
-    driver: bridge
+  app-tier:
+    name: nisol_app-tier
+    external: true
+  api-tier:
+    name: nisol_api-tier
+    external: true
+  db-tier:
+    name: nisol_db-tier
+    external: true
