@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const dynamic = 'force-dynamic';
+
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function POST(req: Request) {
   try {
@@ -10,6 +12,11 @@ export async function POST(req: Request) {
 
     const recipientEmail = process.env.TO_EMAIL || "contact@nisolai.com";
     const senderEmail = process.env.EMAIL_FROM || "Nisol AI <contact@nisolai.com>";
+
+    if (!resend) {
+      console.warn("RESEND_API_KEY is not configured; email send skipped.");
+      return NextResponse.json({ success: true, message: "Email service not configured" });
+    }
 
     const { data, error } = await resend.emails.send({
       from: senderEmail,
