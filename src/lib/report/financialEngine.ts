@@ -353,7 +353,7 @@ export function buildExecutiveFinancialModel(
       owner: "VP Engineering",
       keyAssumption: "75% dev adoption within 60 days; 50% cashability discount applied.",
       stopRule: "If automated test pass accuracy < 90% or dev usage < 60% by Week 6, pause and re-scope.",
-      calculationFormula: "25 devs × 38% manual time × 1,800 hrs × ₹1,750/hr × 40% addressable = ₹90L gross",
+      calculationFormula: "24 pilot devs × 25% sprint time saved × ₹15.0L loaded cost = ₹90L gross (halved to ₹45L net realized)",
     },
     pilot2: {
       id: "INIT-02",
@@ -570,7 +570,7 @@ export function buildExecutiveFinancialModel(
 
   // 5. STRESS TEST SCENARIOS (Monotonically Increasing: Conservative < Base < Optimistic)
   const conservativeGain = isINR ? 11000000 : 145000;
-  const optimisticGain = isINR ? 36500000 : 475000;
+  const optimisticGain = isINR ? 32600000 : 425000;
 
   const sensitivityScenarios = {
     conservative: {
@@ -604,10 +604,10 @@ export function buildExecutiveFinancialModel(
       costOverrunPct: 0,
       threeYearNetBenefit: optimisticGain,
       threeYearNetBenefitFormatted: formatCurrencyInteger(optimisticGain, currency),
-      roiPercentage: 228,
-      paybackMonths: 9.0,
-      npvValue: Math.round(npvValue * 1.48),
-      npvFormatted: formatCurrencyInteger(Math.round(npvValue * 1.48), currency),
+      roiPercentage: 204,
+      paybackMonths: 10.0,
+      npvValue: Math.round(npvValue * 1.33),
+      npvFormatted: formatCurrencyInteger(Math.round(npvValue * 1.33), currency),
     },
   };
 

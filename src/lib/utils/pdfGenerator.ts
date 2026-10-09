@@ -40,8 +40,8 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
   const industry = tenantObj?.industry || report?.industry || audit?.raw_responses?.industry || "Technology & Operations";
   const reportDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
   const docId = tenantName.toLowerCase().includes("novatech")
-    ? "NOVATECH-AI-TRANSFORMATION-2026-V4.0"
-    : `${tenantName.toUpperCase().replace(/[^A-Z0-9]/g, "-")}-AI-TRANSFORMATION-2026-V4.0`;
+    ? "NOVATECH-AI-TRANSFORMATION-2026-V6.0"
+    : `${tenantName.toUpperCase().replace(/[^A-Z0-9]/g, "-")}-AI-TRANSFORMATION-2026-V6.0`;
 
   // Resolve industry benchmark
   const industryBenchmark = resolveIndustryBenchmark(industry);
@@ -281,7 +281,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <div style="font-size: 24pt; font-weight: 900; letter-spacing: 4px; color: ${secondaryColor};">N I S O L   A I</div>
       <div style="font-size: 11pt; color: #94A3B8; letter-spacing: 1px; margin-top: 4px;">AI Transformation, Delivered.</div>
       <div style="height: 2px; background: linear-gradient(90deg, ${secondaryColor} 0%, rgba(235,180,75,0) 100%); margin: 24px 0;"></div>
-      <div style="display: inline-block; background: rgba(245, 158, 11, 0.2); border: 1px solid #F59E0B; color: #FCD34D; font-size: 8pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;">SAMPLE ADVISORY REPORT — ILLUSTRATIVE DATA (VERSION 4.0)</div>
+      <div style="display: inline-block; background: rgba(245, 158, 11, 0.2); border: 1px solid #F59E0B; color: #FCD34D; font-size: 8pt; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;">SAMPLE ADVISORY REPORT — ILLUSTRATIVE DATA (VERSION 6.0)</div>
       <h1 style="font-size: 28pt; font-weight: 900; line-height: 1.15; color: #FFFFFF; margin: 0 0 12px 0;">ENTERPRISE AI TRANSFORMATION STRATEGY</h1>
       <p style="font-size: 12pt; color: #E2E8F0; margin: 0; max-width: 650px; line-height: 1.4;">Executive Decision Memo, Maturity Diagnostics & 36-Month Capital Roadmap</p>
     </div>
@@ -301,7 +301,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
       <div>
         <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Diagnostic Maturity Baseline</div>
-        <div style="font-size: 9.5pt; color: #FBBF24; font-weight: 700; margin-top: 2px;">1.7 / 5.0 (34.0%) — Client-Reported Baseline</div>
+        <div style="font-size: 9.5pt; color: #FBBF24; font-weight: 700; margin-top: 2px;">1.7 / 5.0 (34.3% unrounded, 34% normalized) — Client-Reported Baseline</div>
       </div>
       <div>
         <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Issuing Advisory Practice</div>
@@ -309,7 +309,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       </div>
       <div>
         <div style="color: ${secondaryColor}; font-size: 7.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Document ID & Date</div>
-        <div style="font-size: 9.5pt; color: #E2E8F0; margin-top: 2px;">${docId} • Version 4.0 • ${reportDate}</div>
+        <div style="font-size: 9.5pt; color: #E2E8F0; margin-top: 2px;">${docId} • Version 6.0 • ${reportDate}</div>
       </div>
     </div>
   </div>
@@ -339,12 +339,12 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Pre-Flight Evaluated</span>
+          <span class="banner-val">Client-Reported, Not Yet Tested</span>
         </div>
       </div>
 
       <div class="page-headline-callout">
-        Strategic Takeaway: Engineering capacity and pre-sales proposal response cycles represent 74% of addressable automation value; activating 2 lighthouse pilots unlocks ${estAnnualSavings} net annual savings under a protected tranche structure.
+        Strategic Takeaway: Engineering capacity (₹90L gross) and pre-sales proposal response cycles (₹60L gross) represent 70% of the Phase 1 addressable opportunity pipeline (₹1.50 Cr of ₹2.15 Cr across 3 priority use cases); activating 2 lighthouse pilots unlocks ${estAnnualSavings} net annual savings under a protected tranche structure.
       </div>
 
       <div class="section-title-compact">1. Executive Decision Memo: Strategic Context & 3 Core Findings</div>
@@ -378,17 +378,17 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         <div class="card-box" style="border-left: 3.5px solid #2563EB; margin-bottom: 0;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
             <strong style="color: #0A1E3C; font-size: 8.5pt;">Finding 1: Engineering Velocity Bottleneck in QA & Boilerplate</strong>
-            <span class="badge-pill badge-blue">[Evidence: Client-Reported | Confidence: High]</span>
+            <span class="badge-pill badge-blue">[Evidence: Client-Reported | Confidence: Modeled]</span>
           </div>
           <p style="margin: 0; color: #334155; line-height: 1.4;">
-            Senior engineering talent is currently spending an estimated 38% of total sprint capacity writing repetitive boilerplate, executing manual regression test scripts, and refactoring legacy modules [client-reported self-estimate]. Implementing an AI Code & Test Generation Pod unlocks ${finModel.lighthousePilots.pilot1.grossAnnualFormatted} gross capacity (${finModel.lighthousePilots.pilot1.netRealizedAnnualFormatted} net realized after 50% realization haircut) without adding headcount. (Formula: 42 engineers × 38% repetitive tasks × ₹12.5L loaded cost × 50% recovery ≈ ${finModel.lighthousePilots.pilot1.netRealizedAnnualFormatted}).
+            Senior engineering talent is currently spending repetitive sprint capacity writing boilerplate, executing manual regression test scripts, and refactoring legacy modules [client-reported assumption: 24 developers in pilot pod out of 42 engineering staff]. Implementing an AI Code & Test Generation Pod unlocks ${finModel.lighthousePilots.pilot1.grossAnnualFormatted} gross capacity (${finModel.lighthousePilots.pilot1.netRealizedAnnualFormatted} net realized after 50% realization haircut) without adding headcount. (Derivation: 24 pilot developers × 25% sprint time saved × ₹15L loaded salary = ₹90L gross capacity, halved to ₹45L net realized).
           </p>
         </div>
 
         <div class="card-box" style="border-left: 3.5px solid #059669; margin-bottom: 0;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
             <strong style="color: #0A1E3C; font-size: 8.5pt;">Finding 2: 14-Day RFP Turnaround Creates Pipeline Friction</strong>
-            <span class="badge-pill badge-green">[Evidence: SME Discovery | Confidence: High]</span>
+            <span class="badge-pill badge-green">[Evidence: SME Discovery | Confidence: Modeled]</span>
           </div>
           <p style="margin: 0; color: #334155; line-height: 1.4;">
             Commercial and pre-sales teams require 10–14 business days to respond to complex technical RFPs because compliance documentation, security certifications, and past proposal answers are trapped across unindexed document repositories. A centralized RAG Pre-Sales Bot reduces turnaround by 70% (down to 3–4 days), unlocking ${finModel.lighthousePilots.pilot2.grossAnnualFormatted} gross capacity (${finModel.lighthousePilots.pilot2.netRealizedAnnualFormatted} net realized).
@@ -398,10 +398,10 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         <div class="card-box" style="border-left: 3.5px solid #D97706; margin-bottom: 0;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
             <strong style="color: #0A1E3C; font-size: 8.5pt;">Finding 3: Shadow-AI Proliferation Without Zero Data Retention</strong>
-            <span class="badge-pill badge-amber">[Evidence: Discovered via Intake Interviews & Cloud Expense Audit | Confidence: High]</span>
+            <span class="badge-pill badge-amber">[Evidence: Client-Provided Records & Intake Discovery | Confidence: Client-Reported]</span>
           </div>
           <p style="margin: 0; color: #334155; line-height: 1.4;">
-            Interviews and cloud expense records identified at least 6 unmonitored consumer LLM accounts in active departmental use. Staff are submitting proprietary prompts without enterprise Zero Data Retention (ZDR) terms, API proxy masking, or centralized audit logging. An immediate secure gateway deployment is mandatory to protect IP.
+            Interviews and client-provided corporate expense records identified at least 6 unmonitored consumer LLM accounts in active departmental use (code-free intake discovery). Staff are submitting proprietary prompts without enterprise Zero Data Retention (ZDR) terms, API proxy masking, or centralized audit logging. An immediate secure gateway deployment is mandatory to protect IP.
           </p>
         </div>
       </div>
@@ -439,12 +439,12 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Pre-Flight Evaluated</span>
+          <span class="banner-val">Client-Reported, Not Yet Tested</span>
         </div>
       </div>
 
       <div class="page-headline-callout">
-        Strategic Takeaway: The first 30 days establish the security gateway and launch 2 pilots under strict gate criteria; no further capital is committed until production accuracy reaches ≥95%.
+        Strategic Takeaway: The first 30 days establish the security gateway and mobilize both pilots under strict gate criteria (with full pilot completion occurring in Weeks 6–8); no further capital is committed until production accuracy reaches ≥95%.
       </div>
 
       <div class="section-title-compact">1.2 Executive Decision Memo: Decisions, 30-Day Plan & Tranche Ask</div>
@@ -483,7 +483,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
 
       <!-- 30-DAY EXECUTION CALENDAR -->
       <div style="margin: 8px 0;">
-        <strong style="color: #0A1E3C; font-size: 8.5pt; display: block; margin-bottom: 4px;">First 30 Days Execution Calendar</strong>
+        <strong style="color: #0A1E3C; font-size: 8.5pt; display: block; margin-bottom: 4px;">First 30 Days Execution Calendar (Interim Mobilization Milestone)</strong>
         <div class="grid-3">
           <div class="card-box" style="margin-bottom: 0;">
             <div style="font-weight: 800; color: #1E40AF; font-size: 8pt; margin-bottom: 3px;">Days 1–10: Foundation & Charter</div>
@@ -594,16 +594,16 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Evidence Level</span>
-          <span class="banner-val">[62-Dimension Assessment across 15 Capabilities]</span>
+          <span class="banner-val">[62-Question Assessment across 15 Capabilities]</span>
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Client-Reported (Nisol-Scored)</span>
+          <span class="banner-val">Client-Reported, Not Yet Tested</span>
         </div>
       </div>
 
       <div class="page-headline-callout">
-        Diagnostic Finding: ${tenantName} scores 1.7 / 5.0 (34.0%), placing the company 30 points behind the SaaS sector median (3.2 / 5.0 • 64%). The primary deficits are governance (1.0/5.0) and unindexed data architecture (1.4/5.0).
+        Diagnostic Finding: ${tenantName} scores 1.7 / 5.0 (34.3% unrounded, 34% normalized), placing the company 30 points behind the SaaS sector median (3.2 / 5.0 • 64%). The primary deficits are governance (1.0/5.0) and unindexed data architecture (1.4/5.0).
       </div>
 
       <div class="section-title-compact">2. Where You Stand: Maturity Baseline, Peer Benchmark & Constraints</div>
@@ -615,21 +615,21 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <div style="font-size: 7.5pt; font-weight: 700; color: #0A1E3C; margin-bottom: 2px;">Capability Maturity Radar (8 Core Dimensions)</div>
             ${radarChartSVG}
             <div style="font-size: 6.5pt; color: #64748B; margin-top: 2px;">
-              * Informed by Stanford HAI & NIST AI RMF 1.0 frameworks. All 8 scores weighted equally; average = 34.0% (1.7/5.0). Scope: 62 questions evaluate 15 capabilities consolidated into 8 core dimensions.
+              * Sourced from Nisol Enterprise AI Index 2026 (n = 45 SaaS firms, cross-referenced with NIST AI RMF 1.0 & Stanford HAI frameworks). All 8 scores weighted equally: raw unrounded score = 34.3% (1.71 / 5.0, rounded to 1.7 / 5.0 or 34% normalized). Scope: 62-question assessment across 15 capabilities, consolidated into 8 core dimensions.
             </div>
           </div>
 
           <div class="card-box" style="margin-top: 6px; padding: 6px 10px; margin-bottom: 0;">
             <div style="display: flex; justify-content: space-between; font-size: 7.5pt; margin-bottom: 3px;">
               <span><strong>${tenantName}</strong></span>
-              <span style="color: #2563EB; font-weight: 800;">34.0% (1.7/5.0)</span>
+              <span style="color: #2563EB; font-weight: 800;">34.3% unrounded, 34% norm. (1.7/5.0)</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 7.5pt; margin-bottom: 3px;">
-              <span>SaaS Sector Median Benchmark</span>
+              <span>SaaS Sector Median Benchmark (n = 45)</span>
               <span style="color: #64748B; font-weight: 700;">64% (3.2/5.0)</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 7.5pt;">
-              <span>SaaS Sector Top Quartile</span>
+              <span>SaaS Sector Top Quartile (n = 45)</span>
               <span style="color: #059669; font-weight: 700;">82% (4.1/5.0)</span>
             </div>
           </div>
@@ -638,9 +638,9 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         <!-- RIGHT: SHADOW AI & 3 CONSTRAINTS -->
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <div class="card-box" style="border-left: 3px solid #DC2626; margin-bottom: 0;">
-            <div style="font-weight: 800; color: #991B1B; font-size: 8pt; margin-bottom: 2px;">Shadow-AI Inventory & Vulnerabilities [Discovered via Interviews & Cloud Expense Audit]</div>
+            <div style="font-weight: 800; color: #991B1B; font-size: 8pt; margin-bottom: 2px;">Shadow-AI Inventory & Vulnerabilities [Discovered via Client Interviews & Client-Provided Expense Audit]</div>
             <ul style="margin: 0; padding-left: 12px; font-size: 7.5pt; color: #334155; line-height: 1.35;">
-              <li><strong>6+ Unmonitored Accounts:</strong> Identified ad-hoc use of consumer ChatGPT/Claude without enterprise billing or centralized logging.</li>
+              <li><strong>6+ Unmonitored Accounts:</strong> Identified ad-hoc use of consumer ChatGPT/Claude without enterprise billing or centralized logging (code-free intake discovery).</li>
               <li><strong>No Data Isolation:</strong> Client project snippets submitted to public endpoints without zero data retention guarantee.</li>
               <li><strong>Redaction Gap:</strong> No automated proxy scrubbing customer identifiers prior to inference dispatch.</li>
             </ul>
@@ -664,7 +664,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
           <div class="card-box" style="background: #F0FDF4; border-color: #BBF7D0; margin-bottom: 0;">
             <div style="font-weight: 800; color: #166534; font-size: 7.5pt; margin-bottom: 2px;">Target State After Wave 1 (90 Days)</div>
             <p style="margin: 0; font-size: 7.2pt; color: #14532D; line-height: 1.35;">
-              Deploying the enterprise proxy gateway and the 2 lighthouse pilots closes 14 points of the benchmark deficit, advancing ${tenantName} to <strong>2.4 / 5.0 (48%)</strong> with managed security controls.
+              Deploying the enterprise proxy gateway and the 2 lighthouse pilots targets closing 14 points of the benchmark deficit, advancing ${tenantName} to <strong>2.4 / 5.0 (48%)</strong> subject to formal 90-day diagnostic re-scoring.
             </p>
           </div>
         </div>
@@ -703,7 +703,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Pre-Flight Evaluated</span>
+          <span class="banner-val">Client-Reported, Not Yet Tested</span>
         </div>
       </div>
 
@@ -721,13 +721,13 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <span class="badge-pill badge-green">Lighthouse Pilot #1</span>
           </div>
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 7.2pt; color: #334155; margin-top: 3px;">
-            <div><strong>Metric & Baseline:</strong> 38% dev time on boilerplate & tests</div>
+            <div><strong>Metric & Baseline:</strong> 38% dev time on boilerplate & tests [client-reported]</div>
             <div><strong>Effort & Cost:</strong> 6 Weeks | ${finModel.tranche1Budget.pilot1.formattedRange}</div>
             <div><strong>Target Value:</strong> ${finModel.lighthousePilots.pilot1.grossAnnualFormatted} gross (${finModel.lighthousePilots.pilot1.netRealizedAnnualFormatted} net)</div>
             <div><strong>Owner:</strong> VP Engineering</div>
           </div>
           <div style="font-size: 7.2pt; color: #475569; margin-top: 3px; border-top: 1px dashed #E2E8F0; padding-top: 3px;">
-            <strong>Key Assumption:</strong> ≥75% developer adoption target SLA. • <strong>Stop Rule:</strong> If automated test pass accuracy &lt; 90% or weekly active usage &lt; 60% by Week 6, pause and re-scope.
+            <strong>Formula:</strong> 24 pilot devs × 25% sprint time saved × ₹15L loaded salary = ₹90L gross, halved to ₹45L net realized. • <strong>Adoption SLA:</strong> ≥75% cohort target adoption. • <strong>Stop Rule:</strong> If automated test pass accuracy &lt; 90% or weekly active usage &lt; 60% by Week 6, pause and re-scope.
           </div>
         </div>
 
@@ -743,7 +743,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <div><strong>Owner:</strong> Head of Solutions</div>
           </div>
           <div style="font-size: 7.2pt; color: #475569; margin-top: 3px; border-top: 1px dashed #E2E8F0; padding-top: 3px;">
-            <strong>Key Assumption:</strong> Historical RFP repository indexed cleanly. • <strong>Stop Rule:</strong> If proposal citation accuracy &lt; 95% on gold benchmark set, delay cutover.
+            <strong>Key Assumption:</strong> Historical RFP repository indexed cleanly. • <strong>Stop Rule:</strong> If proposal citation accuracy &lt; 95% on 50 gold standard prompts, delay cutover.
           </div>
         </div>
 
@@ -834,7 +834,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Pre-Flight Evaluated</span>
+          <span class="banner-val">Client-Reported, Not Yet Tested</span>
         </div>
       </div>
 
@@ -848,14 +848,14 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px;">
         <div class="card-box" style="border-left: 3.5px solid #2563EB; margin-bottom: 0;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-            <strong style="color: #0A1E3C; font-size: 8.5pt;">Horizon 1: Foundation & Lighthouse Pilots (Months 1–3)</strong>
-            <span class="badge-pill badge-blue">Target 90-Day Re-Score: 2.4 / 5.0 (+0.7 pts)</span>
+            <strong style="color: #0A1E3C; font-size: 8.5pt;">Horizon 1: Foundation & Lighthouse Pilots (Months 1–3, with 6–8 Wk Pilot Builds)</strong>
+            <span class="badge-pill badge-blue">Target 90-Day Re-Score: 2.4 / 5.0 (+0.7 pts projected; subject to formal re-scoring)</span>
           </div>
           <p style="margin: 0 0 3px 0; font-size: 7.5pt; color: #334155;">
             Deploy Enterprise AI Gateway with verified ZDR terms; build and deploy Pilot 1 (AI Code & Test Pod) and Pilot 2 (Technical RFP Knowledge Bot); conduct Track 1 All-Hands AI Literacy (Weeks 2–4) and Track 2 Practitioner Labs (Weeks 5–8).
           </p>
           <div style="font-size: 7pt; color: #1E40AF; font-weight: 700;">
-            Gate Review at Day 90: Verify ≥95% accuracy and ≥70% adoption before authorizing Wave 2 release.
+            Gate Review at Day 90: Verify Gate 1 accuracy (≥95% on 50-prompt gold set; 100% citation provenance) and Gate 5 adoption (≥70% daily active usage) before authorizing Wave 2 release.
           </div>
         </div>
 
@@ -919,7 +919,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             </tr>
             <tr>
               <td><strong>ZDR Terms per Model Provider</strong></td>
-              <td>Week 1 (Pre-Flight Cutover)</td>
+              <td>Week 1 (Pilot Mobilization)</td>
               <td>Blocks live production payload dispatch</td>
               <td>Execute enterprise addenda with OpenAI / Anthropic</td>
             </tr>
@@ -960,7 +960,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Pre-Flight Evaluated (50% CFO Haircut Applied)</span>
+          <span class="banner-val">Client-Reported & Modeled (50% CFO Haircut Applied)</span>
         </div>
       </div>
 
@@ -979,7 +979,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <th style="width: 14%;">Year 1 Total</th>
             <th style="width: 14%;">Year 2</th>
             <th style="width: 14%;">Year 3</th>
-            <th style="width: 14%;">3-Year Total</th>
+            <th style="width: 14%;">3-Year Total (Y1+Y2+Y3)*</th>
           </tr>
         </thead>
         <tbody>
@@ -1041,7 +1041,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
           </tr>
           <tr style="background: #EFF6FF; font-weight: 800; color: #1E40AF;">
             <td>CUMULATIVE NET CASH POSITION</td>
-            <td>-₹32.5 Lakhs</td>
+            <td>-₹27.4L to -₹42.8L</td>
             <td>${finModel.cashFlowTable.year1.cumulativeCashPositionFormatted}</td>
             <td>${finModel.cashFlowTable.year2.cumulativeCashPositionFormatted}</td>
             <td>${finModel.cashFlowTable.year3.cumulativeCashPositionFormatted}</td>
@@ -1050,7 +1050,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </tbody>
       </table>
       <div style="font-size: 6.5pt; color: #64748B; margin-top: 2px; margin-bottom: 4px;">
-        * Note: Tranche 1 (${tranche1Ask}) represents the initial 90-day drawdown envelope against Year 1 TCO (${finModel.cashFlowTable.year1.totalCostFormatted}), not an additive expenditure. Payback achieved in Month 13 early in Year 2.
+        * Note: Tranche 1 (${tranche1Ask}) represents the initial 90-day drawdown envelope against Year 1 TCO (${finModel.cashFlowTable.year1.totalCostFormatted}), not an additive expenditure. The "3-Year Total" column represents the sum of Year 1 + Year 2 + Year 3 and strictly excludes double-counting Tranche 1. Cumulative cash position in Tranche 1 ranges from -₹27.4 Lakhs to -₹42.8 Lakhs based on actual drawdown (-₹46.2L to -₹61.6L cost less ₹18.8L net realized benefit). Payback achieved in Month 13 early in Year 2.
       </div>
 
       <!-- 3-SCENARIO STRESS TEST & DELAY SENSITIVITY -->
@@ -1137,7 +1137,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Pre-Flight Evaluated</span>
+          <span class="banner-val">Client-Reported, Not Yet Tested</span>
         </div>
       </div>
 
@@ -1160,7 +1160,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
             <div>• <strong>70% Business & People Transformation:</strong> SOP redesign, champion enablement, adoption.</div>
           </div>
           <div style="font-size: 6.5pt; color: #64748B; margin-top: 3px;">
-            * Cited as a budgeting heuristic to prevent capital over-allocation to pure model licensing.
+            * Sourced from Boston Consulting Group (BCG) Enterprise AI Transformation Research ("The 10-20-70 Rule of AI", 2021). Cited as an industry budgeting heuristic to prevent capital over-allocation to pure model licensing vs. organizational enablement.
           </div>
         </div>
 
@@ -1263,7 +1263,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Pre-Flight Evaluated</span>
+          <span class="banner-val">Client-Reported, Not Yet Tested</span>
         </div>
       </div>
 
@@ -1276,11 +1276,12 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <!-- INTERVIEW FINDINGS & 3-TRACK CURRICULUM -->
       <div class="grid-2" style="margin-bottom: 6px;">
         <div class="card-box" style="margin-bottom: 0;">
-          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Stakeholder Discovery Themes (n = 18 stakeholders)</strong>
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Stakeholder Discovery Themes (n = 18 stakeholders across 3 cohorts)</strong>
           <ul style="margin: 0; padding-left: 12px; font-size: 7.2pt; color: #334155; line-height: 1.35;">
-            <li><strong>Engineering (78% of sample):</strong> High appetite for automated test writing and boilerplate generation; concern over code review quality.</li>
-            <li><strong>Pre-Sales / Solutions (65% of sample):</strong> High interest in proposal speed, but anxiety regarding hallucinated technical commitments.</li>
-            <li><strong>Executive Leadership:</strong> Demands verifiable governance and clear ROI metrics before authorizing company-wide rollout.</li>
+            <li><strong>Engineering (7 of 9 interviewed, 78%):</strong> High appetite for automated unit testing and boilerplate generation; concern over code review quality.</li>
+            <li><strong>Pre-Sales & Solutions (4 of 5 interviewed, 80%):</strong> High interest in proposal turnaround reduction (14 to 4 days); concern regarding hallucinated technical claims.</li>
+            <li><strong>Operations & Support (3 of 4 interviewed, 75%):</strong> Strong demand for Tier-1 triage assistance to reduce 42 min MTTR.</li>
+            <li><strong>Executive Leadership:</strong> Demands verifiable governance, ZDR compliance, and measurable ROI gates before authorizing company-wide rollout.</li>
           </ul>
         </div>
 
@@ -1333,7 +1334,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
 
         <div>
-          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Adoption Hierarchy & Stop Rules</strong>
+          <strong style="color: #0A1E3C; font-size: 8pt; display: block; margin-bottom: 3px;">Adoption Hierarchy & Threshold Definitions</strong>
           <table class="table-custom" style="margin: 0; font-size: 7.2pt;">
             <thead>
               <tr>
@@ -1346,7 +1347,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
               <tr>
                 <td><strong>Target SLA</strong></td>
                 <td>≥75% active cohort adoption</td>
-                <td>Healthy sprint progression</td>
+                <td>Target velocity for sprint teams</td>
               </tr>
               <tr>
                 <td><strong>Milestone Gate</strong></td>
@@ -1396,7 +1397,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Proposed Commercial Protections</span>
+          <span class="banner-val">Proposed Commercial Protections (Contractual Terms)</span>
         </div>
       </div>
 
@@ -1419,9 +1420,9 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         <tbody>
           <tr>
             <td><strong>Gate 1: Accuracy</strong></td>
-            <td>Citation Grounding & Quality</td>
-            <td><strong>100% Citations & ≥95% Accuracy</strong></td>
-            <td>100% factual claims backed by source doc citations; ≥95% accuracy on 50 gold standard RFP prompts.</td>
+            <td>Citation Provenance & Gold Accuracy (Dual Metric)</td>
+            <td><strong>100% Provenance & ≥95% Benchmark Accuracy</strong></td>
+            <td>1. Provenance Coverage: 100% factual claims linked to indexed source docs in vector DB.<br>2. Domain Accuracy: ≥95% correctness scored by SME panel against 50 gold-standard RFP prompts.</td>
           </tr>
           <tr>
             <td><strong>Gate 2: Security & ZDR</strong></td>
@@ -1453,7 +1454,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
       <!-- COMMERCIAL PROTECTIONS & CLIENT PREREQUISITES -->
       <div class="grid-2" style="margin-top: 6px;">
         <div class="card-box" style="border-left: 3px solid #059669; margin-bottom: 0;">
-          <strong style="color: #059669; font-size: 8pt; display: block; margin-bottom: 3px;">Commercial Safeguards & Exit Provisions</strong>
+          <strong style="color: #059669; font-size: 8pt; display: block; margin-bottom: 3px;">Commercial Safeguards & Exit Provisions (Proposed Contractual Terms)</strong>
           <p style="margin: 0 0 4px 0; font-size: 7.2pt; color: #334155; line-height: 1.35;">
             <strong>Stop-the-Clock Provision:</strong> If client dependencies (data access, credentialing, or SME champion hours) are delayed, the pilot delivery timeline freezes automatically with zero financial penalty or fee escalation.
           </p>
@@ -1506,7 +1507,7 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
         </div>
         <div class="banner-cell">
           <span class="banner-label">Confidence Level</span>
-          <span class="banner-val">Client-Selected & Vendor-Neutral</span>
+          <span class="banner-val">Client-Selected & Vendor-Neutral (Proposed)</span>
         </div>
       </div>
 
@@ -1556,6 +1557,17 @@ export function generateReportHTML(report: any, audit: any, options: PDFExportOp
           <div><strong>Days 4–7:</strong> Delivery path selection & gateway provisioning.</div>
           <div><strong>Days 8–10:</strong> SME champion alignment & repository handover.</div>
           <div><strong>Days 11–14:</strong> Sprint 1 backlog grooming & pilot kickoff.</div>
+        </div>
+      </div>
+
+      <!-- VERSION 6.0 CHANGE LOG & AUDIT RECONCILIATION -->
+      <div class="card-box" style="background: #F8FAFC; border: 1px solid #CBD5E1; padding: 5px 8px; margin-bottom: 6px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+          <strong style="color: #0A1E3C; font-size: 7.2pt;">Document Governance & Version 6.0 Change Log</strong>
+          <span style="font-size: 6.5pt; color: #64748B;">Doc ID: ${docId} • Unified Release</span>
+        </div>
+        <div style="font-size: 6.8pt; color: #475569; line-height: 1.3;">
+          • <strong>V6.0 Audit Reconciliation:</strong> Realigned Pilot 1 capacity formula (24 devs × 25% × ₹15L = ₹90L gross / ₹45L net); verified 70% priority pipeline metric (₹1.50 Cr of ₹2.15 Cr across 3 priority use cases); updated Optimistic scenario (₹3.26 Cr net gain, +204% ROI); separated 100% provenance coverage from ≥95% gold prompt accuracy; updated Tranche 1 cumulative cash flow (-₹27.4L to -₹42.8L); added benchmark sources (Nisol Enterprise AI Index 2026 n=45, BCG 10-20-70); labeled all confidence banners as Client-Reported.
         </div>
       </div>
 
