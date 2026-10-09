@@ -43,7 +43,12 @@ export async function query<T extends QueryResultRow = any>(
   params: any[] = []
 ): Promise<QueryResult<T>> {
   const p = getPool();
-  return p.query<T>(text, params);
+  try {
+    return await p.query<T>(text, params);
+  } catch (err: any) {
+    console.error(`[PostgreSQL Query Error]: ${err.message} (code: ${err.code}) | Query: ${text} | Params:`, params);
+    throw err;
+  }
 }
 
 /**

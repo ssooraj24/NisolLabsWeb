@@ -240,9 +240,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ data: null, error: { message: `Unsupported action: ${action}` } }, { status: 400 });
   } catch (err: any) {
-    console.error("[Data API Error]:", err);
+    console.error(`[Data API Error]: ${err.message} (code: ${err.code}) | Table: ${req?.url || "unknown"}`, err);
     return NextResponse.json(
-      { data: null, error: { message: err.message || "Database query failed" } },
+      { data: null, error: { message: err.message || "Database query failed", code: err.code } },
       { status: 500 }
     );
   }

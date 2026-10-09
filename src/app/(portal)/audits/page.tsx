@@ -36,14 +36,24 @@ export default function AuditsPage() {
     try {
       const { data: auditsData, error: auditsError } = await supabase
         .from("audits")
-        .select("id, title, status, overall_maturity_score, tenant_id, conducted_by, created_at")
+        .select("*")
         .order("created_at", { ascending: false });
 
       if (auditsError) throw auditsError;
 
       const tenantsData = await getTenants(undefined, supabase);
 
-      setAudits(auditsData || []);
+      const mappedAudits = ((auditsData || []) as any[]).map((a) => ({
+        id: a.id,
+        title: a.title || a.company_name || "Assessment Audit",
+        status: a.status || "draft",
+        overall_maturity_score: a.overall_maturity_score ?? a.overall_score ?? 0,
+        tenant_id: a.tenant_id,
+        conducted_by: a.conducted_by,
+        created_at: a.created_at,
+      }));
+
+      setAudits(mappedAudits);
       setTenants(tenantsData || []);
     } catch (err: any) {
       console.error(err);
