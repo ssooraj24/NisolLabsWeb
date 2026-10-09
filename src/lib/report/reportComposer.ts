@@ -14,6 +14,7 @@ import { generateExecutiveSummaryNarrative, generateProposalDraftNarrative } fro
 import { generateChartPayloads } from "./visualizationEngine";
 import { resolveIndustryBenchmark } from "./industryBenchmarks";
 import { PricingPlan, normalizePricingPlan } from "./reportPortfolioTypes";
+import { buildExecutiveFinancialModel, assertFinancialIntegrity } from "./financialEngine";
 
 export async function composeFullReport(
   auditId: string,
@@ -45,6 +46,14 @@ export async function composeFullReport(
   // 4. Analytics Engine (Matrix Placement, Financial ROI Math with Sensitivity & Scenarios, Roadmap)
   const matrixQuadrants = categorizeUseCasesAndMatrix(useCases);
   const roiAnalysis = computeFinancialROI(useCases, businessContext);
+  const executiveFinancialModel = buildExecutiveFinancialModel(businessContext, useCases);
+  const cfoLinterResult = assertFinancialIntegrity(executiveFinancialModel);
+  if (!cfoLinterResult.valid) {
+    console.warn(`[ReportComposer] CFO Financial Linter Warnings for audit ${auditId}:`, cfoLinterResult.errors);
+  } else {
+    console.log(`[ReportComposer] CFO Financial Linter: 100% mathematical integrity verified for audit ${auditId}`);
+  }
+
   const transformationRoadmap = {
     phases: buildTransformationRoadmap(
       matrixQuadrants.quickWins,
@@ -114,6 +123,7 @@ export async function composeFullReport(
       matrixQuadrants,
     },
     roiAnalysis,
+    executiveFinancialModel,
     transformationRoadmap,
     solutionBlueprints,
     proposalDraft,

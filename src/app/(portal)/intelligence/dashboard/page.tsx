@@ -25,6 +25,19 @@ interface ActivityLog {
   type: "generated" | "started" | "approved" | "finalized";
 }
 
+function countAnsweredQuestions(rawResponses: Record<string, any> | null): number {
+  if (!rawResponses || typeof rawResponses !== "object") return 0;
+  return Object.entries(rawResponses).filter(([key, val]) => {
+    const num = Number(key);
+    if (isNaN(num) || num < 1 || num > 62) return false;
+    if (!val) return false;
+    if (typeof val === "object") {
+      return Boolean(val.text || val.score || val.answer);
+    }
+    return Boolean(val);
+  }).length;
+}
+
 export default function IntelligenceDashboardPage() {
   const router = useRouter();
   const [supabase] = useState(() =>
@@ -385,7 +398,7 @@ export default function IntelligenceDashboardPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {filteredWorkQueue.map((item) => {
-                  const respCount = item.raw_responses ? Object.keys(item.raw_responses).length : 0;
+                  const respCount = countAnsweredQuestions(item.raw_responses);
                   const st = (item.status || "draft").toLowerCase();
 
                   return (

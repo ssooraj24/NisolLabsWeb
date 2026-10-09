@@ -48,6 +48,11 @@ export function generatePocEvaluationHTML(report: any, audit: any, options: PocE
       }
     }
 
+    @page:first {
+      @bottom-right { content: none; }
+      @bottom-left { content: none; }
+    }
+
     body {
       font-family: ${fontFamily};
       color: #1E293B;

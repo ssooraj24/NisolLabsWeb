@@ -1,4 +1,6 @@
 // src/lib/report/types.ts
+import type { ExecutiveFinancialModel } from "./financialEngine";
+export type { ExecutiveFinancialModel };
 
 export interface BusinessContextJSON {
   companyName: string;
@@ -317,6 +319,7 @@ export interface ReportObject {
   
   // Financial Modeling & Projections
   roiAnalysis: ROISummaryData;
+  executiveFinancialModel?: ExecutiveFinancialModel;
   transformationRoadmap: {
     phases: RoadmapPhase[];
   };

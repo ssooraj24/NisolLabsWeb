@@ -108,7 +108,7 @@ export default function ReportEditorPage() {
       // Fetch Latest Report
       const { data: reportData, error: rErr } = await supabase
         .from("audit_reports")
-        .select("id, status, version, plan_tier, generated_at, finalized_at")
+        .select("id, status, version, generated_at, finalized_at")
         .eq("audit_id", auditId)
         .order("created_at", { ascending: false })
         .limit(1)

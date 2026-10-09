@@ -18,6 +18,19 @@ interface AuditListItem {
   profiles: { full_name: string } | null;
 }
 
+function countAnsweredQuestions(rawResponses: Record<string, any> | null): number {
+  if (!rawResponses || typeof rawResponses !== "object") return 0;
+  return Object.entries(rawResponses).filter(([key, val]) => {
+    const num = Number(key);
+    if (isNaN(num) || num < 1 || num > 62) return false;
+    if (!val) return false;
+    if (typeof val === "object") {
+      return Boolean(val.text || val.score || val.answer);
+    }
+    return Boolean(val);
+  }).length;
+}
+
 export default function IntelligenceAuditsListPage() {
   const router = useRouter();
   const [supabase] = useState(() =>
@@ -152,7 +165,7 @@ export default function IntelligenceAuditsListPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {filteredAudits.map((a) => {
-                  const respCount = a.raw_responses ? Object.keys(a.raw_responses).length : 0;
+                  const respCount = countAnsweredQuestions(a.raw_responses);
                   return (
                     <tr key={a.id} className="hover:bg-slate-50/80 transition-colors">
                       <td className="py-3.5 px-4 font-bold text-[#0A1E3C]">

@@ -96,6 +96,11 @@ export function generateDataStrategyHTML(report: any, audit: any, options: DataS
       }
     }
 
+    @page:first {
+      @bottom-right { content: none; }
+      @bottom-left { content: none; }
+    }
+
     body {
       font-family: ${fontFamily};
       color: #1E293B;

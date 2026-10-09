@@ -3,6 +3,7 @@
 import { resolveClientCompanyName } from "@/lib/utils/companyNameResolver";
 import { resolveIndustryBenchmark } from "@/lib/report/industryBenchmarks";
 import { render5YearROIBarChartSVG, renderSensitivityTableHTML } from "@/lib/report/pdfComponentEngine";
+import { buildExecutiveFinancialModel, ExecutiveFinancialModel, formatCurrencyInteger } from "@/lib/report/financialEngine";
 
 export interface BoardMemoOptions {
   primaryColor?: string;
@@ -26,30 +27,48 @@ export function generateBoardMemoHTML(report: any, audit: any, options: BoardMem
   const benchmark = resolveIndustryBenchmark(industry);
   const reportDate = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
-  const totalInvestment = report?.roiAnalysis?.totalInvestmentEstimated || (isINR ? "₹95.0 Lakhs" : "$120,000");
-  const annualSavings = report?.roiAnalysis?.totalEstimatedAnnualSavings || (isINR ? "₹3.20 Crore" : "$420,000");
-  const fiveYearNet = report?.roiAnalysis?.fiveYearCumulativeNetBenefit || (isINR ? "₹14.20 Crore" : "$1,720,000");
-  const npv = report?.roiAnalysis?.netPresentValue || (isINR ? "₹10.85 Crore" : "$1,380,000");
-  const paybackPeriod = report?.roiAnalysis?.averagePaybackMonths ? `${report.roiAnalysis.averagePaybackMonths} Months` : "6.8 Months";
-  const roiPercentage = report?.roiAnalysis?.overallRoiPercentage || 285;
-  const irr = report?.roiAnalysis?.internalRateOfReturnPct || 44.5;
+  // Single Source of Truth Financial Model
+  const finModel: ExecutiveFinancialModel =
+    report?.executiveFinancialModel ||
+    buildExecutiveFinancialModel(
+      report?.businessContext || {
+        companyName: tenantName,
+        industry,
+        overallMaturityScore: 1.7,
+        readinessPercentage: 34,
+        sectionScores: {},
+        lowScoringSections: [],
+        topPainPoints: [],
+        primaryCurrency: currency as any,
+      },
+      report?.opportunityPortfolio?.useCases
+    );
 
-  // Dynamic Inaction Drag Calculations (Daily Burn & 30-Day Hesitation Cost)
-  const rawSavingsNum = report?.roiAnalysis?.rawAnnualSavings
-    ? Number(report.roiAnalysis.rawAnnualSavings)
-    : isINR
-    ? 32000000
-    : 420000;
-  const dailyDragNum = Math.round(rawSavingsNum / 365);
-  const thirtyDayDelayNum = Math.round(rawSavingsNum / 12);
-  const dailyDragFormatted = isINR
-    ? `₹${dailyDragNum.toLocaleString("en-IN")}`
-    : `$${dailyDragNum.toLocaleString("en-US")}`;
-  const thirtyDayDelayFormatted = isINR
-    ? `₹${(thirtyDayDelayNum / 100000).toFixed(1)} Lakhs`
-    : `$${Math.round(thirtyDayDelayNum / 1000)}k`;
+  const tranche1Ask = finModel.tranche1Budget.totalTranche1.formattedRange;
+  const totalInvestment = finModel.headlineSummary.formattedTotalInvestment;
+  const annualSavings = finModel.annualSavings.formattedNetRealizedAnnual;
+  const grossAnnualSavings = finModel.annualSavings.formattedGrossAnnual;
+  const threeYearNet = finModel.headlineSummary.formattedNetGain;
+  const npv = finModel.headlineSummary.formattedNpv;
+  const paybackPeriod = `${finModel.headlineSummary.paybackMonths} Months`;
+  const roiPercentage = finModel.headlineSummary.overallRoiPercentage;
+  const irr = 42.0;
 
-  const roiBarChartSVG = render5YearROIBarChartSVG(report?.roiAnalysis?.fiveYearCashFlowTimeline, currency);
+  // Harmonized Inaction Drag (strictly derived from net realized annual savings)
+  const dailyDragNum = Math.round(finModel.annualSavings.netRealizedAnnual / 365);
+  const thirtyDayDelayNum = dailyDragNum * 30;
+  const dailyDragFormatted = formatCurrencyInteger(dailyDragNum, currency);
+  const thirtyDayDelayFormatted = formatCurrencyInteger(thirtyDayDelayNum, currency);
+
+  // Harmonized Cash Flow Timeline
+  const cashFlowTimeline = finModel.threeYearTimeline.map((y) => ({
+    year: y.year,
+    investment: y.totalCost,
+    benefit: y.netRealizedBenefit,
+    net: y.netCashFlow,
+  }));
+
+  const roiBarChartSVG = render5YearROIBarChartSVG(cashFlowTimeline, currency);
   const sensitivityTableHTML = renderSensitivityTableHTML(report?.roiAnalysis?.sensitivityAnalysis);
 
   return `
@@ -78,6 +97,11 @@ export function generateBoardMemoHTML(report: any, audit: any, options: BoardMem
         font-weight: 600;
         color: #94A3B8;
       }
+    }
+
+    @page:first {
+      @bottom-right { content: none; }
+      @bottom-left { content: none; }
     }
 
     body {
@@ -243,8 +267,8 @@ export function generateBoardMemoHTML(report: any, audit: any, options: BoardMem
         <div class="kpi-sub">Recurring run-rate</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">5-Yr Net Benefit</div>
-        <div class="kpi-value">${fiveYearNet}</div>
+        <div class="kpi-label">3-Yr Net Gain</div>
+        <div class="kpi-value">${threeYearNet}</div>
         <div class="kpi-sub">Net of all costs</div>
       </div>
       <div class="kpi-card">

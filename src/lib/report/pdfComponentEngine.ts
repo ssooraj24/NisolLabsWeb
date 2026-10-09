@@ -75,7 +75,7 @@ export function renderRadarChartSVG(radarData: Array<{ subject: string; score: n
       </linearGradient>
     </defs>
     <rect width="100%" height="100%" fill="#F8FAFC" rx="12" stroke="#E2E8F0" stroke-width="1"/>
-    <text x="40" y="40" font-size="18px" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Capability Maturity Radar (8 Dimensions)</text>
+    <text x="40" y="40" font-size="18px" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Capability Maturity Radar (${radarData.length} Core Dimensions)</text>
     
     <!-- Legend -->
     <g transform="translate(${width - 240}, 28)">
@@ -467,7 +467,7 @@ export function render5YearROIBarChartSVG(
       </linearGradient>
     </defs>
     <rect width="100%" height="100%" fill="#F8FAFC" rx="12" stroke="#E2E8F0" stroke-width="1"/>
-    <text x="40" y="40" font-size="17px" font-weight="700" fill="#0F172A" font-family="Inter, sans-serif">5-Year Cumulative Financial Benefit vs. Investment (${currency === "INR" ? "₹ INR" : "$ USD"})</text>
+    <text x="40" y="40" font-size="17px" font-weight="700" fill="#0F172A" font-family="Inter, sans-serif">${data.length <= 3 ? "36-Month (3-Year)" : `${data.length}-Year`} Financial Benefit vs. Investment (${currency === "INR" ? "₹ INR" : "$ USD"})</text>
     
     <g transform="translate(${width - 270}, 28)">
       <rect x="0" y="0" width="14" height="14" rx="3" fill="#1E3A8A"/>
