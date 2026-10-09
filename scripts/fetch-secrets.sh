@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 # =============================================================================
 # Automated AWS SSM Parameter Store Secret Injector
-# Fetches encrypted parameters from AWS SSM Parameter Store by project path
-# Uses EC2 IAM Instance Profile
+# Fetches all parameters (root & path-based) directly from AWS SSM
 # =============================================================================
 
 set -euo pipefail
 
 AWS_REGION="${AWS_REGION:-ap-south-1}"
-ENV_NAME="${ENV_NAME:-production}"
-PROJECT_NAME="${1:-nisolai}" # e.g., nisolai, conductos, rosense, trypost, shared
-OUTPUT_ENV_FILE="${2:-.env}"
+OUTPUT_ENV_FILE="${1:-.env}"
 
-echo "[*] Fetching encrypted secrets from AWS SSM for project: '${PROJECT_NAME}' (Env: ${ENV_NAME}, Region: ${AWS_REGION})..."
+echo "[*] Discovering SSM parameters in region '${AWS_REGION}'..."
 
-FETCH_PATHS=(
-    "/nisol/${ENV_NAME}/shared/"
-    "/nisol/${ENV_NAME}/${PROJECT_NAME}/"
-)
+# Query all parameter names
+PARAM_NAMES=$(aws ssm describe-parameters --region "$AWS_REGION" --query "Parameters[*].Name" --output text 2>/dev/null || true)
+
+if [ -z "$PARAM_NAMES" ]; then
+    echo "[!] No parameters returned from AWS SSM describe-parameters. Check your IAM role or region."
+    exit 1
+fi
 
 TMP_ENV=$(mktemp)
 chmod 600 "$TMP_ENV"
@@ -26,32 +26,30 @@ cat <<EOF > "$TMP_ENV"
 # =============================================================================
 # Dynamically generated from AWS SSM Parameter Store
 # Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
-# Project: ${PROJECT_NAME} | Region: ${AWS_REGION}
-# DO NOT EDIT DIRECTLY — UPDATE IN AWS SSM PARAMETER STORE
+# Region: ${AWS_REGION}
 # =============================================================================
 EOF
 
-for PATH_PREFIX in "${FETCH_PATHS[@]}"; do
-    echo "  -> Fetching path: ${PATH_PREFIX}"
-    aws ssm get-parameters-by-path \
-        --path "$PATH_PREFIX" \
-        --recursive \
-        --with-decryption \
-        --region "$AWS_REGION" \
-        --output json 2>/dev/null | python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    for p in data.get('Parameters', []):
-        key = p['Name'].split('/')[-1]
-        val = p['Value']
-        print(f'{key}={val}')
-except Exception as e:
-    pass
-" >> "$TMP_ENV" || true
+echo "[*] Fetching parameter values with decryption..."
+
+# AWS SSM get-parameters accepts up to 10 names at a time
+echo "$PARAM_NAMES" | tr '\t' '\n' | tr ' ' '\n' | grep -v '^$' | while read -r name; do
+    echo "$name"
+done | xargs -n 10 aws ssm get-parameters --region "$AWS_REGION" --with-decryption --query "Parameters[*].[Name,Value]" --output text --names | while IFS=$'\t' read -r name value; do
+    key=$(basename "$name")
+    echo "${key}=${value}" >> "$TMP_ENV"
+    
+    # Aliases for Next.js app environment variables
+    if [ "$key" = "GEMINI_API_KEY" ]; then
+        echo "Gemini_NisolLabs_API_Key=${value}" >> "$TMP_ENV"
+    elif [ "$key" = "OPENAI_API_KEY" ]; then
+        echo "OpenAI_NisolLabs_API_Key=${value}" >> "$TMP_ENV"
+    elif [ "$key" = "ANTHROPIC_API_KEY" ]; then
+        echo "Claude_NisolLab_API_Key=${value}" >> "$TMP_ENV"
+    fi
 done
 
 mv "$TMP_ENV" "$OUTPUT_ENV_FILE"
 chmod 600 "$OUTPUT_ENV_FILE"
 
-echo "[+] Successfully generated '${OUTPUT_ENV_FILE}' with AWS SSM secrets!"
+echo "[+] Successfully exported $(grep -v '^#' "$OUTPUT_ENV_FILE" | grep -v '^$' | wc -l) secrets to '${OUTPUT_ENV_FILE}'!"
