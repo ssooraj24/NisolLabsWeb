@@ -91,6 +91,8 @@ CREATE TABLE IF NOT EXISTS public.tenants (
   tenant_secure TEXT,
   company_hash TEXT,
   website_hash TEXT,
+  partner_id UUID,
+  partner_name TEXT,
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
